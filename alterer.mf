@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.colostate.vchill.file.FileAlterer
+Class-Path: vchill.jar gui.jar lib/looks-2.1.4.jar
+

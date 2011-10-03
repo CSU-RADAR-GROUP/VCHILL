@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.colostate.vchill.proxy.ArchiveProxy
+Class-Path: cache.jar chill.jar data.jar gui.jar socket.jar vchill.jar lib/looks-2.1.4.jar
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://chill.colostate.edu/java/" href="color.jnlp">
+    <information>
+        <title>Java VChill Color Table Editor</title>
+        <homepage href="http://chill.colostate.edu/"/>
+        <vendor>Colorado State University</vendor>
+        <description>Loads, edits, and saves XML format color table files for use with VChill</description>
+        <description kind="short">Modifies VChill XML color table files</description>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.5+" java-vm-args="-ea"/>
+        <jar href="color.jar"/>
+        <jar href="gui.jar"/>
+        <jar href="vchill.jar"/>
+        <jar href="lib/looks-2.1.4.jar"/>
+    </resources>
+    <application-desc main-class="edu.colostate.vchill.color.ColorEditor"/>
+    <security>
+        <all-permissions/>
+    </security>
+</jnlp>

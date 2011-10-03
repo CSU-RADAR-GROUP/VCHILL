@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.colostate.vchill.Loader
+Class-Path: ascope.jar bookmark.jar cache.jar chill.jar color.jar connection.jar data.jar file.jar gui.jar map.jar netcdf.jar numdump.jar plot.jar radar.jar socket.jar stats.jar lib/gif89encoder.jar lib/looks-2.1.4.jar lib/netcdf-2.2.22.jar lib/slf4j-jdk14.jar
+

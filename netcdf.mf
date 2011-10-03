@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.colostate.vchill.netcdf.CreateCASANetCDFFile
+Class-Path: chill.jar data.jar gui.jar vchill.jar lib/netcdf-2.2.22.jar lib/looks-2.1.4.jar
+

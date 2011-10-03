@@ -1,0 +1,35 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [2][-]{subsection.1.1}{Purpose}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{Conventions Used}{section.1}
+\BOOKMARK [1][-]{section.2}{CHILL Connections}{}
+\BOOKMARK [2][-]{subsection.2.1}{Control and Data Channels}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Creating a Control Channel}{subsection.2.1}
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Creating a Data Channel}{subsection.2.1}
+\BOOKMARK [2][-]{subsection.2.2}{Establishing a Realtime Connection}{section.2}
+\BOOKMARK [2][-]{subsection.2.3}{Establishing an Archive Connection}{section.2}
+\BOOKMARK [2][-]{subsection.2.4}{Requesting Data}{section.2}
+\BOOKMARK [2][-]{subsection.2.5}{Archive Server Commands}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Request Sweep}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Get File Details}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Halt Sweep}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.4}{List Directory Contents}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.5}{Connect}{subsection.2.5}
+\BOOKMARK [3][-]{subsubsection.2.5.6}{Disconnect}{subsection.2.5}
+\BOOKMARK [1][-]{section.3}{Control Channel Packets}{}
+\BOOKMARK [2][-]{subsection.3.1}{Command Packet}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{Response Packet}{section.3}
+\BOOKMARK [1][-]{section.4}{Data Channel Headers}{}
+\BOOKMARK [2][-]{subsection.4.1}{DATA}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{EXTENDED\137TRACKING}{section.4}
+\BOOKMARK [2][-]{subsection.4.3}{FIELD\137TYPE\137INFO}{section.4}
+\BOOKMARK [2][-]{subsection.4.4}{HOUSEKEEPING}{section.4}
+\BOOKMARK [2][-]{subsection.4.5}{POWER\137METERS\137UPDATE}{section.4}
+\BOOKMARK [2][-]{subsection.4.6}{PROCESSOR\137INFO}{section.4}
+\BOOKMARK [2][-]{subsection.4.7}{RADAR\137INFO}{section.4}
+\BOOKMARK [2][-]{subsection.4.8}{SCAN\137SEGMENT}{section.4}
+\BOOKMARK [2][-]{subsection.4.9}{SWEEP\137NOTICE}{section.4}
+\BOOKMARK [2][-]{subsection.4.10}{TRACKING}{section.4}
+\BOOKMARK [2][-]{subsection.4.11}{TRANSMITTER\137INFO}{section.4}
+\BOOKMARK [1][-]{section.5}{Constants}{}
+\BOOKMARK [2][-]{subsection.5.1}{Header IDs}{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{General Constants}{section.5}

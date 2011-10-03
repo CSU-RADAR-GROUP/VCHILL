@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="vchill.css"/>
+        <title>Java VCHILL Proxy WebStart Launcher</title>
+    </head>
+    <body>
+        <h1>
+            <a href="http://www.colostate.edu/">
+                <img class="logo" alt="Colorado State University" src="http://www.chill.colostate.edu/images/glde_fr_sm.png"/>
+            </a>
+            CSU-CHILL Java VCHILL Proxy WebStart Launcher
+        </h1>
+        <hr />
+        <h2>Proxy configuration</h2>
+        <table class="reqs"><caption>System requirements</caption>
+            <tr><th colspan="2">Required</th></tr>
+            <tr><td>Java:</td><td><a href="http://java.sun.com/j2se/1.5.0/download.html">1.5.0</a></td></tr>
+            <tr><th colspan="2">Recommended</th></tr>
+            <tr><td>CPU:</td><td>1000+MHz</td></tr>
+            <tr><td>RAM:</td><td>1024+Mb</td></tr>
+        </table>
+        <p>
+            <a class="launch" href="vchill.html">
+                <img class="launch" src="http://chill.colostate.edu/java/antenna.jpg" alt="CHILL radar antenna" title="CHILL radar antenna"/>
+            </a>
+        </p>
+        <form action="proxy.php" method="post">
+            <table><caption>Start a proxy server:</caption>
+                <tr><td>Server to connect to:</td>
+                    <td><input type="text" name="server" value="xlab.chill.colostate.edu" size="30"/></td></tr>
+                <tr><td>Port to connect to:</td>
+                    <td><input type="text" name="serverport" value="2510" size="5" maxlength="5"/></td></tr>
+                <tr><td>Port to listen on:</td>
+                    <td><input type="text" name="listenport" value="2510" size="5" maxlength="5"/></td></tr>
+                <tr><td>Idle timeout for clients (in minutes):</td>
+                    <td><input type="text" name="timeout" value="60" size="5"/></td></tr>
+                <tr><td>Number of sweeps to cache:</td>
+                    <td><input type="text" name="cachesize" value="20" size="5"/></td></tr>
+                <tr><td>Hybrid data types:<br /> (KDP, HDR, NCP+, and RCOMP)</td>
+                    <td><input type="radio" value="on" name="calculation" checked="checked"/> Calculate<br />
+                        <input type="radio" value="off" name="calculation"/> Pass through</td></tr>
+                <tr><td>Shutdown password:</td>
+                    <td><input type="password" name="password" value="secret"/></td></tr>
+                <tr><td><input type="submit" value="Start proxy"/></td><td><input type="reset" value="Reset form"/></td></tr>
+            </table>
+        </form>
+        <form action="proxyshutdown.php" method="post">
+            <table><caption>Shut down a running proxy server:</caption>
+                <tr><td>Server to shut down:</td>
+                    <td><input type="text" name="server" value="localhost" size="30"/></td></tr>
+                <tr><td>Port that proxy is listening on:</td>
+                    <td><input type="text" name="serverport" value="2510" size="5" maxlength="5"/></td></tr>
+                <tr><td>Shutdown password:</td>
+                    <td><input type="password" name="password" value="secret"/></td></tr>
+                <tr><td><input type="submit" value="Shutdown proxy"/></td><td><input type="reset" value="Reset form"/></td></tr>
+            </table>
+        </form>
+        <hr />
+        <p>
+            <a href="http://validator.w3.org/check?uri=referer"><img class="validation" src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1"/></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img class="validation" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!"/></a>
+            <i>Page last modified: 2007-05-29 by <a href="mailto:jdeyke@chill.colostate.edu">Jochen Deyke</a></i><br />
+            <a href="mailto:jdeyke@chill.colostate.edu?subject=[VCHILL] Website comment"><img src="http://chill.colostate.edu/comm.gif" alt="Questions/Comments - jdeyke@chill.colostate.edu"/></a>
+            <a href="http://chill.colostate.edu/"><img src="http://chill.colostate.edu/chillh.gif" alt="Back to CSU-CHILL Homepage"/></a>
+        </p>
+    </body>
+</html>

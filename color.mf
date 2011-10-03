@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.colostate.vchill.color.ColorEditor
+Class-Path: vchill.jar gui.jar lib/looks-2.1.4.jar
+

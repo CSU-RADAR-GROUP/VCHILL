@@ -1,0 +1,206 @@
+Very basic overview:
+    Java VCHILL is a radar display program.  It loads radar data - from a file
+on the users machine, from a realtime data server, or from an archive data
+server - and displays it on screen for the user.  This display can take the
+forms of graphical plots, line plots, or plain text.
+    Users of the software include the Collaborative Adaptive Sensing of the
+Atmosphere (CASA) project, the National Center for Atmospheric Research (NCAR),
+and several university courses as well as researchers/scientists.
+
+Basic overview:
+    There are several programs/components to VCHILL:
+ - Java VCHILL, the radar data display program
+ - vchill_netcdf_server.py, an archive server program that serves up NetCDF
+   files following either NCAR or CASA conventions (written in Python)
+ - the Java VCHILL Color Editor, a program for creating custom color tables
+   for use with Java VCHILL.  It is integrated into the main program, but can
+   also be run separately.
+ - the Java VCHILL Proxy Server, which sits between Java VCHILL and an the
+   actual/official CHILL archive server, calculating additional data types and
+   storing previously viewed sweeps for faster access later.  This is an
+   entirely optional stand-alone program, and is very rarely used anymore.
+   A version for realtime data is also available.  Due to the dynamic nature
+   of the VCHILL protocol, the proxy servers may not work with all archive
+   (or realtime) servers, since the names for data fields can change across
+   servers.
+
+Plot procedure:
+ - user clicks on sweep in browser tree
+   - mouse listener turns x, y into selection event
+   - selection listener calls ViewControl.setMessage
+   - that calls newPlot() to add the message to plot queue
+  - ViewControlThread picks up message from plot queue
+   - retrieves data from cache using getRayWait
+     - if not present, message is passed to that Connection's CacheThread
+   - data passed to each window's plot() method
+   - at end of sweep:
+     - if image autosaving is enabled, grab screen using WindowManager.saveImage()
+     - call ViewControl.sweepDone() to select next sweep if applicable
+
+Bookmark procedure:
+ - user clicks on a bookmark in bookmark browser
+   - mouse listener turns x, y into selection event and calls setBookmark
+     - on the event thread via invokeLater:
+       - scan_type from bookmark is passed to WindowManager.setMode
+       - rhi_height from bookmark is passed to Config
+       - ring from bookmark is passed to Config
+       - range from bookmark is passed to Config
+       - scaling information (min, max from bookmark, or from server's scaling
+         structures if autoscale is on) are passed to ViewControl.setPlotInterval
+       - ViewRemotePanel.update() is called to refresh the pull-down menu of data types
+       - x and y from bookmark are passed to Config.setCenterX and setCenterY
+       - ViewFileBrowserActions.changeSelection is called to trigger a selection
+         change event, as if the user had clicked on the sweep (as described above)
+       - WindowManager.setCenterInKm() is called to recenter the display to the
+         previously passed x and y
+       - DialogUtil.showHelpDialog is called to display the bookmark comment
+
+Parts of the GUI:
+ - creation/setup handled by ViewMain
+ - main window = generic JFrame
+ - menu = ViewMenu
+ - desktop = generic JDesktopPane
+ - event/status area = ViewEventWindow redirecting System.out and System.err
+ - adjustable dividers handled by generic JSplitPane
+ - top tabbed pane = ViewTabbedBrowserPane
+   - connections tab = ViewFileBrowser
+   - bookmarks tab = ViewBookmarkBrowser
+ - bottom tabbed pane = ViewTabbedPane
+   - basic tab = ViewRemotePanel
+   - filters tab = ViewFilterPanel
+   - advanced tab = ImageControlPanel
+
+Data window types:
+ - Plot:
+   - draw data as colored ploygons
+   - actual plotting handled by ViewPlotMethod and/or subclasses
+ - AScope:
+   - draw data as line graphs
+   - x is range from radar, y is data value
+ - Numerical:
+   - uses ViewEventWindow to show data as text
+   - optionally redirect to file instead
+
+Plotting methods
+ - PPI: circular plot of azimuth and range
+ - RHI: Wedge of elevation angle and range
+ - TH: series of bars of range only
+
+Connection types:
+ - Archive:
+   - gets data request if data not found in cache
+   - requests missing data types from server, adds them to cache
+ - Realtime:
+   - when active, continually reads from server
+   - data plotted as soon as it hits cache, bypassing ViewControlThread entirely
+ - Filesystem:
+   - user adds directories to list
+   - when a file is opened, ALL available data types are added to cache
+
+Threads:
+ - initial/"main" thread:
+   - parses commandline arguments
+   - prepares GUI for setup by event thread (creates Runnable for InvokeAndWait)
+     - if commandline arguments specify, open windows
+     - if commandline arguments specify, connect to server
+     - load system, educational bookmarks from server and personal from disk
+   - if commandline arguments specify, open bookmark (using InvokeLater)
+   - exits
+ - Swing event thread:
+   - handles user interactivity/updates GUI
+   - this thread is a system thread, created automatically when using Swing
+   - all updates to GUI *must* use this thread
+ - plot thread (ViewControlThread):
+   - processes plot requests
+     - checks if data is cached
+     - requests data if needed
+     - plots data
+ - cache threads (CacheThread inner class):
+   - one per connection (each defines its own inner CacheThread class)
+   - retrieves data from server; stores in cache
+
+Map format:
+ - Map files are plain UTF-8 text
+ - Maps are a series of instructions, one per line.  Each instruction has the form:
+x y code comment
+    x and y are in kilometers from the center, with north and east being positive.
+    code is one of:
+        0: start of a line
+        1: continuation (or end) of a line
+        2 and 3: reserved; no current function
+        4: a single point, displayed by VCHILL with a small x
+        5: a circle (in this case, x is used for the radius, and the PREVIOUS
+           instruction is used for the x and y of the center instead of its
+           normal function
+    comment is an optional comment, which may be displayed as a label in VCHILL
+      - empty/missing comments are OK
+      - if the comment is "!" or starts with "#", it is not displayed
+      - all other comments are displayed as labels near the specified point
+    the amount and type of whitespace used to separate items is not important
+ - To set the center for the map, use a line of the form:
+#! center: longitude, latitude
+    longitude and latitude are in degrees, with north and east being positive
+    It is valid to have more than one center specified; this can be used to
+    create lat/long based maps by specifying a center for each point, and
+    using 0, 0 for the km offsets.
+
+Color format:
+ - colors are stored in UTF-8 coded XML format
+ - the root element is <colormap>
+ - this root element contains exactly eight <type> elements: Z, V, W, CZ, Zdr, Ldr, Phi, Rho
+ - each type has a <name> element and one or more <color> elements
+   - the name element contains, as text, the name of the type (eg. Z)
+   - each color element has <red>, <green>, and <blue> elements
+       - each of these elements contains an integer 0-255 as text
+   - the number of color elements in each type element need not be the same
+
+Bookmark format:
+ - bookmarks are stored in UTF-8 coded XML format
+ - the root element is <bookmarks>
+ - this root element contains an arbitrary number of <bookmark> elements
+   - each bookmark contains the following elements:
+     - <category> - the folder name, sans prefix (eg. AMS_SEA)
+     - <name> - the name for the bookmark itself (eg. VAD_winds)
+     - <url> - the server:port for the data (eg. xlab.chill.colostate.edu:2510)
+     - <directory> - the path to the data (eg. /dsk/dnf/data/2003/05/10)
+     - <file> - the filename of the data (eg. CHL20030510_054352)
+     - <sweep> - the name/number of the sweep (eg. Sweep 04)
+     - <scantype> - the type of scan (eg. PPI)
+     - <color> - a complex element, containing a number of complex elements:
+       - these elements named after a data type (eg. <dBZ>), and contain:
+         - <autoscale> element: if "true", use built-in default colorscale; if
+           "false", use specified minimum and maximum for this data type
+         - <minval> element: the (floating point) minimum for the color scale
+           for this data type
+         - <maxval> element: the (floating point) maximum for the color scale
+           for this data type
+       - if an available data type is not specified, it defaults to whatever
+         the server specified when it sent the scaling structure for that type
+       - if a data type is specified, but not available, the extra scaling
+         information should not harm anything
+     - <pan> - a complex element, containing the following elements:
+       - <x> - the (floating point) kilometers east of the radar to center the display
+       - <y> - the (floating point) kilometers north of the radar to center the display
+     - <range> - the (floating point) maximum plot range to set when viewing
+       this bookmark.  This is used for zooming: specifying a lower range than possible
+       causes the data to appear larger
+     - <ring> - the (floating point) distance in kilometers to use between range rings
+     - <rhiheight> - like range, but for the vertical direction, and only used for RHI scans
+     - <comment> - a multiline comment to display in a popup window when the
+      bookmark is selected for viewing.  If this is a URL, the resource at that URL is loaded
+      and displayed, otherwise, it is displayed as is.  Since the string is passed directly
+      to the Java renderer, it is possible to embed simple HTML directly into the comment
+      (provided that doing so does not break the XML of the bookmark file).  A simple
+      allowable example would be "<html>A <b>strong</b> thunderstorm.</html>".
+
+VCHILL archive server protocol:
+ - see DocumentationChillProtocol.html
+
+Data file formats:
+ - VCHILL will read files in CASA and NCAR varieties of NetCDF
+ - for basic/generic NetCDF documentation, see
+   http://www.unidata.ucar.edu/software/netcdf/docs/
+ - for NCAR NetCDF conventions for radar data, see
+   http://www.unidata.ucar.edu/software/netcdf/examples/ncswp_SPOL_PPI_.cdl and
+   http://www.unidata.ucar.edu/software/netcdf/examples/ncswp_SPOL_RHI_.cdl
+ - for CASA NetCDF conventions for radar data, see

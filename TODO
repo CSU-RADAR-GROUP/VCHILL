@@ -1,0 +1,10 @@
+- Investigate whether the ViewFileBrowser tree expanding code should modify the
+  main control message (what it does now) or if it should create a new message
+  and pass it to the neccessary methods.
+- Add in more synchronization to ViewImageDisplay to prevent images from being
+  removed while images are being retrieved.
+- Determine if VCHILL has a sweep or cache issue because sometimes the server
+  says it sent data to VCHILL but VCHILL doesn't seem to think it has the data.
+  Update: The changes made to how field data is read in may have corrected this
+  issue but it's still important to look into if the scale manager is causing
+  problems by removing fields and setting available fields.

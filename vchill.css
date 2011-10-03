@@ -1,0 +1,56 @@
+body {
+    background-color: white;
+    color: black;
+}
+
+h1 {
+    font-style: italic;
+}
+
+a:link {
+    color: #1d732e;
+}
+
+a:visited {
+    color: #a87b00;
+}
+
+a:hover {
+    color: #f5002f;
+}
+
+a:active {
+    color: #80ff00;
+}
+
+em {
+    color: #f5002f;
+}
+
+a.launch {
+    font-size: 125%;
+    font-weight: bold;
+}
+
+img.launch {
+    border-color: white;
+    float: left;
+}
+
+img.validation {
+    vertical-align: middle;
+    border-color: white;
+}
+
+img.logo {
+    vertical-align: top;
+    float: right;
+    border-width: 0;
+}
+
+table.reqs {
+    float: right;
+    border: 1px solid #0d4000;
+    margin: 0 0 0 2px;
+    padding: 2px;
+}

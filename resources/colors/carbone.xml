@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='utf-8'?>
+<colormap name="carbone.xml">
+    <type>
+        <name>Z</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>V</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>W</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>CZ</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>Zdr</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>Ldr</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>Phi</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+    <type>
+        <name>Rho</name>
+        <color><!-- level 0 -->
+            <red>21</red>
+            <green>7</green>
+            <blue>58</blue>
+        </color>
+        <color><!-- level 1 -->
+            <red>42</red>
+            <green>14</green>
+            <blue>116</blue>
+        </color>
+        <color><!-- level 2 -->
+            <red>85</red>
+            <green>15</green>
+            <blue>186</blue>
+        </color>
+        <color><!-- level 3 -->
+            <red>129</red>
+            <green>177</green>
+            <blue>255</blue>
+        </color>
+        <color><!-- level 4 -->
+            <red>1</red>
+            <green>114</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 5 -->
+            <red>5</red>
+            <green>147</green>
+            <blue>5</blue>
+        </color>
+        <color><!-- level 6 -->
+            <red>84</red>
+            <green>178</green>
+            <blue>84</blue>
+        </color>
+        <color><!-- level 7 -->
+            <red>163</red>
+            <green>210</green>
+            <blue>163</blue>
+        </color>
+        <color><!-- level 8 -->
+            <red>177</red>
+            <green>177</green>
+            <blue>177</blue>
+        </color>
+        <color><!-- level 9 -->
+            <red>241</red>
+            <green>209</green>
+            <blue>0</blue>
+        </color>
+        <color><!-- level 10 -->
+            <red>241</red>
+            <green>177</green>
+            <blue>20</blue>
+        </color>
+        <color><!-- level 11 -->
+            <red>205</red>
+            <green>145</green>
+            <blue>41</blue>
+        </color>
+        <color><!-- level 12 -->
+            <red>167</red>
+            <green>112</green>
+            <blue>62</blue>
+        </color>
+        <color><!-- level 13 -->
+            <red>130</red>
+            <green>80</green>
+            <blue>64</blue>
+        </color>
+        <color><!-- level 14 -->
+            <red>255</red>
+            <green>80</green>
+            <blue>129</blue>
+        </color>
+        <color><!-- level 15 -->
+            <red>207</red>
+            <green>38</green>
+            <blue>70</blue>
+        </color>
+    </type>
+</colormap>

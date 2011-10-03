@@ -1,0 +1,1049 @@
+\documentclass[10pt]{article}
+
+\usepackage{hyperref}
+\usepackage{longtable}
+
+\pagestyle{headings}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{30pt}
+
+\title{CHILL Client-side Connection Protocols Specification}
+\date{Created on October 11, 2007}
+
+\newcommand{\tblspc}{\rule{0pt}{3ex}}
+
+\begin{document}
+\maketitle
+\begin{center}
+Contributions by Jochen Deyke and Jim George
+\end{center}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Purpose}
+The purpose of this document is to fully describe both the CHILL Archive Protocol and the CHILL Realtime Protocol from the perspective of the client-side. It will fully describe how to create connections with archive servers and realtime servers and how to interact with the servers once a connection is created. The document will contain full descriptions of all possible packets that may be sent or received; in addition, a list of all constants will be provided.
+
+\subsection{Conventions Used}
+All communication to and from servers is in network-byte order.
+
+\begin{longtable}{|l|r|}
+\hline
+\multicolumn{2}{|c|}{} \\
+\multicolumn{2}{|c|}{\emph{Data Types}} \\
+\multicolumn{2}{|c|}{} \\
+\hline Type & Number of bytes \\ \hline \endfirsthead
+\hline Type & Number of bytes \\ \hline \endhead
+\hline \endfoot
+\tblspc short & 2 \\
+\hline
+\tblspc int & 4 \\
+\hline
+\tblspc unsigned int & 4 \\
+\hline
+\tblspc long & 8 \\
+\hline
+\tblspc float & 4 \\
+\hline
+\tblspc UTF-8 String(\#) & \# \\
+\hline
+\end{longtable}
+
+
+\section{CHILL Connections}
+\subsection{Control and Data Channels}
+Regardless of whether you are connecting to an archive server or to a realtime server, you will need a data channel. A data channel is just a connection with the server that receives all the various headers (see section~\ref{sec:data_channel_headers}) and the actual data.
+
+To connect to an archive server, you will need a control channel in addition to a data channel; control channels must always be created before data channels. A control channel is just a connection with the archive server whose sole purpose is to issue various commands (see section~\ref{sec:archive_commands}) and receive various responses back in the form of Response Packets (see section~\ref{sec:response_packet}).
+
+\subsubsection{Creating a Control Channel}
+\label{sec:create_control_channel}
+To create a control channel connection, send the HELLO integer (see section~\ref{sec:general_constants}) and then the ARCHIVE\_CONTROL\_CHANNEL integer (see section~\ref{sec:general_constants}).
+
+\subsubsection{Creating a Data Channel}
+\label{sec:create_data_channel}
+To create a data channel connection, send the HELLO integer (see section~\ref{sec:general_constants}) and then the DATA\_CHANNEL integer (see section~\ref{sec:general_constants}). If connecting to an archive server, the DATA\_CHANNEL integer will first need to be ORed with the session ID shifted left 16 bits; the session ID is received after creating a control channel.
+
+\subsection{Establishing a Realtime Connection}
+To establish a connection with a realtime server, create a data channel connection (see section~\ref{sec:create_data_channel}). The server will then respond with one or more FIELD\_TYPE\_INFO headers (see section~\ref{sec:field_type_info}) on the data channel; servers are capable of providing up to 64 fields types.
+
+\subsection{Establishing an Archive Connection}
+To establish a connection with an archive server, first create a control channel connection (see section~\ref{sec:create_control_channel}). Then send a Connect Command (see section~\ref{sec:connect}) to the server on the newly created control channel; the server will respond back with a Response Packet (see section~\ref{sec:response_packet}) that contains the new session ID in the extraInfo variable if the session creation was successful.
+
+After the control channel connection is set up, you then need to establish a data channel connection (see section~\ref{sec:create_data_channel}). Once a data channel is created, the server will then respond with one or more FIELD\_TYPE\_INFO headers (see section~\ref{sec:field_type_info}) on the newly created data channel.
+
+\subsection{Requesting Data}
+\label{sec:request_data}
+After establishing a connection, you will at that point have a list of all possible fields that you can request.
+
+To actually request fields, send a long integer (64-bit) bitmask on the data channel that has the appropriate bits set for the fields desired. To determine which bit position in the bitmask corresponds to which field, look at the fieldNumber value in all FIELD\_TYPE\_INFO headers sent (see section~\ref{sec:field_type_info}).
+
+After sending the bitmask, the data channel will then receive zero or more FIELD\_TYPE\_INFO headers (see section~\ref{sec:field_type_info}) corresponding to the fields that are actually available from the server. The server will also send a HOUSEKEEPING header (see section~\ref{sec:housekeeping}). The order in which the server sends all of the above headers is not guaranteed.
+
+The server will then, for every ray, send a DATA header (see section~\ref{sec:data}) followed by the actual byte data. The data is arranged by gates (ie. the first gate of each field is sent before any second gate). The order of the fields in the byte data is specified by the fieldNumber value in the FIELD\_TYPE\_INFO headers (see section~\ref{sec:field_type_info}).
+
+During this process of retrieving data, it is possible for any of the other various headers (see section~\ref{sec:data_channel_headers}) to arrive on the data channel. However, no headers will arrive in between a DATA header (see section~\ref{sec:data}) and the following byte data.
+
+If, at any point, you want to request different fields or specify no fields at all, then simply change the long integer bitmask of desired fields and resend it to the server.
+
+\subsection{Archive Server Commands}
+\label{sec:archive_commands}
+The following are commands that can be sent on a control channel to an archive server to inform the server to perform a certain action. All commands are just Command Packets (see section~\ref{sec:command_packet}) with particular values filled in for the various variables in the packet. Every command sent to the server will cause a corresponding Response Packet (see section~\ref{sec:response_packet}) to be sent back.
+
+\subsubsection{Request Sweep}
+\label{sec:request_sweep}
+A Request Sweep Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 2 (request data for a sweep from a file) \\
+\hline
+\tblspc subrequest & sweep number desired. \\
+\hline
+\tblspc clientCode & 0 (ignored) \\
+\hline
+\tblspc majorRevision & 0 (ignored) \\
+\hline
+\tblspc minorRevision & 0 (ignored) \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "directory/file" \\
+\hline
+\end{longtable}
+
+The server will respond back with the following Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 256 (sending data) \\
+& \\
+& \underline{Possible Errors:} \\
+& 1 (error opening file) \\
+& 2 (sweep requested was out-of-bounds) \\
+& 9 (no sweeps in the file) \\
+& 18 (bad command) \\
+\hline
+\tblspc extraInfo & 0 \\
+\hline
+\tblspc volumeNum & the first volume number (or -1) \\
+\hline
+\tblspc sweepNum & the first sweep number (or -1) \\
+\hline
+\tblspc rayNum & the first ray number (or 1) \\
+\hline
+\tblspc scanMode & the scan mode of the sweep (or -1) \\
+\hline
+\tblspc numSweeps & the number of sweeps available in the file (or 0) \\
+\hline
+\end{longtable}
+
+The server will, at that point, start sending the data on the data channel (see section~\ref{sec:request_data} for a description of how the data will arrive.
+
+Finally, the server will send one more Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 4 (end of volume) \\
+& 5 (end of sweep) possibly bitwise ORed with 256 (sending data)  \\
+& 6 (end of file) \\
+& \\
+& \underline{Possible Errors:} \\
+& 3 (too many non-data blocks in file) \\
+& 8 (error while trying to read the file) \\
+& 22 (generic server failure) \\
+\hline
+\tblspc extraInfo & 0 \\
+\hline
+\tblspc volumeNum & the last volume number (or -1) \\
+\hline
+\tblspc sweepNum & the last sweep number (or -1) \\
+\hline
+\tblspc rayNum & the last ray number \\
+\hline
+\tblspc scanMode & the scan mode of the sweep (or -1) \\
+\hline
+\tblspc numSweeps & the number of sweeps available in the file (or 0) \\
+\hline
+\end{longtable}
+
+\subsubsection{Get File Details}
+\label{sec:get_file_details}
+A Get File Details Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 5 (get details on a file) \\
+\hline
+\tblspc subrequest & 0 (ignored) \\
+\hline
+\tblspc clientCode & 0 (ignored) \\
+\hline
+\tblspc majorRevision & 0 (ignored) \\
+\hline
+\tblspc minorRevision & 0 (ignored) \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "directory/file" \\
+\hline
+\end{longtable}
+\newpage
+
+The server will respond back with the following Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 11 (file details) possibly bitwise ORed with 512 (calibration file) \\
+& \\
+& \underline{Possible Errors:} \\
+& 1 (error opening file) \\
+& 9 (no sweeps in the file) \\
+& 18 (bad command) \\
+\hline
+\tblspc extraInfo & 0 \\
+\hline
+\tblspc volumeNum & -1 \\
+\hline
+\tblspc sweepNum & -1 \\
+\hline
+\tblspc rayNum & -1 \\
+\hline
+\tblspc scanMode & -1 \\
+\hline
+\tblspc numSweeps & the number of sweeps available (or 1) \\
+\hline
+\end{longtable}
+
+\subsubsection{Halt Sweep}
+\label{sec:halt_sweep}
+A Halt Sweep Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 6 (request server to stop sending the current sweep) \\
+\hline
+\tblspc subrequest & 0 (ignored) \\
+\hline
+\tblspc clientCode & 0 (ignored) \\
+\hline
+\tblspc majorRevision & 0 (ignored) \\
+\hline
+\tblspc minorRevision & 0 (ignored) \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "directory/file" \\
+\hline
+\end{longtable}
+\newpage
+
+The server will respond back with the following Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 12 (stopped sending data) \\
+& \\
+& \underline{Possible Errors:} \\
+& 1 (error opening file) \\
+& 9 (no sweeps in the file) \\
+& 18 (bad command) \\
+\hline
+\tblspc extraInfo & 0 \\
+\hline
+\tblspc volumeNum & -1 \\
+\hline
+\tblspc sweepNum & -1 \\
+\hline
+\tblspc rayNum & -1 \\
+\hline
+\tblspc scanMode & -1 \\
+\hline
+\tblspc numSweeps & the number of sweeps available (or 1) \\
+\hline
+\end{longtable}
+
+\subsubsection{List Directory Contents}
+\label{sec:list_directory_contents}
+A List Directory Contents Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 8 (list directory contents) \\
+\hline
+\tblspc subrequest & 4 (list directory contents) \\
+\hline
+\tblspc clientCode & 0 (ignored) \\
+\hline
+\tblspc majorRevision & 0 (ignored) \\
+\hline
+\tblspc minorRevision & 0 (ignored) \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "directory" \\
+\hline
+\end{longtable}
+\newpage
+
+The server will respond back with the following Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 14 (directory follows) \\
+& \\
+& \underline{Possible Errors:} \\
+& 18 (bad command) \\
+\hline
+\tblspc extraInfo & length of directory listing \\
+\hline
+\tblspc volumeNum & -1 \\
+\hline
+\tblspc sweepNum & -1 \\
+\hline
+\tblspc rayNum & -1 \\
+\hline
+\tblspc scanMode & -1 \\
+\hline
+\tblspc numSweeps & 0 \\
+\hline
+\end{longtable}
+
+The directory contents will then be sent in the following format (names cannot contain spaces since spaces are used in the listing format to delimit information): \\\\
+For files: ''$<$file name$>$[ $<$scan name$>$] $<$scan type$>$'' \\
+For directories: ''$<$directory name$>$ DIR'' \\
+
+Finally, the server will sent one more Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 7 (directory sent) \\
+\hline
+\tblspc extraInfo & 0 \\
+\hline
+\tblspc volumeNum & -1 \\
+\hline
+\tblspc sweepNum & -1 \\
+\hline
+\tblspc rayNum & -1 \\
+\hline
+\tblspc scanMode & -1 \\
+\hline
+\tblspc numSweeps & 0 \\
+\hline
+\end{longtable}
+\newpage
+
+\subsubsection{Connect}
+\label{sec:connect}
+A Connect Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 9 (initiate session with the server) \\
+\hline
+\tblspc subrequest & 0 (ignored) \\
+\hline
+\tblspc clientCode & 2 (Java VCHILL client) \\
+\hline
+\tblspc majorRevision & the major revision of the client being used. \\
+\hline
+\tblspc minorRevision & the minor revision of the client being used. \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "username:password" \\
+\hline
+\end{longtable}
+
+The server will respond back with the following Response Packet (see section~\ref{sec:response_packet}):
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc status & 16 (server ready) \\
+& 14 (directory follows; this is the old message format) \\
+& 21 (message follows) \\
+& \\
+& \underline{Possible Errors:} \\
+& 15 (server busy) \\
+& 18 (bad command) \\
+& 19 (bad username) \\
+& 20 (bad password) \\
+& 22 (generic server failure) \\
+\hline
+\tblspc extraInfo & session ID \\
+\hline
+\tblspc volumeNum & -1 \\
+\hline
+\tblspc sweepNum & -1 \\
+\hline
+\tblspc rayNum & -1 \\
+\hline
+\tblspc scanMode & -1 \\
+\hline
+\tblspc numSweeps & 0 \\
+\hline
+\end{longtable}
+\newpage
+
+\subsubsection{Disconnect}
+\label{sec:disconnect}
+A Disconnect Command is a Command Packet (see section~\ref{sec:command_packet}) with the following values:
+\begin{longtable}{|l|r|}
+\hline Name & Value \\ \hline \endfirsthead
+\hline Name & Value \\ \hline \endhead
+\hline \endfoot
+\tblspc command & 10 (close session with the server) \\
+\hline
+\tblspc subrequest & 0 (ignored) \\
+\hline
+\tblspc clientCode & 0 (ignored) \\
+\hline
+\tblspc majorRevision & 0 (ignored) \\
+\hline
+\tblspc minorRevision & 0 (ignored) \\
+\hline
+\tblspc unused & 0 (Always 0) \\
+\hline
+\tblspc inputString & "" \\
+\hline
+\end{longtable}
+
+No response is sent back from the server.
+
+
+\section{Control Channel Packets}
+\label{sec:control_channel_packets}
+\subsection{Command Packet}
+\label{sec:command_packet}
+Command Packets contain requests for the server to do something. For every Command Packet sent to the server, the client receives back a Response Packet (see section~\ref{sec:response_packet}).
+
+\begin{longtable}{|p{0.15\textwidth}|l|p{0.6\textwidth}|}
+\hline
+\multicolumn{3}{|c|}{} \\
+\multicolumn{3}{|c|}{\emph{Command Packet contents}} \\
+\multicolumn{3}{|c|}{} \\
+\hline Type & Name & Description \\ \hline \endfirsthead
+\hline Type & Name & Description \\ \hline \endhead
+\hline \endfoot
+\tblspc int & command & The command for the server to perform.
+	\par 2 = Request data for a sweep from a file.
+	\par 5 = Get details on a file.
+	\par 6 = Request server to stop sending the current sweep.
+	\par 8 = List directory contents.
+	\par 9 = Initiate session with the server.
+	\par 10 = Close session with the server. \\
+\hline
+\tblspc short & subrequest & An additional code useful for some commands.
+	\par 4 = List directory contents (only used with the list directory contents command).
+	\par \# = Sweep number (only used with request sweep data command). \\
+\hline
+\tblspc short & clientCode & The ID of the client being used. It is only used with the initiate session command; for all other commands, it is set to 0.
+	\par 2 = Java VCHILL client (vs. old C client) (only used with initiate session command). \\
+\hline
+\tblspc short & majorRevision & The major revision number of the client being used. It is only used with the initiate session command; for all other commands, it is set to 0. \\
+\hline
+\tblspc short & minorRevision & The minor revision number of the client being used. It is only used with the initiate session command; for all other commands, it is set to 0. \\
+\hline
+\tblspc int & unused & A reserved variable always set to 0. \\
+\hline
+\tblspc UTF-8 String(100) & inputString & Contains various information that the server will need in order to perform the requested command. It can contain information like the username and password required for initiating a session or a directory name and/or file name for various other commands. \\
+\hline
+\end{longtable}
+
+\subsection{Response Packet}
+\label{sec:response_packet}
+Response Packets contain various information regarding the status of commands issued through Command Packets (see section~\ref{sec:command_packet}). For every Command Packet sent to the server, the client receives back a Response Packet.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|}
+\hline
+\multicolumn{3}{|c|}{} \\
+\multicolumn{3}{|c|}{\emph{Response Packet contents}} \\
+\multicolumn{3}{|c|}{} \\
+\hline Type & Name & Description \\ \hline \endfirsthead
+\hline Type & Name & Description \\ \hline \endhead
+\hline \endfoot
+\tblspc int & status & The status code of the command that this packet is in response to.
+	\par 1 = Error opening file.
+	\par 2 = Sweep number out of range.
+	\par 3 = Too many non-data blocks in file.
+	\par 4 = End of Volume.
+	\par 5 = End of Sweep.
+	\par 6 = End of File.
+	\par 7 = Directory listing completed.
+	\par 8 = Error while trying to read the file.
+	\par 9 = No sweeps in the file.
+	\par 11 = File details.
+	\par 12 = Stopped sending data.
+	\par 14 = Directory listing follows / old message format.
+	\par 15 = Server busy.
+	\par 16 = Server ready.
+	\par 18 = Bad command.
+	\par 19 = Bad username.
+	\par 20 = Bad password.
+	\par 21 = Message follows.
+	\par 22 = Generic server failure.
+	\par 256 = Sending data.
+	\par 512 = Calibration file. \\
+\hline
+\tblspc int & extraInfo & Additional information related to the command executed. When the command executed was an initiate session command, it contains the new session ID. When the command executed was a list directory contents command, it contains the number of bytes of the directory listing following this response packet. \\
+\hline
+\tblspc int & volumeNum & The volume number (only used when the command executed was a request sweep data command); otherwise it is -1. \\
+\hline
+\tblspc int & sweepNum & The sweep number (only used when the command executed was a request sweep data command); otherwise it is -1. \\
+\hline
+\tblspc int & rayNum & The ray number of the first ray following (only used when the command executed was a request sweep data command); otherwise it is -1. \\
+\hline
+\tblspc int & scanMode & The scan mode (only used when the command executed was a request sweep data command); otherwise it is -1. \\
+\hline
+\tblspc int & numSweeps & The number of sweeps (only used when the command executed was a get file details command or a request sweep data command); otherwise it is 0. \\
+\hline
+\end{longtable}
+
+
+\section{Data Channel Headers}
+\label{sec:data_channel_headers}
+All headers have common data, data specific to the particular header, and extra (most likely ignorable) data. The common header data comes first, followed by the specific header data (see the various header sections for details) and then finally the extra data is at the end.
+
+The common header data includes:
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{3}{|c|}{} \\
+\multicolumn{3}{|c|}{\emph{Common Header contents}} \\
+\multicolumn{3}{|c|}{} \\
+\hline Type & Name & Description \\ \hline \endfirsthead
+\hline Type & Name & Description \\ \hline \endhead
+\hline \endfoot
+\tblspc int & headerType & The type of the header being received. \\
+\hline
+\tblspc int & headerLength & The length of the header including this common header and any extra data. \\
+\hline
+\end{longtable}
+
+\subsection{DATA}
+\label{sec:data}
+Data Headers contain various useful pieces of information regarding actual data that is about to be sent from the server; it corresponds to just a single ray.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Data Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc long & requestedFields & Bitmask containing which fields were requested by the client. & \\
+\hline
+\tblspc long & availableFields & Bitmask containing which fields are actually available from the server. & \\
+\hline
+\tblspc int & startAz & Antenna azimuth position at the start of the integration cycle. & degrees \\
+\hline
+\tblspc int & startEl & Antenna elevation position at the start of the integration cycle. & degrees \\
+\hline
+\tblspc int & endAz & Antenna azimuth position at the end of the integration cycle. & degrees \\
+\hline
+\tblspc int & endEl & Antenna elevation position at the end of the integration cycle. & degrees \\
+\hline
+\tblspc int & numGates & The number of gates in the ray. & \\
+\hline
+\tblspc int & startRange & The range to the first gate. & mm \\
+\hline
+\tblspc unsigned int & dataTimeSecs & The time of the first transmit pulse in the ray & seconds since UNIX Epoch \\
+\hline
+\tblspc int & dataTimeNSecs & Additional nanoseconds of the time of the first transmit pulse in the ray. & ns \\
+\hline
+\tblspc int & rayNumber & The ray number of the ray within the sweep (counting starts at 1). & \\
+\hline
+\end{longtable}
+
+\subsection{EXTENDED\_TRACKING}
+\label{sec:extended_tracking}
+Extended Tracking Headers contain information useful for tracking the position of aircraft. It is a newer format than the Tracking Header (see section~\ref{sec:tracking}).
+
+\begin{longtable}{|p{0.12\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Extended Tracking Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc unsigned long & trackingTime & The time that the information in the header was gathered. & seconds since UNIX Epoch \\
+\hline
+\tblspc float & posX & The vehicle position east of the radar. & km \\
+\hline
+\tblspc float & poxY & The vehicle position north of the radar. & km \\
+\hline
+\tblspc float & altitude & The vehicle altitude. & meters above ground level \\
+\hline
+\tblspc float & heading & The vehicle heading if available. & degrees \\
+\hline
+\tblspc UTF-8 String(32) & vehicleName & The name of the vehicle. & \\
+\hline
+\tblspc UTF-8 String(32) & additionalInfo & Additional tracking information. & \\
+\hline
+\end{longtable}
+
+\subsection{FIELD\_TYPE\_INFO}
+\label{sec:field_type_info}
+Field Type Info Headers contain information about a particular field type that the server is capable of offering.
+
+\begin{longtable}{|p{0.15\textwidth}|l|p{0.6\textwidth}|}
+\hline
+\multicolumn{3}{|c|}{} \\
+\multicolumn{3}{|c|}{\emph{Field Type Info Header contents}} \\
+\multicolumn{3}{|c|}{} \\
+\hline Type & Name & Description \\ \hline \endfirsthead
+\hline Type & Name & Description \\ \hline \endhead
+\hline \endfoot
+\tblspc UTF-8 String(32) & fieldName & A short field name (ie. dBZ). \\
+\hline
+\tblspc UTF-8 String(128) & fieldDescription & A description of the field type (ie. Reflectivity). \\
+\hline
+\tblspc int & keyboardAccelerator & A keycode for a shortcut that the client can use for this field type. \\
+\hline
+\tblspc UTF-8 String(32) & units & The units that the field type is specified in. \\
+\hline
+\tblspc int & fieldNumber & The bit position of the field in the long integer sent to and from the server containing requested/available field types. \\
+\hline
+\tblspc int & factor & actual data value = \\
+\tblspc int & scale & ((value in byte data array) * scale + bias) \\
+\tblspc int & bias & / factor. \\
+\hline
+\tblspc int & maxFactorScaledValue & The maximum field value (multiplied by factor). \\
+\hline
+\tblspc int & minFactorScaledValue & The minimum field value (multiplied by factor). \\
+\hline
+\tblspc short & fieldDataFlags & Flags describing the data of the field type.
+	\par Bit 0: set if the field has 8-bit signed data and unset otherwise. Currently, CHILL uses only unsigned 8-bit data. See the factor, scale, and bias variables for information about calculating actual values from the unsigned 8-bit data.
+	\par Bits 1-3: reserved.
+	\par Bit 4: set if the field's data may be unfolded. \\
+\hline
+\tblspc short & colorMapType & An index specifying which color map to use since field types can be labeled differently among servers and the client can't know which field is say the Reflectivity field (it may be dBZ, Z, etc.). \\
+\hline
+\end{longtable}
+
+\subsection{HOUSEKEEPING}
+\label{sec:housekeeping}
+Housekeeping Headers contain various information that remains fairly constant in addition to information about sweeps. A housekeeping header is typically sent once per sweep.
+
+\begin{longtable}{|p{0.12\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Housekeeping Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc UTF-8 String(32) & radarID & The name/ID of the radar. & \\
+\hline
+\tblspc int & radarLatitude & The latitude of the radar. & $degrees * 10^{6}$ \\
+\hline
+\tblspc int & radarLongitude & The longitude of the radar. & $degrees * 10^{6}$ \\
+\hline
+\tblspc int & radarAltitude & The radar altitude. & mm above mean sea level \\
+\hline
+\tblspc int & antennaMode & The scan mode of the antenna.
+	\par 1 and 4 = RHI scan modes.
+	\par 0 and 3 = PPI scan modes. & \\
+\hline
+\tblspc int & nyquistVel & The basic nyquist interval (2 * velocity range). & mm/sec \\
+\hline
+\tblspc int & gateWidth & The gate spacing. & mm \\
+\hline
+\tblspc int & pulses & The number of transmit pulses per integration cycle. & \\
+\hline
+\tblspc int & polarizationMode & The polarization of the transmitters.
+	\par 0 = Vertical only.
+	\par 1 = Horizontal only.
+	\par 2 = Alternating vertical and horizontal.
+	\par 3 = Simultaneous vertical and horizontal. & \\
+\hline
+\tblspc int & sweepNumber & The tilt/sweep sequence number (counting starts at 1 for each volume). & \\
+\hline
+\tblspc int & saveSweep & The tilt/sweep number selected by the operator to be auto-saved as an image. & \\
+\hline
+\tblspc int & angleScale & A value used to get the true angle from an integer angle. & degrees \\
+& & true angle = (integer angle * 360) / angleScale & \\
+\hline
+\tblspc unsigned int & sweepStartTime & The start time of the sweep. & seconds since UNIX Epoch \\
+\hline
+\end{longtable}
+
+\subsection{POWER\_METERS\_UPDATE}
+\label{sec:power_meters_update}
+Power Meters Update Headers contain information regarding the power meters.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Power Meters Update Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc float & hPower & The horizontal peak power, assuming a rectangular pulse. & dBm \\
+\hline
+\tblspc float & vPower & The vertical peak power, assuming a rectangular pulse. & dBm \\
+\hline
+\end{longtable}
+
+\subsection{PROCESSOR\_INFO}
+\label{sec:processor_info}
+Processor Info Headers contain information regarding the control and status of the signal processor.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Processor Info Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc int & polarizationMode & The polarization of the transmitters.
+	\par 0 = Vertical only.
+	\par 1 = Horizontal only.
+	\par 2 = Alternating vertical and horizontal.
+	\par 3 = Simultaneous vertical and horizontal. & \\
+\hline
+\tblspc int & processingMode & Bitmask indicating the signal processing modes.
+	\par Bit 0: Indexed Beam Mode. It uses the indexedBeamWidth and current antenna position to determine the integration cycle.
+	\par Bit 1: Long Integration Mode. It decouples the signal processor's beam indexing from the transmitter controller's pulse numbering scheme, which allows for integration times that are much longer than the 256-hit limit imposed by the transmitter controller.
+	\par Bit 2: Dual-PRT Mode. It makes use of the second PRT to enable staggered PRT.
+	\par Bit 3: Phase Code Mode. Adds phase codes to the pulses sent from the radar to help detect 2nd-trip conditions. & \\
+\hline
+\tblspc int & pulseType & The pulse type of the transmitters.
+	\par 0 = 1 microsecond rectangular pulse.
+	\par 1 = 200 nanosecond rectangular pulse.
+	\par 2 = 1 microsecond gaussian-weighted pulse. & \\
+\hline
+\tblspc int & testType & The radar calibration/test type used when performing calibration cycles.
+	\par 0 = No test taking place.
+	\par 1 = Clockwise calibration.
+	\par 2 = Fixed sun-pointing.
+	\par 3 = Scanning across the face of the sun.
+	\par 4 = Noise source connected to the horizontal channel.
+	\par 5 = Noise source connected to the vertical channel.
+	\par 6 = Pointing at the blue-sky.
+	\par 7 = Not a real test type. It indicates to compute nodes to save calibration parameters. & \\
+\hline
+\tblspc int & integrationCyclePulses & The number of cycles integrated to give a single ray. & \\
+\hline
+\tblspc int & clutterFilterNumber & The number of the clutter filter being used by the processor. & \\
+\hline
+\tblspc int & rangeGateAveraging & The number of range gates to average. & \\
+\hline
+\tblspc float & indexedBeamWidth & The beamwidth over which to integrate when in the indexed beam processing mode. & degrees \\
+\hline
+\tblspc float & gateSpacing & The gate spacing (does not include effect of range averaging). & meters \\
+\hline
+\tblspc float & prt & The PRT (Pulse Repetition Time). & $\mu$s \\
+\hline
+\tblspc float & rangeStart & The range to start processing. & km \\
+\hline
+\tblspc float & rangeStop & The range to stop processing. & km \\
+\hline
+\tblspc int & maxGates & The number of gates for the digitizer to acquire. & \\
+\hline
+\tblspc float & testPower & The power of the signal generator output when the test set is commanded to output 0 dBm. & dBm \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & testPulseRange & The range at which the test pulse is located. & km \\
+\hline
+\tblspc float & testPulseLength & The length of the test pulse. & $\mu$s \\
+\hline
+\end{longtable}
+
+\subsection{RADAR\_INFO}
+\label{sec:radar_info}
+Radar Info Headers contain general radar information as well as fixed calibration terms.
+
+\begin{longtable}{|p{0.12\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Radar Info Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc UTF-8 String(32) & radarName & The name of the radar. & \\
+\hline
+\tblspc float & radarLatitude & The current radar latitude. & degrees \\
+\hline
+\tblspc float & radarLongitude & The current radar longitude. & degrees \\
+\hline
+\tblspc float & radarAltitude & The current radar altitude. & meters \\
+\hline
+\tblspc float & antennaBeamwidth & The antenna beamwidth. & degrees \\
+\hline
+\tblspc float & radarWavelength & The wavelength of the radar. & cm \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & unused & A reserved variable. & \\
+\hline
+\tblspc float & antennaHGain & The H polarization antenna gain from a reference point through the antenna. & dB \\
+\hline
+\tblspc float & antennaVGain & The V polarization antenna gain from a reference point through the antenna. & dB \\
+\hline
+\tblspc float & zdrCalBase & The operator-settable ZDR calibration base. & dB \\
+\hline
+\tblspc float & phidpRotation & The operator-settable PhiDP rotation. & degrees \\
+\hline
+\tblspc float & baseCalConstant & A base calibration constant that is used to calculate dBZ. & dB \\
+\hline
+\tblspc float & firstGateOffset & The range offset to the first gate. & meters \\
+\hline
+\tblspc float & powerHLoss & The loss on the horizontal channel from the reference point power to the power meter sensor. & dB \\
+\hline
+\tblspc float & powerVLoss & The loss on the vertical channel from the reference point power to the power meter sensor. & dB \\
+\hline
+\tblspc float & zdrVHSCalBase & The operator-settable ZDR calibration base when in simultaneous vertical and horizontal polarization mode & dB \\
+\hline
+\tblspc float & testHPower & The power, on the H channel, into the directional coupler when the test set is commanded to output 0 dBm. & dB \\
+\hline
+\tblspc float & testVPower & The power, on the V channel, into the directional coupler when the test set is commanded to output 0 dBm. & dB \\
+\hline
+\tblspc float & dcHLoss & The directional coupler forward loss on the H channel. & dB \\
+\hline
+\tblspc float & dcVLoss & The directional coupler forward loss on the V channel. & dB \\
+\hline
+\end{longtable}
+
+\subsection{SCAN\_SEGMENT}
+\label{sec:scan_segment}
+Scan Segment Headers contain information that define a scan segment.
+\begin{longtable}{|p{0.12\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Scan Segment Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc float & manualAz & The manual azimuth position used for pointing and manual PPI/RHI modes. & degrees \\
+\hline
+\tblspc float & manualEl & The manual elevation position used for pointing and manual PPI/RHI modes. & degrees \\
+\hline
+\tblspc float & startAz & The starting azimuth angle; if it is greater than 360, then it implies we don't care what the starting azimuth is. & degrees \\
+\hline
+\tblspc float & startEl & The starting elevation angle; if it is greater than 360, then it implies we don't care what the starting elevation is. & degrees \\
+\hline
+\tblspc float & scanRate & The antenna scan rate. & degrees / sec \\
+\hline
+\tblspc UTF-8 String(16) & segmentName & The name of the scan segment. & \\
+\hline
+\tblspc float & rangeMax & A scan optimizer parameter indicating the maximum range. & km \\
+\hline
+\tblspc float & heightMax & A scan optimizer parameter indicating the maximum height. & km \\
+\hline
+\tblspc float & resolution & A scan optimizer parameter indicating the resolution. & meters \\
+\hline
+\tblspc int & followMode & Indicates the object being followed (tracked) by the antenna.
+	\par 0 = The radar isn't tracking anything.
+	\par 1 = The radar is tracking the sun.
+	\par 2 = The radar is tracking a vehicle. & \\
+\hline
+\tblspc int & scanMode & The antenna scanning mode.
+	\par 0 = PPI (Plan Position Indicator) mode.
+	\par 1 = RHI (Range Height Indicator) mode.
+	\par 2 = Fixed pointing angle mode.
+	\par 3 = Manual PPI mode (elevation does not step automatically).
+	\par 4 = Manual RHI mode (azimuth does not step automatically).
+	\par 5 = Idle mode (radar is not scanning). & \\
+\hline
+\tblspc int & scanFlags & Bitmask of flags describing the scan segment.
+	\par Bit 0: Indicates this is the last segment in a volume.
+	\par Bit 1: This is a sector scan.
+	\par Bit 2: Radar initially turns clockwise.
+	\par Bit 3: Radar initially turns counterclockwise.
+	\par Bit 4: Record the time series data.
+	\par Bit 5: RECORD\_ENABLE\_1 (unused)
+	\par Bit 6: Record the processed data.
+	\par Bit 7: RECORD\_ENABLE\_3 (unused) & \\
+\hline
+\tblspc int & volumeNum & The volume number of the scan segment (increments linearly). & \\
+\hline
+\tblspc int & segmentNum & The segment number within the current volume. & \\
+\hline
+\tblspc int & timeLimit & The timeout for this scan, if nonzero. & seconds \\
+\hline
+\tblspc int & saveSegment & Indicates which segment to auto-save, if nonzero. & \\
+\hline
+\tblspc float & leftLimit & The left limit of a sector scan. & degrees \\
+\hline
+\tblspc float & rightLimit & The right limit of a sector scan. & degrees \\
+\hline
+\tblspc float & upLimit & The upper limit of a sector scan. & degrees \\
+\hline
+\tblspc float & downLimit & The lower limit of a sector scan. & degrees \\
+\hline
+\tblspc float & stepSize & The antenna step size used to increment azimuth (in RHI) and elevation (in RHI) if maxSegments is 0. & \\
+\hline
+\tblspc int & maxSegments & The number of scan segments in this volume. & \\
+\hline
+\tblspc int & clutterFilterBreakSegment & The segment at which the clutter filter switches from filter 1 to 2. & \\
+\hline
+\tblspc int & clutterFilter1 & The clutter filter number used for segments $<$ clutterFilterBreakSegment. & \\
+\hline
+\tblspc int & clutterFilter2 & The clutter filter number used for segments $>=$ clutterFilterBreakSegment. & \\
+\hline
+\tblspc UTF-8 String(16) & projectName & The project name. & \\
+\hline
+\tblspc float & currentFixedAngle & The current fixed angle (azimuth in RHI mode, elevation in PPI mode). & degrees \\
+\hline
+\end{longtable}
+
+\subsection{SWEEP\_NOTICE}
+\label{sec:sweep_notice}
+Sweep Notice Headers contain information about the status of a sweep/volume. They get sent out whenever a sweep or volume has either started or finished.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|}
+\hline
+\multicolumn{3}{|c|}{} \\
+\multicolumn{3}{|c|}{\emph{Sweep Notice Header contents}} \\
+\multicolumn{3}{|c|}{} \\
+\hline Type & Name & Description \\ \hline \endfirsthead
+\hline Type & Name & Description \\ \hline \endhead
+\hline \endfoot
+\tblspc int & flags & Bitmask of flags indicating the type of notice.
+	\par Bit 0: End of Sweep.
+	\par Bit 1: End of Volume.
+	\par Bit 2: Start of Sweep. \\
+\hline
+\tblspc int & cause & The reason the scan terminated.
+	\par 0 = Scan completed normally.
+	\par 1 = Scan has timed out.
+	\par 2 = Timer caused this scan to abort.
+	\par 3 = Operator issued an abort.
+	\par 4 = Scan Controller detected an error.
+	\par 5 = Communication fault with the antenna controller was recovered; restarting the scan. \\
+\hline
+\end{longtable}
+
+\subsection{TRACKING}
+\label{sec:tracking}
+Tracking Headers contain information useful for tracking the position of aircraft. It is an older format than the Extended Tracking Header (see section~\ref{sec:extended_tracking}).
+
+\begin{longtable}{|p{0.12\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Tracking Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc float & posX & The vehicle position east of the radar. & km \\
+\hline
+\tblspc float & posY & The vehicle position north of the radar. & km \\
+\hline
+\tblspc float & altitude & The altitude above ground level. & km \\
+\hline
+\tblspc unsigned int & trackingTime & The time that the information in the header was gathered. & seconds since UNIX Epoch \\
+\hline
+\tblspc UTF-8 String(16) & vehicleName & The name of the vehicle being tracked. & \\
+\hline
+\end{longtable}
+
+\subsection{TRANSMITTER\_INFO}
+\label{sec:transmitter_info}
+Transmitter Info Headers contain information about the transmitters.
+
+\begin{longtable}{|p{0.1\textwidth}|l|p{0.6\textwidth}|p{0.1\textwidth}|}
+\hline
+\multicolumn{4}{|c|}{} \\
+\multicolumn{4}{|c|}{\emph{Transmitter Info Header contents}} \\
+\multicolumn{4}{|c|}{} \\
+\hline Type & Name & Description & Units \\ \hline \endfirsthead
+\hline Type & Name & Description & Units \\ \hline \endhead
+\hline \endfoot
+\tblspc int & transmittersEnabled & Bitmask containing which transmitters are enabled.
+	\par Bit 0: Horizontal transmitter enabled.
+	\par Bit 1: Vertical transmitter enabled. & \\
+\hline
+\tblspc int & polarizationMode & The polarization of the transmitters.
+	\par 0 = Vertical only.
+	\par 1 = Horizontal only.
+	\par 2 = Alternating vertical and horizontal.
+	\par 3 = Simultaneous vertical and horizontal. & \\
+\hline
+\tblspc int & pulseType & The pulse type of the transmitters.
+	\par 0 = 1 microsecond rectangular pulse.
+	\par 1 = 200 nanosecond rectangular pulse.
+	\par 2 = 1 microsecond gaussian-weighted pulse. & \\
+\hline
+\tblspc float & prt & The PRT (Pulse Repetition Time). & $\mu$s \\
+\hline
+\tblspc float & prt2 & The second PRT for use in Dual-PRT mode. & $\mu$s \\
+\hline
+\end{longtable}
+\newpage
+
+
+\section{Constants}
+\label{sec:constants}
+\subsection{Header IDs}
+\label{sec:header_ids}
+\begin{longtable}{|l|r|}
+\hline Header & ID \\ \hline \endfirsthead
+\hline Header & ID \\ \hline \endhead
+\hline \endfoot
+\tblspc Data & 0x9090 \\
+\hline
+\tblspc Extended Tracking & 0x9494 \\
+\hline
+\tblspc Field Type Info & 0x9292 \\
+\hline
+\tblspc Housekeeping & 0x9191 \\
+\hline
+\tblspc Power Meters Update & 0x5aa50004 \\
+\hline
+\tblspc Processor Info & 0x5aa50003 \\
+\hline
+\tblspc Radar Info & 0x5aa50001 \\
+\hline
+\tblspc Scan Segment & 0x5aa50002 \\
+\hline
+\tblspc Sweep Notice & 0x5aa50005 \\
+\hline
+\tblspc Tracking & 0x9393 \\
+\hline
+\tblspc Transmitter Info & 0x5aa50008 \\
+\hline
+\end{longtable}
+
+\subsection{General Constants}
+\label{sec:general_constants}
+\begin{tabular}{|c|lcr|}
+\hline
+number of bytes & name & & value \\
+\hline
+4 & HELLO & = & 0xF0F00F0F \\
+\hline
+4 & ARCHIVE\_CONTROL\_CHANNEL & = & 12 \\
+\hline
+4 & DATA\_CHANNEL & = & 15 \\
+\hline
+\end{tabular}
+
+\end{document}

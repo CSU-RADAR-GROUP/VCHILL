@@ -1,0 +1,939 @@
+Date: 8 Jan 2004
+1024 AM replay notes:
+D 1.) Faster zoom access
+D 2.) Avoid plotting outside of viewing window
+D 3.) See Dave about map files
+D 4.) Open new windows in front (offset is OK)
+D 5.) Make window origin and zoom global (Investigate global sizing)
+D 6.) Default start up in low quality graphics
+D 7.) Display max range selection not working
+D 8.) Auto apply when replot clicked (auto replot when apply clicked)
+D 9.) Don't reset color scale when changing plot mode (PPI / RHI) (only resets with bookmarks)
+D10.) Fix multiwindow zoom
+
+2PM
+D 1.) Interactive adjustment of RHI vertical stretch.
+D 2.) Restore NCP thresholding
+D 3.) Stretch to fill selected sub-range
+
+Mon 12 Jan 2004
+D 1.) Leave help window visible when following directions
+D 2.) Verify book mark color scale is being used. (all bookmarks reset scale)
+D 4.) Verify rhoHV can display (works now)
+D 5.) How many windows are too many? Make pop up explanation (works with all types open, use <=3 for best response...)
+D 3.) FIX (multi-window?) bookmark (center...)
+
+Wed 14 Jan 2004
+D 1.) Fix flickering on multiwindow plot
+D 2.) Add menu to select map to overlay
+D 3.) Cursor readout (left click): not remembering click az;
+D	values should show in sidebar immediately;
+D	height should be in "above sea level" (Dave has formula)
+D 4.) Check adaptive plot (multiwindow, bookmark)
+D 5.) FIX reliability on many-sweeps/dir request (locks)
+
+Fri 16 Jan 2004
+D 1.) Quality setting correct for new windows
+D 2.) Replot on new window creation
+D 3.) Replot when a window changes the type it displays
+D 4.) Fix PPI zoom
+D 6.) Left click: add indicator (map style)
+D 5.) Add support for user-created bookmarks
+
+Tue 20 Jan 2004
+D 1.) Fix/enable webstart/one-click launch
+
+Thu 22 Jan 2004
+D 1.) Check opening another window -> faulty display (lack of replot)
+D 2.) Left click should affect other windows right away
+D 3.) Add option to disable click point X
+D 4.) Show data value on left click
+D 5.) 1x zoom should recenter
+D 6.) Enable gates display in sidebar
+D 7.) Fix leftclick Xs in RHI
+
+Mon 26 Jan 2004
+D 1.) Fix short/faulty read after timeout
+D 2.) Fix size of sidebar when main window is <=~1024 pixels => make resizeable
+
+Wed 28 Jan 2004
+D 1.) Improve reliability with poor network connection
+D 2.) Allow multiline comment input for custom bookmarks
+
+Mon 2 Feb 2004
+D 1.) Add ascope display
+D 2.) Get browser trees to update automatically
+D 3.) Give each window its own plotting thread
+D 4.) See about better way of sharing object (windows) among threads
+D 5.) Fix data/ring alignment on nonstandard gate width/range settings
+
+Wed 4 Feb 2004
+D 1.) Disable timeout while reading nonheader data
+D 2.) Left click on RHI - check elevation angle
+D 3.) Add local time to annotation panel
+D 4.) Cut realtime data into sweeps => detect ppi/rhi changes
+
+Mon 9 Feb 2004
+D 1.) Autoreplot when changing maps/colors from menu
+D 2.) Remove black spots from RHI plots
+D 3.) Cache list of directories to speed up bookmark retrieval
+
+Wed 11 Feb 2004
+D 1.) Allow user to cancel archive server login procedure
+D 2.) AScope - enable simultaneous plot of two fields
+D 3.) Fully globalize grid spacing, plot distance/height, and rhi stretch
+
+Fri 13 Feb 2004
+D 1.) Fix value readout (was calculating range incorrectly)
+
+Wed 18 Feb 2004
+D 1.) Fix secondary type display in ascope
+D 2.) Fix primary type switching in ascope
+D 3.) Reduce flicker in ascope display
+D 4.) Speed up ascope plot to synch with ppi/rhi
+D 5.) Add separate buttons to launch ascope windows
+D 6.) Start ascope windows with secondary type default to NCP
+D 7.) Fix volume mode
+D 8.) Implement ray mode
+D 9.) Fix scale on ascope displays
+D10.) Implement range limit on ascope
+D11.) See about linking width on ascopes
+
+Fri 20 Feb 2004
+D 1.) Add ray prev/next buttons
+D 2.) See about making sweep mode set last_ray_plotted (not a good idea)
+
+Tue 24 Feb 2004
+D 1.) Fix value readout on RHI plots
+D 2.) Link window sizes
+D 3.) Make replot work in ray mode (on AScopes)
+D 4.) Add support for aircraft
+D 5.) Make volume mode wait for a sweep to complete before going to next the one
+D 6.) Make ray buttons only work in ray mode
+
+Thu 26 Feb 2004
+D 1.) Improve threading performance
+D 2.) New windows start with customized size
+
+Mon 1 Mar 2004
+D 1.) Prevent antenna control gui from swithing back to idle automatically
+
+Wed 3 Mar 2004
+D 1.) Don't disconnect when dismissing operator request dialog
+D 2.) Enable operator request button
+D 3.) Pop up operator request box when new message comes in
+
+Fri 5 Mar 2004
+D 1.) Add keyboard shortcuts to Operator Request dialog
+
+Tue 9 Mar 2004
+D 1.) Get rid of annoying "change" buttons on manual settings dialog
+D 2.) Move processor settings into manual settings
+D 3.) Split (add blank space) in man settings (dirs)(step-res)
+D 4.) Man settings az/el : 700 <-> "*"
+D 5.) Add man settings: step optimize checkbox (like "record data")
+
+Thu 11 Mar 2004
+D 1.) Fix Next/Prev in popup menu
+
+Fri 19 Mar 2004
+D 1.) Make login/password global
+
+Mon 29 Mar 2004
+D 1.) Make Min/Max affect AScope windows even when no PPI of same type is shown
+D 2.) Make AScope windows display range and value on left click
+
+Wed 31 Mar 2004
+D 1.) Add line in ascope for click point
+
+Fri 02 Apr 2004
+D 1.) Add default values for display setup panel
+D 2.) Fix "create bookmark" when no sweep selected
+
+Thu 08 Apr 2004
+D 1.) Add indicator of some sort for calibration file
+
+Mon 12 Apr 2004
+D 1.) Fix DataHash -> "Invalid value"
+
+Thu 22 Apr 2004
+D 1.) Add new plot type (on ppi/rhi r-click menu) - Time vs range (height)
+D 2.) Clear aircraft data when changing size/center/mode
+D 3.) On loading bookmark, update values in control panel
+D 4.) Update/upgrade saved image browser
+D 5.) Overhaul L&F
+D 6.) Fix RHI plot -> default = off left edge
+
+Mon 26 Apr 2004
+D 1.) Fix annotation overwriting itself on color change
+D 2.) Fix detection of file change (shouldScreenClear())
+
+Wed 28 Apr 2004
+D 1.) Prevent reconnect from adding duplicate bookmarks
+D 2.) Make mode override load values for center, etc
+D 3.) Add persistent preference mechanism
+D 4.) Work around long connect/bookmark load times "freezing" gui -> add thread
+D 5.) Make RealtimeConnection use LimitedList
+D 6.) Fix doublesized TH plot -> lookup data per pixel
+
+Fri 30 Apr 2004
+D 1.) Check ascope range calculation
+D 2.) Fix slower-than-realtime "realtime" plots
+D 3.) Check ascope range annotation/resize -> 1st window being ascope causes
+D 4.) Add background thread to poll for messages from archive server
+
+Tue 4 May 2004
+D 1.) Fix TH range lines with nonstandard window sizes
+D 2.) Hide extensions in map & color menus
+D 3.) Output aircraft positions to console/events
+D 4.) Fix "sticky" velocity scale on bookmarks
+D 5.) See about making PPI/RHI plots scale to fit nonstandard size windows
+D 6.) Fix bookmark options not propagating to all windows
+D 7.) Find & fix problem in pictures (storm @ 0,0)
+
+Thu 6 May 2004
+D 1.) Add 0-lines to ascopes
+D 2.) See about user-configurable ascope lines
+D 3.) Make TH plots start @ left edge every sweep
+
+Mon 10 May 2004
+D 1.) Make RHI ignore recenter requests?
+D 2.) Make bookmarks only store file/dir name, not extended info
+
+Fri 14 May 2004
+D 1.) Add loop button to saved image buffer
+D 2.) See about auto-grabbing images (save_tilt)
+D 3.) Make image buffer be per-data-type
+D 4.) Fix realtime (remove need for reconnect to get first sweep listed)
+D 5.) Fix TH realtime probs (isNewPlot?)
+D 6.) Make new windows start active/selected
+
+Tue 18 May 2004
+D 1.) Add keyboard shortcuts to saved image viewer
+D 2.) Implement RHI height limit
+
+Mon 24 May 2004
+D 1.) Fix save/load of center (preferences)
+D 2.) Make mode button display correct mode on startup
+- 3.) Make sure there's only one place to change to add data types (codec in ViewUtil, name in ChillDefines, scale in Config, colors in XMLColorControl save & load in Bookmarks... - calculated: calc in ProxyCalculationThread, mark available in ProxyDataThread and ProxyControlThread(x2))
+D 4.) Make RHI click height display consistent with lines/labels
+D 5.) Store current values for overlays in preferences
+D 6.) Factor out literal references to "Ray", "Sweep", "Volume"
+D 7.) Fix: RHI: apparent height affected by changing range
+
+Tue 25 May 2004
+D 1.) Make RHI height lines at even Km (1-2)
+D 2.) Fix Km/Kft elevation to account for elevation angle
+
+Wed 26 May 2004
+  1.) Improve radar control interface
+D 2.) Factor out common action classes
+
+Tue 1 Jun 2004
+D 1.) Fix RHI Y off by factor of 2
+D 2.) Fix az/el angle & height readout when clicking exact center
+D 3.) Get server names/ports from preferences when possible
+D 4.) Save/load click point enabledness
+D 5.) Save/load noise & statistics filter settings
+
+Thu 3 Jun 2004
+D 1.) Implement clutter filter
+D 2.) Make aircraft overlay optional
+D 3.) Fix: creating new window resets options to default
+
+Mon 7 Jun 2004
+D 1.) Collect all configuration options in one place
+D 2.) Fix panning in RHI mode (ViewPlotWindow.setCenterInKm()?) (now simply ignored)
+
+Wed 9 Jun 2004
+D 1.) Fix PPI to take into account the start_range (mm)
+D 2.) Fix RHI to take into account the start_range (mm)
+D 3.) Fix TH to take into account the start_range (mm)
+D 4.) Fix ascope to take into account the start_range (mm)
+
+Fri 11 Jun 2004
+D 1.) Add Clutter & Unfolding filters to TH and RHI plots
+D 2.) Tune Unfolding filter to increase accuracy
+D 3.) Find/fix black horizontal lines in TH plots
+- 4.) Add more status feedback (made status more visible)
+D 5.) Fix null pointer on NCP ascope
+
+Tue 15 Jun 2004
+D 1.) Fix ViewPlotInformation to not use string compares
+D 2.) Add Z range gradient
+D 3.) Add Z azimuth gradient
+D 4.) Improve saved images loop
+D 5.) Implement image removal from saved images buffer
+D 6.) Refactor plotData in ViewPlotMethod*
+
+Thu 17 Jun 2004
+D 1.) Add option to load custom map file
+D 2.) Add option to load custom color file
+D 3.) Fix RHI click value readout on non-150m data
+
+Mon 21 Jun 2004
+D 1.) Fix location of click point drawing on RHI
+
+Wed 23 Jun 2004
+D 1.) See about filling in low-quality plots (eg by using multiple lines) (not really necessary)
+D 2.) Add exit button to saved images display
+D 3.) Fix: creating a new window resets all windows to default size
+
+Fri 25 Jun 2004
+D 1.) Fix RHI click ray
+D 2.) Fix PPI angle wraparound problem when reading click values
+
+Tue 29 Jun 2004
+D 1.) Clean up filereader
+D 2.) Speed up filereader/alterer (now with buffering!)
+D 3.) Work on writing out CHILL format files
+
+Wed 7 Jul 2004
+D 1.) Fix assertion failure on reading from altered data files
+
+Tue 20 Jul 2004
+D 1.) Fix faulty range with initial offset in ascopes
+D 2.) Add display capability for ncp+ & hdr
+
+Thu 22 Jul 2004
+D 1.) Fix Hdr & NCP+ scaling
+D 2.) Allow arbitrary data field to be used as threshold
+D 3.) remove defunct clutter filter
+
+Mon 26 Jul 2004
+D 1.) Fix RHI negative angles (were being plotted as 359.x, now -.y)
+D 2.) Fix threshold value - should always use newest value
+D 3.) Fix proxy CPU usage (is always 100% when idle)
+D 4.) Add indicator of currently selected threshold type
+
+Wed 28 Jul 2004
+D 1.) Add configuration to proxy to allow for webstart-style launching
+D 2.) Add indicator of current window type to right-click menu
+D 3.) Make proxy deployable (try: dynamically generated .jnlp)
+D 4.) See about adding indicator of zoom to right-click menu (not viable)
+D 5.) Fix: Cannot adjust threshold value without having it in a window
+- 6.) Fix: Timer threads should't start on error (fixed?)
+D 7.) Killing client shouldn't kill proxy
+
+Fri 30 Jul 2004
+D 1.) Fix dynamic jnlp for proxy on laptop
+D 2.) Add separate input box for vcc.thresholdFilterCutoff
+D 3.) Update ViewPlotDataHash to be more sensible
+D 4.) Add ability to shut down proxy
+D 5.) Split code into reasonable packages
+
+Tue 3 Aug 2004
+D 1.) Fix RHI/AScope scale mismatch - wrong RHI range?
+D 2.) Fix proxy securityAccessException
+
+Fri 6 Aug 2004
+D 1.) Fix proxy sending when sweep has 0 rays (avoided issue by dropping TS data from listings)
+D 2.) Implement continuous mode properly
+
+Wed 18 Aug 2004
+D 1.) Fix array index out of bounds exception in proxy calculation thread
+
+Fri 20 Aug 2004
+D 1.) Fix proxy on very short (9 ray) sweep
+D 2.) Fix client when sweep has 0 rays
+
+Mon 23 Aug 2004
+D 1.) Improve velocity unfolding (add manual control?)
+D 2.) Differentiate between dirs and files in browser tree (change icons?)
+D 3.) Rename "NCP+" to prevent errors in custom bookmarks (now "NCPp")
+
+Wed 25 Aug 2004
+D 1.) Change ViewFileBrowserActions to not use nextLeaf
+D 2.) Fix Continous & Volume mode selecting next sweep too fast
+D 3.) Fix Volume mode acting as continuous
+
+Thu 26 Aug 2004
+D 1.) Fix: custom icon causes aioobe if no PPI/RHI/MAN @ split()[2]
+
+Thu 2 Sep 2004
+D 1.) Add default value possiblity to multiline input
+D 2.) Move unfolding options to submenu
+
+Wed 8 Sep 2004
+D 1.) Make Z gradient settings a submenu
+D 2.) Make estimated value a weighted average (vs next higher value)
+D 3.) Save Z as gradient settings
+- 4.) Add internationalization (i18n) (ResourceBundle)? (not needed (yet?))
+D 5.) Save/load manual velocity estimates
+
+Wed 15 Sep 2004
+D 1.) Fix kdp scaling - should be small (single digit) numbers, mostly pos
+
+Thu 16 Sep 2004
+D 1.) Fix array index going out of bounds when calculating kdp
+
+Wed 22 Sep 2004
+D 1.) Fix nonconstant kdp with linear phidp
+
+Wed 29 Sep 2004
+D 1.) Add output window to proxy to allow users to see that it is running ok
+
+Mon 04 Oct 2004
+D 1.) Try to get screen to clear when zooming in realtime data
+
+Wed 06 Oct 2004
+D 1.) Fix icons in browser tree when displaying realtime data
+- 2.) Address difference in KDP output between java/c/fortran (not an issue)
+D 3.) Add refresh button to browser tree (or menu or somewhere) (in advanced)
+
+Thu 07 Oct 2004
+D 1.) Add Rk40 data type
+D 2.) Add numerical dump option (new window type?)
+
+Mon 11 Oct 2004
+D 1.) Add ability to add comments to map points
+D 2.) Fix hole in rain plot (missing "& 0xff" on reading kdp values)
+D 3.) Fix EventStream printing something else between string and \n
+
+Wed 13 Oct 2004
+D 1.) Fix bookmarks (old bookmarks with new datatypes = "null" entries for min/max)
+D 2.) Add support for multiple simultaneous basemaps (can toggle any map be selecting it multiple times)
+
+Thu 14 Oct 2004
+D 1.) Support non-integer/>4x zoom?
+D 2.) Make custom map filebrowser start in most recently used dir? (not needed)
+  3.) Add a "powered by vchill" logo or similar to the display windows
+
+Mon 25 Oct 2004
+D 1.) Add advanced browsing/image capturing tools for auto loop generation
+D 2.) Add option to save entire image loop at once (vs individual images)
+
+Thu 28 Oct 2004
+- 1.) Fix sometimes incomplete autosaved images
+D 2.) Make autosaved image filenames more sensible
+D 3.) Make sweeps numbered "01" instead of "1" to get correct ordering on load
+D 4.) Add ability to save numerical dump to file instead/additionally
+D 5.) Add KDP suport to filealterer
+D 6.) Add Rk40 suport to filealterer
+
+Mon 1 Nov 2004
+D 1.) Make custom affect sweep number not tilt num
+D 2.) Add numdump popup menu
+D 3.) Add data type to window titles
+D 4.) Fix: clicking on bookmark does not start plot
+- 5.) Opening new windows on already plotted sweep - new window doesn't plot? (can't reproduce problem)
+
+Wed 3 Nov 2004
+D 1.) Fix realtime data not gettig started
+D 2.) Improve titles on windows
+
+Thu 4 Nov 2004
+D 1.) Make scrollpane resize with numerical window
+D 2.) Make type selection menu show current type in numerical window
+D 3.) Make type selection menu show current type in ascope window
+D 4.) Fix: clicking on *custom* bookmark does not start plot
+D 5.) Get rid of CacheWaitForItException?
+D 6.) Fix: ProxyShutdown doesn't parse commandline args
+D 7.) Enable Proxy to start without LnF
+D 8.) Fix: proxy launcher page doesn't pass correct arguments to ProxyShutdown
+
+Wed 10 Nov 2004
+D 1.) Make realtime proxy server (preferrably with calculated types
+D 2.) Fix layout scaling in ViewTabbedPane
+- 3.) Use FormLayout? (not needed)
+
+Thu 11 Nov 2004
+D 1.) Fix: realtime display: no data appears in plot windows (ascope seems fine)
+
+Mon 15 Nov 2004
+  1.) Don't connect to realtime auth server until send button is hit?
+
+Tue 30 Nov 2004
+D 1.) Make file alterer jnlp launchable
+
+Thu 2 Dec 2004
+D 1.) Fix FileParameterData - write out data contained in extra bytes
+
+Wed 8 Dec 2004
+D 1.) Fix bad scaling info in altered files
+D 2.) Make MapInstruction types into enum
+D 3.) Make filereader use enum instead of string for type info
+
+Fri 10 Dec 2004
+- 1.) Convert SocketUtil calls to DataInput/DataOutput
+
+Mon 13 Dec 2004
+D 1.) Replace StringBuffer with faster StringBuilder
+D 2.) Fix: bookmarks don't save completely
+
+Wed 15 Dec 2004
+D 1.) Add ability to write out CHILL files in DORADE format (example files in /space/home/pat/dorade) (no longer needed)
+D 2.) Fix EstimateParser.EstimateComparator (replaced with Estimate.compareTo)
+
+Thu 16 Dec 2004
+D 1.) Fix RealtimeProxy getting out of alignment
+- 2.) Add buffering to i/o streams in socket etc
+
+Mon 20 Dec 2004
+- 1.) Replace gui hardcoding in connection.Controller with listener/... (not necessary ATM)
+D 2.) use invokeLater/invokeAndWait to grab screenshots
+D 3.) Fix: multiple copies of a single map in active list (flaw in ConfigUtil)
+
+Mon 3 Jan 2005
+D 1.) Fix: trying to click on type dropdown box in RemotePanel while plotting locks program (Decrease minimum heap size in launch file)
+
+Thu 6 Jan 2005
+D 1.) Reincrease heap size to fix out of memory errors
+
+Fri 7 Jan 2005
+? 1.) Fix: NegativeArraySizeException in (old) ProxyControlThread.readBytes()
+
+Mon 10 Jan 2005
+? 1.) Fix: infinite retries in client (when using proxy?) with 0-length sweep
+
+Wed 19 Jan 2005
+D 1.) Add support for netCDF format (NetcdfFileWriteable; define, create(), add data)
+
+Thu 20 Jan 2005
+D 1.) Add despeckling to post-ZDR in NCP+ in proxy
+
+Mon 28 Feb 2005
+D 1.) Add progress bar to load/save in file alterer
+
+Mon 7 Mar 2005
+D 1.) Add progress bar to netcdf translator
+D 2.) Ensure vchill can handle other number of colors (ie not 16)
+
+Wed 23 Mar 2005
+D 1.) Make RealtimeConnection not need to wait till end of first sweep before showing data
+D 2.) Improve rain calculation
+
+Thu 24 Mar 2005
+- 1.) Realtime - send 0x0000 as moment when no windows open
+D 2.) Make simple realtime display
+
+Wed 06 Apr 2005
+D 1.) Rewrite File reader
+
+Mon 11 Apr 2005
+D 1.) Fix: "150.0" as max plot range does nothing (now truncates dec part)
+
+Wed 13 Apr 2005
+D 1.) Add RHI support to realtime display
+D 2.) Fix Cho's problem of PPI not matching ascope in realtime display
+
+Thu 14 Apr 2005
+D 1.) Change netcdf to write double instead of byte + scaling info
+D 2.) Change KDP calc to only output 0 byte when threshold fails
+
+Mon 18 Apr 2005
+D 1.) Change proxy server to calculate composite rain
+
+Wed 20 Apr 2005
+D 1.) Fix: clicking on sweep does nothing sometimes (win not getting marked ready?)
+
+Thu 28 Apr 2005
+D 1.) Make it possible to open windows/bookmarks at startup
+
+Mon 02 May 2005
+  1.) Check range calculations / discrepancy with CASA
+
+Wed 04 May 2005
+D 1.) Check/fix PhiDP scale - should adjust scale based on mode (V/H/...)
+D 2.) Fix: filealterer gets occasional exceptions when updating progress
+
+Thu 12 May 2005
+D 1.) Add "printer friendly" saving option to image browser
+D 2.) Fix: missing icon on initial plot window open
+
+Thu 9 Jun 2005
+D 1.) Fix realtime proxy
+D 2.) Fix labels on scale (was off by one stepsize)
+  3.) Add ability to create/plot custom fields (in display? in proxy?)
+D 4.) Check bookmark scale save/load
+- 5.) Change button label on help dialogs to "close"? (not worth the effort)
+D 6.) Update ProxyDataThread to not start on ray 1 in case of realtime
+D 7.) Make bookmark selection update the scaling values in ViewRemotePanel
+D 8.) Fix: nullpointer in ProxyDataThread in longrunning realtime proxy
+- 9.) Make ViewControl.setPlotInterval limit at reasonable min/max vals
+
+Thu 23 Jun 2005
+- 1.) Clean code as per findbugs suggestions
+D 2.) Add color editor link to webpage
+D 3.) Make sure sweep is visible when viewing bookmarks (delay comment?) (made dialog smaller and resizeable)
+  4.) Fix: ArrayIndexOutOfBounds in ProxyDataThread after long runtime (~:314)
+
+Mon 27 Jun 2005
+D 1.) Fix: nullpointer exception in realimeproxy when data server is running but no data coming
+
+Wed 29 Jun 2005
+D 1.) Change default scale String[][] to unmodifiable list in Config
+D 2.) Change synchronization object in controlsyncqueue and cache
+D 3.) Make Config more tolerant of bad input - parse as double, then int-ify
+D 4.) Make map menu items have checkboxen/radiobuttons
+
+Thu 30 Jun 2005
+D 1.) Fix: <no map> misidentified as custom on startup
+  2.) Update filebrowser when loading custom maps to show whether they are active
+D 3.) Make ViewPlotInformation accept Date rather than String[]
+
+Mon 11 Jul 2005
+D 1.) Make event window resizeable vertically
+D 2.) Move window size info into WindowManager
+D 3.) Move connection options into right-click menu
+D 4.) Add connection options to file menu
+D 5.) Fix: bottom cut off on bottom panels until resized (now only on sun)
+
+Thu 14 Jul 2005
+D 1.) Fix: saving image loops needs better than second resolution to prevent overwrite
+  2.) Fix: Sphere jumps by noticeable amount when sweep direction changes
+
+Mon 18 Jul 2005
+D 1.) Move event log to below desktop
+- 2.) Fix: resizing event log should scroll back to bottom (not feasible)
+D 3.) Make secondary type on ascopes default to threshold type
+D 4.) Add keyboard shortcut for saving image (separate keys for ascope & plot)
+
+Thu 21 Jul 2005
+D 1.) Improve help
+D 2.) Fix: proxy server hangs when requesting data
+D 3.) Save last entry in connect to archive box
+- 4.) Change connection boxes to drop-down lists of past several entries? (not on file yet)
+D 5.) Add keyboard shortcuts to color editor
+
+Mon 25 Jul 2005
+D 1.) Overhaul file chooser for selecting local files for viewing to be more intuitive
+
+Wed 27 Jul 2005
+D 1.) Overhaul about dialog (included CSU logo, improved version visibility)
+
+Thu 28 Jul 2005
+D 1.) Fix: Middle-click recentering does not affect all windows
+D 2.) Add recenter option to popup menu in windows?
+- 3.) Fix: Stop button stops plot, but does not stop inflow of archive data (can't reproduce problem)
+D 4.) Add clear cache button to advanced tab
+D 5.) Change bookmark creation from wizard to unified dialog style
+
+Wed 3 Aug 2005
+D 1.) Add ability to import XML bookmarks from another source (file, web)
+D 2.) Redesign plotting to use less temporary objects
+D 3.) Check: Does already-expandedness impact continuous mode?
+D 4.) Fix: Windows get out of synch in continuous mode
+D 5.) Fix: New windows aren't centered correctly
+
+Mon 8 Aug 2005
+D 1.) Reduce delay between sweeps in continuous mode?
+
+Thu 11 Aug 2005
+D 1.) Move recenter option to top of menu?
+
+Mon 15 Aug 2005
+D 1.) Fix: Continuous mode gets b0rked when hitting an already-expanded file
+
+Wed 17 Aug 2005
+D 1.) Fix: Realtime connections fail to disconnect
+D 2.) Fix: ConcurrentModificationException when closing windows in realtime
+D 3.) Fix: New windows fail to show current sweep until refreshed/replotted
+  4.) Merge realtime server selection and operator request dialogs?
+D 5.) Fix: nullpointer in realtime cachethread after disconnecting
+
+Thu 18 Aug 2005
+D 1.) Update website (now XHTML1.1 compliant)
+- 2.) Add ability to (edit? delete?) bookmarks via right-click
+D 3.) Add ability to create bookmark via right-click on browser tree
+  4.) Try to prevent browser tree from stealing "global" hotkeys
+  5.) Fix: Japanese text shows as boxes in bookmark browser; fine in comments
+- 6.) Add help menu items for mouse controls, etc
+D 7.) Change icon on saved image browser (& radar control dialogs?)
+- 8.) Make velocity unfolding menu menu item a checkbox? (not feasible)
+  9.) Check: Realtime control server sends badly formatted numbers?
+D10.) Get rid of "import xxx.*" in Radar dialogs
+D11.) Only list "my:" categories as options in bookmark creation?
+D12.) Add keyboard shortcut to reconnect menu item (ctrl-r?)
+D13.) Make it possible to run color editor from within VChill?
+ 14.) Make it possible to run proxy from within VChill?
+ 15.) Fix: aioobe in SocketMain (:550) makes whole program useless
+
+Tue 23 Aug 2005
+D 1.) See about making right-clicks on trees affect clicked item
+
+Wed 24 Aug 2005
+D 1.) Add support for writing animated GIF files (Gif89Encoder)
+
+Thu 25 Aug 2005
+D 1.) Fix delay in animated gifs
+D 2.) Add progress monitor to animated gif saving
+D 3.) Fix: speed dialog in image viewer causes viewer to lower (wrong parent?)
+D 4.) Allow user to cancel animated gif saving
+D 5.) Change default for saving images to "all"
+- 6.) Add tooltips to more controls
+
+Mon 29 Aug 2005
+D 1.) Add display of # images saved/remaining
+- 2.) Add ability to clear all images (Clears current type)
+D 3.) Make loop to gif button automatically add extension if necessary
+
+Tue 30 Aug 2005
+D 1.) Add ability to save individual images as GIF
+
+Wed 31 Aug 2005
+D 1.) Add context menu to Bookmark tree
+D 2.) Add ability to import bookmarks from file
+D 3.) Add ability to import bookmarks from url
+D 4.) Add ability to export (some?) bookmarks
+
+Thu 1 Sep 2005
+D 1.) Add ability to remove bookmarks
+D 2.) Add ability to reconnect a right-clicked connection
+D 3.) Add ability to get bookmarks from a right-clicked connection?
+D 4.) Add ability to disconnect a right-clicked connection
+
+Thu 8 Sep 2005
+D 1.) Add ability to rename bookmarks
+D 2.) Add ability to move bookmarks
+D 3.) Add ability to merge categories
+D 4.) Change move/merge dialog input widgets to editable comboboxen
+
+Fri 9 Sep 2005
+D 1.) Make export/delete/move work with arbitrary selections
+
+Mon 12 Sep 2005
+D 1.) Make current image number / max images limit editable in image browser
+D 2.) Add ability to composite animations
+
+Tue 13 Sep 2005
+D 1.) Fix: compositing dialog makes image browser dissapear from view
+D 2.) Add automatic color reduction when saving to gif?
+
+Wed 14 Sep 2005
+- 1.) Look at data / range readout in time/height plots
+
+Mon 19 Sep 2005
+D 1.) Improve initial window positioning algorithm to make better use of space
+  2.) Fix: occasional missing browser pane at startup
+- 3.) Fix: occasional aioobe @ Vector via SocketMain.getBookmarks at startup (no longer used)
+
+Wed 21 Sep 2005
+D 1.) Remove disconnected connections from tree (realtime at least)
+
+Thu 22 Sep 2005
+D 1.) Improve right-click menus on browser trees (right-click sets selection)
+D 2.) Update libraries to looks 1.3.2 and netcdf 2.2.10
+
+Mon 26 Sep 2005
+D 1.) Fix: color editor & proxy depend on bookmarks
+D 2.) Make it easier to edit/update bookmark contents
+
+Mon 3 Oct 2005
+D 1.) Make autoscale checkboxes dis-/enable manual scale inputs
+D 2.) Same for checkboxes in advanced tab
+D 3.) Fix: Recentering broken with bookmarks open
+
+Tue 4 Oct 2005
+D 1.) Add ability to read CASA netcdf files (needs testing)
+
+Thu 6 Oct 2005
+D 1.) Fix: colortable editor gets confused with different #colors in same table
+
+Mon 10 Oct 2005
+D 1.) Change window creation order - 2nd to low right
+D 2.) Make ascope scale more visible - move white text to right?
+D 3.) Fix: nullpointer in ascope getValue() (no longer called at all)
+
+Wed 12 Oct 2005
+D 1.) Fix: clicking a sweep causes it to plot twice (for select & click?)
+
+Thu 13 Oct 2005
+D 1.) Allow multi selection for filesystem connect dialog
+D 2.) Fix: rightclicking in filebrowser fails when nothing is selected
+
+Fri 21 Oct 2005
+D 1.) Fix: Moving bookmarks defaults to bookmark name not category name
+- 2.) Check centering in bookmarks
+D 3.) Add ability to duplicate/copy bookmarks
+
+Mon 31 Oct 2005
+D 1.) Fix: Time is off when plotting local data files
+
+Mon 7 Nov 2005
+D 1.) Fix: Attempting to view missing types in casa netcdf causes hang
+
+Tue 8 Nov 2005
+D 1.) Fix: Converted (drx -> casa netcdf) files not readable
+
+Wed 9 Nov 2005
+  1.) Improve speed of netcdf reading
+D 2.) Fix: range discrepancy with files vs archive server
+
+Fri 11 Nov 2005
+D 1.) Fix: Rho broken - only shows 1st & last rays (smoothing was truncating)
+
+Tue 15 Nov 2005
+D 1.) Fix: Can't set negative scale minimum (was threshold in ViewControl / missing data issue)
+D 2.) Fix: Incoming messages are discarded before the message checking code runs
+
+Mon 21 Nov 2005
+D 1.) Fix: ascope win secondary initially shows null (wrongly)
+
+Tue 22 Nov 2005
+D 1.) Convert maps to long/lat based coordinates
+D 2.) Get & use long/lat coordinates for radar data
+
+Dec 2005
+D 1.) Convert to generalized protocol
+
+Thu 23 Feb 2006
+D 1.) Fix: rightclick menus don't update when new scaling blocks come in
+D 2.) Fix: nullpointer when trying to access bookmark properties
+
+Tue 14 Mar 2006
+D 1.) Fix: nullpointer int ViewPlotMethod.getColorValue when changing color table while plotting
+D 2.) Fix: nullpointer when trying to read data files (off hdd)
+D 3.) Fix type name mismatch when creating/reading netcdf
+
+Fri 17 Mar 2006
+D 1.) Fix: proxy deadlocks while connecting
+D 2.) Fix: proxy doesn't send data correctly
+
+Wed 22 Mar 2006
+D 1.) Fix: ?scalemanager? not threadsafe (deadlocks / concurrent modification)
+
+Tue 28 Mar 2006
+D 1.) Make RealtimeConnection store metadata
+- 2.) Make plotting capable of using (some) metadata (tracking (late jun 29 2k?) etc)
+
+Mon 10 Apr 2006
+D 1.) Fix: plotting overdraws into annotation
+- 2.) Add support for reading WCR netcdf data?
+D 3.) Fix: Time/height plots blank
+
+Thu 20 Apr 2006
+D 1.) Fix - overlay doesn't update when changing range/ring settings
+D 2.) Move saved image browser from vc to wm to allow automated saving of images to disk
+D 2.) Fix - metadata causes problems with realtime/cyclic cache
+
+Fri 21 Apr 2006
+D 1.) Allow program to run without showing GUI
+D 2.) Allow images to be saved directly to disk
+D 3.) Add commandline control for saving images
+D 4.) Fix: nullpointer when opening image browser
+
+Wed 26 Apr 2006
+D 1.) Fix: Position error causes gui to lock
+D 2.) Fix: Imagebrowser not getting updated when new datatypes become available
+D 3.) Update looks library to 2.0.1
+
+Mon 1 May 2006
+D 1.) Change netcdf reading to update menus even without window open
+- 2.) Add a way to detect PPI vs RHI vs TH for netcdf? (forced WCR to TH, waiting for additional CASA field)
+
+Tue 2 May 2006
+D 1.) Fix: when TH plot overwrites existing data, preexisting data past current plot limit stays intact
+- 2.) Fix: bookmark text parser gets aioobe on very fast machines (now get type list every time rather than once at beginning to counteract this)
+D 3.) Tone down/get rid of login cancellation messages
+
+Wed 3 May 2006
+D 1.) Fix: need list of field names to load bookmarks; these may not be available in case of server probs
+D 2.) Fix: DRX file reading is broken
+D 3.) Fix: unfolding
+D 4.) Fix: CASA netcdf scales off by 10x
+
+Mon 8 May 2006
+D 1.) RFI: make program start up in sweep mode to prevent accidental "lockup" like behaviour
+  2.) Add checkbox for saving password to login dialog?
+
+Thu 25 May 2006
+D 1.) Fix: when radar location changes, map does not update correctly until manually prodded
+
+Wed 31 May 2006
+- 1.) RFI: make background start with stretched area rather than black when zooming (no longer necessary)
+D 2.) RFI: allow zooming/panning by dragging square new bounds box
+  3.) RFI: allow panning in RHI
+D 4.) RFI: catch unnecessary rays earlier in plotting to speed up drawing (added angle based detection to PPI)
+- 5.) Fix: netcdf file that works on sun fails to load on windows? (can't reproduce)
+  6.) RFI: make login dialogs start with focus on input, not button (on sun/linux?)
+D 7.) Fix: often, rays will be missing on start of first sweep (seems to be caused by map reload) (no longer have to reload maps)
+D 8.) Add support for reading NCAR netcdf files
+
+Wed 7 Jun 2006
+D 1.) Make zoom keep display center rather than radar center constant
+  2.) RFI: add window tile option (cover screen w/ no overlap, minimal waste)
+D 3.) RFI: add ability to drag around display to pan
+D 4.) Move "Reset display" to toplevel; add 1x Zoom?
+D 5.) Add optional cutoff mode: absolute value
+
+Tue 11 Jul 2006
+- 1.) Check: smoothing with non-signal = f00bar (treated as 0?)
+  2.) RFI: add radar & scan information (window? tab?)
+D 3.) Fix: realtime always saves images
+D 4.) Fix: realtime doesn't work properly if archive connects first
+  5.) RFI: allow datavalue lookup in realtime mode
+  6.) RFI: optionally decouple window sizes
+
+Thu 13 Jul 2006
+D 1.) Fix: paths are wrong in edu bookmarks due to reorganization of data
+D 2.) Add log/status message when clearing cache
+D 3.) Only add offsets to angles if start == end
+D 4.) Change from line-based to polygons for rendering?
+  5.) RFI: move range-ring labels if offscreen
+D 6.) RFI: add radials in addition to range rings
+
+Wed 19 Jul 2006
+  1.) Fix: ascopes freeze occasionally
+  2.) RFI: add start range to ascopes
+- 3.) RFI: indicate (in menus?) which fields are available
+
+Thu 20 Jul 2006
+D 1.) RFI: move some right-click items to lower-left tabbed panel?
+D 2.) Fix: disconnect if not connected -> nullpointer (should be disabled)
+D 2.) Fix: connecting to realtime while already connected to one -> Bad Things (should be disabled)
+- 3.) RFI: clear list of known data types when connecting to enable
+- 4.) RFI: save/load min/max limits of data types
+
+Tue 25 Jul 2006
+  1.) RFI: allow maps to be different colors
+D 2.) RFI: add additional threshold modes - above & below
+
+Wed 26 Jul 2006
+  1.) RFI: add option to save/load a file containing current setup (open windows, scaling, etc)
+
+Mon 31 Jul 2006
+D 1.) Fix: Adjusted reflectivity doesn't show up correctly for CASA netcdf files
+D 2.) Update to looks 2.0.4
+
+Thu 3 Aug 2006
+D 1.) Fix: NaN is not retrieved correctly from compressed bytes
+
+Mon 7 Aug 2006
+D 1.) RFI: don't redraw clicked rays in sweep/continuous mode
+
+Mon 14 Aug 2006
+D 1.) Fix: top colorbar not used? (was unnecessarily using numcolors - 1)
+D 2.) RFI: Move colorbar/labels so labels line up better with colorbar boundaries
+  3.) RFI: Make clickpt more obvious
+D 4.) RFI: Popup an error dialog when failing to connect to server
+- 5.) RFI: If GUI off, auto-reconnect
+
+Wed 20 Sep 2006
+D 1.) Add exportability of data into other application
+D 2.) Plot from end angle of previous ray to prevent overplot/black spots (currently uses both draw- and fillPolygon to avoid black - works, but slow)
+
+Mon 25 Sep 2006
+D 1.) Add check to angles - don't plot if diff to last > 5 degrees
+D 2.) Fix: NCAR format netcdf starts with wonky scales
+D 3.) Fix max max plot range (get from server instead of haredcoded 150)
+
+Mon 1 Oct 2006
+D 1.) Fix: missing (previously available) data types crash SocketMain w/ nullptr
+  2.) RFI: change map file format to allow use of (stack-based) polyline etc
+
+Thu 30 Nov 2006
+D 1.) Fix: modifying unmodifiable collection on bad map file name (vc :350)
+D 2.) Fix: map with initial 0xfeff BOM fails to load
+
+Mon 11 Dec 2006
+D 1.) Fix: array index out of bounds exception with unknown color map type
+D 2.) Upgrade looks to 2.1.1
+- 3.) Add ability to read out values from TH mode (range-only based OK)
+
+Mon 17 Jan 2007
+D 1.) Upgrade to netcdf 2.2.18
+D 2.) Change file browser to include levels for year, month, day (now supports arbitrary directory structures)
+
+Mon 12 Feb 2007
+D 1.) Fix: smoothing causes sporadic "spikes" (was due to optimization for same-value plotting at once)

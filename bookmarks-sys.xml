@@ -1,0 +1,1143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>VAD_winds</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/05/10</directory>
+        <file>CHL20030510_054352</file>
+        <sweep>Sweep 04</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>45.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>true</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>120.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+These data were collected during a widespread
+precipitation event over the eastern plains
+of Colorado.  The precipitation started as
+rain and changed to wet snow overnight.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>ZDR_column</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/06/06</directory>
+        <file>CHL20030606_233901</file>
+        <sweep>Sweep 04</sweep>
+        <scantype>RHI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>65.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>75.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+This RHI scan was taken through a severe
+thunderstorm that was developing southeast
+of Greeley, Colorado.  A PPI view of the storm
+can be obtained by selecting the preceding
+volume time (233431 UTC COMSUR) in the
+playback control window.  Lower sweep
+numbers in the PPI volume are worth
+examination.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>brightband_example</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/05/09</directory>
+        <file>CHL20030509_234244</file>
+        <sweep>Sweep 02</sweep>
+        <scantype>RHI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>45.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>75.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+These data were collected during a widespread
+late spring precipitation event in the greater
+Denver area.  At the time that these data were
+collected, the precipitation at the surface was
+all rain.   During the following night, the
+precipitation changed over to heavy, wet snow.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>hailstorm</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/06/03</directory>
+        <file>CHL20030603_004017</file>
+        <sweep>Sweep 01</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>65.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>-16.88</x>
+            <y>-17.07</y>
+        </pan>
+        <range>18.75</range>
+        <ring>10.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+These radar data were collected from a pulse type
+severe thunderstorm.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>rain_snow</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/03/18</directory>
+        <file>CHL20030318_054137</file>
+        <sweep>Sweep 03</sweep>
+        <scantype>RHI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>45.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>75.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+This RHI scan was taken during the onset of
+what eventually became the historic
+blizzard that struck Pueblo - Denver - Cheyenne
+region between 17 and 19 March, 2003.  The
+RHI azimuth is 285 degrees; the CSU-CHILL
+radar is located near Greeley, Colorado.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>snowband</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/03/19</directory>
+        <file>CHL20030319_050400</file>
+        <sweep>Sweep 03</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>45.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-20.00</minval>
+                <maxval>20.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>20.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-48.17</minval>
+                <maxval>0.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-48.17</minval>
+                <maxval>0.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-180.00</minval>
+                <maxval>180.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.44</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>75.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+These radar data were collected during the
+blizzard that affected the eastern slopes of the
+Rocky Mountains in Colorado and Wyoming
+during March, 2003.  A blizzard warning
+issued by the NWS was in effect at the data
+time shown here.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>AMS_SEA</category>
+        <name>tornado</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2002/08/29</directory>
+        <file>CHL20020829_013441</file>
+        <sweep>Sweep 02</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>65.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>false</autoscale>
+                <minval>-20.00</minval>
+                <maxval>20.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>true</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>27.61</x>
+            <y>75.22</y>
+        </pan>
+        <range>30.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+The severe thunderstorm in this image was
+located near the town of Burns in southeast
+Wyoming.  NWS severe weather spotters near
+their observed at tornado while these radar
+data were being collected..
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Blizzard</category>
+        <name>Heavy_snow_band_over_Ft._Collins</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/03/19</directory>
+        <file>CHL20030319_015400</file>
+        <sweep>Sweep 02</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>35.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-5.00</minval>
+                <maxval>15.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-80.00</minval>
+                <maxval>90.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>1.5</x>
+            <y>-19.5</y>
+        </pan>
+        <range>60.0</range>
+        <ring>20.0</ring>
+        <rhiheight>10.0</rhiheight>
+        <comment>
+Some of the most intense snowfall in the Fort
+Collins area during the blizzard of 3/18 - 20/2003
+took place during the evening hours (local time)
+on Tuesday, 3/18/2003.  This low elevation
+angle PPI was recorded at 0155 UTC on
+3/19 (6:55 PM local standard time on Tuesday
+evening).  A band of reflectivities approaching
+30 dBZ lies some 40 km west of the CHILL
+radar site, roughly between I-25 and the
+front range foothills.  Conditions were quite
+different at the CHILL site, which was located
+along the northeastern edge of the general
+echo coverage on this PPI sweep.  (The storm
+total snowfall at the radar was under 5 inches;
+some 30 inches were observed at Ft. Collins).
+The radial velocities exhibit folded inbound
+magnitudes to the north of the radar within the
+20 km range ring.  The strongest ourbound
+velocities are found between the 20 and 40 km
+range rings south-southwest of CHILL.  The
+orientation of the zero radial velocity line also
+changes appreciably between the western and
+southeastern azimuth sectors.  These radial
+velocity patterns are similar to those reported
+by Dunn (MWR 1992, p914-924) in Colorado
+heavy snow event that contained a barrier jet.
+The LDR pattern was essentially featureless.
+This is is typical of heavily aggregated / rimed
+snow particles with low bulk densities.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Hail</category>
+        <name>Severe_hailstorm_at_DEN_airport:_6-21-2001</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2001/06/21</directory>
+        <file>CHL20010621_014558</file>
+        <sweep>Sweep 01</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>70.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>10.05</x>
+            <y>-77.25</y>
+        </pan>
+        <range>30.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+Around 1933 MDT on 6/20/2001 (0133 UTC
+on 6/21/2001), a severe thunderstorm with
+large hail crossed Denver International
+Airport.  (On the normal CHILL basemap, the
+airport location is shown by a white plus symbol
+at azimuth 183 degrees / range 65 km).
+The airport weather observer reported
+2 inch diameter hailstones.  Numerous aircraft,
+automobiles, and flat portions of the terminal
+and concourse roofs sustained significant
+hail damage.  The storm was traveling towards
+the SSE.  After striking DIA, it also inflicted
+significant damage at Front Range airport
+and in the neighboring town of Watkins.  At both
+of these locations, the hail damage was amplified
+by high wind speeds.  The polarimetric data
+fields show well-defined evidence of hail.
+(High dBZ, low / negative zdr, very high ldr,
+locally reduced rhohv).  If the phidp color table
+limits are set to -50 to +50 degrees, the sweep
+one phidp colors show a corregated sequence
+in which they locally reverse from the normal "up
+the color scale" progression.  This may be a
+result of Mie scattering effects from the large
+diameter hailstones.  Three body scattering
+artifacts extending down-range from the echo
+core are also evident.
+A good vertical section through the storm
+can be seen in sweep 3 of the RHI volume that
+immediately followed this PPI volume.
+(i.e. the RHI volume  starting at 0149:29).
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Initialize</category>
+        <name>Default_Settings</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2002/10/29</directory>
+        <file>CHL20021029_145519</file>
+        <sweep>Sweep 01</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>70.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-80.00</minval>
+                <maxval>30.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>150.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+This bookmark may be used to set the display
+settings to suggested "default" values
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Pulse_Type_Hailstorm</category>
+        <name>Brighton_Hailstorm:_6-3-2003</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2002/06/03</directory>
+        <file>CHL20020603_220514</file>
+        <sweep>Sweep 01</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>70.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>-8.25</x>
+            <y>-50.06</y>
+        </pan>
+        <range>18.75</range>
+        <ring>10.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+Around 2200 UTC / 1600 MDT on 3 June 2003,
+a "pulse type" severe thunderstorm went through
+its most intense phase as it crossed the area
+just northeast of Brighton, Colorado.  During a
+post storm damage survey, an area was
+identified in which golfball sized hailstones
+damaged structures and vehicles.  Airborne
+video tape footage obtained by Mike Silva in the
+KCNC TV helicopter showed complete ground
+coverage by hail in some areas.  Based on
+the near 0 dB ZDR hail signature in the
+high reflectivity echo core,, the storm
+only produced hail for a fairly short time period.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Rain_Snow_Line</category>
+        <name>Rain_to_Snow_Transition</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2003/03/18</directory>
+        <file>CHL20030318_054137</file>
+        <sweep>Sweep 02</sweep>
+        <scantype>RHI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>50.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-5.00</minval>
+                <maxval>15.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-1.00</minval>
+                <maxval>2.75</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-80.00</minval>
+                <maxval>90.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>-8.25</x>
+            <y>-50.06</y>
+        </pan>
+        <range>30.0</range>
+        <ring>20.0</ring>
+        <rhiheight>10.0</rhiheight>
+        <comment>
+This RHI was taken during the earliest phase of
+what was to become the Colorado Front Range
+blizzard of 3/18 - 20/2003.  When these data
+were collected, light rain was observed at the
+CHILL site near Greeley.  Approximately 40 km
+to the west (generally along the RHI plane), the
+precipitation was primarily snow.  The enhanced
+reflectivity, linear depolarization ratio (LDR) and
+locally positive differential reflectivity (ZDR)
+are all typical of melting snow.  Thus, the
+rain / snow
+transition area near the ground is located around
+the 22 - 26 km range interval.
+(Note: It is also instructive to redisplay this
+same sweep with the "rho" (H, V correlation at
+zero time lag) field selected.  A rhoHV minimum
+and be seem where a mixture of liquid drops
+and frozen particles co-exist within the radar
+pulse volume.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Smoke_Echos</category>
+        <name>Smoke_plume_from_Steamboat_Springs_area</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2002/08/19</directory>
+        <file>CHL20020819_160851</file>
+        <sweep>Sweep 04</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>35.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>false</autoscale>
+                <minval>-5.00</minval>
+                <maxval>15.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>true</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-33.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-80.00</minval>
+                <maxval>90.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>0.0</x>
+            <y>0.0</y>
+        </pan>
+        <range>75.0</range>
+        <ring>20.0</ring>
+        <rhiheight>10.0</rhiheight>
+        <comment>
+On 19 August 2002, visible wavelength
+satellite data showed that the smoke plume from
+a wild fire near Steamboat Springs Colorado was
+drifting towards the CHILL radar site.  These
+images show a PPI scan through the smoke
+layer.  Perhaps the most remarkable feature
+is the "dumbell" ZDR pattern.  Intensely
+positive ZDR values are clustered north and
+south of the radar, while minima exist on the
+east and west azimuths.  Mueller and Larkin
+(JTEC 1985, p49-54) found a similar ZDR
+pattern when the CHILL radar was observing
+echoes from flying insects.  The positive ZDR
+maxima appear when the radar is viewing the
+"broadside" aspect of the scatterers.  In this
+case, it appears that the smoke / ash particles
+were aligned with the general westerly air
+flow.  More detailed analyses of these smoke
+echo observations are underway.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Stratiform_Summer</category>
+        <name>Stratiform+convective_RHI:_STEPS_5-26-2000</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2000/05/26</directory>
+        <file>CHL20000526_232937</file>
+        <sweep>Sweep 06</sweep>
+        <scantype>RHI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>70.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>true</autoscale>
+                <minval>-10.00</minval>
+                <maxval>10.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-10.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>false</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>-18.38</x>
+            <y>-114.19</y>
+        </pan>
+        <range>120.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+This RHI scan intercepted both the trailing
+stratiform region and the leading convective
+zone of a squall line.  The brightband echo in
+the stratiform echo is apparent in the dBZ,
+zdr, and rhohv fields.  A positive zdr column
+is present in the convective updraft (at a range
+of ~72 km).  Also in the convective echo, the
+radial velocity patterns show convergence
+near the surface and divergence at the
+echo summit.
+        </comment>
+    </bookmark>
+    <bookmark>
+        <category>Tornado</category>
+        <name>Burns-Carpenter_WY_tornado:_29_August_2003</name>
+        <url>xlab.chill.colostate.edu:2510</url>
+        <directory>/dsk/dnf/data/2002/08/29</directory>
+        <file>CHL20020829_013441</file>
+        <sweep>Sweep 02</sweep>
+        <scantype>PPI</scantype>
+        <color>
+            <dBZ>
+                <autoscale>false</autoscale>
+                <minval>-10.00</minval>
+                <maxval>65.00</maxval>
+            </dBZ>
+            <Vel>
+                <autoscale>false</autoscale>
+                <minval>-20.00</minval>
+                <maxval>20.00</maxval>
+            </Vel>
+            <Wid>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>8.00</maxval>
+            </Wid>
+            <NCP>
+                <autoscale>false</autoscale>
+                <minval>0.00</minval>
+                <maxval>1.00</maxval>
+            </NCP>
+            <ZDR>
+                <autoscale>false</autoscale>
+                <minval>-2.00</minval>
+                <maxval>5.50</maxval>
+            </ZDR>
+            <LDRH>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRH>
+            <LDRV>
+                <autoscale>false</autoscale>
+                <minval>-30.00</minval>
+                <maxval>-15.00</maxval>
+            </LDRV>
+            <PHIDP>
+                <autoscale>true</autoscale>
+                <minval>-50.00</minval>
+                <maxval>50.00</maxval>
+            </PHIDP>
+            <RhoHV>
+                <autoscale>false</autoscale>
+                <minval>0.88</minval>
+                <maxval>1.05</maxval>
+            </RhoHV>
+        </color>
+        <pan>
+            <x>27.61</x>
+            <y>75.22</y>
+        </pan>
+        <range>30.0</range>
+        <ring>20.0</ring>
+        <rhiheight>25.0</rhiheight>
+        <comment>
+The severe thunderstorm in this image was
+located near the town of Burns in southeast
+Wyoming.  NWS severe weather spotters near
+their observed at tornado while these radar
+data were being collected..
+        </comment>
+    </bookmark>
+</bookmarks>

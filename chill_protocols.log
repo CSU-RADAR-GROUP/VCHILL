@@ -1,0 +1,772 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009) (format=pdflatex 2009.11.7)  30 AUG 2011 12:37
+entering extended mode
+ %&-line parsing enabled.
+**chill_protocols.tex
+(./chill_protocols.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2009-06-19, ngerman-x-2009-06-19, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, ku
+rmanji, latin, latvian, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, po
+lish, portuguese, romanian, russian, sanskrit, serbian, slovak, slovenian, span
+ish, swedish, turkish, ukenglish, ukrainian, uppersorbian, welsh, loaded.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2009/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2009/10/02 v1.5 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2009/10/02 xcolor patch
+))
+\@linkdim=\dimen103
+\Hy@linkcounter=\count87
+\Hy@pagecounter=\count88
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2009/08/13 v3.4 Keyval support for LaTeX options (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2009/07/30 v1.5 Key value parser with default handler suppor
+t (HO)
+))
+Package hyperref Info: Hyper figures OFF on input line 2975.
+Package hyperref Info: Link nesting OFF on input line 2980.
+Package hyperref Info: Hyper index ON on input line 2983.
+Package hyperref Info: Plain pages OFF on input line 2990.
+Package hyperref Info: Backreferencing OFF on input line 2995.
+
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 3191.
+(/usr/local/texlive/2009/texmf-dist/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip10
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 3428.
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2009/09/23 v0.6 LuaTeX support for pdfTeX utility functions
+ (HO)
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2009/04/17 v1.2 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2009/08/05 v1.0 Some LaTeX kernel commands for general use (HO
+)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+)))
+\Fld@menulength=\count89
+\Field@Width=\dimen104
+\Fld@charsize=\dimen105
+\Field@toks=\toks15
+Package hyperref Info: Hyper figures OFF on input line 4377.
+Package hyperref Info: Link nesting OFF on input line 4382.
+Package hyperref Info: Hyper index ON on input line 4385.
+Package hyperref Info: backreferencing OFF on input line 4392.
+Package hyperref Info: Link coloring OFF on input line 4397.
+Package hyperref Info: Link coloring with OCG OFF on input line 4402.
+Package hyperref Info: PDF/A mode OFF on input line 4407.
+
+(/usr/local/texlive/2009/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count90
+\c@Item=\count91
+\c@Hfootnote=\count92
+)
+*hyperref using default driver hpdftex*
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
+\Fld@listcount=\count93
+)
+(/usr/local/texlive/2009/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip43
+\LTright=\skip44
+\LTpre=\skip45
+\LTpost=\skip46
+\LTchunksize=\count94
+\LTcapwidth=\dimen106
+\LT@head=\box26
+\LT@firsthead=\box27
+\LT@foot=\box28
+\LT@lastfoot=\box29
+\LT@cols=\count95
+\LT@rows=\count96
+\c@LT@tables=\count97
+\c@LT@chunks=\count98
+\LT@p@ftn=\toks16
+)
+(./chill_protocols.aux)
+\openout1 = `chill_protocols.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+Package hyperref Info: Link coloring OFF on input line 15.
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
+
+(/usr/local/texlive/2009/texmf-dist/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count99
+)
+LaTeX Info: Redefining \ref on input line 15.
+LaTeX Info: Redefining \pageref on input line 15.
+
+(./chill_protocols.out) (./chill_protocols.out)
+\@outlinefile=\write3
+\openout3 = `chill_protocols.out'.
+
+\AtBeginShipoutBox=\box30
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 17.
+
+
+LaTeX Warning: No \author given.
+
+[1
+
+{/usr/local/texlive/2009/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./chill_protocols.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 2.
+)
+\tf@toc=\write4
+\openout4 = `chill_protocols.toc'.
+
+ [2] [3] [4]
+Overfull \vbox (4.58025pt too high) has occurred while \output is active []
+
+
+[5]
+Overfull \hbox (11.63954pt too wide) in alignment at lines 147--148
+ [] [] 
+ []
+
+
+Overfull \hbox (11.63954pt too wide) in alignment at lines 148--149
+ [] [] 
+ []
+
+
+Overfull \hbox (11.63954pt too wide) in alignment at lines 149--150
+ [] [] 
+ []
+
+
+Overfull \hbox (11.63954pt too wide) in alignment at lines 150--172
+ [] [] 
+ []
+
+[6]
+Overfull \hbox (12.72292pt too wide) in alignment at lines 199--200
+ [] [] 
+ []
+
+
+Overfull \hbox (12.72292pt too wide) in alignment at lines 200--201
+ [] [] 
+ []
+
+
+Overfull \hbox (12.72292pt too wide) in alignment at lines 201--202
+ [] [] 
+ []
+
+
+Overfull \hbox (12.72292pt too wide) in alignment at lines 202--222
+ [] [] 
+ []
+
+[7] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 322--325
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--325
+
+ []
+
+[9] [10]
+Overfull \hbox (12.75015pt too wide) in alignment at lines 434--439
+ [] [] [] 
+ []
+
+
+Overfull \hbox (12.75015pt too wide) in alignment at lines 439--440
+ [] [] [] 
+ []
+
+
+Overfull \hbox (12.75015pt too wide) in alignment at lines 440--441
+ [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 463--463
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (12.75015pt too wide) in alignment at lines 441--465
+ [] [] [] 
+ []
+
+[11] [12] [13]
+Overfull \hbox (47.11757pt too wide) in alignment at lines 540--545
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (47.11757pt too wide) in alignment at lines 545--546
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (47.11757pt too wide) in alignment at lines 546--547
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (3.88687pt too wide) in paragraph at lines 564--564
+[]|[]\OT1/cmr/m/n/10 unsigned
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+[]|\OT1/cmr/m/n/10 seconds
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+\OT1/cmr/m/n/10 since
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 564--565
+\OT1/cmr/m/n/10 UNIX
+ []
+
+
+Overfull \hbox (47.11757pt too wide) in alignment at lines 547--570
+ [] [] [] [] 
+ []
+
+[14]
+Overfull \hbox (47.01384pt too wide) in alignment at lines 576--581
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (47.01384pt too wide) in alignment at lines 581--582
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (47.01384pt too wide) in alignment at lines 582--583
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--584
+[]|[]\OT1/cmr/m/n/10 unsigned
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--585
+[]|\OT1/cmr/m/n/10 seconds
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--585
+\OT1/cmr/m/n/10 since
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 584--585
+\OT1/cmr/m/n/10 UNIX
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
+[]|\OT1/cmr/m/n/10 meters
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
+\OT1/cmr/m/n/10 above
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
+\OT1/cmr/m/n/10 ground
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 594--594
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 594--594
+\OT1/cmr/m/n/10 String(32)| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 596--596
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 596--596
+\OT1/cmr/m/n/10 String(32)| 
+ []
+
+
+Overfull \hbox (47.01384pt too wide) in alignment at lines 583--598
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (48.52802pt too wide) in alignment at lines 604--609
+ [] [] [] 
+ []
+
+
+Overfull \hbox (48.52802pt too wide) in alignment at lines 609--610
+ [] [] [] 
+ []
+
+
+Overfull \hbox (48.52802pt too wide) in alignment at lines 610--611
+ [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 612--612
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 614--614
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 618--618
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (48.52802pt too wide) in alignment at lines 611--637
+ [] [] [] 
+ []
+
+[15]
+Overfull \hbox (62.31941pt too wide) in alignment at lines 643--648
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (62.31941pt too wide) in alignment at lines 648--649
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (62.31941pt too wide) in alignment at lines 649--650
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 651--651
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 651--651
+\OT1/cmr/m/n/10 String(32)| 
+ []
+
+
+Overfull \hbox (4.2769pt too wide) in paragraph at lines 653--654
+[]|$\OML/cmm/m/it/10 degrees \OMS/cmsy/m/n/10 ^^C
+ []
+
+
+Overfull \hbox (4.2769pt too wide) in paragraph at lines 655--656
+[]|$\OML/cmm/m/it/10 degrees \OMS/cmsy/m/n/10 ^^C
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 657--658
+[]|\OT1/cmr/m/n/10 mm
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 657--658
+\OT1/cmr/m/n/10 above
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 657--658
+\OT1/cmr/m/n/10 mean
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 657--658
+\OT1/cmr/m/n/10 sea
+ []
+
+
+Underfull \hbox (badness 2772) in paragraph at lines 675--675
+[]|\OT1/cmr/m/n/10 The tilt/sweep se-quence num-ber (count-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--682
+[]|[]\OT1/cmr/m/n/10 unsigned
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--683
+[]|\OT1/cmr/m/n/10 seconds
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--683
+\OT1/cmr/m/n/10 since
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--683
+\OT1/cmr/m/n/10 UNIX
+ []
+
+
+Overfull \hbox (62.31941pt too wide) in alignment at lines 650--684
+ [] [] [] [] 
+ []
+
+[16]
+Overfull \hbox (11.11748pt too wide) in alignment at lines 690--695
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (11.11748pt too wide) in alignment at lines 695--696
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (11.11748pt too wide) in alignment at lines 696--697
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (11.11748pt too wide) in alignment at lines 697--702
+ [] [] [] [] 
+ []
+
+[17]
+Overfull \hbox (78.17319pt too wide) in alignment at lines 708--713
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (78.17319pt too wide) in alignment at lines 713--714
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (78.17319pt too wide) in alignment at lines 714--715
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (78.17319pt too wide) in alignment at lines 715--771
+ [] [] [] [] 
+ []
+
+[18]
+Overfull \hbox (70.2083pt too wide) in alignment at lines 777--782
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (70.2083pt too wide) in alignment at lines 782--783
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (70.2083pt too wide) in alignment at lines 783--784
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 785--785
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 785--785
+\OT1/cmr/m/n/10 String(32)| 
+ []
+
+
+Underfull \hbox (badness 1237) in paragraph at lines 821--821
+[]|\OT1/cmr/m/n/10 The operator-settable ZDR cal-i-bra-tion base
+ []
+
+
+Overfull \hbox (70.2083pt too wide) in alignment at lines 784--824
+ [] [] [] [] 
+ []
+
+[19]
+Overfull \hbox (70.2083pt too wide) in alignment at lines 824--831
+ [] [] [] [] 
+ []
+
+[20]
+Overfull \hbox (101.81946pt too wide) in alignment at lines 836--841
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (101.81946pt too wide) in alignment at lines 841--842
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (101.81946pt too wide) in alignment at lines 842--843
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 852--853
+[]|\OT1/cmr/m/n/10 degrees
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 854--854
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 854--854
+\OT1/cmr/m/n/10 String(16)| 
+ []
+
+
+Underfull \hbox (badness 4940) in paragraph at lines 891--891
+[]|\OT1/cmr/m/n/10 Indicates which seg-ment to auto-save, if
+ []
+
+
+Overfull \hbox (101.81946pt too wide) in alignment at lines 843--900
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 1394) in paragraph at lines 901--901
+\OT1/cmr/m/n/10 imuth (in RHI) and el-e-va-tion (in RHI) if
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 911--911
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 911--911
+\OT1/cmr/m/n/10 String(16)| 
+ []
+
+
+Overfull \hbox (101.81946pt too wide) in alignment at lines 900--915
+ [] [] [] [] 
+ []
+
+[21] [22]
+Overfull \hbox (44.26378pt too wide) in alignment at lines 948--953
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (44.26378pt too wide) in alignment at lines 953--954
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (44.26378pt too wide) in alignment at lines 954--955
+ [] [] [] [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 962--962
+[]|[]\OT1/cmr/m/n/10 unsigned
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 962--963
+[]|\OT1/cmr/m/n/10 seconds
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 962--963
+\OT1/cmr/m/n/10 since
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 962--963
+\OT1/cmr/m/n/10 UNIX
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 964--964
+[]|[]\OT1/cmr/m/n/10 UTF-8
+ []
+
+
+Overfull \hbox (3.07404pt too wide) in paragraph at lines 964--964
+\OT1/cmr/m/n/10 String(16)| 
+ []
+
+
+Overfull \hbox (44.26378pt too wide) in alignment at lines 955--966
+ [] [] [] [] 
+ []
+
+[23]
+Overfull \hbox (68.20097pt too wide) in alignment at lines 972--977
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (68.20097pt too wide) in alignment at lines 977--978
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (68.20097pt too wide) in alignment at lines 978--979
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (68.20097pt too wide) in alignment at lines 979--999
+ [] [] [] [] 
+ []
+
+[24] [25] (./chill_protocols.aux) ) 
+Here is how much of TeX's memory you used:
+ 3762 strings out of 493848
+ 55846 string characters out of 3149207
+ 155483 words of memory out of 3000000
+ 6932 multiletter control sequences out of 15000+200000
+ 8594 words of font info for 30 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 38i,7n,36p,493b,400s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2009/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2009/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr7.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsl10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/local/texlive/2009/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmti10.pfb>
+Output written on chill_protocols.pdf (25 pages, 225273 bytes).
+PDF statistics:
+ 418 PDF objects out of 1000 (max. 8388607)
+ 91 named destinations out of 1000 (max. 500000)
+ 281 words of extra memory for PDF output out of 10000 (max. 10000000)
+

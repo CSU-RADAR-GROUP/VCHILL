@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://chill.colostate.edu/java/" href="alterer.jnlp">
+    <information>
+        <title>Java VChill Data File Modifier</title>
+        <homepage href="http://chill.colostate.edu/"/>
+        <vendor>Colorado State University</vendor>
+        <description>Adds calculated data types (NCP+, HDR, KDP, RK40) to CHILL format data files</description>
+        <description kind="short">Adds calculated data types to CHILL format data files</description>
+        <offline-allowed/>
+    </information>
+    <resources>
+        <j2se version="1.5+" max-heap-size="128m" java-vm-args="-ea"/>
+        <jar href="file.jar"/>
+        <jar href="gui.jar"/>
+        <jar href="socket.jar"/>
+        <jar href="vchill.jar"/>
+        <jar href="lib/looks-2.1.4.jar"/>
+    </resources>
+    <application-desc main-class="edu.colostate.vchill.file.FileAlterer">
+        <argument>-gui</argument>
+    </application-desc>
+    <security>
+        <all-permissions/>
+    </security>
+</jnlp>

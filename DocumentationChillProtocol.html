@@ -1,0 +1,1226 @@
+<html>
+    <head>
+        <title>CHILL socket protocol</title>
+    </head>
+    <body>
+<div style="BACKGROUND-COLOR:#ffffff">    
+        <a name=archive>
+        <h1>CHILL archive client/server socket protocol</h1>
+        <p>A client connects several sockets to the server - one control and between one and four data channels.
+        The data channels need a session ID so the server connects them with what's going on in the control connection.
+        When connecting a new socket, a 32bit integer is sent to identify the type of channel desired.
+        To get a session ID, simply send a connect request (details below) over the control channel.
+        </p>
+        <p>All communication is in network byte order (big endian - which is the same byte order Java uses internally).
+        Only data types with a single byte per gate are currently supported; the server provides a list of acceptable types.
+        Archive Control packets need only have those fields directly necessary for the specific command in question set, all other fields may be defaulted to 0.
+        </p>
+        <hr width=90%>
+        <h2>Description of packets</h2>
+        <a name=primitives>
+        <table rules=groups border=5>
+            <caption>definition of primitive data types</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr>
+                    <th rowspan=2>name</th>
+                    <th colspan=2>size</th>
+                    <th rowspan=2>description</th>
+                    <th rowspan=2>Java usage notes</th>
+                </tr>
+                <tr><th>bits</th><th>bytes</th></tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>int</td>
+                    <td align=right>32</td>
+                    <td align=middle>4</td>
+                    <td>standard signed integer</td>
+                    <td>same as Java int</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>unsigned int</td>
+                    <td align=right>32</td>
+                    <td align=middle>4</td>
+                    <td>standard unsigned integer</td>
+                    <td>read into a Java long, since Java does not support unsigned types</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>float</td>
+                    <td align=right>32</td>
+                    <td align=middle>4</td>
+                    <td>IEEE float</td>
+                    <td>can be read by java.lang.Float.intBitsToFloat(int)</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>short</td>
+                    <td align=right>16</td>
+                    <td align=middle>2</td>
+                    <td>standard signed integer</td>
+                    <td>same as Java short</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>long</td>
+                    <td align=right>64</td>
+                    <td align=middle>8</td>
+                    <td>standard signed integer</td>
+                    <td>same as Java long</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>char</td>
+                    <td align=right>8</td>
+                    <td align=middle>1</td>
+                    <td>used in legacy strings</td>
+                    <td>read as byte, since Java char is 16 bit</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td>utf-8 string</td>
+                    <td align=right>variable</td>
+                    <td align=middle>variable</td>
+                    <td>used for new strings</td>
+                    <td>read and written using forced "UTF-8" charset</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=75%>
+        <h3>Control Channel packets</h3>
+        <hr width=50%>
+        <a name=control>
+        <table bgcolor=#ffff80 rules=groups border=5>
+            <caption>Archive Control packet (116 bytes)</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th rowspan=2>byte<br>number</th>
+                    <th colspan=2>contents</th>
+                    <th rowspan=2>use</th>
+                </tr>
+                <tr><th>type</th><th>name</th></tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>0</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>arch_mode</td>
+                    <td rowspan=4>Code for a specific desired operation</td>
+                </tr>
+                <tr><td align=right>1</td></tr>
+                <tr><td align=right>2</td></tr>
+                <tr><td align=right>3</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>4</td>
+                    <td align=middle rowspan=2>short</td>
+                    <td rowspan=2>start_sweep</td>
+                    <td rowspan=2>Desired sweep in sweep mode, or subrequest code</td>
+                </tr>
+                <tr><td align=right>5</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>6</td>
+                    <td align=middle rowspan=2>short</td>
+                    <td rowspan=2>ray_step</td>
+                    <td rowspan=2>Desired step size in ray mode</td>
+                </tr>
+                <tr><td align=right>7</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>8</td>
+                    <td align=middle rowspan=2>short</td>
+                    <td rowspan=2>sweep_low</td>
+                    <td rowspan=2>Sweep filter - not used</td>
+                </tr>
+                <tr><td align=right>9</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>10</td>
+                    <td align=middle rowspan=2>short</td>
+                    <td rowspan=2>sweep_high</td>
+                    <td rowspan=2>Sweep filter - not used</td>
+                </tr>
+                <tr><td align=right>11</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>12</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>extra_delay</td>
+                    <td rowspan=4>Extra delay desired - always 0</td>
+                </tr>
+                <tr><td align=right>13</td></tr>
+                <tr><td align=right>14</td></tr>
+                <tr><td align=right>15</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>16 - 115</td>
+                    <td align=middle>char[100]</td>
+                    <td>in_file</td>
+                    <td>0 terminated string containing the name of the file (including path) to act on</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <a name=response>
+        <table bgcolor=#8080ff rules=groups border=5>
+            <caption>Response packet (28 bytes)</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th rowspan=2>byte<br>number</th>
+                    <th colspan=2>contents</th>
+                    <th rowspan=2>use</th>
+                </tr>
+                <tr><th>type</th><th>name</th></tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>0</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>status_code</td>
+                    <td rowspan=4>Code representing result of request</td>
+                </tr>
+                <tr><td align=right>1</td></tr>
+                <tr><td align=right>2</td></tr>
+                <tr><td align=right>3</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>4</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>ext_status</td>
+                    <td rowspan=4>Additional status code or number of additional bytes following</td>
+                </tr>
+                <tr><td align=right>5</td></tr>
+                <tr><td align=right>6</td></tr>
+                <tr><td align=right>7</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>8</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>vol</td>
+                    <td rowspan=4>Current data position: volume number</td>
+                </tr>
+                <tr><td align=right>9</td></tr>
+                <tr><td align=right>10</td></tr>
+                <tr><td align=right>11</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>12</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>sweep</td>
+                    <td rowspan=4>Current data position: sweep number</td>
+                </tr>
+                <tr><td align=right>13</td></tr>
+                <tr><td align=right>14</td></tr>
+                <tr><td align=right>15</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>16</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>ray</td>
+                    <td rowspan=4>Current data position: ray number</td>
+                </tr>
+                <tr><td align=right>17</td></tr>
+                <tr><td align=right>18</td></tr>
+                <tr><td align=right>19</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>20</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>scan_mode</td>
+                    <td rowspan=4>Current scan mode</td>
+                </tr>
+                <tr><td align=right>21</td></tr>
+                <tr><td align=right>22</td></tr>
+                <tr><td align=right>23</td></tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=right>24</td>
+                    <td align=middle rowspan=4>int</td>
+                    <td rowspan=4>max_sweeps</td>
+                    <td rowspan=4>Maximum number of sweeps in this volume</td>
+                </tr>
+                <tr><td align=right>25</td></tr>
+                <tr><td align=right>26</td></tr>
+                <tr><td align=right>27</td></tr>
+            </tbody>
+        </table>
+        <hr width=75%>
+        <h3>Data Channel packets</h3>
+        <p>Each header block consists of the following structure:
+            <a name=header>
+            <table bgcolor=#80ffff rules=groups border=5>
+                <caption>Generic CHILL Header structure</caption>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <colgroup></colgroup>
+                <thead>
+                    <tr><th rowspan=2>byte<br>number</th>
+                        <th colspan=2>contents</th>
+                        <th rowspan=2>use</th>
+                    </tr>
+                    <tr><th>type</th><th>name</th></tr>
+                </thead>
+                <tbody bgcolor=#80ff80>
+                    <tr><td align=middle>0 - 3</td>
+                        <td>int</td>
+                        <td>recordType</td>
+                        <td>determines which type of header block this is</td>
+                    </tr>
+                    <tr><td align=middle>4 - 7</td>
+                        <td>int</td>
+                        <td>headerLength</td>
+                        <td>the length (in bytes) of this header (including this header header)</td>
+                    </tr>
+                </tbody>
+                <tbody bgcolor=#ff80ff>
+                    <tr><td align=middle>8 - <i>length of described header</i>+7</td>
+                        <td colspan=2>Chill header</td>
+                        <td>a header block as described below</td>
+                    </tr>
+                </tbody>
+                <tbody bgcolor=#80ff80>
+                    <tr><td align=middle><i>length of described header</i>+8 - <code>headerLength</code>-1</td>
+                        <td>byte[]</td>
+                        <td>extraData</td>
+                        <td>additional (ignoreable) data; may be length 0 (ie nonexistant)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <hr width=50%>
+        <a name=scaling>
+        <table bgcolor=#ff80ff rules=groups border=5>
+            <caption>recordType 0x9292: CHILL Scaling Header packet (224 bytes)</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th rowspan=2>byte<br>number</th>
+                    <th colspan=2>contents</th>
+                    <th rowspan=2>use</th>
+                </tr>
+                <tr><th>type</th><th>name</th></tr>
+            </thead>
+            <tfoot>
+                <tr><td colspan=4>This block is sent at the start of each sweep, once per known data type: it is used by the client to populate the menus and to determine how data will be interpreted
+                </td></tr>
+            </tfoot>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>0 - 31</td>
+                    <td>UTF-8 string</td>
+                    <td>fieldName</td>
+                    <td>short descriptive name (eg "NCP")</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>32 - 159</td>
+                    <td>UTF-8 string</td>
+                    <td>fieldDescription</td>
+                    <td>longer description (eg "Normalized Coherent Power")</td>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                </tr>
+                <tr><td align=middle>160 - 163</td>
+                    <td>int</td>
+                    <td>keyboardAccelerator</td>
+                    <td>keycode for shortcuts in client</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>164 - 195</td>
+                    <td>UTF-8 string</td>
+                    <td>units</td>
+                    <td>description of units (eg "m/s")</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>196 - 199</td>
+                    <td>int</td>
+                    <td>fieldNumber</td>
+                    <td>the position corresponding to this field in the request/available bitmasks</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>200 - 203</td>
+                    <td>int</td>
+                    <td>factor</td>
+                    <td rowspan=3>Scaling: <i>actual field value</i> = ((<i>value in data array</i>)*<code>scale</code> + <code>bias</code>)/<code>factor</code></td>
+                </tr>
+                <tr><td align=middle>204 - 207</td>
+                    <td>int</td>
+                    <td>scale</td>
+                </tr>
+                <tr><td align=middle>208 - 211</td>
+                    <td>int</td>
+                    <td>bias</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>212 - 215</td>
+                    <td>int</td>
+                    <td>maxValue</td>
+                    <td rowspan=2>field value limits (scaled by <code>factor</code>)</td>
+                </tr>
+                <tr><td align=middle>216 - 219</td>
+                    <td>int</td>
+                    <td>minValue</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>220 - 221</td>
+                    <td>short</td>
+                    <td>dataWordCoding</td>
+                    <td>flag bitmask: bit 0 = signed data (never set in CHILL data); bit 4 = unfoldable; rest reserved</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>222 - 223</td>
+                    <td>short</td>
+                    <td>colorMapType</td>
+                    <td>field value limits (scaled by factor)</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <a name=housekeeping>
+        <table bgcolor=#ff80ff rules=groups border=5>
+            <caption>recordType 0x9191: CHILL Housekeeping Header packet (80 bytes)</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th rowspan=2>byte<br>number</th>
+                    <th colspan=2>contents</th>
+                    <th rowspan=2>use</th>
+                </tr>
+                <tr><th>type</th><th>name</th></tr>
+            </thead>
+            <tfoot>
+                <tr><td colspan=4>This block is sent (usually once per sweep) before data.  It contains items that change infrequently or not at all.
+                </td></tr>
+            </tfoot>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>0 - 31</td>
+                    <td>utf-8 string</td>
+                    <td>radarId</td>
+                    <td>name of the radar</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>32 - 35</td>
+                    <td>int</td>
+                    <td>radarLatitude</td>
+                    <td rowspan=2>radar location in degrees*10<sup>6</sup></td>
+                </tr>
+                <tr><td align=middle>36 - 39</td>
+                    <td>int</td>
+                    <td>radarLongitude</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>40 - 43</td>
+                    <td>int</td>
+                    <td>radarAltitude</td>
+                    <td>radar altitude above msl in mm</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>44 - 47</td>
+                    <td>int</td>
+                    <td>antMode</td>
+                    <td>Antenna mode word - indicates scan type.  1 and 4 are RHI scans, 0 and 3 are PPI scans, rest are plotted time vs range</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>48 - 51</td>
+                    <td>int</td>
+                    <td>nyquistVel</td>
+                    <td>basic Nyquist interval in mm/sec (2 * velocity range)</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>52 - 55</td>
+                    <td>int</td>
+                    <td>gateWidth</td>
+                    <td>gate spacing in mm</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>56 - 59</td>
+                    <td>int</td>
+                    <td>pulses</td>
+                    <td>the number of transmit pulses per integration cycle</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>60 - 63</td>
+                    <td>int</td>
+                    <td>polarizationMode</td>
+                    <td>0 = V only, 1 = H only, 2 = VH alternating, 3 = VH simultaneous</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>64 - 67</td>
+                    <td>int</td>
+                    <td>tiltNum</td>
+                    <td>the tilt/sweep sequence number (begins at 1 for each volume)</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>68 - 71</td>
+                    <td>int</td>
+                    <td>saveTilt</td>
+                    <td>the tilt number selected by operator for image auto-saving</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>72 - 75</td>
+                    <td>int</td>
+                    <td>angleScale</td>
+                    <td>angle value representing 360 degrees (used for scaling angles in following Data Header packets)</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>76 - 79</td>
+                    <td>unsigned int</td>
+                    <td>sweepStartTime</td>
+                    <td>sweep start time in seconds since 1970</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <a name=data>
+        <table bgcolor=#ff80ff rules=groups border=5>
+            <caption>recordType 0x9090: CHILL Data Header packet (52 bytes)</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th rowspan=2>byte<br>number</th>
+                    <th colspan=2>contents</th>
+                    <th rowspan=2>use</th>
+                </tr>
+                <tr><th>type</th><th>name</th></tr>
+            </thead>
+            <tfoot>
+                <tr><td colspan=4>This block is sent before the actual data for each ray of data.  Immediately following the extraData (if any), the actual data will be sent: the first gate of each field (in the order of the fieldNumber) will be sent, then the second gate of each field, etc.
+                </td></tr>
+            </tfoot>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>0 - 7</td>
+                    <td>long</td>
+                    <td>requestedData</td>
+                    <td>bitmask of types requested by the client</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>8 - 15</td>
+                    <td>long</td>
+                    <td>availableData</td>
+                    <td>bitmask of types available</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>16 - 19</td>
+                    <td>int</td>
+                    <td>startAz</td>
+                    <td rowspan=4>Antenna position at start/end of integration cycle (scaled as indicated by angleScale in CHILL Housekeeping Header)</td>
+                </tr>
+                <tr><td align=middle>20 - 23</td>
+                    <td>int</td>
+                    <td>startEl</td>
+                </tr>
+                <tr><td align=middle>24 - 27</td>
+                    <td>int</td>
+                    <td>endAz</td>
+                </tr>
+                <tr><td align=middle>28 - 31</td>
+                    <td>int</td>
+                    <td>endEl</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>32 - 35</td>
+                    <td>int</td>
+                    <td>numGates</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>36 - 39</td>
+                    <td>int</td>
+                    <td>startRange</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>40 - 43</td>
+                    <td>unsigned int</td>
+                    <td>dataTime</td>
+                    <td>seconds since 1970</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>44 - 47</td>
+                    <td>int</td>
+                    <td>fractionalSecs</td>
+                    <td>additional nanoseconds</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>48 - 51</td>
+                    <td>int</td>
+                    <td>rayNumber</td>
+                    <td>1-based index</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=90%>
+        <h2>Common commands</h2>
+        <p>This document covers only that subset of commands currently implemented by Java VCHILL</p>
+        <p>Only necessary fields will be described here in detail; all other values may be set to 0</p>
+        <hr width=50%>
+        <h3>To connect</h3>
+        <h4>Establish control connection</h4>
+        <p>The first socket connection to the server will become a control connection, used to send commands and receive status information.</p>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>send on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr>
+                    <th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>0 - 3</td>
+                    <td><i>hello</i></td>
+                    <td>HELLO (<code>0xf0f00f0f</code>)</td>
+                    <td>Used to differentiate from older protocol</td>
+                </tr>
+                <tr>
+                    <td align=middle>4 - 7</td>
+                    <td>channel id</td>
+                    <td>ARCH_CTL_CHANNEL (<code>12</code>)</td>
+                    <td>When each connection is first created to the server, it must identify itself with a channel id - this is a control channel</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#ffff80>
+                <tr>
+                    <td align=middle>8 - 11</td>
+                    <td>arch_mode</td>
+                    <td>ARCH_CONNECT_REQ (<code>9</code>)</td>
+                    <td>Identify this request as an initial connection request</td>
+                </tr>
+                <tr>
+                    <td align=middle>12 - 13</td>
+                    <td>start_sweep</td>
+                    <td><code>0</code></td>
+                    <td><i>Ignored field</i></td>
+                </tr>
+                <tr>
+                    <td align=middle>14 - 15</td>
+                    <td>ray_step</td>
+                    <td><code>2</code></td>
+                    <td>Client code - 2 means Java VChill</td>
+                </tr>
+                <tr>
+                    <td align=middle>16 - 17</td>
+                    <td>sweep_low</td>
+                    <td>e.g. <code>2</code></td>
+                    <td>Client version - major revision</td>
+                </tr>
+                <tr>
+                    <td align=middle>16 - 17</td>
+                    <td>sweep_high</td>
+                    <td>e.g. <code>5</code></td>
+                    <td>Client version - minor revision</td>
+                </tr>
+                <tr>
+                    <td align=middle>18 - 21</td>
+                    <td>extra_delay</td>
+                    <td><code>0</code></td>
+                    <td><i>Ignored field</i></td>
+                </tr>
+                <tr>
+                    <td align=middle>22 - 123</td>
+                    <td>in_file</td>
+                    <td><code><i>signon</i>:<i>password</i></code></td>
+                    <td>0-terminated ASCII string</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>receive on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle>0 - 3</td>
+                    <td>status_code</td>
+                    <td><code>16</code> (Archive server ready)</td>
+                </tr>
+                <tr><td align=middle>4 - 7</td>
+                    <td>ext_status</td>
+                    <td><code><i>new session ID</i></code></td>
+                </tr>
+                <tr><td>8 - 11</td>
+                    <td>vol</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td>12 - 15</td>
+                    <td>sweep</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td>16 - 19</td>
+                    <td>ray</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td>20 - 23</td>
+                    <td>scan_mode</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td>24 - 27</td>
+                    <td>max_sweeps</td>
+                    <td><code>0</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=25%>
+        <h4>Create 1-4 data channel(s)</h4>
+        <p>Actual radar data is received on the data channel(s).
+            Each socket connection to the server after the control connection is established becomes a data channel.</p>
+        <table rules=groups border=5 bgcolor=#80ffff>
+            <caption>send on each data channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>byte</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>0-3</td>
+                    <td><i>hello</i></td>
+                    <td><code>0xf0f00f0f</code></td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>4-5</td>
+                    <td>session id</td>
+                    <td><i>the <code>session ID</code> received in the control channel Response packet</i></td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>6-7</td>
+                    <td>channel id</td>
+                    <td>GEN_MOM_DAT_CHANNEL (<code>15</code>)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>The server will respond with an unknown number (up to 64) of scaling blocks</p>
+        <p>Now that we know what's available, we can request some data.
+        If desired, multiple different data types may be requested at once (up to 16 per channel).
+        Simply bit-wise OR the shifted bits together.</p>
+        <table rules=groups border=5 bgcolor=#80ffff>
+            <caption>send on each data channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>byte</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>0-7</td>
+                    <td>type</td>
+                    <td><code>1 &lt;&lt; <i>desired data type</i></code> (<code>0</code> - <code>63</code>)</td>
+                    <td>Not all fields will be available for all files</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <h3>To disconnect</h3>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>send on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#ffff80>
+                <tr><td align=middle>0 - 3</td>
+                    <td>arch_mode</td>
+                    <td>ARCH_DISCONNECT_REQ (<code>10</code>)</td>
+                    <td>Let the server know we wish to disconnect</td>
+                </tr>
+                <tr><td align=middle>4 - 115</td>
+                    <td><i>rest of Archive Control packet</i></td>
+                    <td><code>0</code></td>
+                    <td>Unneeded fields default to 0</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>No response is received.</p>
+        <hr width=50%>
+        <h3>To get a list of CHILL files in a directory</h3>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>send on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#ffff80>
+                <tr><td align=middle>0 - 3</td>
+                    <td>arch_mode</td>
+                    <td>ARCH_DIRECTORY_REQ (<code>8</code>)</td>
+                    <td>Let the server know we want a directory list</td>
+                </tr>
+                <tr><td align=middle>4 - 5</td>
+                    <td>start_sweep</td>
+                    <td><code>4</code></td>
+                    <td>Code for files and subdirectories</td>
+                </tr>
+                <tr><td align=middle>6 - 15</td>
+                    <td>ray_step<br>sweep_low<br>sweep_high<br>extra_delay</td>
+                    <td><code>0</code></td>
+                    <td>Unneeded fields default to 0</td>
+                </tr>
+                <tr><td align=middle>16 - 115</td>
+                    <td>in_file</td>
+                    <td><code><i>&lt;dir name&gt;</i></code></td>
+                    <td>First part of string from directory list (empty string for top-level), <code>0</code>-terminated</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>receive on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle>0 - 3</td>
+                    <td>status_code</td>
+                    <td><code>14</code> (Archive directory follows)</td>
+                </tr>
+                <tr><td align=middle>4 - 7</td>
+                    <td>ext_status</td>
+                    <td><code><i>number of bytes following for list</i></code></td>
+                </tr>
+                <tr><td align=middle>8 - 11</td>
+                    <td>vol</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>12 - 15</td>
+                    <td>sweep</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>16 - 19</td>
+                    <td>ray</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>20 - 23</td>
+                    <td>scan_mode</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>24 - 27</td>
+                    <td>max_sweeps</td>
+                    <td><code>0</code</td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr><td align=middle>28 - <i>list</i>+27</td>
+                    <td><i>list</i></td>
+                    <td>List of files in format: "<code><i>&lt;file name&gt;</i>[ <i>&lt;scan name&gt;</i>] <i>&lt;scan type&gt;</i></code>"<br>
+                        and directories in format: "<code><i>&lt;directory name&gt;</i> DIR"</code><br>
+                        Due to the spaces used to separate the additional information from the names, names are not allowed to contain spaces.
+                    </td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle><i>list</i>+28 - <i>list</i>+31</td>
+                    <td>status_code</td>
+                    <td><code>7</code> (Archive directory sent</td>
+                </tr>
+                <tr><td align=middle><i>list</i>+32 - <i>list</i>+35</td>
+                    <td>ext_status</td>
+                    <td><code>0</code></td>
+                </tr>
+                <tr><td align=middle><i>list</i>+36 - <i>list</i>+39</td>
+                    <td>vol</td>
+                    <td><code>2</code></td>
+                </tr>
+                <tr><td align=middle><i>list</i>+40 - <i>list</i>+43</td>
+                    <td>sweep</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle><i>list</i>+44 - <i>list</i>+47</td>
+                    <td>ray</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle><i>list</i>+48 - <i>list</i>+51</td>
+                    <td>scan_mode</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle><i>list</i>+52 - <i>list</i>+55</td>
+                    <td>max_sweeps</td>
+                    <td><code>0</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <h3>To get status information on a CHILL file</h3>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>send on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#ffff80>
+                <tr><td align=middle>0 - 3</td>
+                    <td>arch_mode</td>
+                    <td>ARCH_STATUS_REQ (<code>5</code>)</td>
+                    <td>Let the server know we want a status update</td>
+                </tr>
+                <tr><td align=middle>4 - 15</td>
+                    <td>start_sweep<br>ray_step<br>sweep_low<br>sweep_high<br>extra_delay</td>
+                    <td><code>0</code></td>
+                    <td>Unneeded fields default to 0</td>
+                </tr>
+                <tr><td align=middle>16 - 115</td>
+                    <td>in_file</td>
+                    <td>"<code><i>&lt;dir name&gt;</i>/<i>&lt;file name&gt;</i></code>"</td>
+                    <td>First part of string from directory list, slash, First part of string from file list, <code>0</code>-terminated</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>receive on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle>0 - 3</td>
+                    <td>status_code</td>
+                    <td><code>11</code> (Archive status update), bitwise ORed with the status bits ARCH_RUNNING (<code>256</code>) and/or ARCH_CAL_FILE (<code>512</code>) if applicable</td>
+                </tr>
+                <tr><td align=middle>4 - 7</td>
+                    <td>ext_status</td>
+                    <td><code>0</code></td>
+                </tr>
+                <tr><td align=middle>8 - 11</td>
+                    <td>vol</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>12 - 15</td>
+                    <td>sweep</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>16 - 19</td>
+                    <td>ray</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>20 - 23</td>
+                    <td>scan_mode</td>
+                    <td><code>-1</code></td>
+                </tr>
+                <tr><td align=middle>24 - 27</td>
+                    <td>max_sweeps</td>
+                    <td><code><i>number of sweeps available</i></code></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=50%>
+        <h3>To get a sweep from a CHILL file</h3>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>send on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#ffff80>
+                <tr><td align=middle>0 - 3</td>
+                    <td>arch_mode</td>
+                    <td>ARCH_SWEEP_MODE (<code>2</code>)</td>
+                    <td>Let the server know we want a sweep</td>
+                </tr>
+                <tr><td akign=middle>4 - 5</td>
+                    <td>start_sweep</td>
+                    <td><code><i>sweep number</i></code></td>
+                    <td>Sweep index, in range 1 - <i>number of sweeps</i></td>
+                </tr>
+                <tr><td align=middle>6 - 15</td>
+                    <td><br>ray_step<br>sweep_low<br>sweep_high<br>extra_delay</td>
+                    <td><code>0</code></td>
+                    <td>Unneeded fields default to 0</td>
+                </tr>
+                <tr><td align=middle>16 - 115</td>
+                    <td>in_file</td>
+                    <td>"<code><i>&lt;dir name&gt;</i>/<i>&lt;file name&gt;</i></code>"</td>
+                    <td>First part of string from directory list, slash, First part of string from file list, <code>0</code>-terminated</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>receive on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle>0 - 3</td>
+                    <td>status_code</td>
+                    <td><code>256</code> (Archive running)</td>
+                </tr>
+                <tr><td align=middle>4 - 7</td>
+                    <td>ext_status</td>
+                    <td><code>0</code></td>
+                </tr>
+                <tr><td align=middle>8 - 11</td>
+                    <td>vol</td>
+                    <td><code><i>volume number</i></code></td>
+                </tr>
+                <tr><td align=middle>12 - 15</td>
+                    <td>sweep</td>
+                    <td><code><i>sweep number</i></code></td>
+                </tr>
+                <tr><td align=middle>16 - 19</td>
+                    <td>ray</td>
+                    <td><code><i>ray number</i></code> (number of first ray following)</td>
+                </tr>
+                <tr><td align=middle>20 - 23</td>
+                    <td>scan_mode</td>
+                    <td><code><i>scan mode</i></code></td>
+                </tr>
+                <tr><td align=middle>24 - 27</td>
+                    <td>max_sweeps</td>
+                    <td><code><i>number of sweeps available</i></code></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <p>Receive on each data channel Data Channel packets as described above.  Although blocks can theoretically be sent in a different order, they will usually be some variation of:<ol>
+            <li>One <a href=#scaling>0x9292 scaling block</a> per type that is available (the scaling blocks sent here are the only data types guaranteed to be available from the VChill menus)
+            <li>One <a href=#housekeeping>0x9191 housekeeping block</a>
+            <li><i>number of rays</i> iterations of:<ol>
+                <li>One <a href=#data>0x9090 data header block</a></li>
+                <li>actual data</li>
+            </ol>
+        </ol>
+        </p>
+        <p>The radar data is interleaved at the gate level - the first gate of each data type is sent before any second gate.
+        The order of the data types is specified by their <code>fieldNumber</code></p>
+        <p>There may optionally be additional blocks inserted into the stream (eg 0x9494 aircraft tracking).</p>
+        <p>Once complete, the server sends another Result packet on the control channel.
+        The total number of rays sent is calculated from the <code>ray</code> fields in the Result packets.</p>
+        <br>
+        <table rules=groups border=5 bgcolor=#ff80ff>
+            <caption>receive on control channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>bytes</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#8080ff>
+                <tr><td align=middle>0 - 3</td>
+                    <td>status_code</td>
+                    <td><code>5</code> (Archive end sweep)</td>
+                </tr>
+                <tr><td align=middle>4 - 7</td>
+                    <td>ext_status</td>
+                    <td><code>0</code></td>
+                </tr>
+                <tr><td align=middle>8 - 11</td>
+                    <td>vol</td>
+                    <td><code><i>volume number</i></code></td>
+                </tr>
+                <tr><td align=middle>12 - 15</td>
+                    <td>sweep</td>
+                    <td><code><i>sweep number</i></code></td>
+                </tr>
+                <tr><td align=middle>16 - 19</td>
+                    <td>ray</td>
+                    <td><code><i>ray number</i></code> (number of last ray just sent)</td>
+                </tr>
+                <tr><td align=middle>20 - 23</td>
+                    <td>scan_mode</td>
+                    <td><code><i>scan mode</i></code></td>
+                </tr>
+                <tr><td align=middle>24 - 27</td>
+                    <td>max_sweeps</td>
+                    <td><code><i>number of sweeps available</i></code></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr width=90%>
+        <a name=realtime>
+        <h1>CHILL realtime client/server socket protocol</h1>
+        <p>Realtime mode is significantly simpler than archive.
+        No control socket is needed; simply connect a data channel.
+        </p>
+        <table rules=groups border=5 bgcolor=#80ffff>
+            <caption>send on data channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>byte</th>
+                    <th>name</th>
+                    <th>value</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>0-3</td>
+                    <td><i>hello</i></td>
+                    <td><code>0xf0f00f0f</code></td>
+                </tr>
+            </tbody>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>4-7</td>
+                    <td>channel id</td>
+                    <td>GEN_MOM_DAT_CHANNEL (<code>15</code>) - unlike archive mode, there is no session ID</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>As in archive mode, the server responds with up to 64 <a href=#scaling>scaling</a> blocks.</p>
+        <p>Now that we know what's available, we can request some data.
+        If desired, multiple different data types may be requested at once (up to 16 per channel).
+        Simply bit-wise OR the shifted bits together.</p>
+        <table rules=groups border=5 bgcolor=#80ffff>
+            <caption>send on each data channel</caption>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <colgroup></colgroup>
+            <thead>
+                <tr><th>byte</th>
+                    <th>name</th>
+                    <th>value</th>
+                    <th>comments</th>
+                </tr>
+            </thead>
+            <tbody bgcolor=#80ff80>
+                <tr>
+                    <td align=middle>0-7</td>
+                    <td>type</td>
+                    <td><code>1 &lt;&lt; <i>desired data type</i></code> (<code>0</code> - <code>63</code>)</td>
+                    <td>Not all fields will be available for all files</td>
+                </tr>
+            </tbody>
+        </table>
+        </p>The data to be sent can be changed at any time by simply sending a new bitmask</p>
+        <p>The server will now stream data packets, just like in archive mode.  Although blocks can theoretically be sent in a different order, they will usually be some variation of:<ol>
+            <li>One <a href=#scaling>0x9292 scaling block</a> per type that is available (the scaling blocks sent here are the only data types guaranteed to be available from the VChill menus)
+            <li>One <a href=#housekeeping>0x9191 housekeeping block</a>
+            <li><i>number of rays</i> iterations of:<ol>
+                <li>One <a href=#data>0x9090 data header block</a></li>
+                <li>actual data</li>
+            </ol>
+        </ol>
+        </p>
+        <p>The radar data is interleaved at the gate level - the first gate of each data type is sent before any second gate.
+        The order of the data types is specified by their <code>fieldNumber</code></p>
+        <p>There may optionally be additional blocks inserted into the stream (eg 0x9494 aircraft tracking).</p>
+        <p>Once complete, the server sends another Result packet on the control channel.
+        The total number of rays sent is calculated from the <code>ray</code> fields in the Result packets.</p>
+       <hr width=90%>
+        <address>last updated: 2007-09-27</address>
+</div>
+    </body>
+</html>

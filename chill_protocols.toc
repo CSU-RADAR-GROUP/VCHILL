@@ -1,0 +1,35 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Purpose}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Conventions Used}{3}{subsection.1.2}
+\contentsline {section}{\numberline {2}CHILL Connections}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Control and Data Channels}{3}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Creating a Control Channel}{3}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Creating a Data Channel}{4}{subsubsection.2.1.2}
+\contentsline {subsection}{\numberline {2.2}Establishing a Realtime Connection}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Establishing an Archive Connection}{4}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Requesting Data}{4}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Archive Server Commands}{5}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Request Sweep}{5}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Get File Details}{6}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}Halt Sweep}{7}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}List Directory Contents}{8}{subsubsection.2.5.4}
+\contentsline {subsubsection}{\numberline {2.5.5}Connect}{10}{subsubsection.2.5.5}
+\contentsline {subsubsection}{\numberline {2.5.6}Disconnect}{11}{subsubsection.2.5.6}
+\contentsline {section}{\numberline {3}Control Channel Packets}{11}{section.3}
+\contentsline {subsection}{\numberline {3.1}Command Packet}{11}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Response Packet}{12}{subsection.3.2}
+\contentsline {section}{\numberline {4}Data Channel Headers}{14}{section.4}
+\contentsline {subsection}{\numberline {4.1}DATA}{14}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}EXTENDED\_TRACKING}{15}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}FIELD\_TYPE\_INFO}{16}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}HOUSEKEEPING}{16}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}POWER\_METERS\_UPDATE}{18}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}PROCESSOR\_INFO}{18}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}RADAR\_INFO}{19}{subsection.4.7}
+\contentsline {subsection}{\numberline {4.8}SCAN\_SEGMENT}{21}{subsection.4.8}
+\contentsline {subsection}{\numberline {4.9}SWEEP\_NOTICE}{23}{subsection.4.9}
+\contentsline {subsection}{\numberline {4.10}TRACKING}{23}{subsection.4.10}
+\contentsline {subsection}{\numberline {4.11}TRANSMITTER\_INFO}{24}{subsection.4.11}
+\contentsline {section}{\numberline {5}Constants}{25}{section.5}
+\contentsline {subsection}{\numberline {5.1}Header IDs}{25}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}General Constants}{25}{subsection.5.2}
