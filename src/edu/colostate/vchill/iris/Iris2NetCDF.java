@@ -82,7 +82,7 @@ public class Iris2NetCDF {
 
         //Now at this point we should have the Sigmet Product Raw read in
         //Time to start creating the netCDF file
-        System.out.println("Finished Importing Data");
+ /*       System.out.println("Finished Importing Data");
 
         NetcdfFileWriteable ncfile = null;
 
@@ -97,7 +97,8 @@ public class Iris2NetCDF {
         int sweeps = SPR_input.getSweeplist().size();
         int rays = SPR_input.getSweeplist().get(0).getIdh_list().get(1).getRays_present();
         //We're not going to save extended headers just yet so don't count them.
-        int products = SPR_input.getSweeplist().get(0).getIdh_list().size();
+        @SuppressWarnings("unused")
+		int products = SPR_input.getSweeplist().get(0).getIdh_list().size();
         if (SPR_input.getSweeplist().get(0).getIdh_list().get(0).getData_type() == 1) {
             products--;
         }
@@ -140,6 +141,6 @@ public class Iris2NetCDF {
         }
 
         //File is created, now lets write out the data
-
+*/
     }
 }
