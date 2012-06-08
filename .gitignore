@@ -1,2 +1,4 @@
 CVS
 *.class
+*.jar
+bin/
