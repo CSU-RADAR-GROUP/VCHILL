@@ -61,19 +61,19 @@ public class Iris2NetCDF {
             //System.exit(1);
             try {
 //            fstream_in = new FileInputStream("/Users/jhardin/Desktop/PassPortBackup/KUM101227153024.RAWKM9T");
-                fstream_in = new FileInputStream("/Volumes/JOE PASSPRT/MC3E/toga3/lda/product_raw/np1110506045924.RAWV9UC");
+                fstream_in = new FileInputStream("/space/Data/X-SAPR/I5/XSW110425000055.RAWUBR8");
                 dstream_in = new DataInputStream(fstream_in);
 
             } catch (Exception e) {
                 System.err.println("Exception: " + e);
             }
-            try {
+//            try {
 //                fstream_out = new FileOutputStream("Testout.nc");
 //                dstream_out = new DataOutputStream(fstream_out);
-            } catch (Exception e) {
-                System.err.println("Exception: " + e);
-
-            }
+//            } catch (Exception e) {
+//                System.err.println("Exception: " + e);
+//
+//            }
 
         }
 
