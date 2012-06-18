@@ -46,7 +46,7 @@ public class ingest_header {
     public structure_header getTop_st() {
         return top_st;
     }
-
+    
     /**
      * @param top_st the top_st to set
      */

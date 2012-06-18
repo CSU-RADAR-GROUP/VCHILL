@@ -29,6 +29,7 @@ public class ingest_configuration {
     private String iris_version;
     private String hardware_name_of_site;
     private short local_timezone_west_GMT;
+    
     private String name_of_site;
     private short recorded_minutes_west_GMT;
     private long latitude;
@@ -55,6 +56,298 @@ public class ingest_configuration {
     private int BeginPosition;
     private byte[] TempBuf;
     private byte TempByte;
+    
+    public String getName_of_file() {
+      return name_of_file;
+    }
+
+
+    public void setName_of_file(String name_of_file) {
+      this.name_of_file = name_of_file;
+    }
+
+
+    public short getNum_extant() {
+      return num_extant;
+    }
+
+
+    public void setNum_extant(short num_extant) {
+      this.num_extant = num_extant;
+    }
+
+
+    public int getSize_of_all_files() {
+      return size_of_all_files;
+    }
+
+
+    public void setSize_of_all_files(int size_of_all_files) {
+      this.size_of_all_files = size_of_all_files;
+    }
+
+
+    public ymds_time getVol_scan_start_time() {
+      return vol_scan_start_time;
+    }
+
+
+    public void setVol_scan_start_time(ymds_time vol_scan_start_time) {
+      this.vol_scan_start_time = vol_scan_start_time;
+    }
+
+
+    public short getBytes_in_ray_headers() {
+      return bytes_in_ray_headers;
+    }
+
+
+    public void setBytes_in_ray_headers(short bytes_in_ray_headers) {
+      this.bytes_in_ray_headers = bytes_in_ray_headers;
+    }
+
+
+    public short getBytes_in_ext_ray_headers() {
+      return bytes_in_ext_ray_headers;
+    }
+
+
+    public void setBytes_in_ext_ray_headers(short bytes_in_ext_ray_headers) {
+      this.bytes_in_ext_ray_headers = bytes_in_ext_ray_headers;
+    }
+
+
+    public short getNum_task_config() {
+      return num_task_config;
+    }
+
+
+    public void setNum_task_config(short num_task_config) {
+      this.num_task_config = num_task_config;
+    }
+
+
+    public short getPlayback_version() {
+      return playback_version;
+    }
+
+
+    public void setPlayback_version(short playback_version) {
+      this.playback_version = playback_version;
+    }
+
+
+    public String getIris_version() {
+      return iris_version;
+    }
+
+
+    public void setIris_version(String iris_version) {
+      this.iris_version = iris_version;
+    }
+
+
+    public String getHardware_name_of_site() {
+      return hardware_name_of_site;
+    }
+
+
+    public void setHardware_name_of_site(String hardware_name_of_site) {
+      this.hardware_name_of_site = hardware_name_of_site;
+    }
+
+
+    public short getLocal_timezone_west_GMT() {
+      return local_timezone_west_GMT;
+    }
+
+
+    public void setLocal_timezone_west_GMT(short local_timezone_west_GMT) {
+      this.local_timezone_west_GMT = local_timezone_west_GMT;
+    }
+
+
+    public String getName_of_site() {
+      return name_of_site;
+    }
+
+
+    public void setName_of_site(String name_of_site) {
+      this.name_of_site = name_of_site;
+    }
+
+
+    public short getRecorded_minutes_west_GMT() {
+      return recorded_minutes_west_GMT;
+    }
+
+
+    public void setRecorded_minutes_west_GMT(short recorded_minutes_west_GMT) {
+      this.recorded_minutes_west_GMT = recorded_minutes_west_GMT;
+    }
+
+
+    public long getLatitude() {
+      return latitude;
+    }
+
+
+    public void setLatitude(long latitude) {
+      this.latitude = latitude;
+    }
+
+
+    public long getLongitude() {
+      return longitude;
+    }
+
+
+    public void setLongitude(long longitude) {
+      this.longitude = longitude;
+    }
+
+
+    public short getHeight_of_ground() {
+      return height_of_ground;
+    }
+
+
+    public void setHeight_of_ground(short height_of_ground) {
+      this.height_of_ground = height_of_ground;
+    }
+
+
+    public short getHeight_of_radar() {
+      return height_of_radar;
+    }
+
+
+    public void setHeight_of_radar(short height_of_radar) {
+      this.height_of_radar = height_of_radar;
+    }
+
+
+    public int getResolution() {
+      return resolution;
+    }
+
+
+    public void setResolution(int resolution) {
+      this.resolution = resolution;
+    }
+
+
+    public int getIndex_of_first_ray() {
+      return index_of_first_ray;
+    }
+
+
+    public void setIndex_of_first_ray(int index_of_first_ray) {
+      this.index_of_first_ray = index_of_first_ray;
+    }
+
+
+    public int getNum_rays_in_sweep() {
+      return num_rays_in_sweep;
+    }
+
+
+    public void setNum_rays_in_sweep(int num_rays_in_sweep) {
+      this.num_rays_in_sweep = num_rays_in_sweep;
+    }
+
+
+    public int getNum_bytes_in_gparam() {
+      return num_bytes_in_gparam;
+    }
+
+
+    public void setNum_bytes_in_gparam(int num_bytes_in_gparam) {
+      this.num_bytes_in_gparam = num_bytes_in_gparam;
+    }
+
+
+    public int getAltitude_radar_cm() {
+      return altitude_radar_cm;
+    }
+
+
+    public void setAltitude_radar_cm(int altitude_radar_cm) {
+      this.altitude_radar_cm = altitude_radar_cm;
+    }
+
+
+    public int[] getVelocity_of_radar() {
+      return velocity_of_radar;
+    }
+
+
+    public void setVelocity_of_radar(int[] velocity_of_radar) {
+      this.velocity_of_radar = velocity_of_radar;
+    }
+
+
+    public int[] getAntenna_offset_from_INU() {
+      return antenna_offset_from_INU;
+    }
+
+
+    public void setAntenna_offset_from_INU(int[] antenna_offset_from_INU) {
+      this.antenna_offset_from_INU = antenna_offset_from_INU;
+    }
+
+
+    public long getFault_status() {
+      return fault_status;
+    }
+
+
+    public void setFault_status(long fault_status) {
+      this.fault_status = fault_status;
+    }
+
+
+    public short getHeight_melting_layer() {
+      return height_melting_layer;
+    }
+
+
+    public void setHeight_melting_layer(short height_melting_layer) {
+      this.height_melting_layer = height_melting_layer;
+    }
+
+
+    public String getLocal_timezone() {
+      return local_timezone;
+    }
+
+
+    public void setLocal_timezone(String local_timezone) {
+      this.local_timezone = local_timezone;
+    }
+
+
+    public long getFlags() {
+      return flags;
+    }
+
+
+    public void setFlags(long flags) {
+      this.flags = flags;
+    }
+
+
+    public String getConfig_name() {
+      return config_name;
+    }
+
+
+    public void setConfig_name(String config_name) {
+      this.config_name = config_name;
+    }
+
+
+
     
     
     public ingest_configuration(ByteBuffer in_buf)

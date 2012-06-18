@@ -61,6 +61,7 @@ public class CASANetCDFFile
     public static void load (final ControlMessage command, final CacheMain cache) throws IOException
     {
         String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
+        
         NetcdfFile ncFile = NetcdfFile.open(path);
         Dimension radial = ncFile.hasUnlimitedDimension() ?
             ncFile.getUnlimitedDimension() : ncFile.getRootGroup().findDimension("Radial");
@@ -132,6 +133,7 @@ public class CASANetCDFFile
                 double[] typeData = new double[dataH.numGates];
                 for (int gateI = 0; gateI < dataH.numGates; ++gateI) {
                     typeData[gateI] = data[typeI].getDouble(i2.set1(gateI));
+ //                   System.out.println("Type Data"+typeData[gateI]);
                 }
                 cache.addRay(command, scales.get(typeI).fieldName, new ChillGenRay(hskH, dataH, scales.get(typeI).fieldName, typeData));
             }

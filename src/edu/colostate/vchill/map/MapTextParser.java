@@ -1,22 +1,22 @@
 package edu.colostate.vchill.map;
 
-import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.Loader;
-import edu.colostate.vchill.LocationManager;
-import edu.colostate.vchill.ViewUtil;
-import edu.colostate.vchill.map.MapInstruction.Shape;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
+
+import edu.colostate.vchill.Loader;
+import edu.colostate.vchill.LocationManager;
+import edu.colostate.vchill.ViewUtil;
+import edu.colostate.vchill.map.MapInstruction.Shape;
 
 /**
  * Parser for old-style map definition files.

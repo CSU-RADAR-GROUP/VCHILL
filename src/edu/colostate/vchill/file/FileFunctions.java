@@ -1,5 +1,22 @@
 package edu.colostate.vchill.file;
 
+import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import edu.colostate.vchill.iris.SigmetProductRaw;
 import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.ControlMessage;
 import edu.colostate.vchill.ScaleManager;
@@ -13,21 +30,6 @@ import edu.colostate.vchill.iris.IrisRawFile;
 import edu.colostate.vchill.netcdf.CASANetCDFFile;
 import edu.colostate.vchill.netcdf.NCARNetCDFFile;
 import edu.colostate.vchill.netcdf.WCRNetCDFFile;
-import java.awt.event.KeyEvent;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Class that has functions that return directory names and file names
@@ -223,6 +225,13 @@ public final class FileFunctions {
 			sweepList.add("Sweep 1");
 			return sweepList;
 		}
+		if (isIRISRAW(name)){
+		  SigmetProductRaw SPR_input=new SigmetProductRaw(stripFileName(dir)+"/" + name);
+		  for(int i = 0; i<SPR_input.getSweeps();i++){
+		  sweepList.add("Sweep "+i);
+		  }
+		  return sweepList;
+		}
 
 		DataInputStream fin = null;
 		String newFileName = stripFileName(dir) + "/" + name;
@@ -404,33 +413,33 @@ public final class FileFunctions {
 				+ stripFileName(command.getFile());
 		sm.clear(); // clear the list of fields because the file will provide a
 					// new list
-		if (isNetCDF(path)) {
-			try {
-				if (command.getFile().startsWith("WCR")) {
-					System.out.println("loading WCR netcdf");
-					WCRNetCDFFile.load(command, cache);
-				} else if (command.getFile().startsWith("ncswp_")) {
-					System.out.println("loading NCAR netcdf");
-					NCARNetCDFFile.load(command, cache);
-				} else {
-					System.out.println("loading CASA netcdf");
-					CASANetCDFFile.load(command, cache);
-				}
-			} finally {
-				fileConn.setIsSweepDone(true);
-			}
-			return;
-		} else if (isIRISRAW(path)) {
-			try {
-				System.out.println("Loading Iris Raw data.");
-				IrisRawFile.load(command, cache);
-			} catch (Exception e) {
-				System.err.println("Exception :" + e);
-			} finally {
-				fileConn.setIsSweepDone(true);
-			}
-
-		}
+    if (isNetCDF(path)) {
+      try {
+        if (command.getFile().startsWith("WCR")) {
+          System.out.println("loading WCR netcdf");
+          WCRNetCDFFile.load(command, cache);
+        } else if (command.getFile().startsWith("ncswp_")) {
+          System.out.println("loading NCAR netcdf");
+          NCARNetCDFFile.load(command, cache);
+        } else {
+          System.out.println("loading CASA netcdf");
+          CASANetCDFFile.load(command, cache);
+        }
+      } finally {
+        fileConn.setIsSweepDone(true);
+      }
+      return;
+    } else if (isIRISRAW(path)) {
+      try {
+        System.out.println("Loading Iris Raw data.");
+        IrisRawFile.load(command, cache);
+      } catch (Exception e) {
+        System.err.println("Exception :" + e);
+      } finally {
+        fileConn.setIsSweepDone(true);
+      }
+      return;
+    }
 
 		System.out.println("loading CHILL data");
 
