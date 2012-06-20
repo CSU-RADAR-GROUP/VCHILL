@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="ascope.jar"/>
+	<classpathentry kind="lib" path="bookmark.jar"/>
+	<classpathentry kind="lib" path="cache.jar"/>
+	<classpathentry kind="lib" path="chill.jar"/>
+	<classpathentry kind="lib" path="color.jar"/>
+	<classpathentry kind="lib" path="connection.jar"/>
+	<classpathentry kind="lib" path="data.jar"/>
+	<classpathentry kind="lib" path="file.jar"/>
+	<classpathentry kind="lib" path="gui.jar"/>
+	<classpathentry kind="lib" path="lib/gif89encoder.jar"/>
+	<classpathentry kind="lib" path="lib/looks-2.1.4.jar"/>
+	<classpathentry kind="lib" path="lib/netcdf-2.2.22.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-jdk14.jar"/>
+	<classpathentry kind="lib" path="map.jar"/>
+	<classpathentry kind="lib" path="netcdf.jar"/>
+	<classpathentry kind="lib" path="numdump.jar"/>
+	<classpathentry kind="lib" path="plot.jar"/>
+	<classpathentry kind="lib" path="proxy.jar"/>
+	<classpathentry kind="lib" path="radar.jar"/>
+	<classpathentry kind="lib" path="resources/colors.jar"/>
+	<classpathentry kind="lib" path="resources/maps.jar"/>
+	<classpathentry kind="lib" path="socket.jar"/>
+	<classpathentry kind="lib" path="vchill.jar"/>
+	<classpathentry kind="lib" path="VchillMain.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="src"/>
+</classpath>

@@ -144,10 +144,10 @@ public class DataRay {
 		case 5: // ZDR (1 byte)
 			for (int i = 0; i < this.data.length; i++) {
 				if (this.data[i] == 0) {
-					continue;
+					this.data[i] = Double.NaN;
 				} else {
 					data[i] = (data[i] - 128) / 16;
-
+					
 				}
 			}
 			break;
@@ -157,10 +157,11 @@ public class DataRay {
 		case 9: // 2 bit Reflectivity
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-					continue;
+				  this.data[i] = Double.NaN;
 				} else {
 					data[i] = (data[i] - 32768) / 100;
 				}
+				//System.out.println("Reflectivity or Powr Value of"+data[i]);
 			}
 
 			break;
@@ -168,7 +169,7 @@ public class DataRay {
 		case 10: // 2 Byte velocity
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-					continue;
+				  this.data[i] = Double.NaN;
 				} else {
 					data[i] = (data[i] - 32768) / 100;
 				}
@@ -179,17 +180,19 @@ public class DataRay {
 		case 11: // 2 Byte width
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-					continue;
+				  this.data[i] = Double.NaN;
+				
 				} else {
-					data[i] = (data[i]) / 100;
+					data[i] = data[i] / 100;
 				}
 			}
 
 			break;
+			
 		case 12: // 2 Byte ZDR
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-					continue;
+					this.data[i]= Double.NaN;
 				} else {
 					data[i] = (data[i] - 32768) / 100;
 
@@ -205,7 +208,7 @@ public class DataRay {
 
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-					continue;
+				  this.data[i] = Double.NaN;
 				} else {
 					data[i] = (data[i] - 32768) / 100;
 				}
@@ -216,7 +219,7 @@ public class DataRay {
 		case 16: // PhiDP 1 byte
 			for (int i = 0; i < this.data.length; i++) {
 				if ((data[i] == 255) || data[i] == 0) {
-					continue;
+					this.data[i]=Double.NaN;
 				} else {
 					data[i] = (180 * (data[i] - 1) / 254) % 180;
 				}
@@ -235,7 +238,7 @@ public class DataRay {
 		case 20: // RhoHV 2 byte
 			for (int i = 0; i < this.data.length; i++) {
 				if ((data[i] == 255) || data[i] == 0) {
-					continue;
+					this.data[i]=Double.NaN;
 				} else {
 					data[i] = (data[i] - 1) / 65533;
 				}

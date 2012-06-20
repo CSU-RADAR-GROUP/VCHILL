@@ -481,34 +481,26 @@ public final class FileFunctions {
 					break;
 				}
 
-				// actual data
-				if (paramD.data_field_by_field == 1) { // contiguous data
-					{
-						int m = 0;
-						for (Moment moment : Moment.values()) { // each data
-																// type
-							if (((1l << m) & paramD.field_flag) != 0) { // present
-								if (moment.BYTE_SIZE == 1) {
-									byte[] data = new byte[paramD.ngates];
-									input.readFully(data);
-									cache.addRay(
-											command,
-											sm.getScale(moment.ordinal()).fieldName,
-											new ChillGenRay(
-													hskH,
-													cDataH,
-													sm.getScale(moment
-															.ordinal()).fieldName,
-													data));
-									Thread.yield();
-								} else {
-									skipBytes(input, paramD.ngates
-											* moment.BYTE_SIZE);
-								}
-							}
-							++m;
-						}
-					}
+        // actual data
+        if (paramD.data_field_by_field == 1) { // contiguous data
+          {
+            int m = 0;
+            for (Moment moment : Moment.values()) { // each data
+              // type
+              if (((1l << m) & paramD.field_flag) != 0) { // present
+                if (moment.BYTE_SIZE == 1) {
+                  byte[] data = new byte[paramD.ngates];
+                  input.readFully(data);
+                  cache.addRay(command, sm.getScale(moment.ordinal()).fieldName,
+                    new ChillGenRay(hskH, cDataH, sm.getScale(moment.ordinal()).fieldName, data));
+                  Thread.yield();
+                } else {
+                  skipBytes(input, paramD.ngates * moment.BYTE_SIZE);
+                }
+              }
+              ++m;
+            }
+          }
 				} else { // interleaved data
 					byte[][] data = new byte[availableMoments.size()][paramD.ngates];
 					for (int g = 0; g < paramD.ngates; ++g) {

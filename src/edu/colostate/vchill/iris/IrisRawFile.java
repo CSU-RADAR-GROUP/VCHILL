@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,13 @@ public class IrisRawFile {
   private static DataInputStream dstream_in;
   private static SigmetProductRaw SPR_input;
 
+  static Calendar current_day;
+  
   private static final ScaleManager sm = ScaleManager.getInstance();
 
   private static final Map<String, ChillFieldInfo> infos = new HashMap<String, ChillFieldInfo>();
-
-  public static final ChillFieldInfo Z = new ChillFieldInfo("dBZ", "Reflectivity", 8, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo ZT = new ChillFieldInfo("dBZ-ZT", "Total Power", 8, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo Z = new ChillFieldInfo("dBZ", "Reflectivity", 9, 7500000, -1000000, 0, 0);
   public static final ChillFieldInfo V = new ChillFieldInfo("Vel", "Velocity", 10, 5500000, -5500000, 16, 1);
   public static final ChillFieldInfo W = new ChillFieldInfo("Wid", "SpectralWidth", 11, 800000, 0, 0, 2);
   public static final ChillFieldInfo ZDR = new ChillFieldInfo("ZDR", "DifferentialReflectivity", 12, 9030899, -3010299,
@@ -83,13 +86,17 @@ public class IrisRawFile {
  // private static final ChillFieldInfo[] types = new ChillFieldInfo[] { Z, V, W, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ,
  //   AZDR, ASDP, VFilt, VFast, VSlow, DB_HCLASS2, DB_ZDRC2 };
 
-  private static final ChillFieldInfo[] types = new ChillFieldInfo[]{Z};
-  static { // Static Initializer
-    for (ChillFieldInfo info : types)
-      infos.put(info.longFieldName, info);
-  }
+
+  
+  
+  
+  private static  ChillFieldInfo[] types = new ChillFieldInfo[]{ZT,Z,V,W};
+  
  
   public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
+    for (ChillFieldInfo info : types)
+      infos.put(info.longFieldName, info);
+    
     String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
     System.out.println("IrisRawFile Object Initialized");
     try {
@@ -103,21 +110,38 @@ public class IrisRawFile {
     }
 
     SPR_input = new SigmetProductRaw(dstream_in);
-
+ 
+    String sweepstring=command.getSweep();
+    int sweepnum=Integer.parseInt((sweepstring.split(" ")[1]));
+    
     List<ChillMomentFieldScale> scales = new ArrayList<ChillMomentFieldScale>();
     int fieldNum = 0;
     // Setup Scale Manager stuff
     for (int currentVariable = 0; currentVariable < SPR_input.getTotal_vars(); currentVariable++) {
+
+      if(currentVariable>3) continue;
       while (sm.getScale(fieldNum) != null) {
         ++fieldNum;
       }
 
-    }
-    // Variable var = (Variable) obj;
-    // if (var.getDataType() == DataType.FLOAT) {
-    // vars.add(var);
-    // String units = var.findAttribute("Units").getStringValue().trim();
-    String description = new String("Reflectivity");
+    
+      String description= null;
+      String units=null;
+      if(currentVariable==0) {
+        description = new String("Total Power");
+        units= new String("dBZ-ZT");
+      }
+      if(currentVariable==1){
+        description = new String("Reflectivity");
+        units = new String("dBZ");
+      }else if(currentVariable ==2){
+        description = new String("Velocity");
+        units = new String("Vel");
+      }else if(currentVariable==3){
+        description = new String("SpectralWidth");
+        units = new String("Wid");
+      }
+      
     // // System.out.println("Found data type: " + description + " in " +
     // // units);
     ChillFieldInfo info = infos.get(description);
@@ -126,7 +150,6 @@ public class IrisRawFile {
       info = new ChillFieldInfo(description.substring(0, 4) + fieldNum, description, fieldNum++, 12800000, -12800000,
         0, 0);
     }
-    String units = new String("dBz");
     ChillMomentFieldScale scale = new ChillMomentFieldScale(info, -1, units, 100000, 1, 0);
     scales.add(scale);
     cache.addRay(command, ChillDefines.META_TYPE, scale);
@@ -134,10 +157,16 @@ public class IrisRawFile {
     // }
     // }
     //
+    }
+    int sz = 4;
+    int var=1;
+    
+    ymds_time time_structure= SPR_input.getTop_product_hdr().getAproduct_configuration().getTime_ingest_sweep();
+    current_day = Calendar.getInstance();
+    //current_day.clear();
+    current_day.set(time_structure.getYear(),time_structure.getMonth(), time_structure.getDay(),(int)(Math.round(time_structure.getSeconds()/3600.0)),(int)(Math.round(time_structure.getSeconds()/60.0)) );
+    
 
-    int sz = 1;
-
-    Array[] data = new Array[sz];
     long availableData = 0;
     for (int typeI = 0; typeI < sz; ++typeI) {
       // Variable var = vars.get(typeI);
@@ -154,19 +183,20 @@ public class IrisRawFile {
     // hskH.angleScale = 0x7fffffff;
     // cache.addRay(command, ChillDefines.META_TYPE, hskH);
 
-    hskH.radarLatitude = (int) (1e6 * 5000);
-    hskH.radarLongitude = (int) (1e6 * 4000);
+    hskH.radarLatitude = (int) (SPR_input.getTop_ingest_header().getTop_ingest_config().getLatitude()*1e6);
+    hskH.radarLongitude = (int) (SPR_input.getTop_ingest_header().getTop_ingest_config().getLongitude()*1e6);
     hskH.radarId = SPR_input.getTop_ingest_header().getTop_ingest_config().getHardware_name_of_site();
     hskH.angleScale = 0x7fffffff;
     cache.addRay(command, ChillDefines.META_TYPE, hskH);
 
-    int numgates = SPR_input.getRange_bins();
-    int numrays = SPR_input.getSweeplist().get(1).getIdh_list().get(1).getRays_present();
+  //  int numgates = SPR_input.getRange_bins();
+    int numgates = SPR_input.getSweeplist().get(sweepnum).getRays().get(0).getDatarays().get(1).getNumber_of_bins();
+    int numrays = SPR_input.getSweeplist().get(sweepnum).getIdh_list().get(1).getRays_present();
     System.out.println("Number of rays:" + numrays);
     for (int radialI = 0; radialI < numrays; ++radialI) {// radial.getLength();
       // ++radialI) { //Here we add
       // rays individually
-      Ray currRay = SPR_input.getSweeplist().get(0).getRays().get(radialI);
+      Ray currRay = SPR_input.getSweeplist().get(sweepnum).getRays().get(radialI);
       ChillDataHeader dataH = new ChillDataHeader();
       // Index i1 = azimuth.getIndex().set(radialI);
       dataH.availableData = availableData;
@@ -177,20 +207,21 @@ public class IrisRawFile {
       // dataH.startEl = dataH.endEl = (int) (elevation.getDouble(i1) / 360 *
       // hskH.angleScale);
       // dataH.numGates = gate.getLength();
-      dataH.startAz = dataH.endAz = (int) (((double) radialI) / 360 * hskH.angleScale);
-      System.out.println("DataH" + dataH.endAz);
-      dataH.startEl = dataH.endEl = (int) 5 / 360 * hskH.angleScale;
+      dataH.startAz = (int) (currRay.getDatarays().get(0).getRayheader().getBegin_azi()/360*hskH.angleScale);
+       dataH.endAz = (int) (currRay.getDatarays().get(0).getRayheader().getEnd_azi()/360*hskH.angleScale);
+      dataH.startEl = (int) (currRay.getDatarays().get(0).getRayheader().getBegin_elv()/360*hskH.angleScale);
+      dataH.endEl = (int) (currRay.getDatarays().get(0).getRayheader().getEnd_elv()/360*hskH.angleScale);
       dataH.numGates = numgates;
       // dataH.startRange = startRange.getInt(i1);
       // dataH.dataTime = time.getInt(i1) & 0xffffffff;
       // dataH.fractionalSecs = timenSec == null ? 0 : timenSec.getInt(i1);
       dataH.startRange = 0;
-      dataH.dataTime = 0;
+      dataH.dataTime = current_day.getTimeInMillis()*1000;
       dataH.fractionalSecs = 0;
 
       // hskH.gateWidth = (int) gateWidth.getFloat(i1);
 
-      hskH.gateWidth = (int) 100000;
+      hskH.gateWidth =10*SPR_input.getTop_ingest_header().getAtask_configuration().getAtask_range_info().getInput_bins_step();
 
       cache.addRay(command, ChillDefines.META_TYPE, dataH);
       for (int typeI = 0; typeI < sz; ++typeI) {
@@ -200,7 +231,7 @@ public class IrisRawFile {
         // }
         // Index i2 = data[typeI].getIndex().set0(radialI);
         // double[] typeData = new double[dataH.numGates];
-        double[] typeData = currRay.getDatarays().get(1).getData();
+        double[] typeData = currRay.getDatarays().get(typeI+1).getData();
         // for (int gateI = 0; gateI < dataH.numGates; ++gateI) {
         // // typeData[gateI] = data[typeI].getDouble(i2.set1(gateI));
         // typeData[gateI] = radialI/18 + gateI/20 ;
@@ -210,6 +241,7 @@ public class IrisRawFile {
         cache.addRay(command, scales.get(typeI).fieldName, new ChillGenRay(hskH, dataH, scales.get(typeI).fieldName,
           typeData));
       }
+      
     }
     //
     for (String type : sm.getTypes()) {
@@ -219,4 +251,7 @@ public class IrisRawFile {
     cache.setCompleteFlag(command, ChillDefines.META_TYPE);
     // ncFile.close();
   }
+  
+
+  
 }
