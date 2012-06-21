@@ -14,6 +14,7 @@ public class product_specific_info {
     
     public product_specific_info(ByteBuffer in_buf){
         //TODO Write this structure
+    	System.out.println("Found psi");
         in_buf.position(in_buf.position()+80);
     }
 }

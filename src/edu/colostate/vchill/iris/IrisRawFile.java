@@ -197,6 +197,9 @@ System.out.println("Quick Test2:"+(int)( (time_structure.getSeconds() % 3600)/60
     hskH.radarLongitude = (int) (SPR_input.getTop_ingest_header().getTop_ingest_config().getLongitude()*1e6);
     hskH.radarId = SPR_input.getTop_ingest_header().getTop_ingest_config().getHardware_name_of_site();
     hskH.angleScale = 0x7fffffff;
+    int mode=SPR_input.getTop_ingest_header().getAtask_configuration().getAtask_scan_info().getScan_mode();
+    if(mode== 1 || mode ==4) hskH.antMode=0;
+    if(mode==2 || mode ==7) hskH.antMode =1;
     cache.addRay(command, ChillDefines.META_TYPE, hskH);
 
   //  int numgates = SPR_input.getRange_bins();
