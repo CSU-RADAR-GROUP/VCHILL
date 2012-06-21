@@ -50,61 +50,55 @@ public class IrisRawFile {
   private static final ScaleManager sm = ScaleManager.getInstance();
 
   private static final Map<String, ChillFieldInfo> infos = new HashMap<String, ChillFieldInfo>();
-  public static final ChillFieldInfo ZT = new ChillFieldInfo("dBZ-ZT", "Total Power", 8, 7500000, -1000000, 0, 0);
-  public static final ChillFieldInfo Z = new ChillFieldInfo("dBZ", "Reflectivity", 9, 7500000, -1000000, 0, 0);
-  public static final ChillFieldInfo V = new ChillFieldInfo("Vel", "Velocity", 10, 5500000, -5500000, 16, 1);
-  public static final ChillFieldInfo W = new ChillFieldInfo("Wid", "SpectralWidth", 11, 800000, 0, 0, 2);
-  public static final ChillFieldInfo ZDR = new ChillFieldInfo("ZDR", "DifferentialReflectivity", 12, 9030899, -3010299,
-    0, 4);
-  public static final ChillFieldInfo PHIDP = new ChillFieldInfo("PHIDP", "DifferentialPhase", 16, 90000000, -90000000,
-    0, 6);
-  public static final ChillFieldInfo RHOHV = new ChillFieldInfo("RhoHV", "CrossPolCorrelation", 20, 1000000, 0, 0, 7);
-  public static final ChillFieldInfo KDP = new ChillFieldInfo("KDP", "SpecificPhase", 15, 3000000, -1000000, 0, 7);
-  public static final ChillFieldInfo CZ = new ChillFieldInfo("CdBZ", "CorrectedReflectivity", 21, 7500000, -1000000, 0,
-    0); // change
+  public static final ChillFieldInfo ZT = new ChillFieldInfo("DBT2", "DBT2", 8, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo Z = new ChillFieldInfo("DBZ2", "DBZ2", 9, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo V = new ChillFieldInfo("VEL2", "VEL2", 10, 5500000, -5500000, 16, 1);
+  public static final ChillFieldInfo W = new ChillFieldInfo("WIDTH2", "WIDTH2", 11, 800000, 0, 0, 2);
+  public static final ChillFieldInfo ZDR2 = new ChillFieldInfo("ZDR2", "ZDR2", 12, 9030899, -3010299,0, 4);
+  public static final ChillFieldInfo PHIDP2 = new ChillFieldInfo("PHIDP2", "PHIDP2", 24, 36000000, -36000000,0, 6);
+  public static final ChillFieldInfo PHIH2 = new ChillFieldInfo("PHIH2", "PHIH2", 16, 36000000, -36000000,0, 6);
+
+  public static final ChillFieldInfo RHOHV2 = new ChillFieldInfo("RHOHV2", "RHOHV2", 20, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo RHOH2 = new ChillFieldInfo("RHOH2", "RHOH2", 47, 1000000, 0, 0, 7);
+
+  public static final ChillFieldInfo KDP2 = new ChillFieldInfo("KDP2", "KDP2", 15, 3000000, -1000000, 0, 7);
+  public static final ChillFieldInfo CZ = new ChillFieldInfo("CdBZ", "CorrectedReflectivity", 21, 7500000, -1000000, 0,0); // change
   // number?
-  public static final ChillFieldInfo CZDR = new ChillFieldInfo("CZDR", "CorrectedDifferentialReflectivity", 36,
-    9030899, -3010299, 0, 4); // change
-  // number?
-  public static final ChillFieldInfo AZ = new ChillFieldInfo("AdBZ", "AdjustedReflectivity", 42, 7500000, -1000000, 0,
-    0); // change
-  // number?
-  public static final ChillFieldInfo AZDR = new ChillFieldInfo("AZDR", "AdjustedDifferentialReflectivity", 46, 9030899,
-    -3010299, 0, 4); // change
-  // number?
-  public static final ChillFieldInfo ASDP = new ChillFieldInfo("ASDP", "AdptSpecificDifferentialPhase", 0, 25500000, 0,
-    0, 1); // fix
-  // scale,
-  // colors,
-  // etc
-  public static final ChillFieldInfo VFilt = new ChillFieldInfo("VelFilt", "FilteredVelocity", 26, 5500000, -5500000,
-    16, 1);
+  public static final ChillFieldInfo SQI2 = new ChillFieldInfo("SQI2", "SQI2", 23, 100000, 0, 0, 7);
+
+  public static final ChillFieldInfo CZDR = new ChillFieldInfo("CZDR", "CorrectedDifferentialReflectivity", 36,9030899, -3010299, 0, 4); 
+  public static final ChillFieldInfo AZ = new ChillFieldInfo("AdBZ", "AdjustedReflectivity", 42, 7500000, -1000000, 0,0); 
+  public static final ChillFieldInfo AZDR = new ChillFieldInfo("AZDR", "AdjustedDifferentialReflectivity", 46, 9030899,-3010299, 0, 4); 
+  public static final ChillFieldInfo ASDP = new ChillFieldInfo("ASDP", "AdptSpecificDifferentialPhase", 0, 25500000, 0,  0, 1); 
+  public static final ChillFieldInfo LDRH2 = new ChillFieldInfo("LDRH2", "LDRH2", 26, 5500000, -5500000,0, 4);
   public static final ChillFieldInfo VFast = new ChillFieldInfo("VelFast", "VelocityFast", 27, 5500000, -5500000, 16, 1);
   public static final ChillFieldInfo VSlow = new ChillFieldInfo("VelSlow", "VelocitySlow", 28, 5500000, -5500000, 16, 1);
-  public static final ChillFieldInfo DB_HCLASS2 = new ChillFieldInfo("DB_HCLASS2", "Hydrometeor ID Class", 56, 0, 128, 0, 1);
+  public static final ChillFieldInfo HCLASS2 = new ChillFieldInfo("HCLASS2", "HCLASS2", 56,  700000,0, 0, 1);
   public static final ChillFieldInfo DB_ZDRC2 = new ChillFieldInfo("DB_ZDRC2", "Corrected ZDR", 58,9030899, -3010299,0 ,4 );
  // private static final ChillFieldInfo[] types = new ChillFieldInfo[] { Z, V, W, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ,
  //   AZDR, ASDP, VFilt, VFast, VSlow, DB_HCLASS2, DB_ZDRC2 };
 
-
+  public static String[] dtype_name =  {"XHDR","DBT","DBZ","VEL","WIDTH","ZDR","ORAIN","DBZC","DBT2","DBZ2","VEL2","WIDTH2",
+	  "ZDR2","RAINRATE2","KDP","KDP2","PHIDP","VELC","SQI","RHOHV","RHOHV2","DBZC2","VELC2","SQI2","PHIDP2","LDRH","LDRH2","LDRV",
+	  "LDRV2","FLAGS","FLAGS2","31_UNUSED_NOW","HEIGHT","VIL2","NULL","SHEAR","DIVERGE2","FLIQUID2","USER","OTHER","DEFORM2",
+	  "VVEL2","HVEL2","HDIR2","AXDIL2","TIME2","RHOH","RHOH2","RHOV","RHOV2","PHIH","PHIH2","PHIV","PHIv2","USER2","HCLASS","HCLASS2",
+	  "ZDRC","ZDRC2","VIR","VIR2"};
   
   
   
-  private static  ChillFieldInfo[] types = new ChillFieldInfo[]{ZT,Z,V,W};
+  private static  ChillFieldInfo[] types = new ChillFieldInfo[]{null,null,null,null,null,null,null,null,ZT,Z,V,W,ZDR2,null,null,KDP2,null,null,null,null,RHOHV2,null,null,SQI2,PHIDP2,null,LDRH2,null,
+	  null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,RHOH2,null,null,null,PHIH2,null,null,null,null,HCLASS2,null,null,null,null};
   
  
   public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
-    for (ChillFieldInfo info : types)
-      infos.put(info.longFieldName, info);
+    //for (ChillFieldInfo info : types)
+    //  infos.put(info.longFieldName, info);
     
     String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
     System.out.println("IrisRawFile Object Initialized");
     try {
-
       fstream_in = new FileInputStream(path);
-
       dstream_in = new DataInputStream(fstream_in);
-
     } catch (Exception e) {
       System.err.println("Exception: " + e);
     }
@@ -112,35 +106,52 @@ public class IrisRawFile {
     SPR_input = new SigmetProductRaw(dstream_in);
  
     String sweepstring=command.getSweep();
-    int sweepnum=Integer.parseInt((sweepstring.split(" ")[1]));
+    int sweepnum=Integer.parseInt((sweepstring.split(" ")[1]));//Grumble Grumble, why would you do it this way?
+    int has_xdr=0;
     
     List<ChillMomentFieldScale> scales = new ArrayList<ChillMomentFieldScale>();
     int fieldNum = 0;
     // Setup Scale Manager stuff
+   // int sz=5;
     for (int currentVariable = 0; currentVariable < SPR_input.getTotal_vars(); currentVariable++) {
 
-      if(currentVariable>3) continue;
+      //if(currentVariable>5) continue;//TODO Get rid of this when vars are finished.
+      
+      
       while (sm.getScale(fieldNum) != null) {
         ++fieldNum;
       }
 
-    
+      
+      int dtype_num= SPR_input.getSweeplist().get(sweepnum).getIdh_list().get(currentVariable).getData_type();
+      if(dtype_num == 0) {
+    	  has_xdr=1;
+    	  continue; //Skip over Extended Headers for now
+      }
+      
+      infos.put(types[dtype_num].longFieldName,types[dtype_num]);
+      
+      
       String description= null;
       String units=null;
-      if(currentVariable==0) {
-        description = new String("Total Power");
-        units= new String("dBZ-ZT");
-      }
-      if(currentVariable==1){
-        description = new String("Reflectivity");
-        units = new String("dBZ");
-      }else if(currentVariable ==2){
-        description = new String("Velocity");
-        units = new String("Vel");
-      }else if(currentVariable==3){
-        description = new String("SpectralWidth");
-        units = new String("Wid");
-      }
+      
+      description = dtype_name[dtype_num];
+      units = dtype_name[dtype_num];
+//      
+//      if(currentVariable==0) {
+//        description = new String("Total Power");
+//        units= new String("dBZ-ZT");
+//      }
+//      if(currentVariable==1){
+//        description = new String("Reflectivity");
+//        units = new String("dBZ");
+//      }else if(currentVariable ==2){
+//        description = new String("Velocity");
+//        units = new String("Vel");
+//      }else if(currentVariable==3){
+//        description = new String("SpectralWidth");
+//        units = new String("Wid");
+//      }
       
     // // System.out.println("Found data type: " + description + " in " +
     // // units);
@@ -158,8 +169,6 @@ public class IrisRawFile {
     // }
     //
     }
-    int sz = 4;
-    int var=1;
     
     ymds_time time_structure= SPR_input.getTop_product_hdr().getAproduct_configuration().getTime_ingest_sweep();
     current_day = Calendar.getInstance();
@@ -168,7 +177,7 @@ public class IrisRawFile {
     
 
     long availableData = 0;
-    for (int typeI = 0; typeI < sz; ++typeI) {
+    for (int typeI = 0; typeI < SPR_input.getTotal_vars()-has_xdr; ++typeI) {
       // Variable var = vars.get(typeI);
       // data[typeI] = Array(1);//var.read();
       availableData |= 1l << scales.get(typeI).fieldNumber;
@@ -224,14 +233,14 @@ public class IrisRawFile {
       hskH.gateWidth =10*SPR_input.getTop_ingest_header().getAtask_configuration().getAtask_range_info().getInput_bins_step();
 
       cache.addRay(command, ChillDefines.META_TYPE, dataH);
-      for (int typeI = 0; typeI < sz; ++typeI) {
+      for (int typeI = 0; typeI < SPR_input.getTotal_vars()-has_xdr; ++typeI) {
         // if (data[typeI] == null){
         // System.out.println("Choosing Continue");
         // continue;
         // }
         // Index i2 = data[typeI].getIndex().set0(radialI);
         // double[] typeData = new double[dataH.numGates];
-        double[] typeData = currRay.getDatarays().get(typeI+1).getData();
+        double[] typeData = currRay.getDatarays().get(typeI+has_xdr).getData();
         // for (int gateI = 0; gateI < dataH.numGates; ++gateI) {
         // // typeData[gateI] = data[typeI].getDouble(i2.set1(gateI));
         // typeData[gateI] = radialI/18 + gateI/20 ;

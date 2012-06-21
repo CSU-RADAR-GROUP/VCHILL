@@ -180,8 +180,7 @@ public class DataRay {
 		case 11: // 2 Byte width
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
-				  this.data[i] = Double.NaN;
-				
+				  this.data[i] = Double.NaN;				
 				} else {
 					data[i] = data[i] / 100;
 				}
@@ -260,7 +259,7 @@ public class DataRay {
 		case 23: // SQI(2Byte)
 			for (int i = 0; i < this.data.length; i++) {
 				if ((data[i] == 255) || data[i] == 0) {
-					continue;
+					this.data[i]= Double.NaN;
 				} else {
 					data[i] = (data[i] - 1) / 65533;
 				}
@@ -270,13 +269,54 @@ public class DataRay {
 		case 24: // PhiDP(2 byte)
 			for (int i = 0; i < this.data.length; i++) {
 				if ((data[i] == 255) || data[i] == 0) {
-					continue;
+					this.data[i]=Double.NaN;
 				} else {
 					data[i] = (360 * (data[i] - 1) / 65534) % 360;
 				}
 			}
 			break;
 
+		case 26: //LDRH2
+			for (int i = 0; i < this.data.length; i++) {
+				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
+				  this.data[i] = Double.NaN;
+				} else {
+					data[i] = (data[i] - 32768) / 100;
+				}
+			}
+			
+			break;
+			
+		case 47: //RHOH2
+			for (int i = 0; i < this.data.length; i++) {
+				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
+				  this.data[i] = Double.NaN;
+				} else {
+					data[i] = (data[i] - 32768) / 100;
+				}
+			}
+			
+			break;
+			
+		case 51:
+			for (int i = 0; i < this.data.length; i++) {
+				if ((data[i] == 255) || data[i] == 0) {
+					this.data[i]=Double.NaN;
+				} else {
+					data[i] = (360 * (data[i] - 1) / 65534) % 360;
+				}
+			}
+			break;
+		case 56:
+			for (int i = 0; i < this.data.length; i++) {
+				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
+				  this.data[i] = Double.NaN;
+				} else {
+					//data[i] = (data[i] - 32768) / 100;
+				}
+			}
+			
+			break;			
 		case 58:
 			for (int i = 0; i < this.data.length; i++) {
 				if ((this.data[i] == 0) || (this.data[i] == 65535)) {
