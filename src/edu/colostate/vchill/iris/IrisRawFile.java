@@ -172,10 +172,11 @@ public class IrisRawFile {
     
     ymds_time time_structure= SPR_input.getTop_product_hdr().getAproduct_configuration().getTime_ingest_sweep();
     current_day = Calendar.getInstance();
-    //current_day.clear();
-    current_day.set(time_structure.getYear(),time_structure.getMonth(), time_structure.getDay(),(int)(Math.round(time_structure.getSeconds()/3600.0)),(int)(Math.round(time_structure.getSeconds()/60.0)) );
-    
-
+    current_day.clear();
+    current_day.set(time_structure.getYear()-1900,time_structure.getMonth()-1, time_structure.getDay(),-7+(int)(time_structure.getSeconds()/3600.0),(int)( (time_structure.getSeconds() % 3600)/60) );
+    current_day.getTimeInMillis();
+System.out.println("Quick Test:"+(int) (time_structure.getSeconds()/3600.0));
+System.out.println("Quick Test2:"+(int)( (time_structure.getSeconds() % 3600)/60));
     long availableData = 0;
     for (int typeI = 0; typeI < SPR_input.getTotal_vars()-has_xdr; ++typeI) {
       // Variable var = vars.get(typeI);
@@ -225,10 +226,8 @@ public class IrisRawFile {
       // dataH.dataTime = time.getInt(i1) & 0xffffffff;
       // dataH.fractionalSecs = timenSec == null ? 0 : timenSec.getInt(i1);
       dataH.startRange = 0;
-      dataH.dataTime = current_day.getTimeInMillis()*1000;
+      dataH.dataTime = current_day.getTimeInMillis()/1000L;
       dataH.fractionalSecs = 0;
-
-      // hskH.gateWidth = (int) gateWidth.getFloat(i1);
 
       hskH.gateWidth =10*SPR_input.getTop_ingest_header().getAtask_configuration().getAtask_range_info().getInput_bins_step();
 
