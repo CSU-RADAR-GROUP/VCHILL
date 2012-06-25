@@ -155,4 +155,19 @@ public class DataDecoderBuffer {
         }
 
     }
+    public boolean nondestructivecheckEndRay(){
+      if(in_stream.remaining() == 0){
+        this.EnlargeBuffer();
+      }
+      in_stream.mark();
+      short codeword = in_stream.getShort();
+      in_stream.reset();
+      if (codeword == 1)
+        return true;
+      else
+        return false;
+    
+      }
+    
+    
 }

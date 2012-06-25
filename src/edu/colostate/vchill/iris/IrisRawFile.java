@@ -175,8 +175,7 @@ public class IrisRawFile {
     current_day.clear();
     current_day.set(time_structure.getYear()-1900,time_structure.getMonth()-1, time_structure.getDay(),-7+(int)(time_structure.getSeconds()/3600.0),(int)( (time_structure.getSeconds() % 3600)/60) );
     current_day.getTimeInMillis();
-System.out.println("Quick Test:"+(int) (time_structure.getSeconds()/3600.0));
-System.out.println("Quick Test2:"+(int)( (time_structure.getSeconds() % 3600)/60));
+
     long availableData = 0;
     for (int typeI = 0; typeI < SPR_input.getTotal_vars()-has_xdr; ++typeI) {
       // Variable var = vars.get(typeI);
@@ -204,7 +203,7 @@ System.out.println("Quick Test2:"+(int)( (time_structure.getSeconds() % 3600)/60
 
   //  int numgates = SPR_input.getRange_bins();
     int numgates = SPR_input.getSweeplist().get(sweepnum).getRays().get(0).getDatarays().get(1).getNumber_of_bins();
-    int numrays = SPR_input.getSweeplist().get(sweepnum).getIdh_list().get(1).getRays_present();
+    int numrays = SPR_input.getSweeplist().get(sweepnum).getIdh_list().get(1).getRays_present()- SPR_input.getMissedrays();
     System.out.println("Number of rays:" + numrays);
     for (int radialI = 0; radialI < numrays; ++radialI) {// radial.getLength();
       // ++radialI) { //Here we add

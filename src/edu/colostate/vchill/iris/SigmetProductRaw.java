@@ -37,6 +37,7 @@ public class SigmetProductRaw {
     int bytesleft;
     ByteArrayOutputStream recordstream;
     int total_vars;
+    int missedrays=0;
     
     public int getTotal_vars() {
       return total_vars;
@@ -177,8 +178,7 @@ public class SigmetProductRaw {
     sweeplist = new ArrayList<Sweep>();
     DataDecoderBuffer datadecoder;
 
-    int sraycount = 0;
-    boolean new_sweep = true;
+
     try {
       for (int currSweep = 0; currSweep < sweeps; currSweep++) {
         System.out.println("Processing sweep " + currSweep + ".");
@@ -199,18 +199,28 @@ public class SigmetProductRaw {
           // sweeplist.get(currSweep).getIdh_list().get(cv).getRays_present());
 
         }// Data Headers for current sweep finished.
-
+        
         datadecoder = new DataDecoderBuffer(dis, getTempByteBuffer());
         System.out.println("Number of rays is :"+ sweeplist.get(currSweep).getIdh_list().get(1).getRays_present());
         for (int raycount = 0; raycount < sweeplist.get(currSweep).getIdh_list().get(1).getRays_present(); raycount++) {
           currRay = new Ray();
           // System.out.println("Working on Ray:" + raycount);
-
+       //   System.out.println("Current dis position is:"+dis.)
+          int misray=0;
           for (int cv = 0; cv < total_vars; cv++) {// By Variable
+          //  dis.reset();
+           // dis.mark(100000);
+           // dis.skipBytes(sweeplist.get(currSweep).getIdh_list().get(cv).getIndex_first_ray()-12);
             DataRay currDataRay = new DataRay();
+            if(datadecoder.nondestructivecheckEndRay()){
+              datadecoder.checkEndRay();
+              misray=1;
+              continue;             
+            }
+              
             currDataRay.setRayheader(new RayHeader(datadecoder.getData(12)));
             int numbins = currDataRay.getRayheader().getBins_in_ray();
-            // System.out.println("Number of bins:" + numbins);
+            //System.out.println("Number of bins:" + numbins);
             currDataRay.setRangeBins(numbins);
             // System.out.println("Reading(" + sraycount++ + ")Variable " + cv +
             // "of type " +
@@ -233,12 +243,22 @@ public class SigmetProductRaw {
               // currDataRay.setData(datadecoder.getData(2).getShort(), rb);
               // }
             }
+            if(misray==1){
+      
+              continue; //We had some missing data so leave this ray off.
+            }
             currDataRay.setDtype(sweeplist.get(currSweep).getIdh_list().get(cv).getData_type());
             currDataRay.translateData();
             currRay.getDatarays().add(currDataRay);
             
             datadecoder.checkEndRay();
 
+          }
+          if(misray ==1 ){
+            System.out.println("Missing Ray detected, skipping over it");
+            misray=0;
+            this.missedrays+=1;
+            continue;
           }
           sweeplist.get(currSweep).getRays().add(currRay);
           //System.out.println("Added Ray number"+raycount);
@@ -251,6 +271,14 @@ public class SigmetProductRaw {
 
     }
 
+  }
+
+    public int getMissedrays() {
+    return missedrays;
+  }
+
+  public void setMissedrays(int missedrays) {
+    this.missedrays = missedrays;
   }
 
     /**

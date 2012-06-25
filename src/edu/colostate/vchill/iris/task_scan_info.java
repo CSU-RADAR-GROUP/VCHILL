@@ -36,7 +36,7 @@ public class task_scan_info {
             case 4: atask_ppi_scan_info = new task_ppi_scan_info(in_buf); break;
             case 5: atask_file_scan_info = new task_file_scan_info(in_buf); break;
         }
-        
+        System.out.println("Scan Mode:"+scan_mode);
         in_buf.position(in_buf.position()+112);
         
     }
