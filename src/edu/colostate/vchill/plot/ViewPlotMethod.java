@@ -1,5 +1,7 @@
 package edu.colostate.vchill.plot;
 
+import edu.colostate.vchill.gui.MapServerConfig;
+
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.LimitedList;
 import edu.colostate.vchill.LocationManager;
@@ -14,6 +16,7 @@ import edu.colostate.vchill.color.XMLControl;
 import edu.colostate.vchill.data.Ray;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -25,6 +28,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.zip.ZipOutputStream;
+
+
+
+//Rausch
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import java.net.*;
+import java.io.*;
+import java.util.ArrayList;
+import javax.imageio.*;
+
+import java.awt.*;
+import javax.swing.*;
+
+
+
+
 
 /**
  * This is the super class for the different types of plotting modes. The
@@ -40,6 +65,12 @@ import java.util.zip.ZipOutputStream;
  */
 public abstract class ViewPlotMethod
 {
+	
+	
+	// Rausch
+	protected static Boolean NeedToPlotMap = false;
+	
+	
     protected final static Config config = Config.getInstance();
     protected final static ScaleManager sm = ScaleManager.getInstance();
     protected final static ViewControl vc = ViewControl.getInstance();
@@ -241,8 +272,74 @@ public abstract class ViewPlotMethod
      * @param threshRay The threshold ray corresponding to the current ray
      * @param g the Graphics context to plot to
      */
+    
+    
+    
+    // Rausch
+    int counter = 0;
+    
     public void plotData (final Ray prevRay, final Ray currRay, final Ray nextRay, final Ray threshRay, final Graphics g)
     {
+    	
+    	// Rausch
+	    counter++;
+	    //System.out.println(counter);
+	    	
+	    if(NeedToPlotMap == true)
+	    {
+	    	
+	    	String testString = MapServerConfig.userMapLayers;
+	    	
+	    	
+	    	NeedToPlotMap = false;
+	    	
+	    	double BBnorth, BBsouth, BBeast, BBwest;
+
+	    	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
+
+/*	    	
+	    	System.out.println("W: " + NWLatLong[0]);
+	    	System.out.println("N: " + NWLatLong[1]);
+	    	System.out.println("E: " + SELatLong[0]);
+	    	System.out.println("S: " + SELatLong[1]);    	
+*/	    	
+
+	    	BBwest = NWLatLong[0];
+	    	BBeast = SELatLong[0];
+	    	BBnorth = NWLatLong[1];
+	    	BBsouth = SELatLong[1];
+	    	
+	    	
+	    	
+	    	// Rausch
+	    	
+			Image image = null;
+	    	
+			try 
+			{
+			    // Read from a URL
+				
+//				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
+//			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
+			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapLayers); //shaded_relief_natural_earth,state_boundaries,cities");
+
+				
+				image = ImageIO.read(url);
+			} 
+			catch(Exception e)
+			{
+				System.out.println("Something went very wrong");			
+			}
+
+			g.drawImage(image, 0, 0, null); 	
+	    	
+	    	
+	    	
+    	}
+    	
+    	
+    	
         if (currRay == null) throw new IllegalArgumentException("Error: PlotMethod.plotData(): null for data");
 
         double[] values = currRay.getData();
@@ -334,9 +431,20 @@ public abstract class ViewPlotMethod
 
             //Finally set that value in the data so that it can be assigned a color
             //(might make more sense to just assign a color now).
-            g.setColor(colorValue);
-            g.drawPolygon(xVals, yVals, 4);
-            g.fillPolygon(xVals, yVals, 4);
+            
+            // Rausch
+            if(colorValue != Color.BLACK)
+            {
+            	
+            	int alphaTransparency = 23;
+            	
+            	colorValue = new Color(colorValue.getRed(), colorValue.getGreen(), colorValue.getBlue(), alphaTransparency);
+            	
+            	g.setColor(colorValue);
+            
+            	g.drawPolygon(xVals, yVals, 4);
+            	g.fillPolygon(xVals, yVals, 4);
+            }
         } //End for loop
         startAngle = endAngle;
         endAngle = new Angle();

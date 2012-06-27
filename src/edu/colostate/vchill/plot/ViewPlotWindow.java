@@ -32,6 +32,12 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 
+
+
+
+
+
+
 /**
  * This window type displays data as colored graphics.
  *
@@ -275,6 +281,10 @@ public class ViewPlotWindow extends ViewWindow
             clearOverlayBuffer();
             plotOverlay();
         }
+        
+    
+        
+        
         g.drawImage(this.overlayBuffer, dragOffsetX, dragOffsetY, null);
         g.drawImage(this.aircraftBuffer, dragOffsetX, dragOffsetY, null);
         if (config.isClickPointEnabled() && dragOffsetX == 0 && dragOffsetY == 0) plotMethod.plotClickPoint(g);
