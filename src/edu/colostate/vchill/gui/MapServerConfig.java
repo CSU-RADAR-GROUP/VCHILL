@@ -32,14 +32,20 @@ public class MapServerConfig extends JPanel
 	
 	
 	public static String userMapLayers = "";
+	public static String userMapOverlay = "";
 	
+	// Array of titles of layers
 	private static ArrayList<String> layerArrayList;
+	// Array of names of layers
+	private static ArrayList<String> layerNameArrayList;
+	
 	
 	public MapServerConfig() 
 	{		
 		
 		layerArrayList = new ArrayList<String>();
-
+		layerNameArrayList = new ArrayList<String>();
+		
 		// Get XML Document from server
 		InputSource xmlSource = getXMLDoc();
 		
@@ -52,15 +58,11 @@ public class MapServerConfig extends JPanel
 	
 	}
  
-	public static void displayMap(int[] selectedIndices)
+	public static void displayMap(int[] selectedUnderlayIndices, int[] selectedOverlayIndices)
 	{
 		
-		
-		
-		String layerString = getLayerString(selectedIndices);	
-
-		userMapLayers = layerString;
-				
+		userMapLayers = getLayerString(selectedUnderlayIndices);
+		userMapOverlay = getLayerString(selectedOverlayIndices);		
 	}
 
 	private static String getLayerString(int[] selectedIndices)
@@ -71,17 +73,21 @@ public class MapServerConfig extends JPanel
 		{
 			if(i == 0)
 			{
-				theLayerString = layerArrayList.get(selectedIndices[0]);
+				theLayerString = layerNameArrayList.get(selectedIndices[0]);
 			}
 			else
 			{
-				theLayerString = theLayerString + "," + layerArrayList.get(selectedIndices[i]);
+				theLayerString = theLayerString + "," + layerNameArrayList.get(selectedIndices[i]);
 			}
 		}		
 		
 		return theLayerString;
 		
 	}
+	
+	
+	
+	
 	
 	private static String getTagValue(String sTag, Element eElement) 
 	{
@@ -106,7 +112,7 @@ public class MapServerConfig extends JPanel
 		
 			while((inputLine=in.readLine())!=null)
 			{
-				System.out.println(inputLine);
+				//System.out.println(inputLine);
 				wholeXmlFile += inputLine;
 			}
 		
@@ -133,24 +139,50 @@ public class MapServerConfig extends JPanel
 			Document doc = dBuilder.parse(is);
 			doc.getDocumentElement().normalize();
  
-			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-			NodeList nList = doc.getElementsByTagName("Layer");
-			System.out.println("-----------------------");
- 
-			
-			
-			for (int temp = 0; temp < nList.getLength(); temp++) 
-			{
-				Node nNode = nList.item(temp);
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
-				{
-					Element eElement = (Element) nNode;
 
-					layerArrayList.add(getTagValue("Name", eElement));
-					System.out.println("Name : " + getTagValue("Name", eElement));
+			Node capabilityNode = null;
+			Node parentLayerNode = null;
+
+			
+			// Find all children of first node, search for Capability node
+			for(Node child = doc.getDocumentElement().getFirstChild(); child != null; child = child.getNextSibling())
+			{
+				
+				String capabilities = "Capability";
+				if(capabilities.equals((String)child.getNodeName()))
+					capabilityNode = child;
+			}
+			
+			
+			// Once we have found the capability node, we look for the layer node amongst the children.
+			if(capabilityNode != null)
+			{
+				for(Node child = capabilityNode.getFirstChild(); child != null; child = child.getNextSibling())
+				{					
+					String parentLayer = "Layer";
+					if(parentLayer.equals((String)child.getNodeName()))
+						parentLayerNode = child;					
+				}
+			}
+			
+			// once we have the first layer node we search all of its children to find the names and titles of layers
+			if(parentLayerNode != null)
+			{
+				for(Node child = parentLayerNode.getFirstChild(); child != null; child = child.getNextSibling())
+				{					
+					String parentLayer = "Layer";
+					if(parentLayer.equals((String)child.getNodeName()))
+					{
+						Element eElement = (Element) child;
+						
+						//System.out.println("Title: " + getTagValue("Title", eElement));
+						layerArrayList.add(getTagValue("Title", eElement));
+						//System.out.println("Name: " + getTagValue("Name", eElement));						
+						layerNameArrayList.add(getTagValue("Name", eElement));
+					}
 				}
 			}			
-			
+
 		}
 		catch(Exception e)
 		{
