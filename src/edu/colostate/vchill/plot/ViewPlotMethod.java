@@ -1,6 +1,7 @@
 package edu.colostate.vchill.plot;
 
 import edu.colostate.vchill.gui.MapServerConfig;
+import edu.colostate.vchill.gui.MapServerConfigWindow;
 
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.LimitedList;
@@ -285,7 +286,7 @@ public abstract class ViewPlotMethod
 	    counter++;
 	    //System.out.println(counter);
 	    	
-	    if(NeedToPlotMap == true)
+	    if(NeedToPlotMap == true || counter == 1)
 	    {
 	    	
 	    	String testString = MapServerConfig.userMapLayers;
@@ -322,8 +323,10 @@ public abstract class ViewPlotMethod
 				
 //				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
 //			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
-			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapLayers); //shaded_relief_natural_earth,state_boundaries,cities");
+			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapLayers); 
 
+			    System.out.println("Underlay");
+			    System.out.println(MapServerConfig.userMapLayers);
 				
 				image = ImageIO.read(url);
 			} 
@@ -436,7 +439,7 @@ public abstract class ViewPlotMethod
             if(colorValue != Color.BLACK)
             {
             	
-            	int alphaTransparency = 23;
+            	int alphaTransparency = MapServerConfigWindow.Transparency;
             	
             	colorValue = new Color(colorValue.getRed(), colorValue.getGreen(), colorValue.getBlue(), alphaTransparency);
             	

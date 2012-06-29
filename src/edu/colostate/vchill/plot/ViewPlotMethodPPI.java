@@ -6,6 +6,7 @@ import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
 import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
 import edu.colostate.vchill.chill.ChillTrackInfo;
 import edu.colostate.vchill.data.Ray;
+import edu.colostate.vchill.gui.MapServerConfig;
 import edu.colostate.vchill.map.MapInstruction;
 import edu.colostate.vchill.map.MapInstruction.Shape;
 import java.awt.Color;
@@ -173,49 +174,61 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
     {
     
     	NeedToPlotMap = true;
-/*    	
-    	double BBnorth, BBsouth, BBeast, BBwest;
+    	counter = 0;
+	    if(NeedToPlotMap == true)
+	    {
+	    	
+	    	String testString = MapServerConfig.userMapLayers;
+	    	
+	    	
+	    	NeedToPlotMap = false;
+	    	
+	    	double BBnorth, BBsouth, BBeast, BBwest;
 
-    	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
-    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
+	    	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
 
-    	
-    	System.out.println("W: " + NWLatLong[0]);
-    	System.out.println("N: " + NWLatLong[1]);
-    	System.out.println("E: " + SELatLong[0]);
-    	System.out.println("S: " + SELatLong[1]);    	
-    	
+/*	    	
+	    	System.out.println("W: " + NWLatLong[0]);
+	    	System.out.println("N: " + NWLatLong[1]);
+	    	System.out.println("E: " + SELatLong[0]);
+	    	System.out.println("S: " + SELatLong[1]);    	
+*/	    	
 
-    	BBwest = NWLatLong[0];
-    	BBeast = SELatLong[0];
-    	BBnorth = NWLatLong[1];
-    	BBsouth = SELatLong[1];
-    	
-    	
-    	
-    	// Rausch
-    	
-		Image image = null;
-    	
-		try 
-		{
-		    // Read from a URL
-			
-//			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
-//		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
-		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
+	    	BBwest = NWLatLong[0];
+	    	BBeast = SELatLong[0];
+	    	BBnorth = NWLatLong[1];
+	    	BBsouth = SELatLong[1];
+	    	
+	    	
+	    	
+	    	// Rausch
+	    	
+			Image image = null;
+	    	
+			try 
+			{
+			    // Read from a URL
+				
+//				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
+//			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
+			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlay); 
 
-			
-			image = ImageIO.read(url);
-		} 
-		catch(Exception e)
-		{
-			System.out.println("Something went very wrong");			
-		}
+			    System.out.println("Overlay");
+			    System.out.println(MapServerConfig.userMapOverlay);
+				
+				image = ImageIO.read(url);
+			} 
+			catch(Exception e)
+			{
+				System.out.println("Something went very wrong");			
+			}
 
-		g.drawImage(image, 0, 0, null);
+			g.drawImage(image, 0, 0, null); 	
+	    }
 		
-*/
+/*		
+
     	
     	
         if (g == null) return;
@@ -272,7 +285,7 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
             prevInstr = instr;
         }
         g.setFont(oldFont);
-
+*/
     }
 
     @Override public void plotClickPoint (final Graphics g)
