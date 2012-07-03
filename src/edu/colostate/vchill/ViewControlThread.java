@@ -273,6 +273,7 @@ public class ViewControlThread implements Runnable
                             if (plotTypes[i] == null) continue; //seems to be unavailable
                             plotPrevRays[i] = plotCurrRays[i];
                             plotCurrRays[i] = getRayWait(currMessage, plotTypes[i], rayNum);
+                                                        
                             if (plotCurrRays[i] != null) { //null => not available => sweep done?
                                 if (!rangeSet) {
                                     config.setMaxPlotRange(plotCurrRays[i].getEndRange() * 1e-6);

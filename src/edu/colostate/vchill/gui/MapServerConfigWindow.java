@@ -20,9 +20,9 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 	public static int Transparency = 255;
 	ArrayList<String> layers;
 	
-	JList dragFrom;
-	JList moveToOverlay;
-	JList moveToUnderlay;    
+	JList dragFromJList;
+	JList overlayJList;
+	JList underlayJList;    
     
 	DefaultListModel choices = new DefaultListModel();     
 	DefaultListModel overlay = new DefaultListModel();
@@ -30,7 +30,16 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 	
 	
     private static final String displayMapString = "Display Map";
+    private static final String removeFromOverlayString = "Remove from overlay";
+    
     private JButton displayMapButton;
+    private JButton removeFromOverlayButton;
+    private JButton removeFromUnderlayButton;
+    private JButton addToOverlayButton;
+    private JButton addToUnderlayButton;
+    
+    private JSlider weatherDataOpacitySlider;
+    private JLabel weatherDataOpacityLabel;
 
     public MapServerConfigWindow(ArrayList<String> passedLayers) 
     {
@@ -39,8 +48,8 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 
         
         layers = passedLayers;
-		JSlider weatherDataOpacitySlider = new JSlider(JSlider.HORIZONTAL, minSliderSize, maxSliderSize, maxSliderSize);
-		weatherDataOpacitySlider.addChangeListener(this);        
+		weatherDataOpacitySlider = new JSlider(JSlider.HORIZONTAL, minSliderSize, maxSliderSize, maxSliderSize);
+		weatherDataOpacitySlider.addChangeListener(this);
         
         
         for(int i = 0; i < layers.size(); i++)
@@ -51,47 +60,100 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		JPanel p = new JPanel();         
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));         
 		
-		dragFrom = new JList(choices);         
-		dragFrom.setTransferHandler(new FromTransferHandler());         
-		dragFrom.setDragEnabled(true);         
-		dragFrom.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);         
+		dragFromJList = new JList(choices);         
+		dragFromJList.setTransferHandler(new FromTransferHandler());         
+		dragFromJList.setDragEnabled(true);         
+		dragFromJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);         
 		
 		JLabel label = new JLabel("Drag choices here:");         
 		label.setAlignmentX(0f);         
 		p.add(label, BorderLayout.WEST);         
 		p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));         
-		JScrollPane sp = new JScrollPane(dragFrom);         
-		sp.setAlignmentX(0f);         
-		p.add(sp);         
-		add(p, BorderLayout.WEST);                   
+		JScrollPane sp = new JScrollPane(dragFromJList);         
+		//sp.setAlignmentX(0f);         
+		p.add(sp, BorderLayout.WEST);         
+
+
+		JPanel subP = new JPanel();
+		subP.setLayout(new BoxLayout(subP, BoxLayout.X_AXIS));
+		
+		
+		addToOverlayButton = new JButton("Move to overlay");
+        addToOverlayButton.setActionCommand("Move to overlay");
+        addToOverlayButton.addActionListener(new overlayJListListener());                  
+        subP.add(addToOverlayButton, BorderLayout.WEST);
+        
+        
+		addToUnderlayButton = new JButton("Move to underlay");
+        addToUnderlayButton.setActionCommand("Move to underlay");
+        addToUnderlayButton.addActionListener(new underlayJListListener());                  
+        subP.add(addToUnderlayButton, BorderLayout.EAST);	        
+        
+        p.add(subP);
+        add(p, BorderLayout.LINE_START);
+
+		
+		
 		p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));         
 
-		moveToOverlay = new JList(overlay);         
-		moveToOverlay.setTransferHandler(new OverlayTransferHandler(TransferHandler.MOVE));         
-		moveToOverlay.setDropMode(DropMode.INSERT);
-		moveToOverlay.setDragEnabled(true);
-		moveToOverlay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		overlayJList = new JList(overlay);         
+		overlayJList.setTransferHandler(new OverlayTransferHandler(TransferHandler.MOVE));         
+		overlayJList.setDropMode(DropMode.INSERT);
+		overlayJList.setDragEnabled(true);
+		overlayJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		overlayJList.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent evt)
+			{
+				JList myList = (JList)evt.getSource();
+				if(evt.getClickCount() == 2)
+				{
+					removeFromOverlay();
+				}
+			}
+		});
+		
 		
 
-		moveToUnderlay = new JList(underlay);         
-		moveToUnderlay.setTransferHandler(new UnderlayTransferHandler(TransferHandler.MOVE));         
-		moveToUnderlay.setDropMode(DropMode.INSERT);
-		moveToUnderlay.setDragEnabled(true);
-		moveToUnderlay.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		
+		underlayJList = new JList(underlay);         
+		underlayJList.setTransferHandler(new UnderlayTransferHandler(TransferHandler.MOVE));         
+		underlayJList.setDropMode(DropMode.INSERT);
+		underlayJList.setDragEnabled(true);
+		underlayJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		underlayJList.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent evt)
+			{
+				JList myList = (JList)evt.getSource();
+				if(evt.getClickCount() == 2)
+				{
+					removeFromUnderlay();
+				}
+			}
+		});				
 		
 		p = new JPanel();         
+
+	
+		
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));         
 		label.setAlignmentX(0f);         
 		p.add(label);         
-		sp = new JScrollPane(moveToOverlay);         
+		sp = new JScrollPane(overlayJList);         
 		
 		sp.setAlignmentX(0f);         
 		p.add(sp);      
-		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
+
+
 		
-		label = new JLabel("Drop to MOVE to here:");         
+		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
+
+		
+
+		
+		
+		
+		label = new JLabel("Drag and drop to these boxes:");         
 		label.setAlignmentX(0f);         
 		p.add(label);         
 		sp.setAlignmentX(0f);         
@@ -99,8 +161,23 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
 		add(p, BorderLayout.CENTER);                   
 
+
+		label = new JLabel("Overlay:");         
+		label.setAlignmentX(0f);         
+		p.add(label);         
+		sp.setAlignmentX(0f);         
+		p.add(sp);         
+		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
+		add(p, BorderLayout.CENTER);		
+
+        removeFromOverlayButton = new JButton(removeFromOverlayString);
+        removeFromOverlayButton.setActionCommand(removeFromOverlayString);
+        removeFromOverlayButton.addActionListener(new RemoveFromOverlayListener());                  
+        p.add(removeFromOverlayButton);
 		
-		sp = new JScrollPane(moveToUnderlay);         
+		
+		
+		sp = new JScrollPane(underlayJList);         
 		
 		sp.setAlignmentX(0f);         
 		p.add(sp);      
@@ -114,10 +191,15 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
 		add(p, BorderLayout.CENTER);                   		
 
+        removeFromUnderlayButton = new JButton("Remove from Underlay");
+        removeFromUnderlayButton.setActionCommand("Remove from Underlay");
+        removeFromUnderlayButton.addActionListener(new RemoveFromUnderlayListener());                  
+        p.add(removeFromUnderlayButton);		
+		
 	
-		label = new JLabel("Weather Data Opacity");
+		weatherDataOpacityLabel = new JLabel("Weather Data Opacity 100%");
 
-		p.add(label);
+		p.add(weatherDataOpacityLabel);
 
 		p.add(weatherDataOpacitySlider);
 		
@@ -150,7 +232,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
     {
     	int[] myIndices = new int[myDefaultListModel.getSize()];
     	
-   // 	moveToUnderlay.
+   // 	underlayJList.
     	
     	for(int i = 0; i < myDefaultListModel.getSize(); i++)
     	{
@@ -167,20 +249,45 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
     }
     
     
+    public void removeFromOverlay()
+    {
+    	int selectedIndex = overlayJList.getSelectedIndex();
+    	
+    	String removedValue = (String) overlay.get(selectedIndex);
+    	
+    	overlay.removeElementAt(selectedIndex);
+    	
+    	choices.insertElementAt(removedValue, choices.getSize());    	    	
+    }
+    
+    public void removeFromUnderlay()
+    {
+    	int selectedIndex = underlayJList.getSelectedIndex();
+    	
+    	String removedValue = (String) underlay.get(selectedIndex);
+    	
+    	underlay.removeElementAt(selectedIndex);
+    	
+    	choices.insertElementAt(removedValue, choices.getSize());    	
+    }
+    
+    
 	public void stateChanged(ChangeEvent e)
 	{
 		JSlider source = (JSlider)e.getSource();
+
+		weatherDataOpacityLabel.setText("Weather Data Opacity " + (Integer.toString((100*weatherDataOpacitySlider.getValue()/255)))+"%");
 		
 		if(!source.getValueIsAdjusting())
 		{
 			System.out.println(source.getValue());
 			
-			Transparency = source.getValue();
+			Transparency = source.getValue();			
 		}
 		
 	}    
     
-    
+     
     class DisplayMapListener implements ActionListener 
     {
         public void actionPerformed(ActionEvent e) 
@@ -190,11 +297,62 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
         	int[] selectedUnderlayIndices = matchIndicesToTitles(underlay);
             int[] selectedOverlayIndices = matchIndicesToTitles(overlay);        	
         	
-            //int[] selectedUnderlayIndices = moveToUnderlay.getSelectedIndices();
-            //int[] selectedOverlayIndices = moveToOverlay.getSelectedIndices();
+            //int[] selectedUnderlayIndices = underlayJList.getSelectedIndices();
+            //int[] selectedOverlayIndices = overlayJList.getSelectedIndices();
             MapServerConfig.displayMap(selectedUnderlayIndices, selectedOverlayIndices);            
         }
     }
+    
+    // buzz
+    class RemoveFromOverlayListener implements ActionListener 
+    {
+        public void actionPerformed(ActionEvent e) 
+        {        	
+        	removeFromOverlay();        	
+        }
+    }    
+    
+    class RemoveFromUnderlayListener implements ActionListener 
+    {
+        public void actionPerformed(ActionEvent e) 
+        {
+        	removeFromUnderlay();        	
+        }
+    }
+    
+    
+    
+    
+    class underlayJListListener implements ActionListener 
+    {
+        public void actionPerformed(ActionEvent e) 
+        {
+        	int selectedIndex = dragFromJList.getSelectedIndex();
+        	
+        	String removedValue = (String) choices.get(selectedIndex);
+        	
+        	choices.removeElementAt(selectedIndex);
+        	
+        	underlay.insertElementAt(removedValue, underlay.getSize());         	
+        }
+    }
+    
+    class overlayJListListener implements ActionListener 
+    {
+        public void actionPerformed(ActionEvent e) 
+        {
+        	int selectedIndex = dragFromJList.getSelectedIndex();
+        	
+        	String removedValue = (String) choices.get(selectedIndex);
+        	
+        	choices.removeElementAt(selectedIndex);
+        	
+        	overlay.insertElementAt(removedValue, overlay.getSize());       	
+        }
+    }    
+    
+    
+    
     
 	class FromTransferHandler extends TransferHandler 
 	{         	
@@ -206,13 +364,13 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		private int index = 0;           
 		public Transferable createTransferable(JComponent comp) 
 		{             
-			index = dragFrom.getSelectedIndex();             
+			index = dragFromJList.getSelectedIndex();             
 			if (index < 0 || index >= choices.getSize()) 
 			{                 
 				return null;             
 			}               
 			
-			return new StringSelection((String)dragFrom.getSelectedValue());         
+			return new StringSelection((String)dragFromJList.getSelectedValue());         
 		}                   
 		
 		public void exportDone(JComponent comp, Transferable trans, int action) 
@@ -243,13 +401,13 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		private int index = 0;           
 		public Transferable createTransferable(JComponent comp) 
 		{             
-			index = moveToOverlay.getSelectedIndex();             
+			index = overlayJList.getSelectedIndex();             
 			if (index < 0 || index >= overlay.getSize()) 
 			{                 
 				return null;             
 			}               
 			
-			return new StringSelection((String)moveToOverlay.getSelectedValue());         
+			return new StringSelection((String)overlayJList.getSelectedValue());         
 		}                   
 		
 		public void exportDone(JComponent comp, Transferable trans, int action) 
@@ -260,7 +418,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 				String deletedValue = (String) overlay.get(index+1);
 				String otherDeletedValue = (String) overlay.get(index);
 				
-				if((moveToOverlay.getSelectedIndex() <= index) && ((index+1) <= overlay.getSize()))
+				if((overlayJList.getSelectedIndex() <= index) && ((index+1) <= overlay.getSize()))
 				{
 					overlay.removeElementAt(index+1);
 				}
@@ -283,7 +441,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 							String placeHolder = (String) overlay.get(index+1);
 							overlay.set(index+1, deletedValue);
 							overlay.set(index, placeHolder);
-							moveToOverlay.setSelectedIndex(index);				
+							overlayJList.setSelectedIndex(index);				
 						}
 						
 						
@@ -297,13 +455,12 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 			{
 				for(int i = 0; i < underlay.getSize(); i++)
 				{
-					if(underlay.get(i).equals(overlay.get(moveToOverlay.getSelectedIndex())))
+					if(underlay.get(i).equals(overlay.get(overlayJList.getSelectedIndex())))
 					{
 						underlay.removeElementAt(i);
 					}					
 				}
 
-				System.out.println("It was caught: line 274 of MapServerConfigWindow");				
 			}
 		}		
 		
@@ -394,13 +551,13 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		private int index = 0;           
 		public Transferable createTransferable(JComponent comp) 
 		{             
-			index = moveToUnderlay.getSelectedIndex();             
+			index = underlayJList.getSelectedIndex();             
 			if (index < 0 || index >= underlay.getSize()) 
 			{                 
 				return null;             
 			}               
 			
-			return new StringSelection((String)moveToUnderlay.getSelectedValue());         
+			return new StringSelection((String)underlayJList.getSelectedValue());         
 		}                   
 		
 		public void exportDone(JComponent comp, Transferable trans, int action) 
@@ -411,7 +568,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 				String otherDeletedValue = (String) underlay.get(index);
 				
 				
-				if((moveToUnderlay.getSelectedIndex() <= index) && ((index+1) <= underlay.getSize()))
+				if((underlayJList.getSelectedIndex() <= index) && ((index+1) <= underlay.getSize()))
 				{
 					underlay.removeElementAt(index+1);
 				}
@@ -434,7 +591,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 							String placeHolder = (String) underlay.get(index+1);
 							underlay.set(index+1, deletedValue);
 							underlay.set(index, placeHolder);
-							moveToUnderlay.setSelectedIndex(index);				
+							underlayJList.setSelectedIndex(index);				
 						}						
 						
 						if(otherDeletedValue.equals((String) overlay.get(i)))
@@ -449,13 +606,12 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 			{				
 				for(int i = 0; i < overlay.getSize(); i++)
 				{
-					if(overlay.get(i).equals(underlay.get(moveToUnderlay.getSelectedIndex())))
+					if(overlay.get(i).equals(underlay.get(underlayJList.getSelectedIndex())))
 					{
 						overlay.removeElementAt(i);
 					}					
 				}
 								
-				System.out.println("It was caught: line 426 of MapServer ConfigWindow");				
 			}
 		}		
 		
@@ -528,82 +684,5 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 			list.requestFocusInWindow();               
 			return true;         
 		}       
-	}    
-    
-    
-    
-    
-    
-    
-    
+	}        
 }
-
-
-/*
-package edu.colostate.vchill.gui;
-
-
-import java.util.ArrayList;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-
-public class MapServerConfigWindow extends JPanel
-{
-    private JList availableChoicesList;
-    private DefaultListModel listModel;
-
-    private static final String displayMapString = "Display Map";
-    private JButton displayMapButton;
-
-    public MapServerConfigWindow(ArrayList<String> layers) 
-    {
-        super(new BorderLayout()); 	
-
-        listModel = new DefaultListModel();
-        
-        for(int i = 0; i < layers.size(); i++)
-        {
-        	listModel.addElement(layers.get(i));        	
-        }
-
-        //Create the list and put it in a scroll pane.
-        availableChoicesList = new JList(listModel);
-        availableChoicesList.setSelectedIndex(0);
-        availableChoicesList.setVisibleRowCount(10);
-        availableChoicesList.setDragEnabled(true);
-        JScrollPane listScrollPane = new JScrollPane(availableChoicesList);
-
-        displayMapButton = new JButton(displayMapString);
-        displayMapButton.setActionCommand(displayMapString);
-        displayMapButton.addActionListener(new DisplayMapListener());
-
-        //Create a panel that uses BoxLayout.
-        JPanel buttonPane = new JPanel();
-        buttonPane.setLayout(new BoxLayout(buttonPane,BoxLayout.LINE_AXIS));
-        buttonPane.add(displayMapButton);
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-
-        add(listScrollPane, BorderLayout.CENTER);
-        add(buttonPane, BorderLayout.PAGE_END);
-    }
-
-    class DisplayMapListener implements ActionListener 
-    {
-        public void actionPerformed(ActionEvent e) 
-        {
-
-            int index = availableChoicesList.getSelectedIndex();
-            
-            int[] selectedIndices = availableChoicesList.getSelectedIndices();
-            
-            MapServerConfig.displayMap(selectedIndices);
-            
-        }
-    }		
-}
-*/

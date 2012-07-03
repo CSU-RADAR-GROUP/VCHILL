@@ -282,9 +282,6 @@ public class ViewPlotWindow extends ViewWindow
             plotOverlay();
         }
         
-    
-        
-        
         g.drawImage(this.overlayBuffer, dragOffsetX, dragOffsetY, null);
         g.drawImage(this.aircraftBuffer, dragOffsetX, dragOffsetY, null);
         if (config.isClickPointEnabled() && dragOffsetX == 0 && dragOffsetY == 0) plotMethod.plotClickPoint(g);
@@ -309,9 +306,15 @@ public class ViewPlotWindow extends ViewWindow
         overlayReplotNeeded = false;
         Graphics2D overlay = overlayBuffer.createGraphics();
         if (config.isGridEnabled()) plotMethod.plotGrid(overlay);
-        if (config.isMapEnabled()) plotMethod.plotMap(overlay);
-    }
+        if (config.isMapEnabled())
+        {
+        	plotMethod.plotMap(overlay);
+        }
 
+        //plotMethod.plotMapServerOverlay(overlay);
+        plotMethod.plotMapServerOverlay(overlay);
+        
+    }
     private void clearAircraftBuffer ()
     {
         Graphics2D acg = this.aircraftBuffer.createGraphics();
@@ -383,7 +386,9 @@ public class ViewPlotWindow extends ViewWindow
         //that determine data translation and values.  Inform the data hash
         //of these qaulifiers.
         Graphics g = dataBuffer.getGraphics();
-
+        Graphics gg = dataBuffer.getGraphics();
+        
+        plotMethod.plotMapServerUnderlay(gg);
         //Send the object which holds the data type into the translation method
         //in order to get useful data for plotting.
         plotMethod.plotData(prevRay, currRay, nextRay, threshRay, g);

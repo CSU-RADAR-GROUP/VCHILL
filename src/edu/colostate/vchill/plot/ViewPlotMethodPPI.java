@@ -12,6 +12,7 @@ import edu.colostate.vchill.map.MapInstruction.Shape;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import java.awt.image.BufferedImage;
 
 
 
@@ -169,25 +171,26 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
         }
     }
 
-    
-    @Override public void plotMap (final Graphics g)
+    @Override public void plotMapServerOverlay(final Graphics g)
     {
-    
-    	NeedToPlotMap = true;
-    	counter = 0;
-	    if(NeedToPlotMap == true)
-	    {
-	    	
-	    	String testString = MapServerConfig.userMapLayers;
-	    	
-	    	
-	    	NeedToPlotMap = false;
-	    	
-	    	double BBnorth, BBsouth, BBeast, BBwest;
 
-	    	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
-	    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
+    	NeedToPlotMap = true;	    
 
+    	
+    	if( MapServerConfig.userMapOverlay == "")
+    	{
+    		System.out.println("No layers to display");
+    		
+    		return;
+    		
+    	}
+    	
+	    String testString = MapServerConfig.userMapLayers;
+	    	    	
+	   	double BBnorth, BBsouth, BBeast, BBwest;
+
+	   	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
 /*	    	
 	    	System.out.println("W: " + NWLatLong[0]);
 	    	System.out.println("N: " + NWLatLong[1]);
@@ -195,41 +198,41 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
 	    	System.out.println("S: " + SELatLong[1]);    	
 */	    	
 
-	    	BBwest = NWLatLong[0];
-	    	BBeast = SELatLong[0];
-	    	BBnorth = NWLatLong[1];
-	    	BBsouth = SELatLong[1];
+    	BBwest = NWLatLong[0];
+    	BBeast = SELatLong[0];
+    	BBnorth = NWLatLong[1];
+    	BBsouth = SELatLong[1];
+	    	    	
+	    // Rausch
 	    	
+		Image image = null;
 	    	
-	    	
-	    	// Rausch
-	    	
-			Image image = null;
-	    	
-			try 
-			{
-			    // Read from a URL
+		try 
+		{
+			// Read from a URL
 				
 //				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
 //			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
-			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlay); 
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlay); 
 
-			    System.out.println("Overlay");
-			    System.out.println(MapServerConfig.userMapOverlay);
+		    System.out.println("Overlay");
+		    System.out.println(MapServerConfig.userMapOverlay);
 				
-				image = ImageIO.read(url);
-			} 
-			catch(Exception e)
-			{
-				System.out.println("Something went very wrong");			
-			}
+			image = ImageIO.read(url);
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went wrong with getting the overlay image from the MapServer");			
+		}
 
-			g.drawImage(image, 0, 0, null); 	
-	    }
+		g.drawImage(image, 0, 0, null); 	
+	        	
+    }
+    
+    
+    @Override public void plotMap (final Graphics g)
+    {
 		
-/*		
-
-    	
     	
         if (g == null) return;
         if (vc.getMap() == null) return;
@@ -285,7 +288,7 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
             prevInstr = instr;
         }
         g.setFont(oldFont);
-*/
+
     }
 
     @Override public void plotClickPoint (final Graphics g)

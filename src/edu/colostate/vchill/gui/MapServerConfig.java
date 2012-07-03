@@ -1,5 +1,9 @@
 package edu.colostate.vchill.gui;
 
+import edu.colostate.vchill.Config;
+
+import edu.colostate.vchill.ViewControl;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -20,24 +24,19 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-
 public class MapServerConfig extends JPanel
 {
 
-    private JList list;
-    private DefaultListModel listModel;
-
-    private static final String displayMapString = "Display Map";
-    private JButton displayMapButton;	
-	
-	
-	public static String userMapLayers = "";
+    public static String userMapLayers = "";
 	public static String userMapOverlay = "";
 	
 	// Array of titles of layers
 	private static ArrayList<String> layerArrayList;
 	// Array of names of layers
 	private static ArrayList<String> layerNameArrayList;
+
+	private final static ViewControl vc = ViewControl.getInstance();
+    private final static WindowManager wm = WindowManager.getInstance();
 	
 	
 	public MapServerConfig() 
@@ -62,7 +61,12 @@ public class MapServerConfig extends JPanel
 	{
 		
 		userMapLayers = getLayerString(selectedUnderlayIndices);
-		userMapOverlay = getLayerString(selectedOverlayIndices);		
+		userMapOverlay = getLayerString(selectedOverlayIndices);
+		
+        wm.replotOverlay();
+        vc.rePlot();		
+		
+		
 	}
 
 	private static String getLayerString(int[] selectedIndices)
