@@ -171,13 +171,74 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
         }
     }
 
+    
+    private Image plotEPSG4326Overlay()
+    {
+    	System.out.println("Using EPSG:4326 for overlay");
+    	
+    	double BBnorth, BBsouth, BBeast, BBwest;
+
+		Image image = null;	    
+	    
+	    double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    		    	
+	    double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));	    	
+
+	    BBwest = NWLatLong[0];
+	    BBeast = SELatLong[0];
+	    BBnorth = NWLatLong[1];
+	    BBsouth = SELatLong[1];
+		    		    	
+	    	
+		try 
+		{
+		    // Read from a URL
+								
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlayLayers); 
+			
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+    	
+    	return image;
+    }
+    
+    private Image plotAUTO42003Overlay()
+    {
+    	System.out.println("Using AUTO:42003 for overlay");
+
+	    double[] centerLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width/2), getKmFromPixels(getCenterY()-this.height/2));
+    	
+		Image image = null;
+    	
+		try 
+		{
+		    // Read from a URL
+						
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlayLayers); 
+
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+		
+		return image;
+    }    
+    
     @Override public void plotMapServerOverlay(final Graphics g)
     {
 
-    	NeedToPlotMap = true;	    
+    	//NeedToPlotMap = true;	    
 
     	
-    	if( MapServerConfig.userMapOverlay == "")
+    	if( MapServerConfig.userMapOverlayLayers == "")
     	{
     		System.out.println("No layers to display");
     		
@@ -185,48 +246,10 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
     		
     	}
     	
-	    String testString = MapServerConfig.userMapLayers;
-	    	    	
-	   	double BBnorth, BBsouth, BBeast, BBwest;
-
-	   	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
-    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
-/*	    	
-	    	System.out.println("W: " + NWLatLong[0]);
-	    	System.out.println("N: " + NWLatLong[1]);
-	    	System.out.println("E: " + SELatLong[0]);
-	    	System.out.println("S: " + SELatLong[1]);    	
-*/	    	
-
-    	BBwest = NWLatLong[0];
-    	BBeast = SELatLong[0];
-    	BBnorth = NWLatLong[1];
-    	BBsouth = SELatLong[1];
-	    	    	
-	    // Rausch
-	    	
-		Image image = null;
-	    	
-		try 
-		{
-			// Read from a URL
-				
-//				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
-//			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
-		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlay); 
-
-		    System.out.println("Overlay");
-		    System.out.println(MapServerConfig.userMapOverlay);
-				
-			image = ImageIO.read(url);
-		} 
-		catch(Exception e)
-		{
-			System.out.println("Something went wrong with getting the overlay image from the MapServer");			
-		}
-
-		g.drawImage(image, 0, 0, null); 	
-	        	
+	    if(MapServerConfig.AUTO42003Boolean == true)
+	    	g.drawImage(plotAUTO42003Overlay(), 0, 0, null);
+	    else if(MapServerConfig.EPSG4326Boolean == true)
+	    	g.drawImage(plotEPSG4326Overlay(), 0, 0, null);		        	
     }
     
     

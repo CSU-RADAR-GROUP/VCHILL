@@ -11,6 +11,7 @@ import edu.colostate.vchill.data.Ray;
 import edu.colostate.vchill.gui.ViewRemotePanel;
 import edu.colostate.vchill.gui.ViewSplitPane;
 import edu.colostate.vchill.gui.ViewWindow;
+import edu.colostate.vchill.gui.MapServerConfig;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
@@ -86,6 +87,7 @@ public class ViewPlotWindow extends ViewWindow
     private volatile int dragRectEndX = 0;
     private volatile int dragRectEndY = 0;
 
+    
     /**
      * Constructor for the ViewPlotWindow object
      *
@@ -96,6 +98,9 @@ public class ViewPlotWindow extends ViewWindow
         super();
         this.type = type;
 
+       
+        
+        
         //Set the layout to add components to the left as they are added.
         plotMethod = new ViewPlotMethodPPI(this.type);
         this.aircraftInfo = plotMethod.getAircraftInfo();
@@ -104,6 +109,11 @@ public class ViewPlotWindow extends ViewWindow
         this.aircraftBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         this.overlayBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
+//        underlayGraphics = dataBuffer.getGraphics();
+//        plotMethod.plotMapServerUnderlay(underlayGraphics);         
+        
+        
+        
         //Swing setup.
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         setBackground(Color.BLACK);
@@ -305,6 +315,18 @@ public class ViewPlotWindow extends ViewWindow
         if (!overlayReplotNeeded) return;
         overlayReplotNeeded = false;
         Graphics2D overlay = overlayBuffer.createGraphics();
+
+        plotMethod.NeedToPlotMap = true;
+        
+        if(MapServerConfig.plottedUnderlayOnce == false)
+        {
+        	
+        System.out.println("Made it to fake underlay");
+//          Graphics gg = dataBuffer.getGraphics();
+          plotMethod.plotMapServerUnderlay(overlay);        
+        	
+        }        
+        
         if (config.isGridEnabled()) plotMethod.plotGrid(overlay);
         if (config.isMapEnabled())
         {
@@ -312,6 +334,8 @@ public class ViewPlotWindow extends ViewWindow
         }
 
         //plotMethod.plotMapServerOverlay(overlay);
+        
+
         plotMethod.plotMapServerOverlay(overlay);
         
     }
@@ -376,19 +400,24 @@ public class ViewPlotWindow extends ViewWindow
         g.drawLine(x + 3, y - 3, x + 3, y + 3);
     }
 
+
+    
     public void plot (final Ray prevRay, final Ray currRay,
             final Ray nextRay, final Ray threshRay)
     {
-        if (currRay == null) return; //can't plot without data...
+    	
+    	MapServerConfig.plottedUnderlayOnce = true;	    
+    	
+
+    	if (currRay == null) return; //can't plot without data...
         setMode(currRay.getMode(), false);
 
         //This translation to a specific type may require updates to be made
         //that determine data translation and values.  Inform the data hash
         //of these qaulifiers.
         Graphics g = dataBuffer.getGraphics();
-        Graphics gg = dataBuffer.getGraphics();
+    	plotMethod.plotMapServerUnderlay(g);    	    	
         
-        plotMethod.plotMapServerUnderlay(gg);
         //Send the object which holds the data type into the translation method
         //in order to get useful data for plotting.
         plotMethod.plotData(prevRay, currRay, nextRay, threshRay, g);

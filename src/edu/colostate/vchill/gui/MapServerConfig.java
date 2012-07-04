@@ -27,8 +27,14 @@ import java.awt.event.*;
 public class MapServerConfig extends JPanel
 {
 
-    public static String userMapLayers = "";
-	public static String userMapOverlay = "";
+    public static String userMapUnderlayLayers = "";
+	public static String userMapOverlayLayers = "";
+	
+	public static Boolean EPSG4326Boolean = false;
+	public static Boolean AUTO42003Boolean = false;
+
+	public static Boolean plottedUnderlayOnce = false;
+	
 	
 	// Array of titles of layers
 	private static ArrayList<String> layerArrayList;
@@ -60,16 +66,18 @@ public class MapServerConfig extends JPanel
 	public static void displayMap(int[] selectedUnderlayIndices, int[] selectedOverlayIndices)
 	{
 		
-		userMapLayers = getLayerString(selectedUnderlayIndices);
-		userMapOverlay = getLayerString(selectedOverlayIndices);
+		userMapUnderlayLayers = getUnderlayLayerString(selectedUnderlayIndices);
+		userMapOverlayLayers = getOverlayLayerString(selectedOverlayIndices);
 		
+		System.out.println("Underlay: " + userMapUnderlayLayers);
+		System.out.println("Overlay: " + userMapOverlayLayers);
+				
         wm.replotOverlay();
         vc.rePlot();		
-		
-		
+				
 	}
 
-	private static String getLayerString(int[] selectedIndices)
+	private static String getOverlayLayerString(int[] selectedIndices)
 	{
 		String theLayerString = "";
 		
@@ -89,7 +97,25 @@ public class MapServerConfig extends JPanel
 		
 	}
 	
-	
+	private static String getUnderlayLayerString(int[] selectedIndices)
+	{
+		String theLayerString = "";
+		
+		for(int i = selectedIndices.length-1; i >= 0; i--)
+		{
+			if(i == selectedIndices.length-1)
+			{
+				theLayerString = layerNameArrayList.get(selectedIndices[i]);
+			}
+			else
+			{
+				theLayerString = theLayerString + "," + layerNameArrayList.get(selectedIndices[i]);
+			}
+		}		
+		
+		return theLayerString;
+		
+	}	
 	
 	
 	
@@ -184,6 +210,18 @@ public class MapServerConfig extends JPanel
 						//System.out.println("Name: " + getTagValue("Name", eElement));						
 						layerNameArrayList.add(getTagValue("Name", eElement));
 					}
+					
+					String SRSLayer = "SRS";
+					if(SRSLayer.equals(child.getNodeName()))
+					{						
+						String EPSG4326String = "EPSG:4326";
+						String AUTO42003String = "AUTO:42003";
+						if(EPSG4326String.equals(child.getTextContent()))
+							EPSG4326Boolean = true;
+						if(AUTO42003String.equals(child.getTextContent()))
+							AUTO42003Boolean = true;
+					}					
+					
 				}
 			}			
 

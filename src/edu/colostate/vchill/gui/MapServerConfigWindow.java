@@ -12,7 +12,7 @@ import javax.swing.event.*;
 import java.awt.datatransfer.*; 
 
 
-public class MapServerConfigWindow extends JPanel implements ChangeListener
+public class MapServerConfigWindow extends JPanel implements ChangeListener, ListSelectionListener
 {
 
 	final int maxSliderSize = 255;
@@ -41,14 +41,19 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
     private JSlider weatherDataOpacitySlider;
     private JLabel weatherDataOpacityLabel;
 
-    public MapServerConfigWindow(ArrayList<String> passedLayers) 
+	private static int[] selectedUnderlayIndices = null;
+	private static int[] selectedOverlayIndices = null;
+    
+    
+    public MapServerConfigWindow(ArrayList<String> passedLayers)
     {
     	
         super(new BorderLayout()); 	
 
         
         layers = passedLayers;
-		weatherDataOpacitySlider = new JSlider(JSlider.HORIZONTAL, minSliderSize, maxSliderSize, maxSliderSize);
+        
+		weatherDataOpacitySlider = new JSlider(JSlider.HORIZONTAL, minSliderSize, maxSliderSize, Transparency);
 		weatherDataOpacitySlider.addChangeListener(this);
         
         
@@ -57,6 +62,8 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
         	choices.addElement(layers.get(i));        	
         }
 
+        populateOverlayAndUnderlay();
+        
 		JPanel p = new JPanel();         
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));         
 		
@@ -66,9 +73,6 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		dragFromJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);         
 		
 		JLabel label = new JLabel("Drag choices here:");         
-		label.setAlignmentX(0f);         
-		p.add(label, BorderLayout.WEST);         
-		p.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));         
 		JScrollPane sp = new JScrollPane(dragFromJList);         
 		//sp.setAlignmentX(0f);         
 		p.add(sp, BorderLayout.WEST);         
@@ -101,6 +105,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		overlayJList.setDropMode(DropMode.INSERT);
 		overlayJList.setDragEnabled(true);
 		overlayJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		overlayJList.addListSelectionListener(this);
 		overlayJList.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent evt)
@@ -120,6 +125,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 		underlayJList.setDropMode(DropMode.INSERT);
 		underlayJList.setDragEnabled(true);
 		underlayJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		underlayJList.addListSelectionListener(this);
 		underlayJList.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent evt)
@@ -147,11 +153,6 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 
 		
 		p.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));         
-
-		
-
-		
-		
 		
 		label = new JLabel("Drag and drop to these boxes:");         
 		label.setAlignmentX(0f);         
@@ -197,7 +198,7 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
         p.add(removeFromUnderlayButton);		
 		
 	
-		weatherDataOpacityLabel = new JLabel("Weather Data Opacity 100%");
+		weatherDataOpacityLabel = new JLabel("Weather Data Opacity " + (Integer.toString((100*Transparency/255)))+"%");
 
 		p.add(weatherDataOpacityLabel);
 
@@ -247,7 +248,65 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
     	}
     	return myIndices;
     }
-    
+
+    private void populateOverlayAndUnderlay()
+    {
+    	
+    	System.out.println("Made it to populateOverlayAndUnderlay");
+    	if(selectedOverlayIndices == null)
+    	{
+    		System.out.println("It was null");
+    		// System.out.println("Nothing to populate");
+    	}
+    	else
+    	{
+    		System.out.println("It was not null");
+    		
+    		for(int i = 0; i < selectedOverlayIndices.length; i++)
+    		{
+    			for(int j = 0; j < choices.getSize(); j++)
+    			{
+    				if(layers.get(selectedOverlayIndices[i]).equals(choices.get(j)))
+    				{
+    					String removedValue = (String) choices.get(j);
+    					
+    					choices.removeElementAt(j);
+    					
+    					overlay.insertElementAt(removedValue, overlay.getSize());
+    					
+    				}    				
+    			}
+    		}
+    	}
+
+    	if(selectedUnderlayIndices == null)
+    	{
+    		System.out.println("It was null");
+    		
+    		// System.out.println("Nothing to populate");
+    	}
+    	else
+    	{
+    		System.out.println("It was not null");
+
+    		for(int i = 0; i < selectedUnderlayIndices.length; i++)
+    		{
+    			for(int j = 0; j < choices.getSize(); j++)
+    			{
+    				if(layers.get(selectedUnderlayIndices[i]).equals(choices.get(j)))
+    				{
+    					String removedValue = (String) choices.get(j);
+    					
+    					choices.removeElementAt(j);
+    					
+    					underlay.insertElementAt(removedValue, underlay.getSize());
+    					
+    				}    				
+    			}
+    		}
+    	}    	
+    	
+    }
     
     public void removeFromOverlay()
     {
@@ -294,8 +353,8 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
         {
             //int index = dragToOverlay.getSelectedIndex();
         	
-        	int[] selectedUnderlayIndices = matchIndicesToTitles(underlay);
-            int[] selectedOverlayIndices = matchIndicesToTitles(overlay);        	
+        	selectedUnderlayIndices = matchIndicesToTitles(underlay);
+            selectedOverlayIndices = matchIndicesToTitles(overlay);        	
         	
             //int[] selectedUnderlayIndices = underlayJList.getSelectedIndices();
             //int[] selectedOverlayIndices = overlayJList.getSelectedIndices();
@@ -684,5 +743,14 @@ public class MapServerConfigWindow extends JPanel implements ChangeListener
 			list.requestFocusInWindow();               
 			return true;         
 		}       
-	}        
+	}
+	
+	public void valueChanged(ListSelectionEvent e)
+	{
+		if(e.getValueIsAdjusting() == false)
+		{
+        	selectedUnderlayIndices = matchIndicesToTitles(underlay);
+            selectedOverlayIndices = matchIndicesToTitles(overlay);			
+		}		
+	}
 }

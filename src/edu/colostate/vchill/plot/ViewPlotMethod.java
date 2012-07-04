@@ -264,6 +264,101 @@ public abstract class ViewPlotMethod
     private Angle startAngle = new Angle();
     private Angle endAngle = new Angle();
 
+
+    
+    // Rausch
+    int counter = 0;    
+
+    private Image plotEPSG4326Underlay()
+    {
+    	System.out.println("Using EPSG:4326 for underlay");
+    	
+    	double BBnorth, BBsouth, BBeast, BBwest;
+
+		Image image = null;	    
+	    
+	    double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    		    	
+	    double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));	    	
+
+	    BBwest = NWLatLong[0];
+	    BBeast = SELatLong[0];
+	    BBnorth = NWLatLong[1];
+	    BBsouth = SELatLong[1];
+		    		    	
+	    	
+		try 
+		{
+		    // Read from a URL
+								
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapUnderlayLayers); 
+			
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+    	
+    	return image;
+    }
+    
+    private Image plotAUTO42003Underlay()
+    {
+    	System.out.println("Using AUTO:42003 for underlay");
+
+	    double[] centerLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width/2), getKmFromPixels(getCenterY()-this.height/2));
+    	
+		Image image = null;
+    	
+		try 
+		{
+		    // Read from a URL
+						
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapUnderlayLayers); 
+
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+		
+		return image;
+    }
+    
+    public void plotMapServerUnderlay(Graphics g)
+    {
+    	
+    	if(NeedToPlotMap == true)
+    	{
+    		NeedToPlotMap = false;
+    	}
+    	else
+    	{
+    		return;
+    	}
+    	
+    	
+    	if( MapServerConfig.userMapUnderlayLayers == "")
+    	{
+    		System.out.println("No layers to display");
+    		
+    		return;
+    		
+    	}    	
+	    		    	
+	    NeedToPlotMap = false;	    
+	    
+	    if(MapServerConfig.AUTO42003Boolean == true)
+	    	g.drawImage(plotAUTO42003Underlay(), 0, 0, null);
+	    else if(MapServerConfig.EPSG4326Boolean == true)
+	    	g.drawImage(plotEPSG4326Underlay(), 0, 0, null);	    	
+   	}    	
+ 
+    
     /**
      * Translates a (set of) rays into sets of x, y endpoints and a color value and draws the result onto the specified Graphics
      *
@@ -274,75 +369,8 @@ public abstract class ViewPlotMethod
      * @param g the Graphics context to plot to
      */
     
-    
-    
-    // Rausch
-    int counter = 0;
-    
     public void plotData (final Ray prevRay, final Ray currRay, final Ray nextRay, final Ray threshRay, final Graphics g)
-    {
-    	
-    	// Rausch
-	    counter++;
-	    //System.out.println(counter);
-	    	
-	    if(NeedToPlotMap == true || counter == 1)
-	    {
-	    	
-	    	String testString = MapServerConfig.userMapLayers;
-	    	
-	    	
-	    	NeedToPlotMap = false;
-	    	
-	    	double BBnorth, BBsouth, BBeast, BBwest;
-
-	    	double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
-	    	double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));
-
-/*	    	
-	    	System.out.println("W: " + NWLatLong[0]);
-	    	System.out.println("N: " + NWLatLong[1]);
-	    	System.out.println("E: " + SELatLong[0]);
-	    	System.out.println("S: " + SELatLong[1]);    	
-*/	    	
-
-	    	BBwest = NWLatLong[0];
-	    	BBeast = SELatLong[0];
-	    	BBnorth = NWLatLong[1];
-	    	BBsouth = SELatLong[1];
-	    	
-	    	
-	    	
-	    	// Rausch
-	    	
-			Image image = null;
-	    	
-			try 
-			{
-			    // Read from a URL
-				
-//				URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=" + layerString);//shaded_relief_natural_earth,state_boundaries,cities")
-//			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=-110,36,-100,42&WIDTH=400&HEIGHT=400&FORMAT=image/png;%20mode=24bit&LAYERS=shaded_relief_natural_earth,state_boundaries,cities");
-			    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapLayers); 
-
-			    System.out.println("Underlay");
-			    System.out.println(MapServerConfig.userMapLayers);
-				
-				image = ImageIO.read(url);
-			} 
-			catch(Exception e)
-			{
-				System.out.println("Something went very wrong");			
-			}
-
-			g.drawImage(image, 0, 0, null); 	
-	    	
-	    	
-	    	
-    	}
-    	
-    	
-    	
+    {    	
         if (currRay == null) throw new IllegalArgumentException("Error: PlotMethod.plotData(): null for data");
 
         double[] values = currRay.getData();
@@ -469,6 +497,7 @@ public abstract class ViewPlotMethod
 
     public void plotMap (Graphics g) {}
 
+    public void plotMapServerOverlay (Graphics g) {}
     public abstract int getOriginX ();
     public abstract int getOriginY ();
     public abstract double getRangeInKm (int x, int y); 
