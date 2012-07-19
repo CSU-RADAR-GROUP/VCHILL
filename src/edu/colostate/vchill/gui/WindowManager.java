@@ -76,7 +76,7 @@ public class WindowManager
     private final List<ViewPlotWindow> plots = new CopyOnWriteArrayList<ViewPlotWindow>();
     private final List<ViewAScopeWindow> ascopes = new CopyOnWriteArrayList<ViewAScopeWindow>();
     private final List<NumDumpWindow> numdumps = new CopyOnWriteArrayList<NumDumpWindow>();
-
+    
     /** Buffer for saved images */
     private ViewImageDisplay imageDisplay;
 
@@ -199,6 +199,8 @@ public class WindowManager
         this.numdumps.add(win);
         this.calculateOpenWindows();
     }
+    
+
 
 	public synchronized long calculateOpenWindows ()
     {
@@ -225,6 +227,7 @@ public class WindowManager
             scale = sm.getScale(win.getType());
             this.openWindows |= 1l << scale.fieldNumber;
         }
+
         //System.out.println("Open windows = 0x" + Integer.toHexString(this.openWindows));
         scale = sm.getScale(config.getThresholdType());
         if (this.openWindows != 0) this.openWindows |= scale != null ? 1l << scale.fieldNumber : 0;
@@ -297,6 +300,14 @@ public class WindowManager
         for (ViewPlotWindow win : this.plots) win.replotOverlay();
     }
     
+    public void clearAnnotationLayer()
+    {
+    	
+    	for (ViewPlotWindow win : this.plots)
+    		win.clearAnnotationBuffer();
+    	
+    }
+    
     public void repaintPlotWindows ()
     {
 	for (ViewPlotWindow win : this.plots) win.repaint(win.getVisibleRect());
@@ -347,7 +358,7 @@ public class WindowManager
     {
         return Collections.unmodifiableList(this.plots);
     }
-
+    
     public synchronized void setPlotWindowWidth (final int plotWidth) {
         this.plotWidth = plotWidth; }
     public synchronized int getPlotWindowWidth () { return this.plotWidth; }

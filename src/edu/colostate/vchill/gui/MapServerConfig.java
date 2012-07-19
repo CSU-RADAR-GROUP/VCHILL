@@ -1,9 +1,6 @@
 package edu.colostate.vchill.gui;
 
-import edu.colostate.vchill.Config;
-
 import edu.colostate.vchill.ViewControl;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -11,33 +8,35 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
-
-
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
-import javax.imageio.*;
-import java.awt.*;
-
 import javax.swing.*;
 
-import java.awt.event.*;
 
-
+/**
+ * @author MichaelRausch
+ *
+ */
 public class MapServerConfig extends JPanel
 {
 
-    public static String userMapUnderlayLayers = "";
-	public static String userMapOverlayLayers = "";
+	private static final MapServerConfig MSC = new MapServerConfig();
 	
-	public static Boolean EPSG4326Boolean = false;
-	public static Boolean AUTO42003Boolean = false;
+    private String userMapUnderlayLayers = "";
+	private String userMapOverlayLayers = "";
+	
+	
+	private Boolean EPSG4326Boolean = false;
+	private Boolean AUTO42003Boolean = false;
 
-	public static Boolean plottedUnderlayOnce = false;
+
 	
+	
+	private Boolean plottedUnderlayOnce = false;
 	
 	// Array of titles of layers
-	private static ArrayList<String> layerArrayList;
+	private static ArrayList<String> layerTitleArrayList;
 	// Array of names of layers
 	private static ArrayList<String> layerNameArrayList;
 
@@ -45,10 +44,15 @@ public class MapServerConfig extends JPanel
     private final static WindowManager wm = WindowManager.getInstance();
 	
 	
-	public MapServerConfig() 
+    /**
+     *
+     * 
+     */
+    
+	private MapServerConfig() 
 	{		
 		
-		layerArrayList = new ArrayList<String>();
+		layerTitleArrayList = new ArrayList<String>();
 		layerNameArrayList = new ArrayList<String>();
 		
 		// Get XML Document from server
@@ -56,60 +60,47 @@ public class MapServerConfig extends JPanel
 		
 		// Parse it
 		parseInputSource(xmlSource);		
-				
-		// Display it for the user
-		// createAndShowPreferencesFrame();
-		
-	
+			
 	}
  
-	public static void displayMap(int[] selectedUnderlayIndices, int[] selectedOverlayIndices)
+	
+	
+	/**
+	 * @param selectedUnderlayIndices
+	 * @param selectedOverlayIndices
+	 */
+	
+	public void displayMap(int[] selectedUnderlayIndices, int[] selectedOverlayIndices)
 	{
 		
-		userMapUnderlayLayers = getUnderlayLayerString(selectedUnderlayIndices);
-		userMapOverlayLayers = getOverlayLayerString(selectedOverlayIndices);
+		userMapUnderlayLayers = getLayerString(selectedUnderlayIndices);
+		userMapOverlayLayers = getLayerString(selectedOverlayIndices);
 		
-		System.out.println("Underlay: " + userMapUnderlayLayers);
-		System.out.println("Overlay: " + userMapOverlayLayers);
 				
         wm.replotOverlay();
         vc.rePlot();		
 				
 	}
 
-	private static String getOverlayLayerString(int[] selectedIndices)
-	{
-		String theLayerString = "";
-		
-		for(int i = 0; i < selectedIndices.length; i++)
-		{
-			if(i == 0)
-			{
-				theLayerString = layerNameArrayList.get(selectedIndices[0]);
-			}
-			else
-			{
-				theLayerString = theLayerString + "," + layerNameArrayList.get(selectedIndices[i]);
-			}
-		}		
-		
-		return theLayerString;
-		
-	}
+	/**
+	 * 
+	 * @param indices
+	 * @return theLayerString
+	 */
 	
-	private static String getUnderlayLayerString(int[] selectedIndices)
+	private static String getLayerString(int[] indices)
 	{
 		String theLayerString = "";
 		
-		for(int i = selectedIndices.length-1; i >= 0; i--)
+		for(int i = indices.length-1; i >= 0; i--)
 		{
-			if(i == selectedIndices.length-1)
+			if(i == indices.length-1)
 			{
-				theLayerString = layerNameArrayList.get(selectedIndices[i]);
+				theLayerString = layerNameArrayList.get(indices[i]);
 			}
 			else
 			{
-				theLayerString = theLayerString + "," + layerNameArrayList.get(selectedIndices[i]);
+				theLayerString = theLayerString + "," + layerNameArrayList.get(indices[i]);
 			}
 		}		
 		
@@ -160,7 +151,7 @@ public class MapServerConfig extends JPanel
 		return is;
 	} 
 
-	private static void parseInputSource(InputSource is)
+	private void parseInputSource(InputSource is)
 	{
 		try
 		{
@@ -206,7 +197,7 @@ public class MapServerConfig extends JPanel
 						Element eElement = (Element) child;
 						
 						//System.out.println("Title: " + getTagValue("Title", eElement));
-						layerArrayList.add(getTagValue("Title", eElement));
+						layerTitleArrayList.add(getTagValue("Title", eElement));
 						//System.out.println("Name: " + getTagValue("Name", eElement));						
 						layerNameArrayList.add(getTagValue("Name", eElement));
 					}
@@ -241,7 +232,7 @@ public class MapServerConfig extends JPanel
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
-        JComponent newContentPane = new MapServerConfigWindow(layerArrayList);
+        JComponent newContentPane = new MapServerConfigWindow(layerTitleArrayList);
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);
 
@@ -251,4 +242,32 @@ public class MapServerConfig extends JPanel
     }
 
 
+	public Boolean EPSG4326IsEnabled()
+	{
+		return EPSG4326Boolean;		
+	}
+	public Boolean AUTO42003IsEnabled()
+	{
+		return AUTO42003Boolean;		
+	}    
+	public static MapServerConfig getInstance()
+	{
+		return MSC;		
+	}	
+	public Boolean plottedUnderlayOnce()
+	{		
+		return plottedUnderlayOnce;
+	}
+	public void plottedOnce(Boolean value)
+	{
+		plottedUnderlayOnce = value;
+	}
+	public String getUserMapOverlayLayers()
+	{
+		return userMapOverlayLayers;		
+	}
+	public String getUserMapUnderlayLayers()
+	{
+		return userMapUnderlayLayers;
+	}	
 }

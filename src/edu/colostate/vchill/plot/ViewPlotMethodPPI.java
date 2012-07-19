@@ -1,18 +1,15 @@
 package edu.colostate.vchill.plot;
 
-import edu.colostate.vchill.LocationManager;
 import edu.colostate.vchill.ViewUtil;
 import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
 import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
 import edu.colostate.vchill.chill.ChillTrackInfo;
 import edu.colostate.vchill.data.Ray;
-import edu.colostate.vchill.gui.MapServerConfig;
 import edu.colostate.vchill.map.MapInstruction;
 import edu.colostate.vchill.map.MapInstruction.Shape;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
@@ -20,31 +17,9 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import java.awt.image.BufferedImage;
 
-
-
-
-// Rausch
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 import java.net.*;
-import java.io.*;
-import java.util.ArrayList;
 import javax.imageio.*;
-
-import java.awt.*;
-import javax.swing.*;
-
-
-
-
-
 
 
 
@@ -54,6 +29,7 @@ import javax.swing.*;
  * @author  Justin Carlson
  * @author  Jochen Deyke
  * @author  jpont
+ * @author  Michael Rausch
  * @created April 25, 2003
  * @version 2010-08-02
  */
@@ -194,7 +170,7 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
 		{
 		    // Read from a URL
 								
-			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlayLayers); 
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapOverlayLayers()); 
 			
 		    image = ImageIO.read(url);
 			
@@ -219,7 +195,7 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
 		{
 		    // Read from a URL
 						
-		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapOverlayLayers); 
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapOverlayLayers()); 
 
 		    image = ImageIO.read(url);
 			
@@ -238,18 +214,19 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
     	//NeedToPlotMap = true;	    
 
     	
-    	if( MapServerConfig.userMapOverlayLayers == "")
+    	if( msConfig.getUserMapOverlayLayers() == "")
     	{
     		System.out.println("No layers to display");
     		
-    		return;
-    		
+    		return;    		
     	}
     	
-	    if(MapServerConfig.AUTO42003Boolean == true)
+	    if(msConfig.AUTO42003IsEnabled() == true)
 	    	g.drawImage(plotAUTO42003Overlay(), 0, 0, null);
-	    else if(MapServerConfig.EPSG4326Boolean == true)
-	    	g.drawImage(plotEPSG4326Overlay(), 0, 0, null);		        	
+	    else if(msConfig.EPSG4326IsEnabled() == true)
+	    	g.drawImage(plotEPSG4326Overlay(), 0, 0, null);
+	    else
+	    	System.out.println("No supported map projection method is available");
     }
     
     

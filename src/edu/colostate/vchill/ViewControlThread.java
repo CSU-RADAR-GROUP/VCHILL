@@ -55,6 +55,7 @@ public class ViewControlThread implements Runnable {
 	private final List<ViewAScopeWindow> ascopes;
 	/** The list of open numerical windows */
 	private final List<NumDumpWindow> numdumps;
+	/** The list of open histogram windows */
 
 	/**
 	 * This thread class will handle all of the plotting requests that the user
@@ -179,7 +180,7 @@ public class ViewControlThread implements Runnable {
 	private void newPlot() {
 		final ViewPlotWindow[] plotWins = this.plots
 				.toArray(new ViewPlotWindow[this.plots.size()]);
-
+		
 		System.out.println("NEW PLOT");
 		{ // request data & ensure a window is open
 
@@ -201,6 +202,7 @@ public class ViewControlThread implements Runnable {
 				allTypes.add(win.getType());
 			}
 
+			
 			// get data needed for ascope windows
 			for (ViewAScopeWindow win : this.ascopes) {
 				++num_windows;
@@ -281,6 +283,11 @@ public class ViewControlThread implements Runnable {
 						.getType());
 			}
 
+
+			
+			
+		
+			
 			String threshold = this
 					.checkAvailability(config.getThresholdType());
 
@@ -289,14 +296,15 @@ public class ViewControlThread implements Runnable {
 			Ray[] plotNextRays = new Ray[plotWins.length];
 			Ray[][] ascopeRays = new Ray[ascopeWins.length][2];
 			Ray[] numdumpRays = new Ray[numdumpWins.length];
+//			Ray[] histogramRays = new Ray[histogramWins.length];
 			Ray threshRay;
 
 			for (ViewPlotWindow win : plotWins) {
 				win.clearScreen();
 				// clear any existing aircraft info from previous sweeps
 				win.clearAircraftInfo();
-			}
-
+			}			
+			
 			int rayNum = 0;
 			int metaNum = 0;
 			boolean rangeSet = false;
@@ -339,6 +347,8 @@ public class ViewControlThread implements Runnable {
 									plotNextRays[i], threshRay);
 						}
 					}
+
+					
 					for (int i = 0; i < ascopeWins.length; ++i) { // get rays /
 																	// detect
 																	// end
@@ -375,6 +385,33 @@ public class ViewControlThread implements Runnable {
 						}
 					}
 
+					
+					
+/*					for (int i = 0; i < ascopeWins.length; ++i) 
+					{ // get rays /
+											// detect
+											// end
+					if (ascopeTypes[i][0] != null)
+						ascopeRays[i][0] = getRayWait(currMessage, ascopeTypes[i][0], rayNum);
+					if (ascopeRays[i][0] != null) 
+					{ // null => not available
+								// => sweep done?
+						if (!rangeSet) 
+						{
+							config.setMaxPlotRange(ascopeRays[i][0]
+									.getEndRange());
+							rangeSet = true;
+						}
+						if (ascopeTypes[i][1] != null)
+							ascopeRays[i][1] = getRayWait(currMessage, ascopeTypes[i][1], rayNum);
+					}
+					}					
+					
+*/					
+
+					
+					
+					
 					if (rayNum % config.getRayStep() == 0) {
 						for (ViewPlotWindow win : plotWins)
 							win.rePlotDrawingArea();

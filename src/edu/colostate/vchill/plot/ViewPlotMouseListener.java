@@ -70,4 +70,14 @@ class ViewPlotMouseListener extends ViewWindowMouseListener
     {
         ((ViewPlotWindow)this.popup.getWindow()).resetDragRect();
     }
+    
+    @Override protected void paintUserAnnotation(MouseEvent e, int currentX, int currentY, int oldX, int oldY)
+    {
+        ((ViewPlotWindow)e.getComponent()).updateAnnotationLayer(currentX, currentY, oldX, oldY);    	
+    }
+    @Override protected void textUserAnnotation(MouseEvent e, int currentX, int currentY)
+    {
+        ((ViewPlotWindow)e.getComponent()).updateTextAnnotationLayer(currentX, currentY);    	
+    }
+
 }

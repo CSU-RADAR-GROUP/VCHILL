@@ -65,6 +65,7 @@ import javax.swing.*;
  * @author  Justin Carlson
  * @author  Jochen Deyke
  * @author  Alexander Deyke
+ * @author  Michael Rausch
  * @author  jpont
  * @created January 03, 2003
  * @version 2010-08-02
@@ -73,7 +74,7 @@ import javax.swing.*;
 public class ViewMenu extends JMenuBar
 {
 	
-    private MapServerConfig MapServerConfigObject = new MapServerConfig();
+    private MapServerConfig MapServerConfigObject = MapServerConfig.getInstance();
 	
 	
     private static final WindowManager wm = WindowManager.getInstance();
@@ -106,8 +107,6 @@ public class ViewMenu extends JMenuBar
         this.add(this.numdumpMenu = createNumDumpMenu());
         this.add(createColorMenu(colors));
         this.add(createMapMenu(maps));
-        
-        // Rausch
         this.add(createMapServerMenu());
         
         
@@ -318,6 +317,11 @@ public class ViewMenu extends JMenuBar
         this.plotMenu.add(menuItem);
     }
 
+
+
+    
+  
+        
     public void updateWindowMenus ()
     {
         this.updatePlotMenu();

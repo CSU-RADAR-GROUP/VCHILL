@@ -68,10 +68,9 @@ public abstract class ViewPlotMethod
 {
 	
 	
-	// Rausch
 	protected static Boolean NeedToPlotMap = false;
 	
-	
+	protected final static MapServerConfig msConfig = MapServerConfig.getInstance();
     protected final static Config config = Config.getInstance();
     protected final static ScaleManager sm = ScaleManager.getInstance();
     protected final static ViewControl vc = ViewControl.getInstance();
@@ -267,7 +266,6 @@ public abstract class ViewPlotMethod
 
     
     // Rausch
-    int counter = 0;    
 
     private Image plotEPSG4326Underlay()
     {
@@ -291,7 +289,7 @@ public abstract class ViewPlotMethod
 		{
 		    // Read from a URL
 								
-			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapUnderlayLayers); 
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
 			
 		    image = ImageIO.read(url);
 			
@@ -316,7 +314,7 @@ public abstract class ViewPlotMethod
 		{
 		    // Read from a URL
 						
-		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + MapServerConfig.userMapUnderlayLayers); 
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
 
 		    image = ImageIO.read(url);
 			
@@ -331,7 +329,7 @@ public abstract class ViewPlotMethod
     
     public void plotMapServerUnderlay(Graphics g)
     {
-    	
+        	
     	if(NeedToPlotMap == true)
     	{
     		NeedToPlotMap = false;
@@ -342,9 +340,9 @@ public abstract class ViewPlotMethod
     	}
     	
     	
-    	if( MapServerConfig.userMapUnderlayLayers == "")
+    	if( msConfig.getUserMapUnderlayLayers() == "")
     	{
-    		System.out.println("No layers to display");
+    		//System.out.println("No layers to display");
     		
     		return;
     		
@@ -352,9 +350,9 @@ public abstract class ViewPlotMethod
 	    		    	
 	    NeedToPlotMap = false;	    
 	    
-	    if(MapServerConfig.AUTO42003Boolean == true)
+	    if(msConfig.AUTO42003IsEnabled() == true)
 	    	g.drawImage(plotAUTO42003Underlay(), 0, 0, null);
-	    else if(MapServerConfig.EPSG4326Boolean == true)
+	    else if(msConfig.EPSG4326IsEnabled() == true)
 	    	g.drawImage(plotEPSG4326Underlay(), 0, 0, null);	    	
    	}    	
  
@@ -367,7 +365,7 @@ public abstract class ViewPlotMethod
      * @param nextRay The next ray
      * @param threshRay The threshold ray corresponding to the current ray
      * @param g the Graphics context to plot to
-     */
+     */    
     
     public void plotData (final Ray prevRay, final Ray currRay, final Ray nextRay, final Ray threshRay, final Graphics g)
     {    	
@@ -417,9 +415,12 @@ public abstract class ViewPlotMethod
         int[] yVals = new int[4];
         List<Color> colors = this.getColors();
         ViewPlotDataFilter filter = new ViewPlotDataFilter(prevRay, currRay, nextRay, threshRay, this.type);
-        for (double i = gateOffset; i < numGates; i += plotStepSize) {
+       
+        
+        for (double i = gateOffset; i < numGates; i += plotStepSize) 
+        {
             int k = (int)i;
-
+            
             //The x,y coordinates of one endpoint of the line/gate data.
             xVals[0] = getX(startAngle, pixelOffset);
             yVals[0] = getY(startAngle, pixelOffset, xVals[0]);
@@ -466,8 +467,7 @@ public abstract class ViewPlotMethod
             // Rausch
             if(colorValue != Color.BLACK)
             {
-            	
-            	int alphaTransparency = MapServerConfigWindow.Transparency;
+            	int alphaTransparency = MapServerConfigWindow.getOpacity();
             	
             	colorValue = new Color(colorValue.getRed(), colorValue.getGreen(), colorValue.getBlue(), alphaTransparency);
             	
@@ -475,6 +475,8 @@ public abstract class ViewPlotMethod
             
             	g.drawPolygon(xVals, yVals, 4);
             	g.fillPolygon(xVals, yVals, 4);
+            	
+
             }
         } //End for loop
         startAngle = endAngle;
