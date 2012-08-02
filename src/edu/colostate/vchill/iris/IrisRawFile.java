@@ -50,33 +50,68 @@ public class IrisRawFile {
   private static final ScaleManager sm = ScaleManager.getInstance();
 
   private static final Map<String, ChillFieldInfo> infos = new HashMap<String, ChillFieldInfo>();
+
+  public static final ChillFieldInfo DBT = new ChillFieldInfo("DBT", "DBT", 2, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo DBZ = new ChillFieldInfo("DBZ", "DBZ", 3, 7500000, -1000000, 0, 0);
+  public static final ChillFieldInfo VEL = new ChillFieldInfo("VEL", "VEL", 4, 2400000, -2400000, 16, 1);
+  public static final ChillFieldInfo WIDTH = new ChillFieldInfo("WIDTH", "WIDTH", 5, 800000, -800000, 0, 6);
+  public static final ChillFieldInfo ZDR = new ChillFieldInfo("ZDR", "ZDR", 6, 800000, -200000, 0, 0);
+  public static final ChillFieldInfo ORAIN = new ChillFieldInfo("ORAIN", "ORAIN", 7, 100000, -100000, 0, 1);
+  public static final ChillFieldInfo DBZC = new ChillFieldInfo("DBZC", "DBZC", 2, 7500000, -1000000, 0, 0);
   public static final ChillFieldInfo ZT = new ChillFieldInfo("DBT2", "DBT2", 8, 7500000, -1000000, 0, 0);
   public static final ChillFieldInfo Z = new ChillFieldInfo("DBZ2", "DBZ2", 9, 7500000, -1000000, 0, 0);
   public static final ChillFieldInfo V = new ChillFieldInfo("VEL2", "VEL2", 10, 5500000, -5500000, 16, 1);
   public static final ChillFieldInfo W = new ChillFieldInfo("WIDTH2", "WIDTH2", 11, 800000, 0, 0, 2);
-  public static final ChillFieldInfo ZDR2 = new ChillFieldInfo("ZDR2", "ZDR2", 12, 9030899, -3010299,0, 4);
-  public static final ChillFieldInfo PHIDP2 = new ChillFieldInfo("PHIDP2", "PHIDP2", 24, 36000000, -36000000,0, 6);
-  public static final ChillFieldInfo PHIH2 = new ChillFieldInfo("PHIH2", "PHIH2", 16, 36000000, -36000000,0, 6);
-
-  public static final ChillFieldInfo RHOHV2 = new ChillFieldInfo("RHOHV2", "RHOHV2", 20, 1000000, 0, 0, 7);
-  public static final ChillFieldInfo RHOH2 = new ChillFieldInfo("RHOH2", "RHOH2", 47, 1000000, 0, 0, 7);
-
+  public static final ChillFieldInfo ZDR2 = new ChillFieldInfo("ZDR2", "ZDR2", 12, 9030899, -3010299,0, 6);
+  public static final ChillFieldInfo RAINRATE = new ChillFieldInfo("RAINRATE", "RAINRATE", 13, 9030899, -3010299,0, 4);
+  public static final ChillFieldInfo KDP = new ChillFieldInfo("KDP", "KDP", 14, 3000000, -1000000,0, 7);  
   public static final ChillFieldInfo KDP2 = new ChillFieldInfo("KDP2", "KDP2", 15, 3000000, -1000000, 0, 7);
-  public static final ChillFieldInfo CZ = new ChillFieldInfo("CdBZ", "CorrectedReflectivity", 21, 7500000, -1000000, 0,0); // change
-  // number?
+  public static final ChillFieldInfo PHIDP = new ChillFieldInfo("PHIDP", "PHIDP", 16, 36000000, -36000000,0, 6);
+  public static final ChillFieldInfo VELC = new ChillFieldInfo("VELC", "VELC", 17, 4000000, -4000000, 16, 1);
+  public static final ChillFieldInfo SQI = new ChillFieldInfo("SQI", "SQI", 18, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo RHOHV = new ChillFieldInfo("RHOHV", "RHOHV", 19, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo RHOHV2 = new ChillFieldInfo("RHOHV2", "RHOHV2", 20, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo DBZC2 = new ChillFieldInfo("DBZC2", "DBZC2", 21, 7500000, -1000000, 0,0);
+  public static final ChillFieldInfo VELC2 = new ChillFieldInfo("VELC2", "VELC2", 22, 2400000, -2400000, 16, 1);
   public static final ChillFieldInfo SQI2 = new ChillFieldInfo("SQI2", "SQI2", 23, 100000, 0, 0, 7);
+  public static final ChillFieldInfo PHIDP2 = new ChillFieldInfo("PHIDP2", "PHIDP2", 24, 36000000, -36000000,0, 6);
+  public static final ChillFieldInfo LDRH = new ChillFieldInfo("LDRH", "LDRH", 25, 5500000, -5500000,0, 4);
+  public static final ChillFieldInfo LDRH2 = new ChillFieldInfo("LDRH2", "LDRH2", 26, 5500000, -5500000,0, 4);
+  public static final ChillFieldInfo LDRV = new ChillFieldInfo("LDRV", "LDRV", 27, 5500000, -5500000,0, 4);
+  public static final ChillFieldInfo LDRV2 = new ChillFieldInfo("LDRV2", "LDRV2", 28, 5500000, -5500000,0, 4);
+  
+  public static final ChillFieldInfo HEIGHT= new ChillFieldInfo("HEIGHT", "HEIGHT", 32, 15500000, 0,0, 4);
 
+  //FLAGS
+  //FLAGS2
+  //31UNUSED
+
+  //VIL2
+  //NULL
+  //SHEAR
+  //DIVERGE2
+  //FLIQUID2
+  //USER
+  //OTHER
+  //DEFORM2
+  //VVEL2
+  //HVEL2
+  //HDIR2
+  //AXDIL2
+  //TIME2
+  //RHOH
+  
+  
   public static final ChillFieldInfo CZDR = new ChillFieldInfo("CZDR", "CorrectedDifferentialReflectivity", 36,9030899, -3010299, 0, 4); 
   public static final ChillFieldInfo AZ = new ChillFieldInfo("AdBZ", "AdjustedReflectivity", 42, 7500000, -1000000, 0,0); 
   public static final ChillFieldInfo AZDR = new ChillFieldInfo("AZDR", "AdjustedDifferentialReflectivity", 46, 9030899,-3010299, 0, 4); 
-  public static final ChillFieldInfo ASDP = new ChillFieldInfo("ASDP", "AdptSpecificDifferentialPhase", 0, 25500000, 0,  0, 1); 
-  public static final ChillFieldInfo LDRH2 = new ChillFieldInfo("LDRH2", "LDRH2", 26, 5500000, -5500000,0, 4);
-  public static final ChillFieldInfo VFast = new ChillFieldInfo("VelFast", "VelocityFast", 27, 5500000, -5500000, 16, 1);
-  public static final ChillFieldInfo VSlow = new ChillFieldInfo("VelSlow", "VelocitySlow", 28, 5500000, -5500000, 16, 1);
+  public static final ChillFieldInfo RHOH = new ChillFieldInfo("RHOH", "RHOH", 46, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo RHOH2 = new ChillFieldInfo("RHOH2", "RHOH2", 47, 1000000, 0, 0, 7);
+  public static final ChillFieldInfo PHIH2 = new ChillFieldInfo("PHIH2", "PHIH2", 52, 36000000, -36000000,0, 6);
+
   public static final ChillFieldInfo HCLASS2 = new ChillFieldInfo("HCLASS2", "HCLASS2", 56,  700000,0, 0, 1);
-  public static final ChillFieldInfo DB_ZDRC2 = new ChillFieldInfo("DB_ZDRC2", "Corrected ZDR", 58,9030899, -3010299,0 ,4 );
- // private static final ChillFieldInfo[] types = new ChillFieldInfo[] { Z, V, W, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ,
- //   AZDR, ASDP, VFilt, VFast, VSlow, DB_HCLASS2, DB_ZDRC2 };
+  
+  public static final ChillFieldInfo ZDRC2 = new ChillFieldInfo("ZDRC2", "ZDRC2", 58,9030899, -3010299,0 ,6 );
 
   public static String[] dtype_name =  {"XHDR","DBT","DBZ","VEL","WIDTH","ZDR","ORAIN","DBZC","DBT2","DBZ2","VEL2","WIDTH2",
 	  "ZDR2","RAINRATE2","KDP","KDP2","PHIDP","VELC","SQI","RHOHV","RHOHV2","DBZC2","VELC2","SQI2","PHIDP2","LDRH","LDRH2","LDRV",
@@ -84,10 +119,10 @@ public class IrisRawFile {
 	  "VVEL2","HVEL2","HDIR2","AXDIL2","TIME2","RHOH","RHOH2","RHOV","RHOV2","PHIH","PHIH2","PHIV","PHIv2","USER2","HCLASS","HCLASS2",
 	  "ZDRC","ZDRC2","VIR","VIR2"};
   
-  
-  
-  private static  ChillFieldInfo[] types = new ChillFieldInfo[]{null,null,null,null,null,null,null,null,ZT,Z,V,W,ZDR2,null,null,KDP2,null,null,null,null,RHOHV2,null,null,SQI2,PHIDP2,null,LDRH2,null,
-	  null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,RHOH2,null,null,null,PHIH2,null,null,null,null,HCLASS2,null,null,null,null};
+  private static  ChillFieldInfo[] types = new ChillFieldInfo[]{null,DBT,DBZ,VEL,WIDTH,ZDR,ORAIN,DBZC,ZT,Z,V,W
+      ,ZDR2,RAINRATE,KDP,KDP2,PHIDP,VELC,SQI,RHOHV,RHOHV2,DBZC2,VELC2,SQI2,PHIDP2,LDRH,LDRH2,LDRV,LDRV2,null,null
+      ,null,HEIGHT,null,null,null,null,null,null,null,null,null,null,null,null,null,RHOH,RHOH2,null,null,null
+      ,PHIH2,null,null,null,null,HCLASS2,null,ZDRC2,null,null};
   
  
   public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
@@ -115,7 +150,6 @@ public class IrisRawFile {
    // int sz=5;
     for (int currentVariable = 0; currentVariable < SPR_input.getTotal_vars(); currentVariable++) {
 
-      //if(currentVariable>5) continue;//TODO Get rid of this when vars are finished.
       
       
       while (sm.getScale(fieldNum) != null) {
@@ -165,9 +199,7 @@ public class IrisRawFile {
     scales.add(scale);
     cache.addRay(command, ChillDefines.META_TYPE, scale);
     sm.putScale(scale);
-    // }
-    // }
-    //
+
     }
     
     ymds_time time_structure= SPR_input.getTop_product_hdr().getAproduct_configuration().getTime_ingest_sweep();
@@ -201,7 +233,6 @@ public class IrisRawFile {
     if(mode==2 || mode ==7) hskH.antMode =1;
     cache.addRay(command, ChillDefines.META_TYPE, hskH);
 
-  //  int numgates = SPR_input.getRange_bins();
     int numgates = SPR_input.getSweeplist().get(sweepnum).getRays().get(0).getDatarays().get(1).getNumber_of_bins();
     int numrays = SPR_input.getSweeplist().get(sweepnum).getIdh_list().get(1).getRays_present()- SPR_input.getMissedrays();
     System.out.println("Number of rays:" + numrays);
