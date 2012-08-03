@@ -77,7 +77,7 @@ public class ViewMenu extends JMenuBar
    /**
    * 
    **/
-  private static final long serialVersionUID = -856e87792;
+  private static final long serialVersionUID=1111234324;
 
 	
     private MapServerConfig MapServerConfigObject = MapServerConfig.getInstance();

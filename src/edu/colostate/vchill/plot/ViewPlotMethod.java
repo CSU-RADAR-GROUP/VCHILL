@@ -68,8 +68,8 @@ public abstract class ViewPlotMethod
 {
 	
 	
-	protected static Boolean NeedToPlotMap = false;
-	protected static boolean Mappable = false;
+	protected  Boolean NeedToPlotMap = false;
+	protected  boolean Mappable = false;
 	protected final static MapServerConfig msConfig = MapServerConfig.getInstance();
     protected final static Config config = Config.getInstance();
     protected final static ScaleManager sm = ScaleManager.getInstance();
@@ -290,13 +290,15 @@ public abstract class ViewPlotMethod
 		    // Read from a URL
 								
 			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
-			
-		    image = ImageIO.read(url);
+      //URL url = new URL("http://sedac.ciesin.columbia.edu/geoserver/gwc/service/wms?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&&BBOX=" + round(BBwest) + "," + round(BBsouth) + "," + round(BBeast) + "," + round(BBnorth) + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
+
+			image = ImageIO.read(url);
 			
 		} 
 		catch(Exception e)
 		{
-			System.out.println("Something went very wrong");			
+			System.out.println("Something went very wrong VIew Plot Method: Line 300:"+e);
+			
 		}
     	
     	return image;
@@ -307,7 +309,7 @@ public abstract class ViewPlotMethod
     	System.out.println("Using AUTO:42003 for underlay");
 
 	    double[] centerLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width/2), getKmFromPixels(getCenterY()-this.height/2));
-    	
+   // 	System.out.println("Lat and Lon is:"+ centerLatLong[1] + " " + centerLatLong[0]);
 		Image image = null;
     	
 		try 
@@ -315,13 +317,15 @@ public abstract class ViewPlotMethod
 		    // Read from a URL
 						
 		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
+       // URL url = new URL("http://sedac.ciesin.columbia.edu/geoserver/gwc/service/wms?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
 
+		//    System.err.println("URL is :"+url);
 		    image = ImageIO.read(url);
 			
 		} 
 		catch(Exception e)
 		{
-			System.out.println("Something went very wrong");			
+			System.out.println("Something went very wrong: ViewPlotMethod Line 327");			
 		}
 		
 		return image;
@@ -354,7 +358,10 @@ public abstract class ViewPlotMethod
 	    	g.drawImage(plotAUTO42003Underlay(), 0, 0, null);
 	    else if(msConfig.EPSG4326IsEnabled() == true)
 	    	g.drawImage(plotEPSG4326Underlay(), 0, 0, null);	    	
-   	}    	
+
+
+    
+    }    	
  
     
     /**

@@ -30,7 +30,6 @@ public class MapServerConfig extends JPanel
 	private Boolean EPSG4326Boolean = false;
 	private Boolean AUTO42003Boolean = false;
 
-
 	
 	
 	private Boolean plottedUnderlayOnce = false;
@@ -126,6 +125,8 @@ public class MapServerConfig extends JPanel
 		try
 		{
 			URL mapServerRequest = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS&map=/var/www/html/maps/test.map&SERVICE=WMS&VERSION=1.1.1");
+	    // URL mapServerRequest = new URL("http://sedac.ciesin.columbia.edu/geoserver/gwc/service/wms?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS");
+
 			BufferedReader in = new BufferedReader(new InputStreamReader(mapServerRequest.openStream()));			
 			
 			String inputLine;
@@ -201,7 +202,6 @@ public class MapServerConfig extends JPanel
 						//System.out.println("Name: " + getTagValue("Name", eElement));						
 						layerNameArrayList.add(getTagValue("Name", eElement));
 					}
-					
 					String SRSLayer = "SRS";
 					if(SRSLayer.equals(child.getNodeName()))
 					{						
@@ -221,6 +221,7 @@ public class MapServerConfig extends JPanel
 		{
 			System.out.println("Something went wrong with the parsing");			
 		}
+
 				
 	}
 

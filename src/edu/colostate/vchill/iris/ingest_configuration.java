@@ -5,6 +5,7 @@
 package edu.colostate.vchill.iris;
 
 import java.nio.ByteBuffer;
+import java.math.*;
 
 
 /**
@@ -32,8 +33,8 @@ public class ingest_configuration {
     
     private String name_of_site;
     private short recorded_minutes_west_GMT;
-    private long latitude;
-    private long longitude;
+    private double latitude;
+    private double longitude;
     private short height_of_ground;
     private short height_of_radar;
     private int resolution;
@@ -187,22 +188,22 @@ public class ingest_configuration {
     }
 
 
-    public long getLatitude() {
+    public double getLatitude() {
       return latitude;
     }
 
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(double latitude) {
       this.latitude = latitude;
     }
 
 
-    public long getLongitude() {
+    public double getLongitude() {
       return longitude;
     }
 
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(double longitude) {
       this.longitude = longitude;
     }
 
@@ -385,7 +386,10 @@ public class ingest_configuration {
             name_of_site = new String(TempBuf, "UTF-8");
             recorded_minutes_west_GMT = in_buf.getShort();
             latitude = UtilityClass.UINT4_to_long(in_buf.getInt());
+            latitude = 360*(latitude / java.lang.Math.pow(2,8*4));
             longitude = UtilityClass.UINT4_to_long(in_buf.getInt());
+            longitude = 360*(longitude / java.lang.Math.pow(2,8*4));
+            if(longitude > 180) longitude = -1*(360-longitude);
             height_of_ground = in_buf.getShort();
             height_of_radar = in_buf.getShort();
             resolution = UtilityClass.UINT2_to_SINT(in_buf.getShort());
