@@ -182,7 +182,7 @@ public class ViewPlotInformation extends JPanel
     {
 		if( this.annotationString == null )
 			return;
-
+		
         for (int i = 0; i < this.annotationString.size(); ++i) {
             g.drawString(this.annotationString.get(i),
                 getWidth() / 3,

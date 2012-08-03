@@ -407,6 +407,7 @@ public final class ViewControl
         if (min != null) scale.setMin(Double.parseDouble(min));
     }
 
+
 	/**
 	 * Gets the ray at the specified x, y location.
 	 *
@@ -444,6 +445,11 @@ public final class ViewControl
 		return null;
 	}
 
+	
+	
+	
+	
+	
 	/**
 	 * Gets the ray at the specified azimuth.
 	 *
@@ -592,8 +598,8 @@ public final class ViewControl
             e.printStackTrace();
         }
         return Double.NaN;
-    }
-
+    }   
+    
     public void plotRay (final int index)
     {
 		ControlMessage currMsg = this.getControlMessage();
@@ -638,6 +644,10 @@ public final class ViewControl
                 win.plot(ray, thr);
             } catch (ArrayIndexOutOfBoundsException aioobe) { continue; } //better luck next window
         }
+
+       
+        
+        
     }
 
     /** Goes to the next sweep in the current volume if volume mode is enabled */

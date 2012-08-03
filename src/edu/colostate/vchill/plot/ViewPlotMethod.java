@@ -1,5 +1,8 @@
 package edu.colostate.vchill.plot;
 
+import edu.colostate.vchill.gui.MapServerConfig;
+import edu.colostate.vchill.gui.MapServerConfigWindow;
+
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.LimitedList;
 import edu.colostate.vchill.LocationManager;
@@ -14,6 +17,7 @@ import edu.colostate.vchill.color.XMLControl;
 import edu.colostate.vchill.data.Ray;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -25,6 +29,28 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.zip.ZipOutputStream;
+
+
+
+//Rausch
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import java.net.*;
+import java.io.*;
+import java.util.ArrayList;
+import javax.imageio.*;
+
+import java.awt.*;
+import javax.swing.*;
+
+
+
+
 
 /**
  * This is the super class for the different types of plotting modes. The
@@ -40,6 +66,11 @@ import java.util.zip.ZipOutputStream;
  */
 public abstract class ViewPlotMethod
 {
+	
+	
+	protected static Boolean NeedToPlotMap = false;
+	protected static boolean Mappable = false;
+	protected final static MapServerConfig msConfig = MapServerConfig.getInstance();
     protected final static Config config = Config.getInstance();
     protected final static ScaleManager sm = ScaleManager.getInstance();
     protected final static ViewControl vc = ViewControl.getInstance();
@@ -232,6 +263,100 @@ public abstract class ViewPlotMethod
     private Angle startAngle = new Angle();
     private Angle endAngle = new Angle();
 
+
+    
+    // Rausch
+
+    private Image plotEPSG4326Underlay()
+    {
+    	System.out.println("Using EPSG:4326 for underlay");
+    	
+    	double BBnorth, BBsouth, BBeast, BBwest;
+
+		Image image = null;	    
+	    
+	    double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    		    	
+	    double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));	    	
+
+	    BBwest = NWLatLong[0];
+	    BBeast = SELatLong[0];
+	    BBnorth = NWLatLong[1];
+	    BBsouth = SELatLong[1];
+		    		    	
+	    	
+		try 
+		{
+		    // Read from a URL
+								
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
+			
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+    	
+    	return image;
+    }
+    
+    private Image plotAUTO42003Underlay()
+    {
+    	System.out.println("Using AUTO:42003 for underlay");
+
+	    double[] centerLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width/2), getKmFromPixels(getCenterY()-this.height/2));
+    	
+		Image image = null;
+    	
+		try 
+		{
+		    // Read from a URL
+						
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapUnderlayLayers()); 
+
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+		
+		return image;
+    }
+    
+    public void plotMapServerUnderlay(Graphics g)
+    {
+        	
+    	if(NeedToPlotMap == true)
+    	{
+    		NeedToPlotMap = false;
+    	}
+    	else
+    	{
+    		return;
+    	}
+    	
+    	
+    	if( msConfig.getUserMapUnderlayLayers() == "")
+    	{
+    		//System.out.println("No layers to display");
+    		
+    		return;
+    		
+    	}    	
+	    		    	
+	    NeedToPlotMap = false;	    
+	    
+	    if(msConfig.AUTO42003IsEnabled() == true)
+	    	g.drawImage(plotAUTO42003Underlay(), 0, 0, null);
+	    else if(msConfig.EPSG4326IsEnabled() == true)
+	    	g.drawImage(plotEPSG4326Underlay(), 0, 0, null);	    	
+   	}    	
+ 
+    
     /**
      * Translates a (set of) rays into sets of x, y endpoints and a color value and draws the result onto the specified Graphics
      *
@@ -240,9 +365,10 @@ public abstract class ViewPlotMethod
      * @param nextRay The next ray
      * @param threshRay The threshold ray corresponding to the current ray
      * @param g the Graphics context to plot to
-     */
+     */    
+    
     public void plotData (final Ray prevRay, final Ray currRay, final Ray nextRay, final Ray threshRay, final Graphics g)
-    {
+    {    	
         if (currRay == null) throw new IllegalArgumentException("Error: PlotMethod.plotData(): null for data");
 
         double[] values = currRay.getData();
@@ -289,9 +415,12 @@ public abstract class ViewPlotMethod
         int[] yVals = new int[4];
         List<Color> colors = this.getColors();
         ViewPlotDataFilter filter = new ViewPlotDataFilter(prevRay, currRay, nextRay, threshRay, this.type);
-        for (double i = gateOffset; i < numGates; i += plotStepSize) {
+       
+        
+        for (double i = gateOffset; i < numGates; i += plotStepSize) 
+        {
             int k = (int)i;
-
+            
             //The x,y coordinates of one endpoint of the line/gate data.
             xVals[0] = getX(startAngle, pixelOffset);
             yVals[0] = getY(startAngle, pixelOffset, xVals[0]);
@@ -334,9 +463,21 @@ public abstract class ViewPlotMethod
 
             //Finally set that value in the data so that it can be assigned a color
             //(might make more sense to just assign a color now).
-            g.setColor(colorValue);
-            g.drawPolygon(xVals, yVals, 4);
-            g.fillPolygon(xVals, yVals, 4);
+            
+            // Rausch
+            if(colorValue != Color.BLACK)
+            {
+            	int alphaTransparency = MapServerConfigWindow.getOpacity();
+            	
+            	colorValue = new Color(colorValue.getRed(), colorValue.getGreen(), colorValue.getBlue(), alphaTransparency);
+            	
+            	g.setColor(colorValue);
+            
+            	g.drawPolygon(xVals, yVals, 4);
+            	g.fillPolygon(xVals, yVals, 4);
+            	
+
+            }
         } //End for loop
         startAngle = endAngle;
         endAngle = new Angle();
@@ -358,6 +499,7 @@ public abstract class ViewPlotMethod
 
     public void plotMap (Graphics g) {}
 
+    public void plotMapServerOverlay (Graphics g) {}
     public abstract int getOriginX ();
     public abstract int getOriginY ();
     public abstract double getRangeInKm (int x, int y); 

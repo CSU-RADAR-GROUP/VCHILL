@@ -10,6 +10,7 @@ import edu.colostate.vchill.map.MapInstruction.Shape;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -17,16 +18,22 @@ import java.io.UnsupportedEncodingException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import java.net.*;
+import javax.imageio.*;
+
+
+
 /**
  * This class is the plotting method for PPI data of the Chill format.
  *
  * @author  Justin Carlson
  * @author  Jochen Deyke
  * @author  jpont
+ * @author  Michael Rausch
  * @created April 25, 2003
  * @version 2010-08-02
  */
-class ViewPlotMethodPPI extends ViewPlotMethod
+public class ViewPlotMethodPPI extends ViewPlotMethod
 {
     protected static final double piOverTwo = Math.PI / 2;
     protected static final double threePiOverTwo = 3 * piOverTwo;
@@ -39,6 +46,7 @@ class ViewPlotMethodPPI extends ViewPlotMethod
     public ViewPlotMethodPPI (final String type)
     {
         super(type);
+        this.Mappable = true;
     }
 
     /**
@@ -140,8 +148,93 @@ class ViewPlotMethodPPI extends ViewPlotMethod
         }
     }
 
+    
+    private Image plotEPSG4326Overlay()
+    {
+    	System.out.println("Using EPSG:4326 for overlay");
+    	
+    	double BBnorth, BBsouth, BBeast, BBwest;
+
+		Image image = null;	    
+	    
+	    double[] NWLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX()), getKmFromPixels(getCenterY()));
+	    		    	
+	    double[] SELatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width), getKmFromPixels(getCenterY() - this.height));	    	
+
+	    BBwest = NWLatLong[0];
+	    BBeast = SELatLong[0];
+	    BBnorth = NWLatLong[1];
+	    BBsouth = SELatLong[1];
+		    		    	
+	    	
+		try 
+		{
+		    // Read from a URL
+								
+			URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=epsg:4326&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + BBwest + "," + BBsouth + "," + BBeast + "," + BBnorth + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapOverlayLayers()); 
+			
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+    	
+    	return image;
+    }
+    
+    private Image plotAUTO42003Overlay()
+    {
+    	System.out.println("Using AUTO:42003 for overlay");
+
+	    double[] centerLatLong = ViewUtil.getDegrees(getKmFromPixels(-getCenterX() + this.width/2), getKmFromPixels(getCenterY()-this.height/2));
+    	
+		Image image = null;
+    	
+		try 
+		{
+		    // Read from a URL
+						
+		    URL url = new URL("http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetMap&VERSION=1.1.1&SRS=AUTO:42003,9001," + centerLatLong[0] + "," + centerLatLong[1] + "&SERVICE=WMS&map=/var/www/html/maps/test.map&BBOX=" + getKmFromPixels(-this.width/2)*1000 + "," + getKmFromPixels(-this.height/2)*1000 + "," + getKmFromPixels(this.width/2)*1000 + "," + getKmFromPixels(this.height/2)*1000 + "&WIDTH=" + (this.width) + "&HEIGHT=" + (this.height) + "&FORMAT=image/png;%20mode=24bit&LAYERS=" + msConfig.getUserMapOverlayLayers()); 
+
+		    image = ImageIO.read(url);
+			
+		} 
+		catch(Exception e)
+		{
+			System.out.println("Something went very wrong");			
+		}
+		
+		return image;
+    }    
+    
+    @Override public void plotMapServerOverlay(final Graphics g)
+    {
+
+    	//NeedToPlotMap = true;	    
+
+    	
+    	if( msConfig.getUserMapOverlayLayers() == "")
+    	{
+    		System.out.println("No layers to display");
+    		
+    		return;    		
+    	}
+    	
+	    if(msConfig.AUTO42003IsEnabled() == true)
+	    	g.drawImage(plotAUTO42003Overlay(), 0, 0, null);
+	    else if(msConfig.EPSG4326IsEnabled() == true)
+	    	g.drawImage(plotEPSG4326Overlay(), 0, 0, null);
+	    else
+	    	System.out.println("No supported map projection method is available");
+    }
+    
+    
     @Override public void plotMap (final Graphics g)
     {
+		
+    	
         if (g == null) return;
         if (vc.getMap() == null) return;
         g.setColor(Color.WHITE);
@@ -196,6 +289,7 @@ class ViewPlotMethodPPI extends ViewPlotMethod
             prevInstr = instr;
         }
         g.setFont(oldFont);
+
     }
 
     @Override public void plotClickPoint (final Graphics g)

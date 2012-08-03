@@ -41,6 +41,9 @@ public class ViewTabbedPane extends JTabbedPane
         this.addTab("Basic", null, ViewRemotePanel.getInstance(), "Browsing tools");
         this.addTab("Filters", null, ViewFilterPanel.getInstance(), "Filters for plot windows");
 
+        this.addTab("Paint", null, ViewPaintPanel.getInstance(), "Grease pencil annotation");
+        
+        
         this.addTab("Advanced", null, new ImageControlPanel(), "Automatic image saving and scan/date/etc filter setup");
     }
 }
