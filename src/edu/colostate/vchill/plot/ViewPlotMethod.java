@@ -69,7 +69,7 @@ public abstract class ViewPlotMethod
 	
 	
 	protected static Boolean NeedToPlotMap = false;
-	
+	protected static boolean Mappable = false;
 	protected final static MapServerConfig msConfig = MapServerConfig.getInstance();
     protected final static Config config = Config.getInstance();
     protected final static ScaleManager sm = ScaleManager.getInstance();

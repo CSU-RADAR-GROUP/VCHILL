@@ -46,6 +46,7 @@ public class ViewPlotMethodPPI extends ViewPlotMethod
     public ViewPlotMethodPPI (final String type)
     {
         super(type);
+        this.Mappable = true;
     }
 
     /**

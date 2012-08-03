@@ -32,6 +32,7 @@ class ViewPlotMethodRHI extends ViewPlotMethod
     public ViewPlotMethodRHI (final String type)
     {
         super(type);
+        this.Mappable = false;
     }
 
     /**

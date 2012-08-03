@@ -299,6 +299,7 @@ public class ViewPlotWindow extends ViewWindow
         if (overlayReplotNeeded) {
             clearOverlayBuffer();
             plotOverlay();
+            
             clearAnnotationBuffer();
         }
         
@@ -355,22 +356,23 @@ public class ViewPlotWindow extends ViewWindow
         if(msConfig.plottedUnderlayOnce() == false)
         {
         	
-          	
-          plotMethod.plotMapServerUnderlay(overlay);        
+          if(this.plotMethod.Mappable){	
+          plotMethod.plotMapServerUnderlay(overlay);  
+          }
         	
         }        
         
         if (config.isGridEnabled()) plotMethod.plotGrid(overlay);
-        if (config.isMapEnabled())
+        if (config.isMapEnabled() )
         {
         	plotMethod.plotMap(overlay);
         }
 
         //plotMethod.plotMapServerOverlay(overlay);
         
-
+        if(this.plotMethod.Mappable){
         plotMethod.plotMapServerOverlay(overlay);
-        
+        }
     }
     private void clearAircraftBuffer ()
     {
@@ -449,7 +451,8 @@ public class ViewPlotWindow extends ViewWindow
         //that determine data translation and values.  Inform the data hash
         //of these qaulifiers.
         Graphics g = dataBuffer.getGraphics();
-    	plotMethod.plotMapServerUnderlay(g);    	    	
+    	if(this.plotMethod.Mappable)
+        plotMethod.plotMapServerUnderlay(g);    	    	
         
         //Send the object which holds the data type into the translation method
         //in order to get useful data for plotting.
