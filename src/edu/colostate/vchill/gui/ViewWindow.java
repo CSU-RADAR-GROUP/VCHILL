@@ -80,7 +80,7 @@ public abstract class ViewWindow extends JPanel
     }
 
     /**
-     * @return "Numerical", "Plot", or "AScope"
+     * @return "Numerical", "Plot", "AScope", or "Histogram" 
      */
     public abstract String getStyle ();
 

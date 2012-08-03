@@ -1,5 +1,6 @@
 package edu.colostate.vchill.plot;
 
+import java.awt.*;  
 import edu.colostate.vchill.LimitedList;
 import edu.colostate.vchill.Loader;
 import edu.colostate.vchill.ViewUtil;
@@ -8,14 +9,17 @@ import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
 import edu.colostate.vchill.chill.ChillTrackInfo;
 import edu.colostate.vchill.data.Ray;
+import edu.colostate.vchill.gui.ViewPaintPanel;
 import edu.colostate.vchill.gui.ViewRemotePanel;
 import edu.colostate.vchill.gui.ViewSplitPane;
 import edu.colostate.vchill.gui.ViewWindow;
+import edu.colostate.vchill.gui.MapServerConfig;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -31,6 +35,12 @@ import java.util.zip.ZipOutputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+
+
+
+
+
+
 
 /**
  * This window type displays data as colored graphics.
@@ -53,6 +63,9 @@ public class ViewPlotWindow extends ViewWindow
     
     //The Current plotting methods to be used based on the data
     //that is being received.
+    
+	private final static MapServerConfig msConfig = MapServerConfig.getInstance();
+    
     private ViewPlotMethod plotMethod;
     private boolean modeOverriden = false;
 
@@ -67,6 +80,7 @@ public class ViewPlotWindow extends ViewWindow
 
     private BufferedImage aircraftBuffer;
     private BufferedImage overlayBuffer;
+    private BufferedImage annotationBuffer;
 
     private boolean overlayReplotNeeded = true;
 
@@ -80,6 +94,7 @@ public class ViewPlotWindow extends ViewWindow
     private volatile int dragRectEndX = 0;
     private volatile int dragRectEndY = 0;
 
+    
     /**
      * Constructor for the ViewPlotWindow object
      *
@@ -90,6 +105,9 @@ public class ViewPlotWindow extends ViewWindow
         super();
         this.type = type;
 
+       
+        
+        
         //Set the layout to add components to the left as they are added.
         plotMethod = new ViewPlotMethodPPI(this.type);
         this.aircraftInfo = plotMethod.getAircraftInfo();
@@ -97,7 +115,8 @@ public class ViewPlotWindow extends ViewWindow
         dataBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         this.aircraftBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         this.overlayBuffer = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-
+        this.annotationBuffer = new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
+        
         //Swing setup.
         setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         setBackground(Color.BLACK);
@@ -259,6 +278,7 @@ public class ViewPlotWindow extends ViewWindow
         Graphics2D acg = this.aircraftBuffer.createGraphics();
         acg.setColor(new Color(1f, 1f, 1f, 1f));
         this.overlayBuffer = new BufferedImage(plotWidth, plotHeight, BufferedImage.TYPE_INT_ARGB);
+        this.annotationBuffer = new BufferedImage(plotWidth, plotHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D olg = this.overlayBuffer.createGraphics();
         olg.setColor(new Color(1f, 1f, 1f, 1f));
         overlayReplotNeeded = true;
@@ -266,19 +286,51 @@ public class ViewPlotWindow extends ViewWindow
 
     @Override public void paintComponent (final Graphics g)
     {
-        super.paintComponent(g);
+    	
+    	super.paintComponent(g);
         if (g == null) return;
+
+         
+        
+        
         g.drawImage(dataBuffer, dragOffsetX, dragOffsetY, this);
         this.clearAircraftBuffer();
         this.plotAircraft();
         if (overlayReplotNeeded) {
             clearOverlayBuffer();
             plotOverlay();
+            
+            clearAnnotationBuffer();
         }
+        
+        if(ViewPaintPanel.GreasePencilAnnotationEnabled)
+        {
+        
+        
+            if(image == null)
+            { 
+            		
+                    image = createImage(getSize().width, getSize().height);
+                    Graphics2D graphics2D = annotationBuffer.createGraphics();
+                    graphics2D = (Graphics2D)image.getGraphics(); 
+                    graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
+                    clearAnnotationBuffer();  
+            } 
+        	//clear();
+
+            
+            
+            //g.drawImage(image, 0, 0, null);        	
+        	
+        }
+        
         g.drawImage(this.overlayBuffer, dragOffsetX, dragOffsetY, null);
         g.drawImage(this.aircraftBuffer, dragOffsetX, dragOffsetY, null);
         if (config.isClickPointEnabled() && dragOffsetX == 0 && dragOffsetY == 0) plotMethod.plotClickPoint(g);
         if (dragRectStartX != 0 || dragRectStartY != 0 || dragRectEndX != 0 || dragRectEndY !=0) g.draw3DRect(dragRectStartX, dragRectStartY, dragRectEndX - dragRectStartX, dragRectEndY - dragRectStartY, false);
+        g.drawImage(annotationBuffer, dragOffsetX, dragOffsetY, null);
+
+    
     }
 
     public void replotOverlay ()
@@ -298,10 +350,30 @@ public class ViewPlotWindow extends ViewWindow
         if (!overlayReplotNeeded) return;
         overlayReplotNeeded = false;
         Graphics2D overlay = overlayBuffer.createGraphics();
-        if (config.isGridEnabled()) plotMethod.plotGrid(overlay);
-        if (config.isMapEnabled()) plotMethod.plotMap(overlay);
-    }
 
+        plotMethod.NeedToPlotMap = true;
+        
+        if(msConfig.plottedUnderlayOnce() == false)
+        {
+        	
+          if(this.plotMethod.Mappable){	
+          plotMethod.plotMapServerUnderlay(overlay);  
+          }
+        	
+        }        
+        
+        if (config.isGridEnabled()) plotMethod.plotGrid(overlay);
+        if (config.isMapEnabled() )
+        {
+        	plotMethod.plotMap(overlay);
+        }
+
+        //plotMethod.plotMapServerOverlay(overlay);
+        
+        if(this.plotMethod.Mappable){
+        plotMethod.plotMapServerOverlay(overlay);
+        }
+    }
     private void clearAircraftBuffer ()
     {
         Graphics2D acg = this.aircraftBuffer.createGraphics();
@@ -363,17 +435,25 @@ public class ViewPlotWindow extends ViewWindow
         g.drawLine(x + 3, y - 3, x + 3, y + 3);
     }
 
+
+    
     public void plot (final Ray prevRay, final Ray currRay,
             final Ray nextRay, final Ray threshRay)
     {
-        if (currRay == null) return; //can't plot without data...
+    	
+    	msConfig.plottedOnce(true);	    
+    	
+
+    	if (currRay == null) return; //can't plot without data...
         setMode(currRay.getMode(), false);
 
         //This translation to a specific type may require updates to be made
         //that determine data translation and values.  Inform the data hash
         //of these qaulifiers.
         Graphics g = dataBuffer.getGraphics();
-
+    	if(this.plotMethod.Mappable)
+        plotMethod.plotMapServerUnderlay(g);    	    	
+        
         //Send the object which holds the data type into the translation method
         //in order to get useful data for plotting.
         plotMethod.plotData(prevRay, currRay, nextRay, threshRay, g);
@@ -580,4 +660,51 @@ public class ViewPlotWindow extends ViewWindow
     {
         return this.plotMethod.isExportable();
     }
+
+    
+    
+    
+	Image image;
+    
+    
+    public void updateAnnotationLayer(int currentX, int currentY, int oldX, int oldY)
+    {
+    	
+    	Graphics2D graphics2D = annotationBuffer.createGraphics();
+    	graphics2D.setPaint(ViewPaintPanel.getPaintColor());
+    	
+    	graphics2D.setStroke(new BasicStroke(ViewPaintPanel.getPenSize()));
+    	
+    	if(graphics2D != null)  
+        	//graphics2D.fillOval(currentX, currentY, ViewPaintPanel.getPenSize(), ViewPaintPanel.getPenSize()); 
+    		graphics2D.drawLine(oldX, oldY, currentX, currentY); 
+
+        repaint();
+    	
+    }
+
+    public void updateTextAnnotationLayer(int currentX, int currentY)
+    {
+    	
+    	Graphics2D graphics2D = annotationBuffer.createGraphics();
+    	graphics2D.setPaint(ViewPaintPanel.getPaintColor());
+    	
+    	if(graphics2D != null)
+    		if(ViewPaintPanel.PPIDisplayString.getText() != null)
+        	graphics2D.drawString(ViewPaintPanel.PPIDisplayString.getText(), currentX, currentY); 
+
+        repaint();
+    	
+    }    
+    
+    
+    public void clearAnnotationBuffer()
+    {     	
+    	
+    		Graphics2D graphics2D = annotationBuffer.createGraphics();
+    		graphics2D.setBackground(new Color(0f, 0f, 0f, 0f));
+    		graphics2D.clearRect(0, 0, getSize().width, getSize().height);
+
+    		repaint();
+    }        
 }

@@ -21,6 +21,7 @@ class ViewPlotMethodTH extends ViewPlotMethod
     {
         super(type);
         this.prevX =  0 - BLOCKSIZE;
+        this.Mappable = false;
     }
 
     @Override protected double getStartAngle (final Ray currRay) { return 0; }

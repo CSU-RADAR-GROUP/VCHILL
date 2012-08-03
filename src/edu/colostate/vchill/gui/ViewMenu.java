@@ -1,5 +1,10 @@
 package edu.colostate.vchill.gui;
 
+import java.awt.*; // Rausch
+import java.awt.event.*; // Rausch
+import javax.swing.*; // Rausch
+
+
 import edu.colostate.vchill.DialogUtil;
 import edu.colostate.vchill.Loader;
 import edu.colostate.vchill.ScaleManager;
@@ -31,6 +36,27 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
+
+// Rausch
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import java.net.*;
+import java.io.*;
+import java.util.ArrayList;
+import javax.imageio.*;
+import java.awt.*;
+import javax.swing.*;
+
+
+
+
+
+
 /**
  * This is class that is used to create JMenuBars that can be used to
  * add into JFrames.  It is just a reasonable way to make the menu a
@@ -39,12 +65,18 @@ import javax.swing.KeyStroke;
  * @author  Justin Carlson
  * @author  Jochen Deyke
  * @author  Alexander Deyke
+ * @author  Michael Rausch
  * @author  jpont
  * @created January 03, 2003
  * @version 2010-08-02
  */
+
 public class ViewMenu extends JMenuBar
 {
+	
+    private MapServerConfig MapServerConfigObject = MapServerConfig.getInstance();
+	
+	
     private static final WindowManager wm = WindowManager.getInstance();
     private static final ViewControl vc = ViewControl.getInstance();
     private final static ScaleManager sm = ScaleManager.getInstance();
@@ -75,6 +107,9 @@ public class ViewMenu extends JMenuBar
         this.add(this.numdumpMenu = createNumDumpMenu());
         this.add(createColorMenu(colors));
         this.add(createMapMenu(maps));
+        this.add(createMapServerMenu());
+        
+        
         this.add(createHelpMenu());
         updateWindowMenus();
         sm.addObserver(new Observer () {
@@ -282,6 +317,11 @@ public class ViewMenu extends JMenuBar
         this.plotMenu.add(menuItem);
     }
 
+
+
+    
+  
+        
     public void updateWindowMenus ()
     {
         this.updatePlotMenu();
@@ -450,6 +490,62 @@ public class ViewMenu extends JMenuBar
         return menu;
     }
 
+    
+    /**
+     * Creates a Menu for selecting a map from MapServer.
+     * Rausch
+     * @return the newly created menu
+     */
+    private JMenu createMapServerMenu ()//final List<String> mapNames)
+    {
+        JMenu menu = new JMenu("MapServer");
+        menu.setMnemonic(KeyEvent.VK_S);
+        JCheckBoxMenuItem menuItem;
+
+        
+        mapItems.put("MapServer", menuItem = new JCheckBoxMenuItem("MapServer"));
+        
+        /*
+        menuItem.addActionListener(new AbstractAction() {
+            public void actionPerformed (final ActionEvent ae) {
+                for (JCheckBoxMenuItem item : mapItems.values()) item.setSelected(false); //unselect all
+                
+            }});
+        */
+        
+        menuItem.addActionListener(new AbstractAction() {
+            private String lastDir;
+            public void actionPerformed (final ActionEvent ae) {
+
+            	MapServerConfigObject.createAndShowPreferencesFrame();              
+                
+            }});            
+        menu.add(menuItem);
+
+
+        //initial state
+        updateBoxes();
+
+        return menu;
+    }
+    
+    /*
+     * 		This function let's the user select options for displaying the maps
+     * 		from MapServer.
+     * 		Rausch
+     */
+    
+
+/*    
+    private void actionPerformed(ActionEvent e)
+    {
+    	MapServerConfigObject.createAndShowPreferencesFrame();
+    }
+*/    
+
+    
+ 
+	
     private void updateBoxes ()
     {
         mapItems.get(NONE).setSelected(gcc.getMapFileNames().size() == 0); //deselect "none"?
