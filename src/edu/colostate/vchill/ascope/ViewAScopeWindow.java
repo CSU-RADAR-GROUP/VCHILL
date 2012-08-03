@@ -30,6 +30,11 @@ import javax.swing.JInternalFrame;
  */
 public class ViewAScopeWindow extends ViewWindow
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 420048517751841846L;
+
     public static final String TYPE_NOT_SET = "<none>";
 
     private static final Config aconf = Config.getInstance();

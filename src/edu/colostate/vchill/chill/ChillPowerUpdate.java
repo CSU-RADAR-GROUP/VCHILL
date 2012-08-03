@@ -1,7 +1,6 @@
 package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.socket.SocketUtil;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -38,10 +37,10 @@ public class ChillPowerUpdate extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_PWR_UPDATE;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillPowerUpdate.BYTE_SIZE >= 0;
         this.h_power_dbm = in.readFloat();
         this.v_power_dbm = in.readFloat();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillPowerUpdate.BYTE_SIZE]);
     }
 
     /**
@@ -52,7 +51,7 @@ public class ChillPowerUpdate extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.HSK_ID_PWR_UPDATE;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillPowerUpdate.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeFloat(this.h_power_dbm);
         out.writeFloat(this.v_power_dbm);

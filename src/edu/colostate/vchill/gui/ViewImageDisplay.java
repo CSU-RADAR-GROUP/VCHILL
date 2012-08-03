@@ -64,6 +64,10 @@ import net.jmge.gif.Gif89Encoder;
  */
 public class ViewImageDisplay extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -2860693420417672170L;
     private static final ScaleManager sm = ScaleManager.getInstance();
     private static final Config config = Config.getInstance();
 
@@ -312,6 +316,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Next");
         button.setMnemonic(KeyEvent.VK_N);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 4584521262936562019L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop(); next(); }});
         button.setToolTipText("Advance one image");
@@ -320,6 +329,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Prev");
         button.setMnemonic(KeyEvent.VK_P);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -2059500850910679648L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop(); prev(); }});
         button.setToolTipText("Go back one image");
@@ -328,6 +342,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Loop");
         button.setMnemonic(KeyEvent.VK_L);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -7151401905075308439L;
+
             public void actionPerformed (final ActionEvent e) {
                 if (loop.isRunning()) loop.stop();
                 else loop.start();
@@ -338,6 +357,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Speed");
         button.setMnemonic(KeyEvent.VK_S);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1001377916422030622L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop();
                 while (true) {
@@ -359,6 +383,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Remove");
         button.setMnemonic(KeyEvent.VK_R);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 4415890045581374769L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop();
                 if (images == null || images.size() < 1) return; //no image to remove
@@ -374,6 +403,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Clear");
         button.setMnemonic(KeyEvent.VK_C);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -7134180243004889251L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop();
                 currIndex = 0;
@@ -392,6 +426,11 @@ public class ViewImageDisplay extends JPanel
         bottomRow.add(typeLabel);
 
         this.typeSelector.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8741340180851587765L;
+
             public void actionPerformed (final ActionEvent ae) {
                 selectType((String)typeSelector.getSelectedItem());
                 repaint(); }});
@@ -401,6 +440,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Image to File");
         button.setMnemonic(KeyEvent.VK_F);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8160242673173152713L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop();
 				if( images == null || images.size() < 1 ) return;
@@ -419,6 +463,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Loop to Dir");
         button.setMnemonic(KeyEvent.VK_D);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -5399632952029836390L;
+
             public void actionPerformed (final ActionEvent ae) {
                 loop.stop();
 				if( images == null || images.size() < 1 ) return;
@@ -457,6 +506,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Loop to GIF");
         button.setMnemonic(KeyEvent.VK_G);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -5357969871557245856L;
+
             public void actionPerformed (final ActionEvent ae) {
                 loop.stop();
 				if( images == null || images.size() < 1 ) return;
@@ -500,6 +554,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Composite to GIF");
         button.setMnemonic(KeyEvent.VK_C);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 3997373801386745039L;
+
             public void actionPerformed (final ActionEvent ae) {
                 loop.stop();
 				if( images == null || images.size() < 1 ) return;
@@ -557,6 +616,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Load");
         button.setMnemonic(KeyEvent.VK_O);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3441419339433777977L;
+
             public void actionPerformed (final ActionEvent e) {
                 loop.stop();
                 JFileChooser chooser = new JFileChooser(lastDir[0]);
@@ -586,6 +650,11 @@ public class ViewImageDisplay extends JPanel
         button = new JButton("Exit");
         button.setMnemonic(KeyEvent.VK_X);
         button.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6476551648402562464L;
+
             public void actionPerformed (final ActionEvent ae) {
                 loop.stop(); closeWindow(); }});
         button.setToolTipText("Close this window");
@@ -772,6 +841,10 @@ public class ViewImageDisplay extends JPanel
 
     protected class CheckBoxFileChooser extends JFileChooser
     {
+        /**
+       * 
+       */
+      private static final long serialVersionUID = -1001729783408270200L;
         protected final JCheckBox checkBox;
 
         public CheckBoxFileChooser (final String label)

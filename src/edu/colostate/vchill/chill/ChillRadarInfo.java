@@ -92,7 +92,7 @@ public class ChillRadarInfo extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_RADAR_INFO;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillRadarInfo.BYTE_SIZE >= 0;
         this.radar_name = SocketUtil.readString(in, MAX_RADAR_NAME);
         this.latitude_d = in.readFloat();
         this.longitude_d = in.readFloat();
@@ -116,7 +116,7 @@ public class ChillRadarInfo extends ChillHeader
         this.test_power_v_db = in.readFloat();
         this.dc_loss_h_db = in.readFloat();
         this.dc_loss_v_db = in.readFloat();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillRadarInfo.BYTE_SIZE]);
     }
 
     /**
@@ -127,7 +127,7 @@ public class ChillRadarInfo extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.HSK_ID_RADAR_INFO;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillRadarInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         SocketUtil.writeString(this.radar_name, out, MAX_RADAR_NAME);
         out.writeFloat(this.latitude_d);

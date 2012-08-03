@@ -31,6 +31,11 @@ public class CacheMainLRU extends CacheMain
     {
         this.cache = new LinkedHashMap<ControlMessage, CacheType<Object>>(maxTypesToCache)
         {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 7608231869146777712L;
+
             @Override protected boolean removeEldestEntry (Map.Entry<ControlMessage, CacheType<Object>> eldest)
             {
                 return this.size() > maxTypesToCache;

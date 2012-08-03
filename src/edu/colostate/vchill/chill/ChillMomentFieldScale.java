@@ -112,8 +112,8 @@ public class ChillMomentFieldScale extends ChillHeader implements Comparable<Chi
         this.colorMapType = ColorType.values()[color];
         this.currentMax = this.maxValue / (double)this.factor;
         this.currentMin = this.minValue / (double)this.factor;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
-        in.readFully(this.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        assert header.headerLength - ChillMomentFieldScale.BYTE_SIZE >= 0;
+        in.readFully(this.extraData = new byte[header.headerLength - ChillMomentFieldScale.BYTE_SIZE]);
     }
 
     /**
@@ -123,7 +123,7 @@ public class ChillMomentFieldScale extends ChillHeader implements Comparable<Chi
      */
     public void write (final DataOutput out) throws IOException
     {
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillMomentFieldScale.BYTE_SIZE + extraData.length;
         super.header.write(out);
         SocketUtil.writeString(this.fieldName, out, fieldNameLength);
         SocketUtil.writeString(this.fieldDescription, out, fieldDescriptionLength);

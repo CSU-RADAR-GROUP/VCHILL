@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -85,6 +84,11 @@ class ViewAScopePopup extends ViewWindowActions
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(
                 new AbstractAction(type) {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = 869057841579678472L;
+
                     public void actionPerformed (final ActionEvent ae) {
                         win.setType(type); vc.rePlot();
                     }});
@@ -108,6 +112,11 @@ class ViewAScopePopup extends ViewWindowActions
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(
                 new AbstractAction(type) {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = 2611931680559758440L;
+
                     public void actionPerformed (final ActionEvent ae) {
                         win.setSecondary(type); vc.rePlot();
                     }});
@@ -117,6 +126,11 @@ class ViewAScopePopup extends ViewWindowActions
         }
         JRadioButtonMenuItem item = new JRadioButtonMenuItem(
             new AbstractAction(ViewAScopeWindow.TYPE_NOT_SET) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -2034549514522756984L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     win.setSecondary(null); vc.rePlot();
                 }});

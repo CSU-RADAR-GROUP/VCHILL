@@ -13,7 +13,6 @@ import java.awt.event.FocusListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -35,6 +34,10 @@ import javax.swing.JTextField;
  */
 public class ViewFilterPanel extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -1728050194660302405L;
     private final static ViewFilterPanel me = new ViewFilterPanel();
     private final ViewActions actions = new ViewActions();
     private final Config config = Config.getInstance();
@@ -46,16 +49,31 @@ public class ViewFilterPanel extends JPanel
 
     private final JComboBox threshBox = new JComboBox(sm.getTypes().toArray());
     private final JCheckBox enableThreshCheckBox = new JCheckBox(new AbstractAction("Threshold:") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = -2602346584637503100L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setThresholdEnabled(enableThreshCheckBox.isSelected());
                 vc.rePlot();
             }});
     private final JCheckBox absoluteValueCheckBox = new JCheckBox(new AbstractAction("Absolute") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = -930118262416813946L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setThresholdAbsoluteValueEnabled(absoluteValueCheckBox.isSelected());
                 vc.rePlot();
             }});
     private final JCheckBox enableThreshGreaterThanCheckBox = new JCheckBox(new AbstractAction(">") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 596592460487632904L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setThresholdGreaterThanEnabled(enableThreshGreaterThanCheckBox.isSelected());
                 vc.rePlot();
@@ -65,12 +83,22 @@ public class ViewFilterPanel extends JPanel
     private final JCheckBox enableNoiseFilterCheckBox = new JCheckBox("Noise Reduction");
 
     private final JRadioButton unfoldingOff = new JRadioButton(new AbstractAction("Off") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = -1717451052853371776L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Disable Velocity Unfolding");
                 config.setUnfoldingEnabled(false);
                 vc.rePlot();
             }});
     private final JRadioButton unfoldingAutomatic = new JRadioButton(new AbstractAction("Automatic") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 6980738617850652817L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Automatic Velocity Unfolding");
                 config.setUnfoldingEnabled(true);
@@ -78,6 +106,11 @@ public class ViewFilterPanel extends JPanel
                 vc.rePlot();
             }});
     private final JRadioButton unfoldingManual = new JRadioButton(new AbstractAction("Manual") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 8532588443991534687L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Manual Velocity Unfolding");
                 config.setUnfoldingEnabled(true);
@@ -88,18 +121,33 @@ public class ViewFilterPanel extends JPanel
 	private final JTextField unfoldingStartRange = new JTextField( String.valueOf(config.getUnfoldStartRange()), 4 );
 
     private final JRadioButton gradientOff = new JRadioButton(new AbstractAction("Off") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 7378725759773571609L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Gradient Off");
                 config.setGradientType(GradientType.Off);
                 vc.rePlot();
             }});
     private final JRadioButton gradientRange = new JRadioButton(new AbstractAction("Range") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 6959511413938691924L;
+
             public void actionPerformed (ActionEvent ae) {
                 System.out.println("Z Range Gradient");
                 config.setGradientType(GradientType.Range);
                 vc.rePlot();
             }});
     private final JRadioButton gradientAzimuth = new JRadioButton(new AbstractAction("Azimuth") {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = -555090219952498927L;
+
             public void actionPerformed (ActionEvent ae) {
                 System.out.println("Z Azimuth Gradient");
                 config.setGradientType(GradientType.Azimuth);
@@ -107,6 +155,11 @@ public class ViewFilterPanel extends JPanel
             }});
 
     private final AbstractAction threshBoxAction = new AbstractAction() {
+            /**
+       * 
+       */
+      private static final long serialVersionUID = 4231079353073560442L;
+
             public void actionPerformed (final ActionEvent ae) {
                 String type = (String)threshBox.getSelectedItem();
                 if (type == null) return;
@@ -252,6 +305,11 @@ public class ViewFilterPanel extends JPanel
     {
         JPanel inputPanel = new JPanel();
         inputPanel.add(new JButton(new AbstractAction("Input New Velocity Estimates") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3563303124266525281L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Input Manual Unfolding Estimates");
                 String result = DialogUtil.showMultilineInputDialog("Input", "Please enter estimated velocities, one per line.\nFormat is <height in km><space><estimated velocity in m/s>\nEntered values remain in effect until the program is shut down or new numbers are entered.\nOrdering of heights is not important. Faulty lines are ignored.", EstimateParser.getInstance().toString());

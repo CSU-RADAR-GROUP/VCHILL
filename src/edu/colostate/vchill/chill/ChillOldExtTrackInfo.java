@@ -57,7 +57,7 @@ public class ChillOldExtTrackInfo extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.OLD_EXT_TRACK_DATA;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillOldExtTrackInfo.BYTE_SIZE >= 0;
         this.time = in.readLong();
         this.posX = in.readFloat();
         this.posY = in.readFloat();
@@ -65,7 +65,7 @@ public class ChillOldExtTrackInfo extends ChillHeader
         this.headingD = in.readFloat();
         this.trackID = SocketUtil.readString(in, trackIDLength);
         this.trackInfo = SocketUtil.readString(in, trackInfoLength);
-        in.readFully(this.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(this.extraData = new byte[header.headerLength - ChillOldExtTrackInfo.BYTE_SIZE]);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ChillOldExtTrackInfo extends ChillHeader
      */
     @Override public void write (final DataOutput out) throws IOException
     {
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillOldExtTrackInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeLong(this.time);
         out.writeFloat(this.posX);

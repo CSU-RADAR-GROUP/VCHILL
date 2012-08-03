@@ -133,7 +133,7 @@ public final class SocketResponse
      */
     public SocketResponse (final byte[] data, int offset)
     {
-        if( data.length < offset + this.BYTE_SIZE - 1 ) {
+        if( data.length < offset + SocketResponse.BYTE_SIZE - 1 ) {
             throw new IllegalArgumentException( "not enough data in input array" );
         }
         int tmp        = SocketUtil.readInt(data, offset); offset += ChillDefines.INT_BYTE_SIZE;
@@ -146,7 +146,7 @@ public final class SocketResponse
         this.ray       = SocketUtil.readInt(data, offset); offset += ChillDefines.INT_BYTE_SIZE;
         this.scanMode  = SocketUtil.readInt(data, offset); offset += ChillDefines.INT_BYTE_SIZE;
         this.maxSweeps = SocketUtil.readInt(data, offset); offset += ChillDefines.INT_BYTE_SIZE;
-        assert offset == this.BYTE_SIZE : "number of bytes read != size";
+        assert offset == SocketResponse.BYTE_SIZE : "number of bytes read != size";
     }
 
     /**
@@ -190,7 +190,7 @@ public final class SocketResponse
      */
     public byte[] getBytes ()
     {
-        final byte[] output = new byte[this.BYTE_SIZE];
+        final byte[] output = new byte[SocketResponse.BYTE_SIZE];
         int offset = 0;
         int tmp = this.status.ordinal();
         if (running) tmp |= ARCH_RUNNING;
@@ -202,7 +202,7 @@ public final class SocketResponse
         offset += SocketUtil.writeInt(this.ray, output, offset);
         offset += SocketUtil.writeInt(this.scanMode, output, offset);
         offset += SocketUtil.writeInt(this.maxSweeps, output, offset);
-        assert offset == this.BYTE_SIZE : "Num bytes returned != size";
+        assert offset == SocketResponse.BYTE_SIZE : "Num bytes returned != size";
         return output;
     }
 

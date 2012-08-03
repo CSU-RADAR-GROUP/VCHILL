@@ -25,6 +25,11 @@ public class ViewMain
     //that component into.
     private final JFrame topWindow = new JFrame("Java VCHILL") {
 		/**
+       * 
+       */
+      private static final long serialVersionUID = 7161598585920864891L;
+
+    /**
 		 * Processes a window event.
 		 *
 		 * @param event The window event that occurred.

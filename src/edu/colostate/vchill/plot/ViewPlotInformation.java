@@ -20,6 +20,10 @@ import javax.swing.JPanel;
  */
 public class ViewPlotInformation extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 2332481734647612406L;
     protected final static Config config = Config.getInstance();
     protected final SimpleDateFormat formatter;
     protected final static TimeZone utc = TimeZone.getTimeZone("UTC");

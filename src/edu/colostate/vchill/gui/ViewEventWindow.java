@@ -25,6 +25,10 @@ import javax.swing.text.StyleContext;
  */
 public class ViewEventWindow extends JScrollPane
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -8304558476393001830L;
     private final JTextPane pane;
 
     /**

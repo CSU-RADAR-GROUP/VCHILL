@@ -1,10 +1,7 @@
 package edu.colostate.vchill.bookmark;
 
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 
 /**
  * A model for the bookmark tree.  Extends DefaultTreeModel to have most of the
@@ -18,6 +15,10 @@ import javax.swing.tree.TreeModel;
  */
 public class BookmarkTreeModel extends DefaultTreeModel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -319860178138853771L;
     private static final BookmarkControl bmc = BookmarkControl.getInstance();
 
     /**

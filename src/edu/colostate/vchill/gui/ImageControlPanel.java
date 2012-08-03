@@ -25,6 +25,10 @@ import javax.swing.JTextField;
  */
 public class ImageControlPanel extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -7700937488703078642L;
     private static final ViewControl vc = ViewControl.getInstance();
     private static final Config config = Config.getInstance();
 
@@ -38,6 +42,11 @@ public class ImageControlPanel extends JPanel
         JPanel clearPanel = new JPanel();
 
         JButton clearPrefsButton = new JButton(new AbstractAction("Clear preferences") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6441644772876821062L;
+
             public void actionPerformed (final ActionEvent ae) {
                 ConfigUtil.clear();
                 System.out.println("Default settings restored");
@@ -47,6 +56,11 @@ public class ImageControlPanel extends JPanel
         clearPanel.add(clearPrefsButton);
 
         JButton clearCacheButton = new JButton(new AbstractAction("Clear cache") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -9098284931829769091L;
+
             public void actionPerformed (final ActionEvent ae) {
                 vc.clearCache();
                 System.out.println("Cache cleared");
@@ -61,15 +75,30 @@ public class ImageControlPanel extends JPanel
         //init these first to allow en-/disabling
         final ButtonGroup group = new ButtonGroup();
         this.allButton = new JRadioButton(new AbstractAction("All sweeps  ") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1699324759273344291L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setSaveAllEnabled(true); }});
         this.autoButton = new JRadioButton(new AbstractAction("Webtilt  ") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 2176297588900454123L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setSaveAllEnabled(false); }});
 
         //auto panel
         JPanel autoPanel = new JPanel();
         final JCheckBox autoCB = new JCheckBox(new AbstractAction("Automatically save from Plot windows:") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -2815060317366574222L;
+
             public void actionPerformed (final ActionEvent ae) {
                 boolean selected = ((JCheckBox)ae.getSource()).isSelected();
                 config.setImageAutosaveEnabled(selected);
@@ -82,6 +111,11 @@ public class ImageControlPanel extends JPanel
         //export panel
         JPanel exportPanel = new JPanel();
         final JCheckBox exportCB = new JCheckBox(new AbstractAction("Automatically export to Google Earth:") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6566359680967342918L;
+
             public void actionPerformed (final ActionEvent ae) {
                 boolean selected = ((JCheckBox)ae.getSource()).isSelected();
                 config.setImageAutoExportEnabled(selected);
@@ -124,6 +158,11 @@ public class ImageControlPanel extends JPanel
         filterInput.setText(filterString);
         filterInput.setEnabled(filterString != null);
         final JCheckBox filterCB = new JCheckBox(new AbstractAction("Filename contains: ") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3222321555612890750L;
+
             public void actionPerformed (final ActionEvent ae) {
                 filterInput.setEnabled(((JCheckBox)ae.getSource()).isSelected());
             }});
@@ -139,6 +178,11 @@ public class ImageControlPanel extends JPanel
         tiltInput.setText(saveTilt > 0 ? String.valueOf(saveTilt) : null);
         tiltInput.setEnabled(saveTilt > 0);
         final JCheckBox customCB = new JCheckBox(new AbstractAction("Sweep number matches:") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1620222125314661228L;
+
             public void actionPerformed (final ActionEvent ae) {
                 tiltInput.setEnabled(((JCheckBox)ae.getSource()).isSelected());
             }});
@@ -149,6 +193,11 @@ public class ImageControlPanel extends JPanel
 
         //apply button -> description panel; create here due to referencing items not available before
         JButton applyButton = new JButton(new AbstractAction("Apply settings") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5049963229002185319L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setImageAutosaveEnabled(autoCB.isSelected());
                 config.setScanFilter(filterCB.isSelected() ? filterInput.getText() : null);

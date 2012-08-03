@@ -43,6 +43,10 @@ import javax.swing.JInternalFrame;
  */
 public class ViewPlotWindow extends ViewWindow
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -275737332070996909L;
     private boolean plotting; //are we currently plotting?
     private ViewSplitPane containAll;
     

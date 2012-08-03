@@ -1,15 +1,7 @@
 package edu.colostate.vchill.numdump;
 
-import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.ViewUtil;
-import edu.colostate.vchill.data.Ray;
-import edu.colostate.vchill.gui.ViewEventWindow;
-import edu.colostate.vchill.gui.ViewWindow;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +9,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
+import edu.colostate.vchill.data.Ray;
+import edu.colostate.vchill.gui.ViewEventWindow;
+import edu.colostate.vchill.gui.ViewWindow;
 
 /**
  * A window that, instead of plotting the data, displays the raw numbers
@@ -27,6 +23,10 @@ import java.text.NumberFormat;
  */
 public class NumDumpWindow extends ViewWindow
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 7103116639318118357L;
     private static final NumberFormat af = new DecimalFormat ("000.00"); //for angles
     private static final NumberFormat rf = new DecimalFormat ("000.000"); //for range
     private static final NumberFormat vf = new DecimalFormat (" 000.0000;-000.0000"); //for values

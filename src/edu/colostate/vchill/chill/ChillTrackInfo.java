@@ -62,7 +62,7 @@ public class ChillTrackInfo extends ChillHeader
      */
     public void write (final DataOutput out) throws IOException
     {
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillTrackInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeFloat(this.xKm);
         out.writeFloat(this.yKm);

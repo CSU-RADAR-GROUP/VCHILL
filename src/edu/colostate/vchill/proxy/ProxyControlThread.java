@@ -323,7 +323,7 @@ System.out.println("last ray# = " + lastRayNumber);
                 }
                 try {
                     for (int i = 0; i < serverDataSockets; ++i) {
-                        this.serverDataSocket[i].setSoTimeout(this.timeout); // default timeout on data
+                        this.serverDataSocket[i].setSoTimeout(ProxyControlThread.timeout); // default timeout on data
                         ChillHeaderHeader headerH = new ChillHeaderHeader(serverDataIn[i]);
 //System.out.println("header type = " + Integer.toHexString(headerH.recordType));
                         switch (headerH.recordType) {

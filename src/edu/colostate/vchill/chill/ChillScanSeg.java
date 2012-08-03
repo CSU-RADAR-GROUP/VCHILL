@@ -137,7 +137,7 @@ public class ChillScanSeg extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_SCAN_SEG;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillScanSeg.BYTE_SIZE >= 0;
         this.az_manual = in.readFloat();
         this.el_manual = in.readFloat();
         this.az_start = in.readFloat();
@@ -165,7 +165,7 @@ public class ChillScanSeg extends ChillHeader
         this.clutter_filter2 = in.readInt();
         this.project = SocketUtil.readString(in, MAX_SEGNAME_LENGTH);
         this.current_fixed_angle = in.readFloat();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillScanSeg.BYTE_SIZE]);
     }
 
     /**
@@ -176,7 +176,7 @@ public class ChillScanSeg extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.HSK_ID_SCAN_SEG;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillScanSeg.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeFloat(this.az_manual);
         out.writeFloat(this.el_manual);

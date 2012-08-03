@@ -17,6 +17,10 @@ import javax.swing.JTabbedPane;
  */
 public class ViewTabbedPane extends JTabbedPane
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -7652396151505777242L;
     protected JTabbedPane viewPane;
 
     /**

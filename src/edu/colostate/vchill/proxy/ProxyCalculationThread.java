@@ -1,6 +1,7 @@
 package edu.colostate.vchill.proxy;
 
-import edu.colostate.vchill.ChillDefines;
+import java.io.IOException;
+
 import edu.colostate.vchill.ControlMessage;
 import edu.colostate.vchill.HdrUtil;
 import edu.colostate.vchill.KdpUtil;
@@ -9,8 +10,6 @@ import edu.colostate.vchill.RainUtil;
 import edu.colostate.vchill.cache.CacheMain;
 import edu.colostate.vchill.chill.ChillFieldInfo;
 import edu.colostate.vchill.chill.ChillGenRay;
-import edu.colostate.vchill.socket.SocketResponse;
-import java.io.IOException;
 
 /**
  * Performs calculations of hybrid data types.

@@ -1,7 +1,5 @@
 package edu.colostate.vchill;
 
-import java.awt.event.KeyEvent;
-
 /**
  * Utility class containing definitions of VCHILL's constants.
  * All fields are public, static, and final.

@@ -4,7 +4,6 @@
  */
 package edu.colostate.vchill.iris;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 

@@ -38,6 +38,10 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public class ViewBookmarkBrowser extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 2609212773365339587L;
     private static final WindowManager wm = WindowManager.getInstance();
     private static final ViewControl vc = ViewControl.getInstance();
     private static final Config config = Config.getInstance();
@@ -104,6 +108,11 @@ public class ViewBookmarkBrowser extends JPanel
         this.tree.setShowsRootHandles(true);
 
         this.tree.setCellRenderer(new DefaultTreeCellRenderer() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3738819540553277433L;
+
             @Override public Component getTreeCellRendererComponent (final JTree tree, final Object value, final boolean sel, final boolean expanded, final boolean leaf, final int row, final boolean hasFocus) {
                 super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;

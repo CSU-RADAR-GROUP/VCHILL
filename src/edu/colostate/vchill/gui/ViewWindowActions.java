@@ -4,7 +4,6 @@ import edu.colostate.vchill.Config;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.ViewControl;
 import java.awt.event.ActionEvent;
-import java.util.Collection;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
@@ -38,14 +37,29 @@ public abstract class ViewWindowActions
     {
         return new Action[] {
             new AbstractAction("Next") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 7785577892493924229L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     vfba.selectNext();
                 }},
             new AbstractAction("Previous") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 7149480796360073848L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     vfba.selectPrev();
                 }},
             new AbstractAction("Replot") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -4205171199107498866L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     vc.rePlot();
                 }},
@@ -55,6 +69,11 @@ public abstract class ViewWindowActions
     public JMenuItem[] makePopupItems ()
     {
         JMenuItem saveImage = new JMenuItem(new AbstractAction("Save Image") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8657839466523536283L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Saving image to buffer");
                 wm.saveImage(win, vc.getControlMessage());

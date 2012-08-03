@@ -8,7 +8,6 @@ import edu.colostate.vchill.ViewControlThread;
 import edu.colostate.vchill.cache.CacheMain;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * This class reads Chill headers into a cache.
@@ -66,17 +65,17 @@ public abstract class ChillHeaderReader
                 break;
             case ChillDefines.TRACK_DATA:
                 ChillTrackInfo track = new ChillTrackInfo(this.in, headerH);
-		this.vct.handleAircraft( track );
+		ChillHeaderReader.vct.handleAircraft( track );
                 cache.addRay(command, ChillDefines.META_TYPE, track);
                 break;
             case ChillDefines.OLD_EXT_TRACK_DATA:
                 ChillOldExtTrackInfo oldexttrack = new ChillOldExtTrackInfo(this.in, headerH);
-		this.vct.handleAircraft( oldexttrack );
+		ChillHeaderReader.vct.handleAircraft( oldexttrack );
                 cache.addRay(command, ChillDefines.META_TYPE, oldexttrack);
                 break;
             case ChillDefines.NEW_EXT_TRACK_DATA:
                 ChillNewExtTrackInfo newexttrack = new ChillNewExtTrackInfo(this.in, headerH);
-		this.vct.handleAircraft( newexttrack );
+		ChillHeaderReader.vct.handleAircraft( newexttrack );
                 cache.addRay(command, ChillDefines.META_TYPE, newexttrack);
                 break;
             case ChillDefines.HSK_ID_RADAR_INFO:

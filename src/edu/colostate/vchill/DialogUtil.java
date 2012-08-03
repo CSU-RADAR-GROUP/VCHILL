@@ -630,6 +630,11 @@ public final class DialogUtil
             panel.add(new JLabel("If you need a signon, visit:", SwingConstants.RIGHT));
             if (properHTMLsupport) {
                 final JButton userserv = new JButton(new AbstractAction("User Services") {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = -7826677105074146774L;
+
                     public void actionPerformed (final ActionEvent ae) {
                         showHelpDialog(pane, "User Services", "http://chill.colostate.edu/cgi-bin/user_service");
                     }});
@@ -920,8 +925,9 @@ public final class DialogUtil
              while(stop) {
                System.out.print("\010" + echochar);
                try {
+                  Thread.currentThread();
                   // attempt masking at this rate
-                  Thread.currentThread().sleep(1);
+                  Thread.sleep(1);
                }catch (InterruptedException iex) {
                   Thread.currentThread().interrupt();
                   return;

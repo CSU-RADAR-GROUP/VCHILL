@@ -9,11 +9,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import ucar.ma2.DataType;
-import ucar.nc2.*;
 
 /**
  * Driver class for Sigmet Product Raw file conversion to Casa NetCDF

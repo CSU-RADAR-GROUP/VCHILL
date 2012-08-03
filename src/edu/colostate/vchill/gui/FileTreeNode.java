@@ -18,6 +18,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  */
 public class FileTreeNode extends DefaultMutableTreeNode
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 1931924465148378724L;
+
     public static final String LOADING = "Loading...";
 
     /** Has the node been completely expanded? */

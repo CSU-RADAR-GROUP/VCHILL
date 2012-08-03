@@ -62,7 +62,7 @@ public class ChillDataHeader extends ChillHeader
     {
         super(new ChillHeaderHeader(other.header));
         assert header.recordType == ChillDefines.GEN_MOM_DATA;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillDataHeader.BYTE_SIZE >= 0;
         this.requestedData    = other.requestedData;
         this.availableData    = other.availableData;
         this.startAz          = other.startAz;
@@ -88,7 +88,7 @@ public class ChillDataHeader extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.GEN_MOM_DATA;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillDataHeader.BYTE_SIZE >= 0;
         this.requestedData    = in.readLong();
         this.availableData    = in.readLong();
         this.startAz          = in.readInt();
@@ -100,7 +100,7 @@ public class ChillDataHeader extends ChillHeader
         this.dataTime         = SocketUtil.readUnsignedInt(in);
         this.fractionalSecs   = in.readInt();
         this.rayNumber        = in.readInt();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillDataHeader.BYTE_SIZE]);
     }
 
     /**
@@ -111,7 +111,7 @@ public class ChillDataHeader extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.GEN_MOM_DATA;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillDataHeader.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeLong(this.requestedData);
         out.writeLong(this.availableData);

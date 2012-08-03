@@ -45,7 +45,11 @@ class NumDumpPopup extends ViewWindowActions
 
         { //items not in a submenu
             (this.popup.add(new AbstractAction("Redirect to file...") {
-		File lastDir;
+		/**
+               * 
+               */
+              private static final long serialVersionUID = -5037694088704534477L;
+    File lastDir;
                 public void actionPerformed (final ActionEvent ae) {
                     JFileChooser chooser = new JFileChooser(lastDir);
                     int returnVal = chooser.showSaveDialog(null);
@@ -64,6 +68,11 @@ class NumDumpPopup extends ViewWindowActions
         ButtonGroup group = new ButtonGroup();
         for (final String m : ScaleManager.getInstance().getTypes()) {
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(new AbstractAction(m) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -2045770180194940986L;
+
                 public void actionPerformed (final ActionEvent ae) { win.setType(m); }});
             item.setSelected(win.getType().equals(m));
             group.add(item);

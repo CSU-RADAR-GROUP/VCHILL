@@ -45,6 +45,10 @@ import javax.swing.KeyStroke;
  */
 public class ViewMenu extends JMenuBar
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -4281288239292299462L;
     private static final WindowManager wm = WindowManager.getInstance();
     private static final ViewControl vc = ViewControl.getInstance();
     private final static ScaleManager sm = ScaleManager.getInstance();
@@ -100,9 +104,19 @@ public class ViewMenu extends JMenuBar
         menu.addSeparator();
 
         menuItem = new JMenuItem(new AbstractAction("Disconnect") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5481884604060947550L;
+
             public void actionPerformed (final ActionEvent ae) {
                 vc.disconnect();
             }}) {
+            /**
+               * 
+               */
+              private static final long serialVersionUID = -2156502872388585348L;
+
             @Override public void paint (final java.awt.Graphics g) {
                 setEnabled(vc.isConnected());
                 super.paint(g);
@@ -112,9 +126,19 @@ public class ViewMenu extends JMenuBar
         menu.add(menuItem);
 
         menuItem = new JMenuItem(new AbstractAction("Reconnect") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -4722149230738447341L;
+
             public void actionPerformed (final ActionEvent ae) {
                 vc.reconnect();
             }}) {
+            /**
+               * 
+               */
+              private static final long serialVersionUID = -8227408138120674104L;
+
             @Override public void paint (final java.awt.Graphics g) {
                 setEnabled(vc.getControlMessage().getURL() != null);
                 super.paint(g);
@@ -126,6 +150,11 @@ public class ViewMenu extends JMenuBar
         menu.addSeparator();
 
         menuItem = new JMenuItem(new AbstractAction("Replot") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -7275938786693480683L;
+
             public void actionPerformed (final ActionEvent ae) {
                 vc.rePlot();
             }});
@@ -134,6 +163,11 @@ public class ViewMenu extends JMenuBar
         menu.add(menuItem);
 
         menuItem = new JMenuItem(new AbstractAction("Saved Image Browser") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5119928357939072609L;
+
             public void actionPerformed (final ActionEvent ae) {
                 wm.showImages();
             }});
@@ -144,6 +178,11 @@ public class ViewMenu extends JMenuBar
         menu.addSeparator();
 
         menuItem = new JMenuItem(new AbstractAction("Exit") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1652428569184256852L;
+
             public void actionPerformed (final ActionEvent ae) {
                 Loader.exit();
             }});
@@ -183,6 +222,11 @@ public class ViewMenu extends JMenuBar
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
             }
             menuItem.addActionListener(new AbstractAction(type) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -3696132406097154334L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.createAScopeWindow(type);
                 }});
@@ -195,6 +239,11 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_I);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 1474363419188806158L;
+
             public void actionPerformed (final ActionEvent ae) {
                 wm.saveAScopeImages(vc.getControlMessage());
             }});
@@ -228,6 +277,11 @@ public class ViewMenu extends JMenuBar
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, InputEvent.CTRL_MASK | InputEvent.ALT_MASK | InputEvent.SHIFT_MASK));
             }
             menuItem.addActionListener(new AbstractAction() {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 2024444209537541815L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.createNumDumpWindow(type);
                 }});
@@ -264,6 +318,11 @@ public class ViewMenu extends JMenuBar
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(accelerator, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
             }
             menuItem.addActionListener(new AbstractAction() {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -9206652032847619969L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.createPlotWindow(type);
                 }});
@@ -276,6 +335,11 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_I);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -5973514717362194223L;
+
             public void actionPerformed (final ActionEvent ae) {
                 wm.savePlotImages(vc.getControlMessage());
             }});
@@ -314,6 +378,11 @@ public class ViewMenu extends JMenuBar
                 menuItem.setSelected(file.equals(activeName)); //will unselect all others if true
                 menuItem.setMnemonic(file.charAt(0));
                 menuItem.addActionListener(new AbstractAction(file) {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = -6979155677539285789L;
+
                     public void actionPerformed (final ActionEvent ae) {
                         vc.loadColors(file);
                         vc.rePlot();
@@ -324,6 +393,10 @@ public class ViewMenu extends JMenuBar
             //add custom option last so it is on bottom of the menu
             customItem.setMnemonic(KeyEvent.VK_C);
             customItem.addActionListener(new AbstractAction() {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 4502395067388223383L;
                 private String lastDir = null;
                 public void actionPerformed (final ActionEvent ae) {
                     JFileChooser chooser = new JFileChooser(this.lastDir);
@@ -342,6 +415,11 @@ public class ViewMenu extends JMenuBar
             menu.add(customItem);
 
             JMenuItem menuItem = new JMenuItem(new AbstractAction("Editor...") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -1123939868287931029L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     editor.setVisible(true);
                 }});
@@ -355,6 +433,11 @@ public class ViewMenu extends JMenuBar
         { //additional options - change the way colors are displayed
             //interpolate colortable to ~256 entries
             JCheckBoxMenuItem interpolateItem = new JCheckBoxMenuItem(new AbstractAction("Interpolate colors") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -4065087106308662376L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     ccc.toggleInterpolateColorsEnabled();
                     vc.loadColors(ccc.getColorFileName());
@@ -366,6 +449,11 @@ public class ViewMenu extends JMenuBar
             menu.add(interpolateItem);
 
             JCheckBoxMenuItem outlineItem = new JCheckBoxMenuItem(new AbstractAction("Outline colors") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -7817556555268690225L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     ccc.toggleOutlineColorsEnabled();
                     vc.loadColors(ccc.getColorFileName());
@@ -394,6 +482,11 @@ public class ViewMenu extends JMenuBar
         mapItems.put(NONE, menuItem = new JCheckBoxMenuItem(NONE));
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -2459580052586953736L;
+
             public void actionPerformed (final ActionEvent ae) {
                 for (JCheckBoxMenuItem item : mapItems.values()) item.setSelected(false); //unselect all
                 mapItems.get(NONE).setSelected(true); //reselect "none"
@@ -408,6 +501,11 @@ public class ViewMenu extends JMenuBar
             mapItems.put(file, menuItem = new JCheckBoxMenuItem(file.substring(0, file.lastIndexOf('.'))));
             menuItem.setMnemonic(file.charAt(0));
             menuItem.addActionListener(new AbstractAction(file) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 1677757313020618538L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     gcc.toggleMapFileName(file);
                     mapItems.get(NONE).setSelected(gcc.getMapFileNames().size() == 0); //deselect "none"?
@@ -421,6 +519,10 @@ public class ViewMenu extends JMenuBar
         mapItems.put(CUSTOM, menuItem = new JCheckBoxMenuItem(CUSTOM));
         menuItem.setMnemonic(KeyEvent.VK_C);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5573605166831208871L;
             private String lastDir;
             public void actionPerformed (final ActionEvent ae) {
                 JFileChooser chooser = new JFileChooser(this.lastDir);
@@ -472,6 +574,11 @@ public class ViewMenu extends JMenuBar
         JMenuItem menuItem;
 
         menuItem = new JMenuItem(new AbstractAction("Using VCHILL") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -2419355891838506462L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("Help: Using Java VCHILL", Loader.getResource("resources/help/using.html"));
             }});
@@ -481,6 +588,11 @@ public class ViewMenu extends JMenuBar
         menu.add(menuItem);
 
         menuItem = new JMenuItem(new AbstractAction("Mouse Commands") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 3835468319635865079L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("Help: Mouse Commands", Loader.getResource("resources/help/mouse.html"));
             }});
@@ -492,6 +604,11 @@ public class ViewMenu extends JMenuBar
         menuItem = new JMenuItem("About Java VCHILL");
         menuItem.setMnemonic(KeyEvent.VK_A);
         menuItem.addActionListener(new AbstractAction("About Java VCHILL") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1762855706561806054L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Java VCHILL",
                     "<html>" + 
@@ -527,6 +644,11 @@ public class ViewMenu extends JMenuBar
         menuItem = new JMenuItem("About Gif89Encoder");
         menuItem.setMnemonic(KeyEvent.VK_G);
         menuItem.addActionListener(new AbstractAction("About Gif89Encoder") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5668265949029128836L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Gif89Encoder",
                     "Legal\n" +
@@ -579,6 +701,11 @@ public class ViewMenu extends JMenuBar
         menuItem = new JMenuItem("About JGoodies' Looks");
         menuItem.setMnemonic(KeyEvent.VK_L);
         menuItem.addActionListener(new AbstractAction("About JGoodies' Looks") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 1530380947028617444L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About JGoodies' Looks",
                 "           The BSD License for the JGoodies Looks\n" +
@@ -618,6 +745,11 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.setDisplayedMnemonicIndex(14);
         menuItem.addActionListener(new AbstractAction("About Unidata NetCDF") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -9184355768532895178L;
+
             public void actionPerformed (final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Unidata NetCDF",
                 "http://www.gnu.org/copyleft/lesser.txt");

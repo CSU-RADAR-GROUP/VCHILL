@@ -1,6 +1,5 @@
 package edu.colostate.vchill.color;
 
-import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.ChillDefines.ColorType;
 import edu.colostate.vchill.Loader;
 import edu.colostate.vchill.ScaleManager;

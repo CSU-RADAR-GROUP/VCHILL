@@ -156,7 +156,7 @@ public final class SocketArchCtl
      */
     public SocketArchCtl (final byte[] data, int offset)
     {
-        if( data.length < offset + this.BYTE_SIZE - 1 ) {
+        if( data.length < offset + SocketArchCtl.BYTE_SIZE - 1 ) {
             throw new IllegalArgumentException( "not enough data in input array" );
         }
         this.archMode   = Command.values()[SocketUtil.readInt(data, offset)];   offset += ChillDefines.INT_BYTE_SIZE;
@@ -167,7 +167,7 @@ public final class SocketArchCtl
         this.extraDelay = SocketUtil.readInt(data, offset);   offset += ChillDefines.INT_BYTE_SIZE;
         this.inFile = new byte[IN_FILE_LENGTH];
         for (int i = 0; i < IN_FILE_LENGTH; ++i) this.inFile[i] = data[offset++];
-        assert offset == this.BYTE_SIZE : "number of bytes read != size";
+        assert offset == SocketArchCtl.BYTE_SIZE : "number of bytes read != size";
     }
 
     public SocketArchCtl (final byte[] data)
@@ -196,7 +196,7 @@ public final class SocketArchCtl
      */
     public byte[] getBytes ()
     {
-        final byte[] output = new byte[this.BYTE_SIZE];
+        final byte[] output = new byte[SocketArchCtl.BYTE_SIZE];
         int offset = 0;
         offset += SocketUtil.writeInt(this.archMode.ordinal(), output, offset);
         offset += SocketUtil.writeShort(this.startSweep, output, offset);
@@ -205,7 +205,7 @@ public final class SocketArchCtl
         offset += SocketUtil.writeShort(this.sweepHigh, output, offset);
         offset += SocketUtil.writeInt(this.extraDelay, output, offset);
         offset += SocketUtil.copyBytes(this.inFile, 0, output, offset, IN_FILE_LENGTH);
-        assert offset == this.BYTE_SIZE : "Num bytes returned != size";
+        assert offset == SocketArchCtl.BYTE_SIZE : "Num bytes returned != size";
         return output;
     }
 
@@ -215,7 +215,7 @@ public final class SocketArchCtl
      */
     public byte[] prepareFirstPacket ()
     {
-        final byte[] output = new byte[this.BYTE_SIZE + ChillDefines.INT_BYTE_SIZE];
+        final byte[] output = new byte[SocketArchCtl.BYTE_SIZE + ChillDefines.INT_BYTE_SIZE];
         int offset = 0;
         offset += SocketUtil.writeInt(Channel.ARCH_CTL.ordinal(), output, offset);
         offset += SocketUtil.writeInt(this.archMode.ordinal(), output, offset);
@@ -225,7 +225,7 @@ public final class SocketArchCtl
         offset += SocketUtil.writeShort(this.sweepHigh, output, offset);
         offset += SocketUtil.writeInt(this.extraDelay, output, offset);
         offset += SocketUtil.copyBytes(this.inFile, 0, output, offset, IN_FILE_LENGTH);
-        assert offset == this.BYTE_SIZE + ChillDefines.INT_BYTE_SIZE : "Num bytes returned != size + ChillDefines.INT_BYTE_SIZE";
+        assert offset == SocketArchCtl.BYTE_SIZE + ChillDefines.INT_BYTE_SIZE : "Num bytes returned != size + ChillDefines.INT_BYTE_SIZE";
         return output;
     }
     

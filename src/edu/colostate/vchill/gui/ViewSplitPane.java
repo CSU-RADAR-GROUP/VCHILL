@@ -15,6 +15,11 @@ import javax.swing.JSplitPane;
  */
 public class ViewSplitPane extends JSplitPane
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -921938372214006875L;
+
     public ViewSplitPane (final JPanel left, final JPanel right)
     {
         super(JSplitPane.HORIZONTAL_SPLIT, left, right);

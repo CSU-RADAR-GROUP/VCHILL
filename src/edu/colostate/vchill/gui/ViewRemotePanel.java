@@ -40,6 +40,10 @@ import javax.swing.JTextField;
  */
 public class ViewRemotePanel extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -4935730876904901145L;
     private final static ViewRemotePanel vrp = new ViewRemotePanel();
     private final ViewActions actions = new ViewActions();
     private final Config config = Config.getInstance();
@@ -65,6 +69,11 @@ public class ViewRemotePanel extends JPanel
     private ViewRemotePanel ()
     {
         typesBox.setAction(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -6270176955419819841L;
+
             public void actionPerformed (final ActionEvent ae) {
                 ChillMomentFieldScale scale = sm.getScale((String)typesBox.getSelectedItem());
                 if (scale == null) return;
@@ -344,6 +353,11 @@ public class ViewRemotePanel extends JPanel
         button.setToolTipText("Click to stop this plot");
         inputPanel.add(button);
         inputPanel.add(new JButton(new AbstractAction("Apply / Replot") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -9061249180042696285L;
+
             public void actionPerformed (ActionEvent ae) {
                 config.setPlotRange(plotRange.getText());
                 config.setGridSpacing(gridIntervalField.getText());
@@ -362,6 +376,11 @@ public class ViewRemotePanel extends JPanel
         JPanel BookmarkPanel = new JPanel();
         BookmarkPanel.setLayout(new BoxLayout(BookmarkPanel, BoxLayout.X_AXIS));
         BookmarkPanel.add(new JButton(new AbstractAction("Create Bookmark") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 4134687274631014923L;
+
             public void actionPerformed (ActionEvent ae) {
                 vc.createBookmark();
             }}));

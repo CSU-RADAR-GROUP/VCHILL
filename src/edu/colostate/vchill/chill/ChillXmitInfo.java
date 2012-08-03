@@ -4,7 +4,6 @@ import edu.colostate.vchill.ChillDefines;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Xmit Info header
@@ -50,13 +49,13 @@ public class ChillXmitInfo extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_XMIT_INFO;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillXmitInfo.BYTE_SIZE >= 0;
         this.xmitEnables      = in.readInt();
         this.polarizationMode = PolarizationMode.values()[in.readInt()];
         this.pulseType        = PulseType.values()[in.readInt()];
         this.prtUsec          = in.readFloat();
         this.prt2Usec         = in.readFloat();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillXmitInfo.BYTE_SIZE]);
     }
 
     /**
@@ -67,7 +66,7 @@ public class ChillXmitInfo extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.GEN_MOM_DATA;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillXmitInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeInt(this.xmitEnables);
         out.writeInt(this.polarizationMode.ordinal());

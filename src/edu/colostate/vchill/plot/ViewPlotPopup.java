@@ -1,13 +1,11 @@
 package edu.colostate.vchill.plot;
 
-import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.Config.GradientType;
 import edu.colostate.vchill.DialogUtil;
 import edu.colostate.vchill.EstimateParser;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.ViewControl;
-import edu.colostate.vchill.ViewUtil;
 import edu.colostate.vchill.gui.ViewFilterPanel;
 import edu.colostate.vchill.gui.ViewRemotePanel;
 import edu.colostate.vchill.gui.ViewWindowActions;
@@ -86,10 +84,20 @@ class ViewPlotPopup extends ViewWindowActions
         this.popup = new JPopupMenu();
 
         this.popup.add(new AbstractAction("Center here") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -5183097622394096461L;
+
             public void actionPerformed (final ActionEvent ae) {
                 recenter(x, y);
             }});
         this.popup.add(new AbstractAction("Reset center") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -717097542811205583L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setCenterX(0);
                 config.setCenterY(0);
@@ -136,9 +144,14 @@ class ViewPlotPopup extends ViewWindowActions
     {
         JMenu subMenu = new JMenu("Zoom");
         subMenu.add(new AbstractAction("Reset zoom & center") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -9204285339455351504L;
+
             public void actionPerformed (final ActionEvent ae) {
                 config.setPlotRange(config.getMaxPlotRange());
-                vrp.getInstance().update();
+                ViewRemotePanel.getInstance().update();
                 config.setCenterX(0);
                 config.setCenterY(0);
                 wm.setCenterInKm();
@@ -152,9 +165,14 @@ class ViewPlotPopup extends ViewWindowActions
             final double zoom = Math.pow(2, z);
             final String label = zoom + "x Zoom";
             subMenu.add(new AbstractAction(label) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 2814400692900567120L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     config.setPlotRange(config.getMaxPlotRange() / zoom);
-                    vrp.getInstance().update();
+                    ViewRemotePanel.getInstance().update();
                     wm.setCenterInKm();
                     wm.replotOverlay();
                     wm.clearScreen();
@@ -175,6 +193,11 @@ class ViewPlotPopup extends ViewWindowActions
         JMenu subMenu = new JMenu("Overlays");
 
         checkBoxGrid = new JCheckBoxMenuItem(new AbstractAction("Draw Grids") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 5246928330014976639L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Grid on/off");
                 config.toggleGridEnabled();
@@ -183,6 +206,11 @@ class ViewPlotPopup extends ViewWindowActions
             }});
         subMenu.add(checkBoxGrid);
         checkBoxMap = new JCheckBoxMenuItem(new AbstractAction("Draw Map") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3309823688651178046L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Map on/off");
                 config.toggleMapEnabled();
@@ -191,6 +219,11 @@ class ViewPlotPopup extends ViewWindowActions
             }});
         subMenu.add(checkBoxMap); //functionality now in main menu
         checkBoxAircraft = new JCheckBoxMenuItem(new AbstractAction("Draw Aircraft") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3657977659018453626L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Aircraft on/off");
                 config.toggleAircraftEnabled();
@@ -199,6 +232,11 @@ class ViewPlotPopup extends ViewWindowActions
             }});
         subMenu.add(checkBoxAircraft);
         checkBoxClickPoint = new JCheckBoxMenuItem(new AbstractAction("Draw Click Point") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8662695079265497420L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Click Point on/off");
                 config.toggleClickPointEnabled();
@@ -217,10 +255,15 @@ class ViewPlotPopup extends ViewWindowActions
         ButtonGroup gradientGroup = new ButtonGroup();
 
         checkBoxThreshold = new JCheckBoxMenuItem(new AbstractAction("Threshold Filter") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -6885821132504243726L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Threshold Toggle");
                 config.toggleThresholdEnabled();
-                vrp.getInstance().update();
+                ViewRemotePanel.getInstance().update();
                 vfp.update();
                 wm.calculateOpenWindows();
                 vc.rePlot();
@@ -228,6 +271,11 @@ class ViewPlotPopup extends ViewWindowActions
         subMenu.add(checkBoxThreshold);
 
         checkBoxSmoothing = new JCheckBoxMenuItem(new AbstractAction("Smoothing") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 1724345064471645327L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Smooth Toggle");
                 config.toggleSmoothingEnabled();
@@ -237,6 +285,11 @@ class ViewPlotPopup extends ViewWindowActions
         subMenu.add(checkBoxSmoothing);
 
         checkBoxNoise = new JCheckBoxMenuItem(new AbstractAction("Noise Filter") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8480083012610236006L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Noise Toggle");
                 config.toggleNoiseReductionEnabled();
@@ -247,6 +300,11 @@ class ViewPlotPopup extends ViewWindowActions
 
         JMenu subSubMenu = new JMenu("Velocity Unfolding");
         unfoldingOff = new JRadioButtonMenuItem(new AbstractAction("No Unfolding") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8844143140897533112L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Disable Velocity Unfolding");
                 config.setUnfoldingEnabled(false);
@@ -257,6 +315,11 @@ class ViewPlotPopup extends ViewWindowActions
         unfoldingGroup.add(unfoldingOff);
         subSubMenu.add(unfoldingOff);
         unfoldingAutomatic = new JRadioButtonMenuItem(new AbstractAction("Automatic Unfolding") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 581835316212375036L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Automatic Velocity Unfolding");
                 config.setUnfoldingEnabled(true);
@@ -268,6 +331,11 @@ class ViewPlotPopup extends ViewWindowActions
         unfoldingGroup.add(unfoldingAutomatic);
         subSubMenu.add(unfoldingAutomatic);
         unfoldingManual = new JRadioButtonMenuItem(new AbstractAction("Manual Unfolding") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 4080994908740585452L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Manual Velocity Unfolding");
                 config.setUnfoldingEnabled(true);
@@ -279,6 +347,11 @@ class ViewPlotPopup extends ViewWindowActions
         unfoldingGroup.add(unfoldingManual);
         subSubMenu.add(unfoldingManual);
         JMenuItem inputEstimates = new JMenuItem(new AbstractAction("Input New Velocity Estimates") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8614615170709872271L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Input Manual Unfolding Estimates");
                 String result = DialogUtil.showMultilineInputDialog("Input", "Please enter estimated velocities, one per line.\nFormat is <height in km><space><estimated velocity in m/s>\nEntered values remain in effect until the program is shut down or new numbers are entered.\nOrdering of heights is not important. Faulty lines are ignored.", EstimateParser.getInstance().toString());
@@ -294,6 +367,11 @@ class ViewPlotPopup extends ViewWindowActions
 
         subSubMenu = new JMenu("Z as Gradient");
         gradientOff = new JRadioButtonMenuItem(new AbstractAction("Gradient Off") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 7890235569742795608L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Gradient Off");
                 config.setGradientType(GradientType.Off);
@@ -304,6 +382,11 @@ class ViewPlotPopup extends ViewWindowActions
         gradientGroup.add(gradientOff);
         subSubMenu.add(gradientOff);
         gradientRange = new JRadioButtonMenuItem(new AbstractAction("Range Gradient") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8977826728579431789L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Z Range Gradient");
                 config.setGradientType(GradientType.Range);
@@ -314,6 +397,11 @@ class ViewPlotPopup extends ViewWindowActions
         gradientGroup.add(gradientRange);
         subSubMenu.add(gradientRange);
         gradientAzimuth = new JRadioButtonMenuItem(new AbstractAction("Azimuth Gradient") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6159375085307055137L;
+
             public void actionPerformed (final ActionEvent ae) {
                 System.out.println("Z Azimuth Gradient");
                 config.setGradientType(GradientType.Azimuth);
@@ -379,6 +467,11 @@ class ViewPlotPopup extends ViewWindowActions
         ButtonGroup typeGroup = new ButtonGroup();
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem button = new JRadioButtonMenuItem(new AbstractAction(type) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -8486740924090424419L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     System.out.println("Type set to: " + type);
                     win.setType(type);
@@ -405,6 +498,11 @@ class ViewPlotPopup extends ViewWindowActions
         ButtonGroup thresholdGroup = new ButtonGroup();
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem button = new JRadioButtonMenuItem(new AbstractAction(type) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 2585285358552142918L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     System.out.println("Threshold type set to: " + type);
                     config.setThresholdType(type);
@@ -423,21 +521,41 @@ class ViewPlotPopup extends ViewWindowActions
         modeGroup = new ButtonGroup();
         for (Action a : new Action[] {
             new AbstractAction("<auto>") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 5567409497489739676L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.setMode("auto");
                     vc.rePlot();
                 }},
             new AbstractAction("PPI") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -1918608598471232900L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.setMode("PPI");
                     vc.rePlot();
                 }},
             new AbstractAction("RHI") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -3579131172991048635L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.setMode("RHI");
                     vc.rePlot();
                 }},
             new AbstractAction("Time/Height") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -6676960179887172622L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     wm.setMode("MAN");
                     vc.rePlot();
@@ -459,6 +577,11 @@ class ViewPlotPopup extends ViewWindowActions
         for (JMenuItem i : makePopupItems()) this.popup.add(i).setIcon(null);
         final String osname = System.getProperty("os.name");
         export = new JMenuItem(new AbstractAction("Launch Google Earth") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -8532816222005083257L;
+
             public void actionPerformed (final ActionEvent ae) {
                 try {
                     String zipfile = win.export(null); //to tmpfile

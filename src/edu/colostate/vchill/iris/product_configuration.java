@@ -1,6 +1,5 @@
 package edu.colostate.vchill.iris;
 
-import java.io.DataInputStream;
 import java.nio.ByteBuffer;
 
 

@@ -68,7 +68,7 @@ public class ChillNewExtTrackInfo extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.NEW_EXT_TRACK_DATA;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillNewExtTrackInfo.BYTE_SIZE >= 0;
         this.time = in.readLong();
         this.latitudeD = in.readFloat();
         this.longitudeD = in.readFloat();
@@ -77,7 +77,7 @@ public class ChillNewExtTrackInfo extends ChillHeader
         this.trackID = SocketUtil.readString(in, trackIDLength);
         this.trackInfo = SocketUtil.readString(in, trackInfoLength);
 	this.sourceID = in.readInt();
-        in.readFully(this.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(this.extraData = new byte[header.headerLength - ChillNewExtTrackInfo.BYTE_SIZE]);
 	
 	double[] xy = ViewUtil.getKm( this.longitudeD, this.latitudeD, false );
 	this.posX = (float) xy[0];
@@ -91,7 +91,7 @@ public class ChillNewExtTrackInfo extends ChillHeader
      */
     @Override public void write (final DataOutput out) throws IOException
     {
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillNewExtTrackInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeLong(this.time);
         out.writeFloat(this.latitudeD);

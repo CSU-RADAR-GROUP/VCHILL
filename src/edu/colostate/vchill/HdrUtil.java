@@ -1,6 +1,5 @@
 package edu.colostate.vchill;
 
-import edu.colostate.vchill.ViewUtil;
 import edu.colostate.vchill.chill.ChillFieldInfo;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
 

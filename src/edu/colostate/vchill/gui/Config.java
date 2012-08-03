@@ -1,7 +1,6 @@
 package edu.colostate.vchill.gui;
 
 import edu.colostate.vchill.ConfigUtil;
-import edu.colostate.vchill.color.XMLControl;
 import edu.colostate.vchill.map.MapTextParser;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -37,8 +36,8 @@ public class Config
         int screenX, screenY;
         try {
             Dimension desktop = Toolkit.getDefaultToolkit().getScreenSize();
-            screenX = desktop.width - this.inset * 2;
-            screenY = desktop.height - this.inset * 2;
+            screenX = desktop.width - Config.inset * 2;
+            screenY = desktop.height - Config.inset * 2;
         } catch (Throwable t) { screenX = 1280; screenY = 1024; }
         this.screenX = screenX; this.screenY = screenY;
 
@@ -48,7 +47,7 @@ public class Config
 
     public static Config getInstance () { return me; }
 
-    public int getInset () { return this.inset; }
+    public int getInset () { return Config.inset; }
     public int getDefaultWidth () { return this.screenX; }
     public int getDefaultHeight () { return this.screenY; }
 

@@ -10,7 +10,6 @@ import edu.colostate.vchill.chill.ChillFieldInfo;
 import edu.colostate.vchill.chill.ChillGenRay;
 import edu.colostate.vchill.chill.ChillHeader;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
-import edu.colostate.vchill.socket.SocketUtil;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;

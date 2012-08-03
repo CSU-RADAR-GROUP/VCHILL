@@ -74,7 +74,7 @@ public class ChillHSKHeader extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.BRIEF_HSK_DATA;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillHSKHeader.BYTE_SIZE >= 0;
         this.radarId = SocketUtil.readString(in, radarIdLength);
         this.radarLatitude = in.readInt();
         this.radarLongitude = in.readInt();
@@ -88,7 +88,7 @@ public class ChillHSKHeader extends ChillHeader
         this.saveTilt = in.readInt();
         this.angleScale = in.readInt();
         this.sweepStartTime = SocketUtil.readUnsignedInt(in);
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillHSKHeader.BYTE_SIZE]);
     }
 
     /**
@@ -98,7 +98,7 @@ public class ChillHSKHeader extends ChillHeader
      */
     public void write (final DataOutput out) throws IOException
     {
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillHSKHeader.BYTE_SIZE + extraData.length;
         super.header.write(out);
         SocketUtil.writeString(this.radarId, out, radarIdLength);
         out.writeInt(this.radarLatitude);

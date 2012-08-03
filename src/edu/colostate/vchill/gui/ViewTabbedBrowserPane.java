@@ -8,6 +8,11 @@ package edu.colostate.vchill.gui;
  */
 public class ViewTabbedBrowserPane extends ViewTabbedPane
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 5047095007066418742L;
+
     public ViewTabbedBrowserPane (final int tabPlacement)
     {
         super(tabPlacement);

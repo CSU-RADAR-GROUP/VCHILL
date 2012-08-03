@@ -11,8 +11,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 
-import edu.colostate.vchill.file.FileFunctions;
-
 /**
  *
  * @author Joseph Hardin

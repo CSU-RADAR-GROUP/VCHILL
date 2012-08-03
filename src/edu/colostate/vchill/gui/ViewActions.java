@@ -49,46 +49,91 @@ public class ViewActions
     {
         doNextAction =
             new AbstractAction("Next") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 2532701619168902002L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vfba.selectNext();
                 }};
         doPrevAction =
             new AbstractAction("Prev") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 7137140978150622160L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vfba.selectPrev();
                 }};
         doLastAction =
             new AbstractAction("Last") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 6476880971754906454L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vfba.selectLast();
                 }};
         doFirstAction =
             new AbstractAction("First") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 7783824171702505442L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vfba.selectFirst();
                 }};
         doStopAction =
             new AbstractAction("Stop") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 3460939122739788620L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.stopPlot();
                 }};
         doFirstRayAction =
             new AbstractAction("|<") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 3032844275929918298L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.rayFirst();
                 }};
         doPrevRayAction =
             new AbstractAction("<<") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -4853391380146285808L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.rayPrev();
                 }};
         doNextRayAction =
             new AbstractAction(">>") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -7261907786214603837L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.rayNext();
                 }};
         doLastRayAction =
             new AbstractAction(">|") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = 6813861441794895471L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.rayLast();
                 }};
@@ -105,6 +150,11 @@ public class ViewActions
         { int i = 0; for (final String type : this.types) {
             theWindowActions[i] = 
                 new AbstractAction(type) {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = 6821822947347147168L;
+
                     public void actionPerformed (ActionEvent ae) {
                         wm.createPlotWindow(type);
                     }};
@@ -118,6 +168,11 @@ public class ViewActions
         { int i = 0; for (final String type : this.types) {
             theWindowActions[i] = 
                 new AbstractAction(type) {
+                    /**
+                   * 
+                   */
+                  private static final long serialVersionUID = -5318191173271453764L;
+
                     public void actionPerformed (ActionEvent ae) {
                         wm.createAScopeWindow(type);
                         vc.rePlot();
@@ -131,6 +186,11 @@ public class ViewActions
         Action[] arr = new Action[1];
         arr[0] =
             new AbstractAction("Replot") {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -4278335215193660348L;
+
                 public void actionPerformed (ActionEvent ae) {
                     vc.rePlot();
                 }};

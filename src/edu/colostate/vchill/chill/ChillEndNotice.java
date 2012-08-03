@@ -1,12 +1,9 @@
 package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.socket.SocketUtil;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * End of sweep/volume notice
@@ -72,10 +69,10 @@ public class ChillEndNotice extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_END_NOTICE;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillEndNotice.BYTE_SIZE >= 0;
         this.flags = in.readInt();
         this.cause = Cause.values()[in.readInt()];
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillEndNotice.BYTE_SIZE]);
     }
 
     /**
@@ -86,7 +83,7 @@ public class ChillEndNotice extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.HSK_ID_END_NOTICE;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillEndNotice.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeInt(this.flags);
         out.writeInt(this.cause.ordinal());

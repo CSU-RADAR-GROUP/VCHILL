@@ -32,7 +32,7 @@ public class ChillHeader
     {
         this(header);
         assert this.header.headerLength < ChillDefines.MAX_HSK_SIZE : "Ridiculously long header - probably out of alignment";
-        in.readFully(this.extraData = new byte[header.headerLength - header.BYTE_SIZE]); //account for length of HeaderHeader
+        in.readFully(this.extraData = new byte[header.headerLength - ChillHeaderHeader.BYTE_SIZE]); //account for length of HeaderHeader
     }
 
     /**

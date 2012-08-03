@@ -4,7 +4,6 @@ import edu.colostate.vchill.ViewControl;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.io.File;
 import javax.swing.AbstractAction;
 import javax.swing.JComboBox;
@@ -14,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.JTextField;
 import javax.swing.tree.TreePath;
 
 /**
@@ -25,10 +23,19 @@ import javax.swing.tree.TreePath;
  */
 public class ViewFileBrowserPopup extends JPopupMenu
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 3753353267231692133L;
     protected static final edu.colostate.vchill.Config config = edu.colostate.vchill.Config.getInstance();
     protected static final ViewControl vc = ViewControl.getInstance();
 
     public static final AbstractAction archiveAction = new AbstractAction("Connect to Archive Server") {
+        /**
+       * 
+       */
+      private static final long serialVersionUID = -98966020254833126L;
+
         public void actionPerformed (final ActionEvent ae) {
 	    final JComboBox server = new JComboBox(config.getSocketHistory());
 	    server.setEditable(true);
@@ -52,7 +59,12 @@ public class ViewFileBrowserPopup extends JPopupMenu
     };
 
     public static final AbstractAction realtimeAction = new AbstractAction("Connect to Realtime Data") {
-	public void actionPerformed (final ActionEvent ae) {
+	/**
+       * 
+       */
+      private static final long serialVersionUID = 3822242288577985415L;
+
+  public void actionPerformed (final ActionEvent ae) {
 	    //determine server to connect to
 	    final JComboBox control = new JComboBox(config.getControlHistory());
 	    control.setEditable(true);
@@ -83,7 +95,11 @@ public class ViewFileBrowserPopup extends JPopupMenu
 	}};
 
     public static final AbstractAction filesystemAction = new AbstractAction("Connect to Filesystem") {
-	private File lastDir  = null;
+	/**
+       * 
+       */
+      private static final long serialVersionUID = -4241158884461310333L;
+  private File lastDir  = null;
 	public void actionPerformed (final ActionEvent ae) {
 	    JFileChooser chooser = new JFileChooser(this.lastDir);
 	    chooser.setDialogTitle("Select the data files and/or directories to connect");
@@ -106,16 +122,26 @@ public class ViewFileBrowserPopup extends JPopupMenu
         super("Connections");
         this.actions = actions;
         
-        for (JMenuItem item : this.createConnectionItems()) this.add(item);
+        for (JMenuItem item : ViewFileBrowserPopup.createConnectionItems()) this.add(item);
         
         this.addSeparator();
 
         JMenuItem disconnect = new JMenuItem(new AbstractAction("Disconnect") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -953358098757259980L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath path = actions.getPathForLocation(coords[0], coords[1]);
                 if (path == null || path.getPathCount() < 2) { vc.disconnect(); return; }
                 vc.disconnect(path.getPathComponent(1).toString());
             }}) {
+            /**
+               * 
+               */
+              private static final long serialVersionUID = 6974753682898451817L;
+
             public void paint (final java.awt.Graphics g) {
                 TreePath path = actions.getPathForLocation(coords[0], coords[1]);
                 setEnabled((path == null || path.getPathCount() < 2) ?
@@ -127,11 +153,21 @@ public class ViewFileBrowserPopup extends JPopupMenu
         this.add(disconnect);
 
         JMenuItem reconnect = new JMenuItem(new AbstractAction("Reconnect") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6784258653395638485L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath path = actions.getPathForLocation(coords[0], coords[1]);
                 if (path == null || path.getPathCount() < 2) { vc.reconnect(); return; }
                 vc.reconnect((String) ((FileTreeNode) path.getPathComponent(1)).getUserObject());
             }}) {
+            /**
+               * 
+               */
+              private static final long serialVersionUID = 5882949101599876134L;
+
             public void paint (final java.awt.Graphics g) {
                 TreePath path = actions.getPathForLocation(coords[0], coords[1]);
                 setEnabled((path == null || path.getPathCount() < 2) ?
@@ -145,6 +181,11 @@ public class ViewFileBrowserPopup extends JPopupMenu
         this.addSeparator();
         
         JMenuItem refresh = new JMenuItem(new AbstractAction("Refresh Connection List") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -4112787439392835443L;
+
             public void actionPerformed (final ActionEvent ae) {
                 actions.refreshConnections();
             }});
@@ -152,8 +193,13 @@ public class ViewFileBrowserPopup extends JPopupMenu
         this.add(refresh);
 
         JMenuItem bookmark = new JMenuItem(new AbstractAction("Create Bookmark") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 6097877360581319617L;
+
             public void actionPerformed (final ActionEvent ae) {
-                vc.createBookmark(actions.getControlMessage(actions.getPathForLocation(coords[0], coords[1])));
+                vc.createBookmark(ViewFileBrowserActions.getControlMessage(actions.getPathForLocation(coords[0], coords[1])));
             }});
         bookmark.setMnemonic(KeyEvent.VK_B);
         this.add(bookmark);
@@ -161,6 +207,11 @@ public class ViewFileBrowserPopup extends JPopupMenu
 
     static class ConnectionItem extends JMenuItem
     {
+        /**
+       * 
+       */
+      private static final long serialVersionUID = 8659304815026174713L;
+
         public ConnectionItem (final AbstractAction aa) { super(aa); }
 
         public void paint (final java.awt.Graphics g) {

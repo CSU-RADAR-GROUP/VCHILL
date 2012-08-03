@@ -11,13 +11,10 @@ import java.io.File;
 import java.net.URL;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 /**
@@ -28,6 +25,10 @@ import javax.swing.tree.TreePath;
  */
 class ViewBookmarkBrowserPopup extends JPopupMenu
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -2580011681014409786L;
     protected static final edu.colostate.vchill.Config vcc = edu.colostate.vchill.Config.getInstance();
     protected static final ViewControl vc = ViewControl.getInstance();
     private static final BookmarkControl bmc = BookmarkControl.getInstance();
@@ -43,6 +44,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.tree = tree;
         
         JMenuItem file = new JMenuItem(new AbstractAction("Import from File") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -7256745953394393019L;
+
             public void actionPerformed (final ActionEvent ae) {
                 JFileChooser chooser = new JFileChooser(lastDir[0]);
                 chooser.setFileFilter(new XMLFileFilter());
@@ -57,6 +63,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.add(file);
         
         JMenuItem url = new JMenuItem(new AbstractAction("Import from URL") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -6944332832932230134L;
+
             public void actionPerformed (final ActionEvent ae) {
                 try {
                     String url = DialogUtil.showInputDialog("URL of boomark file to import:");
@@ -74,6 +85,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.addSeparator(); //------------------------------
 
         JMenuItem export = new JMenuItem(new AbstractAction("Export to File") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -778204679140491129L;
+
             public void actionPerformed (final ActionEvent ae) {
                 JFileChooser chooser = new JFileChooser(lastDir[0]);
                 chooser.setFileFilter(new XMLFileFilter());
@@ -94,6 +110,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.addSeparator(); //------------------------------
 
         JMenuItem remove = new JMenuItem(new AbstractAction("Delete") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8560994156554766613L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath[] sel = tree.getSelectionPaths();
                 tree.clearSelection();
@@ -103,6 +124,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.add(remove);
 
         JMenuItem rename = new JMenuItem(new AbstractAction("Rename") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 571278792537109468L;
+
             public void actionPerformed (final ActionEvent ae) {
                 bmc.rename(tree.getPathForLocation(coords[0], coords[1]));
             }});
@@ -110,6 +136,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.add(rename);
 
         JMenuItem move = new JMenuItem(new AbstractAction("Move") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -3781191918255975332L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath[] sel = tree.getSelectionPaths();
                 tree.clearSelection();
@@ -119,6 +150,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.add(move);
 
         JMenuItem duplicate = new JMenuItem(new AbstractAction("Duplicate") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -1417556772211920088L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath[] sel = tree.getSelectionPaths();
                 tree.clearSelection();
@@ -130,6 +166,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.addSeparator(); //------------------------------
         
         JMenuItem bookmark = new JMenuItem(new AbstractAction("Create Bookmark") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -6825579968961086154L;
+
             public void actionPerformed (final ActionEvent ae) {
                 vc.createBookmark();
             }});
@@ -139,6 +180,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.addSeparator(); //------------------------------
 
         JMenuItem comment = new JMenuItem(new AbstractAction("View Comment") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -754167512183289065L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath path = tree.getPathForLocation(coords[0], coords[1]);
                 if (path == null) return;
@@ -150,6 +196,11 @@ class ViewBookmarkBrowserPopup extends JPopupMenu
         this.add(comment);
         
         JMenuItem properties = new JMenuItem(new AbstractAction("Properties") {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 3671326145246985570L;
+
             public void actionPerformed (final ActionEvent ae) {
                 TreePath path = tree.getPathForLocation(coords[0], coords[1]);
                 if (path == null) return;

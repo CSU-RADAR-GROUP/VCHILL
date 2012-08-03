@@ -1,12 +1,9 @@
 package edu.colostate.vchill.gui;
 
-import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.ViewControl;
 import java.awt.image.BufferedImage;
-import java.util.EnumSet;
-import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
@@ -18,6 +15,10 @@ import javax.swing.JPanel;
  */
 public abstract class ViewWindow extends JPanel
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = -5434317662737619283L;
     protected static final Config config = Config.getInstance();
     protected static final ViewControl vc = ViewControl.getInstance();
     protected static final WindowManager wm = WindowManager.getInstance();

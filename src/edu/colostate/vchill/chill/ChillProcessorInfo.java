@@ -1,7 +1,6 @@
 package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.socket.SocketUtil;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -90,7 +89,7 @@ public class ChillProcessorInfo extends ChillHeader
     {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_PROCESSOR_INFO;
-        assert header.headerLength - this.BYTE_SIZE >= 0;
+        assert header.headerLength - ChillProcessorInfo.BYTE_SIZE >= 0;
         this.polarization_mode = PolarizationMode.values()[in.readInt()];
         this.processing_mode = in.readInt();
         this.pulse_type = PulseType.values()[in.readInt()];
@@ -109,7 +108,7 @@ public class ChillProcessorInfo extends ChillHeader
         this.unused2 = in.readFloat();
         this.test_pulse_range_km = in.readFloat();
         this.test_pulse_length_usec = in.readFloat();
-        in.readFully(super.extraData = new byte[header.headerLength - this.BYTE_SIZE]);
+        in.readFully(super.extraData = new byte[header.headerLength - ChillProcessorInfo.BYTE_SIZE]);
     }
 
     /**
@@ -120,7 +119,7 @@ public class ChillProcessorInfo extends ChillHeader
     public void write (final DataOutput out) throws IOException
     {
         assert header.recordType == ChillDefines.HSK_ID_PROCESSOR_INFO;
-        assert header.headerLength == this.BYTE_SIZE + extraData.length;
+        assert header.headerLength == ChillProcessorInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
         out.writeInt(this.polarization_mode.ordinal());
         out.writeInt(this.processing_mode);

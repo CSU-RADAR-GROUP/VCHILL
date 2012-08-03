@@ -46,6 +46,10 @@ import javax.swing.filechooser.FileFilter;
  */
 public class ColorEditor extends JFrame
 {
+    /**
+   * 
+   */
+  private static final long serialVersionUID = 5342794593875360747L;
     private static final Config config = Config.getInstance();
     private static final Color DEFAULT_COLOR = Color.BLACK;
     private static final int DEFAULT_NUM_COLORS = 16;
@@ -161,6 +165,11 @@ public class ColorEditor extends JFrame
             menuItem = new JMenuItem(file.substring(0, file.lastIndexOf('.')));
             menuItem.setMnemonic(file.charAt(0));
             menuItem.addActionListener(new AbstractAction(file) {
+                /**
+               * 
+               */
+              private static final long serialVersionUID = -4512496507068939419L;
+
                 public void actionPerformed (final ActionEvent ae) {
                     openSystem(file);
                 }});
@@ -188,6 +197,11 @@ public class ColorEditor extends JFrame
         menuItem = new JMenuItem("New");
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 8859818260160890726L;
+
             public void actionPerformed (final ActionEvent ae) {
                 newColors();
             }});
@@ -197,6 +211,11 @@ public class ColorEditor extends JFrame
         menuItem = new JMenuItem("Open");
         menuItem.setMnemonic(KeyEvent.VK_O);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -6961569591930409964L;
+
             public void actionPerformed (final ActionEvent ae) {
                 openColors();
             }});
@@ -211,6 +230,11 @@ public class ColorEditor extends JFrame
         menuItem = new JMenuItem("Save");
         menuItem.setMnemonic(KeyEvent.VK_S);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = -4295828485516762399L;
+
             public void actionPerformed (final ActionEvent ae) {
                 saveColors();
             }});
@@ -221,6 +245,11 @@ public class ColorEditor extends JFrame
         menuItem.setMnemonic(KeyEvent.VK_A);
         menuItem.setDisplayedMnemonicIndex(5);
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 4583531422459778410L;
+
             public void actionPerformed (final ActionEvent ae) {
                 saveColorsAs();
             }});
@@ -232,6 +261,11 @@ public class ColorEditor extends JFrame
         menuItem.setMnemonic(KeyEvent.VK_X);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, MENU_MASK));
         menuItem.addActionListener(new AbstractAction() {
+            /**
+           * 
+           */
+          private static final long serialVersionUID = 3445866735609309851L;
+
             public void actionPerformed (final ActionEvent ae) {
                 quit();
             }});
