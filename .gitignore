@@ -2,5 +2,5 @@ CVS
 *.class
 *.jar
 bin/
-.project
 .classpath
+.project
