@@ -12,9 +12,9 @@ package edu.colostate.vchill;
 public final class Version
 {
     public static final int majorRevision = 4;
-    public static final int minorRevision = 16;
-    public static final int microRevision = 7;
-    public static final String buildDate = "2010.09.02";
+    public static final int minorRevision = 17;
+    public static final int microRevision = 0;
+    public static final String buildDate = "2012.09.03";
     public static final String string = "Version " +
         majorRevision + "." + minorRevision + "." + microRevision;
 

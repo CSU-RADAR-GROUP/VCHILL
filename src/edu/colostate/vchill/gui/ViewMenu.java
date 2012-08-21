@@ -716,20 +716,18 @@ public class ViewMenu extends JMenuBar
                     "build " + Version.buildDate + "</b><br>" +
                     "\u00a9 2002-2010<br>" + //(c)
                     "</td><td>" + 
-                    "<img align=\"right\" alt=\"Colorado State University\" src=\"http://chill.colostate.edu/images/glde_fr_med.png\">" +
+                    //"<img align=\"right\" alt=\"Colorado State University\" src=\"http://chill.colostate.edu/images/glde_fr_med.png\">" +
                     "</td></tr></table>" +
                     "<hr align=\"left\" width=\"88%\">" +
                     "Lead programmer:<br>" +
-                    //"Jochen Deyke (<a href=\"mailto:jdeyke@chill.colostate.edu\">jdeyke@chill.colostate.edu</a>)<br>" +
-                    "Jochen Deyke (jdeyke@chill.colostate.edu)<br>" +
-                    "<br>" +
-                    "Graphics programmer:<br>" +
-                    "Justin Carlson (justinc4@hotmail.com)<br>" +
-                    "<br>" +
-                    "Radar control programmer:<br>" +
+                    "Joseph Hardin(jhardin@engr.colostate.edu)<br>"+
+                    "<br>"+"Mapserver Implementation by:<br>"+
+                    "Michael Rausch(RauschM@Ripon.EDU)<br>"+
+                    "<br>"+
+                    "Based on original work by:<br>"+
+                    "Jochen Deyke (jdeyke@chill.colostate.edu)<br>" +                    
+                    "Justin Carlson (justinc4@hotmail.com)<br>" +                    
                     "Brian Eriksson (bceriksson@students.wisc.edu)<br>" +
-                    "<br>" +
-                    "Dialog/menu/tree programmer:<br>" +
                     "Alexander Deyke (adeyke@gmx.net)<br>" +
                     "<hr align=\"left\" width=\"88%\">" +
                     "VCHILL uses the following third-party libraries:<br>" +

@@ -37,8 +37,8 @@ public final class GUIUtil
         System.out.println("Setting LnF");
         try { //set up look-and-feel
             UIManager.put("ClassLoader", LookUtils.class.getClassLoader());
-            PlasticLookAndFeel.setPlasticTheme(new SkyKrupp());
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            //PlasticLookAndFeel.setPlasticTheme(new SkyKrupp());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             try {
                 UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel"); //fails on non-windows
             } catch (UnsupportedLookAndFeelException ulafe) {
