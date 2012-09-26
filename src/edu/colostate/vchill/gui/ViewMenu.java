@@ -1,19 +1,5 @@
 package edu.colostate.vchill.gui;
 
-import java.awt.*; // Rausch
-import java.awt.event.*; // Rausch
-import javax.swing.*; // Rausch
-
-
-import edu.colostate.vchill.DialogUtil;
-import edu.colostate.vchill.Loader;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.Version;
-import edu.colostate.vchill.ViewControl;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
-import edu.colostate.vchill.color.ColorEditor;
-import edu.colostate.vchill.color.XMLControl;
-import edu.colostate.vchill.map.MapTextParser;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -25,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
@@ -36,24 +23,15 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
-
-// Rausch
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
-import java.net.*;
-import java.io.*;
-import java.util.ArrayList;
-import javax.imageio.*;
-import java.awt.*;
-import javax.swing.*;
-
-
-
+import edu.colostate.vchill.DialogUtil;
+import edu.colostate.vchill.Loader;
+import edu.colostate.vchill.ScaleManager;
+import edu.colostate.vchill.Version;
+import edu.colostate.vchill.ViewControl;
+import edu.colostate.vchill.chill.ChillMomentFieldScale;
+import edu.colostate.vchill.color.ColorEditor;
+import edu.colostate.vchill.color.XMLControl;
+import edu.colostate.vchill.map.MapTextParser;
 
 
 

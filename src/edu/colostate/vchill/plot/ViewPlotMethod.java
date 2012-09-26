@@ -1,25 +1,11 @@
 package edu.colostate.vchill.plot;
 
-import edu.colostate.vchill.gui.MapServerConfig;
-import edu.colostate.vchill.gui.MapServerConfigWindow;
-
-import edu.colostate.vchill.Config;
-import edu.colostate.vchill.LimitedList;
-import edu.colostate.vchill.LocationManager;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.ViewControl;
-import edu.colostate.vchill.ViewUtil;
-import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
-import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
-import edu.colostate.vchill.chill.ChillTrackInfo;
-import edu.colostate.vchill.color.XMLControl;
-import edu.colostate.vchill.data.Ray;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.io.IOException;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,23 +16,23 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.zip.ZipOutputStream;
 
+import javax.imageio.ImageIO;
 
-
+import edu.colostate.vchill.Config;
+import edu.colostate.vchill.LimitedList;
+import edu.colostate.vchill.LocationManager;
+import edu.colostate.vchill.ScaleManager;
+import edu.colostate.vchill.ViewControl;
+import edu.colostate.vchill.ViewUtil;
+import edu.colostate.vchill.chill.ChillMomentFieldScale;
+import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
+import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
+import edu.colostate.vchill.chill.ChillTrackInfo;
+import edu.colostate.vchill.color.XMLControl;
+import edu.colostate.vchill.data.Ray;
+import edu.colostate.vchill.gui.MapServerConfig;
+import edu.colostate.vchill.gui.MapServerConfigWindow;
 //Rausch
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
-import java.net.*;
-import java.io.*;
-import java.util.ArrayList;
-import javax.imageio.*;
-
-import java.awt.*;
-import javax.swing.*;
 
 
 

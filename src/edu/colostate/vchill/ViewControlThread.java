@@ -1,26 +1,23 @@
 package edu.colostate.vchill;
 
-import edu.colostate.vchill.ascope.ViewAScopeWindow;
-import edu.colostate.vchill.connection.Controller;
-import edu.colostate.vchill.chill.ChillDataHeader;
-import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
-import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
-import edu.colostate.vchill.chill.ChillHeader;
-import edu.colostate.vchill.chill.ChillHSKHeader;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
-import edu.colostate.vchill.chill.ChillProcessorInfo;
-import edu.colostate.vchill.chill.ChillTrackInfo;
-import edu.colostate.vchill.data.Ray;
-import edu.colostate.vchill.gui.WindowManager;
-import edu.colostate.vchill.numdump.NumDumpWindow;
-import edu.colostate.vchill.plot.ViewPlotMethod;
-import edu.colostate.vchill.plot.ViewPlotWindow;
 import java.awt.EventQueue;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+
+import edu.colostate.vchill.ascope.ViewAScopeWindow;
+import edu.colostate.vchill.chill.ChillDataHeader;
+import edu.colostate.vchill.chill.ChillHSKHeader;
+import edu.colostate.vchill.chill.ChillHeader;
+import edu.colostate.vchill.chill.ChillMomentFieldScale;
+import edu.colostate.vchill.chill.ChillNewExtTrackInfo;
+import edu.colostate.vchill.chill.ChillOldExtTrackInfo;
+import edu.colostate.vchill.chill.ChillProcessorInfo;
+import edu.colostate.vchill.chill.ChillTrackInfo;
+import edu.colostate.vchill.connection.Controller;
+import edu.colostate.vchill.data.Ray;
+import edu.colostate.vchill.gui.WindowManager;
+import edu.colostate.vchill.numdump.NumDumpWindow;
+import edu.colostate.vchill.plot.ViewPlotWindow;
 
 /**
  * This is the main class that handles the plots and queues up their requests
