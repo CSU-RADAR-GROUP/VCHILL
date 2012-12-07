@@ -21,6 +21,7 @@ import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import javax.swing.JFrame;
@@ -204,7 +205,7 @@ public class Loader
     {
         final BookmarkControl bmc = BookmarkControl.getInstance();
         final Config config = Config.getInstance();
-
+    	/*TODO: This part is causing issues. I need to rework it to fail more gracefully*/
         //check to see if VCHILL is already running
         try {
             final ServerSocket socket = new ServerSocket(adminPort, 50, InetAddress.getByName("localhost"));
@@ -224,7 +225,8 @@ public class Loader
             }}, "ServerThread").start();
         } catch (BindException be) { //socket in use -> already running
             //attempt to connect to already-running instance
-            Socket socket = new Socket("localhost", adminPort);
+            try{
+            	Socket socket = new Socket("localhost", adminPort);
             System.out.println("connected to already running VCHILL instance");
             ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
             outStream.writeObject(args);
@@ -232,11 +234,15 @@ public class Loader
             outStream.close();
             socket.close();
             System.exit(0);
+            }catch(SocketTimeoutException e){
+            	System.err.println("Could not pass arguments to currently running VCHILL session.\n)" +
+            		"Additionally, could not bind to current server port. There may be some erratic behavior. Attempting to continue");
+            }
+
         }
 
         //parse commandline args
         final String[][] a = parseCommandLineArguments(args, config); //bookmark, plot, ascope, numeric
-	
 	final ProgressMonitor progressMon = new ProgressMonitor( null, "Java VCHILL Startup", "Connecting...", 0, 3 );
 	final boolean[] loadFailed = new boolean[1];
 	loadFailed[0] = false;
