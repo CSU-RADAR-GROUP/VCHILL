@@ -22,7 +22,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public final class GUIUtil
 {
-    public static final Image ICON = new ImageIcon(Loader.getResource("resources/icons/sweepPPI.png")).getImage();
+    public static final Image ICON = new ImageIcon(Loader.getResource("icons/sweepPPI.png")).getImage();
 
     /** private default constructor prevents instantiation */
     private GUIUtil () {}

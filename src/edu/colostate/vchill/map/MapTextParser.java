@@ -110,7 +110,7 @@ public class MapTextParser
     {
         File file = new File(filename);
         ClassLoader cl = Loader.class.getClassLoader();
-        JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("resources/maps.jar"));
+        JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("maps.jar"));
         while (true) {
             ZipEntry entry = jarIn.getNextEntry();
             if (entry == null) return parse(new InputStreamReader(new FileInputStream(file), "UTF-8"), base); //end of resource jar: file not found
@@ -123,7 +123,7 @@ public class MapTextParser
     {
         try {
             ClassLoader cl = Loader.class.getClassLoader();
-            JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("resources/maps.jar"));
+            JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("maps.jar"));
             LinkedList<String> names = new LinkedList<String>();
             while (jarIn.available() > 0) {
                 ZipEntry entry = jarIn.getNextEntry();

@@ -210,7 +210,7 @@ public class ViewPlotWindow extends ViewWindow
             plotMethod = new ViewPlotMethodTH(type);
         }
 
-        parent.setFrameIcon(new ImageIcon(Loader.getResource("resources/icons/sweep" + plotMethod.getPlotMode() + ".png")));
+        parent.setFrameIcon(new ImageIcon(Loader.getResource("icons/sweep" + plotMethod.getPlotMode() + ".png")));
 
         this.aircraftInfo = plotMethod.getAircraftInfo();
         setupPlottingSizes();
@@ -230,7 +230,7 @@ public class ViewPlotWindow extends ViewWindow
             }});
         this.containAll.setOneTouchExpandable(true);
         parent.setContentPane(this.containAll);
-        parent.setFrameIcon(new ImageIcon(Loader.getResource("resources/icons/sweep" + plotMethod.getPlotMode() + ".png")));
+        parent.setFrameIcon(new ImageIcon(Loader.getResource("icons/sweep" + plotMethod.getPlotMode() + ".png")));
     }
 
     public String getPlotMode ()

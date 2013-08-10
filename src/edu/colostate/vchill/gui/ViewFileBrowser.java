@@ -142,18 +142,18 @@ public class ViewFileBrowser extends JPanel
                 Font current = getFont();
                 setFont(new Font(current.getFamily(), node.special ? Font.BOLD : Font.PLAIN, current.getSize()));
                 switch (node.getLevel()) {
-                    case 0: setIcon(new ImageIcon(Loader.getResource("resources/icons/top" + (expanded ? "Open" : "Closed") + ".gif"))); break;
-                    case 1: setIcon(new ImageIcon(Loader.getResource("resources/icons/conn" + (expanded ? "Open" : "Closed") + ".gif"))); break;
+                    case 0: setIcon(new ImageIcon(Loader.getResource("icons/top" + (expanded ? "Open" : "Closed") + ".gif"))); break;
+                    case 1: setIcon(new ImageIcon(Loader.getResource("icons/conn" + (expanded ? "Open" : "Closed") + ".gif"))); break;
                     default:
                             if (node.isLeaf()) { try {
                                 String[] parts = ((String)((FileTreeNode)node.getParent()).getUserObject()).split(" ");
-                                setIcon(new ImageIcon(Loader.getResource("resources/icons/sweep" + parts[parts.length - 1] + ".png")));
+                                setIcon(new ImageIcon(Loader.getResource("icons/sweep" + parts[parts.length - 1] + ".png")));
                             } catch (Exception e) {
-                                setIcon(new ImageIcon(Loader.getResource("resources/icons/error.png")));
+                                setIcon(new ImageIcon(Loader.getResource("icons/error.png")));
                             }} else {
                                 String name = (String)node.getUserObject();
-                                if (name.endsWith(" DIR")) setIcon(new ImageIcon(Loader.getResource("resources/icons/dir" + (expanded ? "Open" : "Closed") + ".gif")));
-                                else setIcon(new ImageIcon(Loader.getResource("resources/icons/file" + (expanded ? "Open" : "Closed") + ".gif")));
+                                if (name.endsWith(" DIR")) setIcon(new ImageIcon(Loader.getResource("icons/dir" + (expanded ? "Open" : "Closed") + ".gif")));
+                                else setIcon(new ImageIcon(Loader.getResource("icons/file" + (expanded ? "Open" : "Closed") + ".gif")));
                             }
                 }
                 return this;

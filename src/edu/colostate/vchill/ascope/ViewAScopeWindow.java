@@ -436,7 +436,7 @@ public class ViewAScopeWindow extends ViewWindow
     @Override public void setParent (final JInternalFrame parent)
     {
         super.setParent(parent);
-        parent.setFrameIcon(new ImageIcon(Loader.getResource("resources/icons/ascope.png")));
+        parent.setFrameIcon(new ImageIcon(Loader.getResource("icons/ascope.png")));
     }
 
     @Override public String getStyle () { return "AScope"; }

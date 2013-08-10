@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Using Java VChill</title>
+    </head>
+    <body>
+        <h2>Mouse Commands:</h2>
+        <table border="1" frame="void"><caption>Mouse assignments in data windows</caption>
+            <tr><th rowspan="2">Button</th><th colspan="2">Function</th></tr>
+            <tr><th>Click</th><th>Drag</th></tr>
+            <tr>
+                <td>Left</td>
+                <td>Read data value at point<br>(not available in realtime mode)</td>
+                <td>Select area to view<br>(Plot windows only)</td>
+            </tr>
+            <tr>
+                <td>Right</td>
+                <td>Context menu</td>
+                <td><i>no function</i></td>
+            </tr>
+            <tr>
+                <td>Middle</td>
+                <td>Recenter display<br>(Plot windows only)</td>
+                <td>Change center<br>(Plot windows only)</td>
+            </tr>
+        </table>
+        <p>
+        If your mouse (or other pointing device) does not have a middle button,
+        the recentering operation is also available from the context menu.
+        </p>
+        <p>
+        When the data readout function is requested in a Plot window,
+        all open windows will replot the ray containing that value (if possible).
+        In this way, it is possible to use a Plot window to "aim" an AScope view of the data.
+    </body>
+</html>

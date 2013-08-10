@@ -216,7 +216,7 @@ public class ViewMenu extends JMenuBar
     private JMenu createAScopeMenu ()
     {
         JMenu menu = new JMenu("AScope");
-        //windowMenu.setIcon(new ImageIcon(Loader.getResource("resources/icons/ascope.png")));
+        //windowMenu.setIcon(new ImageIcon(Loader.getResource("icons/ascope.png")));
         menu.setMnemonic(KeyEvent.VK_A);
         return menu;
     }
@@ -230,7 +230,7 @@ public class ViewMenu extends JMenuBar
             ChillMomentFieldScale scale = sm.getScale(type);
             if (scale == null) continue; //data type has been removed
             menuItem = new JMenuItem(type/*,
-                    new ImageIcon(Loader.getResource("resources/icons/ascope.png"))*/);
+                    new ImageIcon(Loader.getResource("icons/ascope.png"))*/);
             int accelerator = scale.keyboardAccelerator;
             if (accelerator > 0) {
                 menuItem.setMnemonic(accelerator);
@@ -313,7 +313,7 @@ public class ViewMenu extends JMenuBar
     {
         JMenu menu = new JMenu("Plot");
         menu.setMnemonic(KeyEvent.VK_P);
-        //windowMenu.setIcon(new ImageIcon(Loader.getResource("resources/icons/sweepPPI.png")));
+        //windowMenu.setIcon(new ImageIcon(Loader.getResource("icons/sweepPPI.png")));
         return menu;
     }
 
@@ -326,7 +326,7 @@ public class ViewMenu extends JMenuBar
             ChillMomentFieldScale scale = sm.getScale(type);
             if (scale == null) continue; //data type has been removed
             menuItem = new JMenuItem(type/*,
-                    new ImageIcon(Loader.getResource("resources/icons/sweepPPI.png"))*/);
+                    new ImageIcon(Loader.getResource("icons/sweepPPI.png"))*/);
             int accelerator = scale.keyboardAccelerator;
             if (accelerator > 0) {
                 menuItem.setMnemonic(accelerator);
@@ -656,7 +656,7 @@ public class ViewMenu extends JMenuBar
           private static final long serialVersionUID = -2419355891838506462L;
 
             public void actionPerformed (final ActionEvent ae) {
-                DialogUtil.showHelpDialog("Help: Using Java VCHILL", Loader.getResource("resources/help/using.html"));
+                DialogUtil.showHelpDialog("Help: Using Java VCHILL", Loader.getResource("help/using.html"));
             }});
         menuItem.setMnemonic(KeyEvent.VK_U);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
@@ -670,7 +670,7 @@ public class ViewMenu extends JMenuBar
           private static final long serialVersionUID = 3835468319635865079L;
 
             public void actionPerformed (final ActionEvent ae) {
-                DialogUtil.showHelpDialog("Help: Mouse Commands", Loader.getResource("resources/help/mouse.html"));
+                DialogUtil.showHelpDialog("Help: Mouse Commands", Loader.getResource("help/mouse.html"));
             }});
         menuItem.setMnemonic(KeyEvent.VK_M);
         menu.add(menuItem);

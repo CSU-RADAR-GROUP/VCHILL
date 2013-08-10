@@ -117,9 +117,9 @@ public class ViewBookmarkBrowser extends JPanel
                 super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
                 switch (node.getLevel()) {
-                    case 0: setIcon(new ImageIcon(Loader.getResource("resources/icons/top" + (expanded ? "Open" : "Closed") + ".gif"))); break;
-                    case 1: setIcon(new ImageIcon(Loader.getResource("resources/icons/dir" + (expanded ? "Open" : "Closed") + ".gif"))); break;
-                    case 2: setIcon(new ImageIcon(Loader.getResource("resources/icons/bookmark.png"))); break;
+                    case 0: setIcon(new ImageIcon(Loader.getResource("icons/top" + (expanded ? "Open" : "Closed") + ".gif"))); break;
+                    case 1: setIcon(new ImageIcon(Loader.getResource("icons/dir" + (expanded ? "Open" : "Closed") + ".gif"))); break;
+                    case 2: setIcon(new ImageIcon(Loader.getResource("icons/bookmark.png"))); break;
                 }
                 return this;
             }});

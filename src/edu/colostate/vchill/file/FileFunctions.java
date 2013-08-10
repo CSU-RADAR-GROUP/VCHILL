@@ -458,8 +458,8 @@ public final class FileFunctions {
 		FileParameterData paramD = null;
 		FileFieldScalingInfo[] fieldScalings = null;
 
-		ChillHSKHeader hskH = null;
-		ChillDataHeader cDataH = null;
+		ChillHSKHeader hskH=null ;
+		ChillDataHeader cDataH=null;
 
 		int currSweepNum = 0;
 
@@ -579,9 +579,13 @@ public final class FileFunctions {
 		if (k == -1) {
 			return false;
 		} else {
-			System.out.println("This is an iris file");
-
-			return true;
+            int j = path.indexOf(".uf");
+            if(j ==-1){
+			    System.out.println("This is an iris file");
+			    return true;
+            }else {
+                return false;
+            }
 		}
 
 	}

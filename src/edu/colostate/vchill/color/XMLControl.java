@@ -110,7 +110,7 @@ public class XMLControl
         if (!file.exists()) { //not on local filesys; get from resource jar
             try {
                 ClassLoader cl = Loader.class.getClassLoader();
-                JarInputStream jar_in = new JarInputStream(cl.getResourceAsStream("resources/colors.jar"));
+                JarInputStream jar_in = new JarInputStream(cl.getResourceAsStream("colors.jar"));
                 JarEntry curr_entry = jar_in.getNextJarEntry();
                 while (true) {
                     if (curr_entry == null) return;
@@ -183,7 +183,7 @@ public class XMLControl
     {
         try {
             ClassLoader cl = Loader.class.getClassLoader();
-            JarInputStream jar_in = new JarInputStream(cl.getResourceAsStream("resources/colors.jar"));
+            JarInputStream jar_in = new JarInputStream(cl.getResourceAsStream("colors.jar"));
             LinkedList<String> names = new LinkedList<String>();
             while (jar_in.available() > 0) {
                 JarEntry entry = jar_in.getNextJarEntry();
