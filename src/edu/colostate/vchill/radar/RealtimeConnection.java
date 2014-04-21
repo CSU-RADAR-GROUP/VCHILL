@@ -179,7 +179,7 @@ public final class RealtimeConnection extends Connection
                                 cache.addRay(metaCommand, types.get(t), new ChillGenRay(hskH, dataH, types.get(t), data[t]));
                             }
                             vc.setMessage(metaCommand);
-    //System.out.println("plotting ray ");
+
                             vc.plotRay(curr = (curr + 1) % BUFFER_SIZE);
                             return true; //data read successful
                         }

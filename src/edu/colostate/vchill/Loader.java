@@ -207,7 +207,7 @@ public class Loader
         final Config config = Config.getInstance();
     	/*TODO: This part is causing issues. I need to rework it to fail more gracefully*/
         //check to see if VCHILL is already running
-        try {
+/*        try {
             final ServerSocket socket = new ServerSocket(adminPort, 50, InetAddress.getByName("localhost"));
             new Thread(new Runnable() { public void run () {
                 while (true) { try { //check to see if another instance gets started
@@ -240,7 +240,7 @@ public class Loader
             }
 
         }
-
+  */
         //parse commandline args
         final String[][] a = parseCommandLineArguments(args, config); //bookmark, plot, ascope, numeric
 	final ProgressMonitor progressMon = new ProgressMonitor( null, "Java VCHILL Startup", "Connecting...", 0, 3 );

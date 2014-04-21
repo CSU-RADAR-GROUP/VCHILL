@@ -42,11 +42,14 @@ public final class ViewFileBrowserActions
 	 */
 	public ControlMessage findSweep (ControlMessage msg)
 	{
+        System.out.println("FNAME:"+msg.getFile());
 		String year = msg.getFile().substring( 3, 7 );
 		String month = msg.getFile().substring( 7, 9 );
 		String day = msg.getFile().substring( 9, 11 );
+        //I'll fix this later, it's so ugly it makes me want to cry.}
 		ViewControl vc = ViewControl.getInstance();
 		for( String url : vc.getConnections() ) {
+            System.out.println("URL:"+url);
 			//determine the hidden part of the directories
 			FileTreeNode urlNode = this.getNode( url );
 			FileTreeNode dirNode = (FileTreeNode) urlNode.getFirstChild();
@@ -55,6 +58,9 @@ public final class ViewFileBrowserActions
 			int hiddenPathEnd = fullPath.indexOf( displayedPath );
 			if( hiddenPathEnd == -1 ) continue;
 			String hiddenPath = fullPath.substring( 0, hiddenPathEnd );
+            if(msg.getFile().charAt(2) == 'X'){
+                hiddenPath="/dsk/nas/archives/x_band/";
+            }
 
 			if( this.getNode(url, hiddenPath + year) == null )
 				continue;

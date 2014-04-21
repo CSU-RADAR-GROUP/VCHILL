@@ -165,9 +165,12 @@ public class ViewBookmarkBrowser extends JPanel
 			message = actions.findSweep( message );
 			if( message != null ) {
 				//we found the bookmark sweep
+
 				System.out.println("FOUND BOOKMARK: bookmark control message: " + message);
 				actions.changeSelection( message ); //this triggers plot
-			}
+			}else{
+                System.out.println("BookMark Not Found Correctly");
+            }
 			
             wm.setCenterInKm();
             DialogUtil.showHelpDialog("Bookmark comment", bookmark.comment);
