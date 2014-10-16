@@ -18,6 +18,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -619,14 +620,22 @@ public final class DialogUtil
             boolean properHTMLsupport = !System.getProperty("java.version").startsWith("1.5"); //need newer than 1.5 for proper support
             final JTextField name = new JTextField(nameContent, 10);
             final JPasswordField pass = new JPasswordField(passContent);
+            final JCheckBox rememberpass = new JCheckBox("Save Password");
+
+            if(ConfigUtil.getString("Password", null) != null) {
+                rememberpass.setSelected(true);
+            }
+
             pass.setEchoChar('*');
             final JPanel panel = new JPanel();
             final JOptionPane pane = new JOptionPane(panel, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
-            panel.setLayout(new GridLayout(3,2, 5,10));
+            panel.setLayout(new GridLayout(4,2, 5,10));
             panel.add(new JLabel(namePrompt, SwingConstants.RIGHT));
             panel.add(name);
             panel.add(new JLabel(passPrompt, SwingConstants.RIGHT));
             panel.add(pass);
+            panel.add(new JLabel(" ", SwingConstants.RIGHT));
+            panel.add(rememberpass);
             panel.add(new JLabel("If you need a signon, visit:", SwingConstants.RIGHT));
             if (properHTMLsupport) {
                 final JButton userserv = new JButton(new AbstractAction("User Services") {
@@ -662,6 +671,12 @@ public final class DialogUtil
             if (value == null || value.intValue() == JOptionPane.CANCEL_OPTION || value.intValue() == JOptionPane.CLOSED_OPTION)
             {
                 return null;
+            }
+            if (rememberpass.isSelected()) {
+                ConfigUtil.put("Password", new String(pass.getPassword()));
+            }
+            else {
+                ConfigUtil.put("Password", "");
             }
             return new String[]{name.getText(), new String(pass.getPassword())};
         }

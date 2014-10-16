@@ -218,8 +218,7 @@ public class XMLBookmarkHandler extends DefaultHandler
             this.inName = false;
         } else if (lowname.equals("url")) {
             this.inUrl = false;
-            this.bookmark.url = this.tmpUrl.toString().replace("xlab", "vchill");
-            if (this.bookmark.url.equals("radar.chill.colostate.edu:2510")) this.bookmark.url = "vchill.chill.colostate.edu:2510";
+            this.bookmark.url = this.tmpUrl.toString();
             this.tmpUrl = new StringBuilder();
         } else if (lowname.equals("directory")) {
             this.inDir = false;

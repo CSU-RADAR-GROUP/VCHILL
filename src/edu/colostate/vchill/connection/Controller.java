@@ -233,7 +233,7 @@ public class Controller extends Observable
      */
     private Connection selectConnection (final ControlMessage key)
     { synchronized (this.connections) {
-        final String url = key.getURL().replace( "xlab", "vchill" );
+        final String url = key.getURL();
         Connection conn = this.connections.get(url);
         if (conn == null) {
 			/*

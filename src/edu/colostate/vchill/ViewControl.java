@@ -214,7 +214,6 @@ public final class ViewControl
     //Connection options.
     public synchronized void connect (String url)
     {
-		url = url.replace("xlab", "vchill");
         System.out.println("ViewControl: trying to connect to: " + url);
         this.setCurrentURL(url);
         try {

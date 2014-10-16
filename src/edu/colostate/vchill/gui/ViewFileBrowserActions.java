@@ -42,7 +42,7 @@ public final class ViewFileBrowserActions
 	 */
 	public ControlMessage findSweep (ControlMessage msg)
 	{
-        System.out.println("FNAME:"+msg.getFile());
+        System.out.println("File: " + msg.getFile());
 		String year = msg.getFile().substring( 3, 7 );
 		String month = msg.getFile().substring( 7, 9 );
 		String day = msg.getFile().substring( 9, 11 );
@@ -58,12 +58,17 @@ public final class ViewFileBrowserActions
 			int hiddenPathEnd = fullPath.indexOf( displayedPath );
 			if( hiddenPathEnd == -1 ) continue;
 			String hiddenPath = fullPath.substring( 0, hiddenPathEnd );
-            if(msg.getFile().charAt(2) == 'X'){
-                hiddenPath="/dsk/nas/archives/x_band/";
-            }
 
+            /* First try looking for the complete path */
+            if (this.getNode(url, msg.getDir(), msg.getFile(), msg.getSweep()) != null) {
+                /* If found, set the URL for this connection and return */
+                System.out.println("Found complete path");
+                msg = msg.setURL( url );
+                return msg;
+            }
+            /* Complete path not found, so start looking for the pieces */
 			if( this.getNode(url, hiddenPath + year) == null )
-				continue;
+                continue;
 			if( this.getNode(url, hiddenPath + year + "/" + month) == null )
 				continue;
 			if( this.getNode(url, hiddenPath + year + "/" + month + "/" + day) == null )

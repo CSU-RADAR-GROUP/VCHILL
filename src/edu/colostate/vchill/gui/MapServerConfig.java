@@ -12,6 +12,7 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import java.lang.*;
 
 /**
  * @author MichaelRausch
@@ -101,7 +102,9 @@ public class MapServerConfig extends JPanel {
 
   private static InputSource getXMLDoc() {
     InputSource is = null;
-    try {
+      System.setProperty("http.agent", "VCHILL");
+
+      try {
       URL mapServerRequest = new URL(
         "http://wms.chill.colostate.edu/cgi-bin/mapserv?REQUEST=GetCapabilities&VERSION=1.1.1&SERVICE=WMS&map=/var/www/html/maps/test.map&SERVICE=WMS&VERSION=1.1.1");
       // URL mapServerRequest = new

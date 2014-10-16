@@ -146,19 +146,16 @@ public class Config
         this.centerY = ConfigUtil.getDouble("Center Y", 0);
         this.signon = ConfigUtil.getString("Signon", null);
         this.password = ConfigUtil.getString("Password", null);
-        this.socketName = ConfigUtil.getString("Archive Server", "vchill.chill.colostate.edu:2510").replace("xlab", "vchill");
-        this.controlName = ConfigUtil.getString("Control Server", "").replace("xlab", "vchill"); //wray.chill.colostate.edu:2510
-        this.realtimeName = ConfigUtil.getString("Realtime Server", "vchill.chill.colostate.edu:2511").replace("xlab", "vchill"); //force.chill.colostate.edu:2510
-        this.directoryName = ConfigUtil.getString("Local Data Directory", null); //"/dsk/r13/data/:-1");
+        this.socketName = ConfigUtil.getString("Archive Server", "vchill.chill.colostate.edu:2510");
+        this.controlName = ConfigUtil.getString("Control Server", "");
+        this.realtimeName = ConfigUtil.getString("Realtime Server", "vchill.chill.colostate.edu:2511");
+        this.directoryName = ConfigUtil.getString("Local Data Directory", null);
         String[] socketHistory = ConfigUtil.getStringArray("Archive History", new String[]{this.socketName});
         this.socketHistory = new ArrayList<String>(socketHistory.length);
-        for (String entry : socketHistory) this.socketHistory.add(entry.replace("xlab", "vchill"));
         String[] controlHistory = ConfigUtil.getStringArray("Control History", new String[]{this.controlName});
         this.controlHistory = new ArrayList<String>(controlHistory.length);
-        for (String entry : controlHistory) this.controlHistory.add(entry.replace("xlab", "vchill"));
         String[] realtimeHistory = ConfigUtil.getStringArray("Realtime History", new String[]{this.realtimeName});
         this.realtimeHistory = new ArrayList<String>(realtimeHistory.length);
-        for (String entry : realtimeHistory) this.realtimeHistory.add(entry.replace("xlab", "vchill"));
         this.imageBufferSize = ConfigUtil.getInt("Image Buffer Size", 75);
         this.autosave = ConfigUtil.getBoolean("Autosave Images", false);
         this.autoexport = ConfigUtil.getBoolean("Automatically Export", false);
