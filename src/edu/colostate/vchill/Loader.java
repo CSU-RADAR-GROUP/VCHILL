@@ -2,31 +2,17 @@ package edu.colostate.vchill;
 
 import edu.colostate.vchill.ChillDefines.Mode;
 import edu.colostate.vchill.bookmark.BookmarkControl;
-import edu.colostate.vchill.gui.GUIUtil;
-import edu.colostate.vchill.gui.ViewBookmarkBrowser;
-import edu.colostate.vchill.gui.ViewFileBrowser;
-import edu.colostate.vchill.gui.ViewFileBrowserActions;
-import edu.colostate.vchill.gui.ViewFileBrowserPopup;
-import edu.colostate.vchill.gui.ViewMain;
-import edu.colostate.vchill.gui.WindowManager;
-import java.awt.EventQueue;
-import java.awt.Frame;
+import edu.colostate.vchill.gui.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.BindException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
-import javax.swing.JFrame;
-import javax.swing.ProgressMonitor;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * The class containing the main() method used to run VCHILL.
@@ -34,12 +20,15 @@ import javax.swing.filechooser.FileSystemView;
  * @author Justin Carlson
  * @author Jochen Deyke
  * @author jpont
- * @version 2009-06-30
- */ 
-public class Loader
-{
-    /** Private default constructor prevents instantiation */
-    private Loader () {}
+ * @author Joseph C. Hardin
+ * @version 2014-11-24
+ */
+public class Loader {
+    /**
+     * Private default constructor prevents instantiation
+     */
+    private Loader() {
+    }
 
     private static final int adminPort = 2500;
 
@@ -49,28 +38,28 @@ public class Loader
     /**
      * Prints usage message and exits.
      */
-    private static void die ()
-    {
+    private static void die() {
         System.err.println("Usage: java -jar vchill.jar [-bookmark <category>,\"<name> <scantype>\"]");
-        System.err.println("    [-plot <list>] [-ascope <list>] [-numerical <list>]"); 
-        System.err.println("    [-realtime server:port] [-save off|<format>,<tilt>,<to>]"); 
-        System.err.println("    [-gui on|off] [-noisered on|off] [-range <km>] [-grid <km>]"); 
-        System.err.println("    [-smoothing on|off] [-mode <mode>] [-center <x>,<y>]"); 
-        System.err.println("    [-range <km>] [-rhistretch <factor> [-sweep <sweep>]"); 
+        System.err.println("    [-plot <list>] [-ascope <list>] [-numerical <list>]");
+        System.err.println("    [-realtime server:port] [-save off|<format>,<tilt>,<to>]");
+        System.err.println("    [-gui on|off] [-noisered on|off] [-range <km>] [-grid <km>]");
+        System.err.println("    [-smoothing on|off] [-mode <mode>] [-center <x>,<y>]");
+        System.err.println("    [-range <km>] [-rhistretch <factor> [-sweep <sweep>]");
         System.err.println("  list: comma separated moment names (eg. \"dBZ,NCP\")");
         System.err.println("  format: png|kmz|both");
-        System.err.println("  tilt: sweeps to save: all|web"); 
-        System.err.println("  to: ram|<path>"); 
-        System.err.println("  mode: Ray|Sweep|Volume|Continuous"); 
-        System.err.println("  factor: desired magnification, decimal OK"); 
-        System.err.println("  sweep: desired sweep, including complete '*' separated path"); 
-        System.err.println("  Do NOT specify a bookmark if using realtime mode"); 
+        System.err.println("  tilt: sweeps to save: all|web");
+        System.err.println("  to: ram|<path>");
+        System.err.println("  mode: Ray|Sweep|Volume|Continuous");
+        System.err.println("  factor: desired magnification, decimal OK");
+        System.err.println("  sweep: desired sweep, including complete '*' separated path");
+        System.err.println("  Do NOT specify a bookmark if using realtime mode");
         System.exit(1);
     }
 
     /**
      * Parse command line arguments and load specified settings into config
-     * @param args the command line arguments to parse
+     *
+     * @param args   the command line arguments to parse
      * @param config the Config instance to store settings in
      * @return an array of arrays containing bookmark, plot, ascope, numeric, and sweep details:
      * bookmark: {category, name}
@@ -79,10 +68,9 @@ public class Loader
      * numeric: numerical windows to open
      * sweep: sweeps to display
      */
-    private static String[][] parseCommandLineArguments (final String[] args, final Config config)
-    {
+    private static String[][] parseCommandLineArguments(final String[] args, final Config config) {
         final String[][] a = new String[5][]; //bookmark, plot, ascope, numeric, sweep
-
+        // So many times no...why not just use something like optparse? TODO: Fix this Monstrosity!
         if (args.length % 2 != 0) die();
         for (int i = 0; i < args.length; i += 2) {
             if (args[i].equals("-bookmark")) {
@@ -158,15 +146,15 @@ public class Loader
     /**
      * Process the result of the parseCommandLineArguments method.
      * Separate due to need to connect first.
+     *
      * @param a an array of arrays containing bookmark, plot, ascope, numeric, and sweep details:
-     * bookmark: {category, name}
-     * plot: plot windows to open
-     * ascope: ascope windows to open
-     * numeric: numerical windows to open
-     * sweep: sweeps to display
+     *          bookmark: {category, name}
+     *          plot: plot windows to open
+     *          ascope: ascope windows to open
+     *          numeric: numerical windows to open
+     *          sweep: sweeps to display
      */
-    private static final void processArguments (final String[][] a)
-    {
+    private static final void processArguments(final String[][] a) {
         Config config = Config.getInstance();
         WindowManager wm = WindowManager.getInstance();
         wm.getMainWindow().setVisible(config.isGUIEnabled());
@@ -178,34 +166,33 @@ public class Loader
             if (a[0].length == 2) {
                 ViewBookmarkBrowser.getInstance().selectBookmark(a[0][0], a[0][1]);
             } else {
-                System.err.println("Can't load bookmark; bad format"); 
+                System.err.println("Can't load bookmark; bad format");
             }
         } else {
             //ensure center etc are applied properly
             wm.setCenterInKm();
             wm.clearScreen();
         }
-		
-		if (a[4] != null) for (String tmp : a[4]) {
-			ControlMessage newMessage = new ControlMessage(tmp);
-			ViewFileBrowserActions actions = ViewFileBrowser.getInstance().getActions();
-			newMessage = actions.findSweep( newMessage );
-			if( newMessage != null ) {
-				actions.changeSelection(newMessage);
-			}
+
+        if (a[4] != null) for (String tmp : a[4]) {
+            ControlMessage newMessage = new ControlMessage(tmp);
+            ViewFileBrowserActions actions = ViewFileBrowser.getInstance().getActions();
+            newMessage = actions.findSweep(newMessage);
+            if (newMessage != null) {
+                actions.changeSelection(newMessage);
+            }
         }
     }
 
     /**
-     * The start point for Java VCHILL.  Run this to start the display. 
+     * The start point for Java VCHILL.  Run this to start the display.
      *
      * @param args command line arguments to override default values or open windows/bookmarks/servers
      */
-    public static void main (final String args[]) throws Exception
-    {
+    public static void main(final String args[]) throws Exception {
         final BookmarkControl bmc = BookmarkControl.getInstance();
         final Config config = Config.getInstance();
-    	/*TODO: This part is causing issues. I need to rework it to fail more gracefully*/
+        /*TODO: This part is causing issues. I need to rework it to fail more gracefully*/
         //check to see if VCHILL is already running
 /*        try {
             final ServerSocket socket = new ServerSocket(adminPort, 50, InetAddress.getByName("localhost"));
@@ -243,131 +230,148 @@ public class Loader
   */
         //parse commandline args
         final String[][] a = parseCommandLineArguments(args, config); //bookmark, plot, ascope, numeric
-	final ProgressMonitor progressMon = new ProgressMonitor( null, "Java VCHILL Startup", "Connecting...", 0, 3 );
-	final boolean[] loadFailed = new boolean[1];
-	loadFailed[0] = false;
+        final ProgressMonitor progressMon = new ProgressMonitor(null, "Java VCHILL Startup", "Connecting...", 0, 3);
+        final boolean[] loadFailed = new boolean[1];
+        loadFailed[0] = false;
 
-        EventQueue.invokeAndWait(new Runnable() { public void run () {
-            GUIUtil.setLnF();
+        EventQueue.invokeAndWait(new Runnable() {
+            public void run() {
+                GUIUtil.setLnF();
 
-            ViewMain vm = new ViewMain();
-            DialogUtil.parent = vm.getDesktop();
-            JFrame win = vm.getWindow();
+                ViewMain vm = new ViewMain();
+                DialogUtil.parent = vm.getDesktop();
+                JFrame win = vm.getWindow();
 
-            //Quit this app when the big window closes.
-            win.addWindowListener(new WindowAdapter() {
-                @Override public void windowClosing (final WindowEvent e) {
-                    exit();
-                }});
+                //Quit this app when the big window closes.
+                win.addWindowListener(new WindowAdapter() {
+                    @Override
+                    public void windowClosing(final WindowEvent e) {
+                        exit();
+                    }
+                });
 
-            final edu.colostate.vchill.gui.Config gcc = edu.colostate.vchill.gui.Config.getInstance();
+                final edu.colostate.vchill.gui.Config gcc = edu.colostate.vchill.gui.Config.getInstance();
 
-            win.pack();
-            win.setBounds(gcc.getInset(), gcc.getInset(), gcc.getDefaultWidth(), gcc.getDefaultHeight());
-            win.setExtendedState(Frame.MAXIMIZED_BOTH);
-			System.out.println( "VCHILL: " + Version.string + " Build Date: " + Version.buildDate );
+                win.pack();
+                win.setBounds(gcc.getInset(), gcc.getInset(), gcc.getDefaultWidth(), gcc.getDefaultHeight());
+                win.setExtendedState(Frame.MAXIMIZED_BOTH);
+                System.out.println("VCHILL: " + Version.string + " Build Date: " + Version.buildDate);
 
-            WindowManager wm = WindowManager.getInstance();
-            wm.setMain(vm);
-	    
-	}});
-	
-	EventQueue.invokeAndWait(new Runnable() { public void run () {
-	    progressMon.setMillisToDecideToPopup(500);
-	    progressMon.setProgress(0);
-	}});
-	
-	if( !progressMon.isCanceled() ) {
+                WindowManager wm = WindowManager.getInstance();
+                wm.setMain(vm);
+
+            }
+        });
+
+        EventQueue.invokeAndWait(new Runnable() {
+            public void run() {
+                progressMon.setMillisToDecideToPopup(500);
+                progressMon.setProgress(0);
+            }
+        });
+
+        if (!progressMon.isCanceled()) {
             ViewControl vc = ViewControl.getInstance();
             //connect before trying to load bookmarks
-			int connectionType = config.getLastConnectionType();
+            int connectionType = config.getLastConnectionType();
             String archive = config.getDefaultSocketName();
             if (connectionType == Config.REALTIME_CONN || archive == null) { //realtime mode
-				//Trigger the realtime connect action as if the user had selected
-				//it from the file menu. This is done instead of calling the
-				//appropriate connect method so that the user has a chance to cancel.
-				ViewFileBrowserPopup.realtimeAction.actionPerformed(null);
+                //Trigger the realtime connect action as if the user had selected
+                //it from the file menu. This is done instead of calling the
+                //appropriate connect method so that the user has a chance to cancel.
+                ViewFileBrowserPopup.realtimeAction.actionPerformed(null);
             } else {
                 if (archive.length() > 0) vc.connect(archive);
                 String dir = config.getDefaultDirName();
                 if (dir != null && dir.length() > 0) vc.addDirectory(dir);
             }
-	}
-	
-	if( !progressMon.isCanceled() ) EventQueue.invokeAndWait(new Runnable() { public void run () {
-	    progressMon.setNote("Loading edu bookmarks...");
-	    progressMon.setProgress(1);
-	}});
-	
-	if( !progressMon.isCanceled() ) {
-            try {
-		URLConnection urlConn = new URL(eduBookmarkURL).openConnection();
-		urlConn.setReadTimeout(5000);
-		urlConn.setConnectTimeout(5000);
-		urlConn.connect();
-		bmc.load(urlConn.getInputStream(), "edu:"); 
-	    } catch (IOException ioe) { 
-		//progressMon.setNote("Loading edu bookmarks...Failed");
-		loadFailed[0] = true;
-		System.err.println("Failed to load bookmarks from " + eduBookmarkURL);
-	    } catch( IllegalArgumentException iae) {
-            loadFailed[0] = true;
-            System.err.println("Failed to load bookmarks: Java 8 Error. Hopefully fixed in future.");
+        }
+
+        if (!progressMon.isCanceled()) EventQueue.invokeAndWait(new Runnable() {
+            public void run() {
+                progressMon.setNote("Loading edu bookmarks...");
+                progressMon.setProgress(1);
             }
-	    
-	}
-	
-	if( !progressMon.isCanceled() && loadFailed[0] ) {
-	    progressMon.setNote("Loading edu bookmarks...Failed");
-	    try { Thread.sleep(500); } catch (InterruptedException ie) {}
-	    loadFailed[0] = false;
-	}
-	
-	if( !progressMon.isCanceled() ) EventQueue.invokeAndWait(new Runnable() { public void run () {
-	    progressMon.setProgress(2);
-	    progressMon.setNote("Loading sys bookmarks...");
-	}});
-	
-	if( !progressMon.isCanceled() ) {
-            try { 
-		URLConnection urlConn = new URL(sysBookmarkURL).openConnection();
-		urlConn.setReadTimeout(5000);
-		urlConn.setConnectTimeout(5000);
-		urlConn.connect();
-		bmc.load(urlConn.getInputStream(), "sys:"); 
-	    } catch (IOException ioe) { 
-		//progressMon.setNote("Loading sys bookmarks...Failed");
-		loadFailed[0] = true;
-		System.err.println("Failed to load bookmarks from " + sysBookmarkURL);
-	    }
-	}
-	
-	if( !progressMon.isCanceled() && loadFailed[0] ) {
-	    progressMon.setNote("Loading sys bookmarks...Failed");
-	    try { Thread.sleep(500); } catch (InterruptedException ie) {}
-	    loadFailed[0] = false;
-	}
+        });
 
-	EventQueue.invokeAndWait(new Runnable() { public void run () {
-	    progressMon.setProgress(3);
-	    
-	    ViewControl vc = ViewControl.getInstance();
-            bmc.load(new File(FileSystemView.getFileSystemView().getHomeDirectory(), "bookmarks.xml"));
-            vc.loadColors(edu.colostate.vchill.color.Config.getInstance().getColorFileName());
-            vc.loadMaps();
+        if (!progressMon.isCanceled()) {
+            try {
+                URLConnection urlConn = new URL(eduBookmarkURL).openConnection();
+                urlConn.setReadTimeout(5000);
+                urlConn.setConnectTimeout(5000);
+                urlConn.connect();
+                bmc.load(urlConn.getInputStream(), "edu:");
+            } catch (IOException ioe) {
+                //progressMon.setNote("Loading edu bookmarks...Failed");
+                loadFailed[0] = true;
+                System.err.println("Failed to load bookmarks from " + eduBookmarkURL);
+            } catch (IllegalArgumentException iae) {
+                loadFailed[0] = true;
+                System.err.println("Failed to load bookmarks: Java 8 Error. Hopefully fixed in future.");
+            }
 
-            processArguments(a);
-        }});
+        }
+
+        if (!progressMon.isCanceled() && loadFailed[0]) {
+            progressMon.setNote("Loading edu bookmarks...Failed");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ie) {
+            }
+            loadFailed[0] = false;
+        }
+
+        if (!progressMon.isCanceled()) EventQueue.invokeAndWait(new Runnable() {
+            public void run() {
+                progressMon.setProgress(2);
+                progressMon.setNote("Loading sys bookmarks...");
+            }
+        });
+
+        if (!progressMon.isCanceled()) {
+            try {
+                URLConnection urlConn = new URL(sysBookmarkURL).openConnection();
+                urlConn.setReadTimeout(5000);
+                urlConn.setConnectTimeout(5000);
+                urlConn.connect();
+                bmc.load(urlConn.getInputStream(), "sys:");
+            } catch (IOException ioe) {
+                //progressMon.setNote("Loading sys bookmarks...Failed");
+                loadFailed[0] = true;
+                System.err.println("Failed to load bookmarks from " + sysBookmarkURL);
+            }
+        }
+
+        if (!progressMon.isCanceled() && loadFailed[0]) {
+            progressMon.setNote("Loading sys bookmarks...Failed");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ie) {
+            }
+            loadFailed[0] = false;
+        }
+
+        EventQueue.invokeAndWait(new Runnable() {
+            public void run() {
+                progressMon.setProgress(3);
+
+                ViewControl vc = ViewControl.getInstance();
+                bmc.load(new File(FileSystemView.getFileSystemView().getHomeDirectory(), "bookmarks.xml"));
+                vc.loadColors(edu.colostate.vchill.color.Config.getInstance().getColorFileName());
+                vc.loadMaps();
+
+                processArguments(a);
+            }
+        });
     }
 
     /**
      * Saves the user's bookmarks and display settings
      * and terminates the program
      */
-    public static void exit ()
-    {
+    public static void exit() {
         BookmarkControl.getInstance().save(new File(
-            FileSystemView.getFileSystemView().getHomeDirectory(), "bookmarks.xml"));
+                FileSystemView.getFileSystemView().getHomeDirectory(), "bookmarks.xml"));
         Config.getInstance().savePreferences();
         ScaleManager.getInstance().savePreferences();
         System.exit(0);
@@ -376,8 +380,7 @@ public class Loader
     /**
      * Method to allow shortened lines when getting resources
      */
-    public static URL getResource (final String resourceName)
-    {
+    public static URL getResource(final String resourceName) {
         return Loader.class.getClassLoader().getResource(resourceName);
     }
 }
