@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="resources">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/resources/colors.jar!/" />
       <root url="jar://$PROJECT_DIR$/resources/maps.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/colors.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
