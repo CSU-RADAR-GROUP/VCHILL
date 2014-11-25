@@ -300,7 +300,7 @@ public class Loader
 	}});
 	
 	if( !progressMon.isCanceled() ) {
-            try { 
+            try {
 		URLConnection urlConn = new URL(eduBookmarkURL).openConnection();
 		urlConn.setReadTimeout(5000);
 		urlConn.setConnectTimeout(5000);
@@ -310,7 +310,10 @@ public class Loader
 		//progressMon.setNote("Loading edu bookmarks...Failed");
 		loadFailed[0] = true;
 		System.err.println("Failed to load bookmarks from " + eduBookmarkURL);
-	    }
+	    } catch( IllegalArgumentException iae) {
+            loadFailed[0] = true;
+            System.err.println("Failed to load bookmarks: Java 8 Error. Hopefully fixed in future.");
+            }
 	    
 	}
 	
