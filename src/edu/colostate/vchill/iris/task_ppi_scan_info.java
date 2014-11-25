@@ -8,24 +8,25 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent task_ppi_scan_info structure.
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Complete
+ *         Complete
  */
 public class task_ppi_scan_info {
-    
+
     private int start_azimuth;
     private int end_azimuth;
     private int[] list_elevations = new int[40];
     private byte start_limit;
-    
-    task_ppi_scan_info(ByteBuffer in_buf){
-        int i=0;
-        start_azimuth=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        end_azimuth=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        for(i=0;i < 40; i++){
-            list_elevations[i]=UtilityClass.UINT2_to_SINT(in_buf.getShort());
+
+    task_ppi_scan_info(ByteBuffer in_buf) {
+        int i = 0;
+        start_azimuth = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        end_azimuth = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        for (i = 0; i < 40; i++) {
+            list_elevations[i] = UtilityClass.UINT2_to_SINT(in_buf.getShort());
         }
-        in_buf.position(in_buf.position()+115);
+        in_buf.position(in_buf.position() + 115);
         in_buf.get(start_limit);
     }
 

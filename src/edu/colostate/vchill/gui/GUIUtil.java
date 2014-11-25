@@ -1,39 +1,34 @@
 package edu.colostate.vchill.gui;
 
 import com.jgoodies.looks.LookUtils;
-import com.jgoodies.looks.plastic.PlasticLookAndFeel;
-import com.jgoodies.looks.plastic.theme.SkyKrupp;
-//import com.jgoodies.looks.windows.WindowsLookAndFeel;
 import edu.colostate.vchill.Loader;
-import java.awt.Dimension;
-import java.awt.Image;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+
+import javax.swing.*;
+import java.awt.*;
+
+//import com.jgoodies.looks.windows.WindowsLookAndFeel;
 
 /**
- * Utility class for setting up GUI functions for VCHILL 
+ * Utility class for setting up GUI functions for VCHILL
+ *
  * @author Jochen Deyke
  * @version 2007-09-14
  */
-public final class GUIUtil
-{
+public final class GUIUtil {
     public static final Image ICON = new ImageIcon(Loader.getResource("icons/sweepPPI.png")).getImage();
 
-    /** private default constructor prevents instantiation */
-    private GUIUtil () {}
+    /**
+     * private default constructor prevents instantiation
+     */
+    private GUIUtil() {
+    }
 
     /**
      * Sets the Look and Feel to JGoodies' Windows on Windows,
      * and JGoodies' Plastic elsewhere.
      * If this should fail for whatever reason, simply returns silently.
      */
-    public static void setLnF ()
-    {
+    public static void setLnF() {
         System.out.println("Setting LnF");
         try { //set up look-and-feel
             UIManager.put("ClassLoader", LookUtils.class.getClassLoader());
@@ -45,7 +40,9 @@ public final class GUIUtil
                 UIManager.setLookAndFeel("com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
             }
             //ClearLookManager.setMode(ClearLookMode.DEBUG);
-        } catch (Exception e) { System.out.println(e.toString()); } //ignore; look-and-feel is not that important
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        } //ignore; look-and-feel is not that important
     }
 
     /**
@@ -55,8 +52,7 @@ public final class GUIUtil
      * @param frameName the title to use for the window
      * @return the opened window (or null on failure)
      */
-    public static JFrame openWindow (final String frameName)
-    {
+    public static JFrame openWindow(final String frameName) {
         System.out.println("Starting GUI...");
         try { //divert stdout/err to a gui window
             JFrame frame = new JFrame(frameName);
@@ -80,14 +76,12 @@ public final class GUIUtil
      * @param title the title for the opened window
      * @return the opened window (or null on failure)
      */
-    public static JFrame startGUI (final String title)
-    {
+    public static JFrame startGUI(final String title) {
         setLnF();
         return openWindow(title);
     }
 
-    public static JProgressBar addProgressBar (final JFrame win)
-    {
+    public static JProgressBar addProgressBar(final JFrame win) {
         JProgressBar progressBar = new JProgressBar(0, 1);
         JPanel newRoot = new JPanel();
         newRoot.setLayout(new BoxLayout(newRoot, BoxLayout.Y_AXIS));

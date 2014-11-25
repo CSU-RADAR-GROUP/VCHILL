@@ -393,7 +393,7 @@ public final class FileFunctions {
         cDataH.startEl = cDataH.endEl = (int) ((fDataH.elevation * 1e-6) / 360 * angleScale);
         cDataH.numGates = paramD.ngates;
         cDataH.startRange = paramD.start_range;
-        cDataH.dataTime = fDataH.time & 0xffffffff;
+        cDataH.dataTime = fDataH.time;
         // fractionalSecs not set;
         return cDataH;
     }
@@ -640,11 +640,7 @@ public final class FileFunctions {
 
     public static boolean isCHILL(final String name) {
         if (name.startsWith("CHL")) { // If CHILL file
-            if (name.endsWith(".cdet")) {
-                return false; // not data file
-            } else {
-                return true;
-            }
+            return !name.endsWith(".cdet");
         }
 
         return false;
@@ -659,10 +655,6 @@ public final class FileFunctions {
     }
 
     public static boolean isCFRadial(String name) {
-        if (name.endsWith(".cf"))
-            return true;
-        else {
-            return false;
-        }
+        return name.endsWith(".cf");
     }
 }

@@ -4,23 +4,20 @@ import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.ControlMessage;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.cache.CacheMain;
-import edu.colostate.vchill.chill.ChillDataHeader;
-import edu.colostate.vchill.chill.ChillFieldInfo;
-import edu.colostate.vchill.chill.ChillHSKHeader;
-import edu.colostate.vchill.chill.ChillGenRay;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
+import edu.colostate.vchill.chill.*;
 import edu.colostate.vchill.file.FileFunctions;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import ucar.ma2.Array;
 import ucar.ma2.DataType;
 import ucar.ma2.Index;
 import ucar.nc2.Dimension;
 import ucar.nc2.NetcdfFile;
 import ucar.nc2.Variable;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class for reading CASA NetCDF archive files
@@ -29,8 +26,7 @@ import ucar.nc2.Variable;
  * @author jpont
  * @version 2010-08-30
  */
-public class CASANetCDFFile
-{
+public class CASANetCDFFile {
     private static final ScaleManager sm = ScaleManager.getInstance();
 
     private static final Map<String, ChillFieldInfo> infos = new HashMap<String, ChillFieldInfo>();
@@ -48,23 +44,23 @@ public class CASANetCDFFile
     public static final ChillFieldInfo AZ = new ChillFieldInfo("AdBZ", "AdjustedReflectivity", 42, 7500000, -1000000, 0, 0); //change number?
     public static final ChillFieldInfo AZDR = new ChillFieldInfo("AZDR", "AdjustedDifferentialReflectivity", 46, 9030899, -3010299, 0, 4); //change number?
     public static final ChillFieldInfo ASDP = new ChillFieldInfo("ASDP", "AdptSpecificDifferentialPhase", 0, 25500000, 0, 0, 1); //fix scale, colors, etc
-    public static final ChillFieldInfo VFilt = new ChillFieldInfo("VelFilt", "FilteredVelocity", 26, 5500000, -5500000, 16, 1);	
+    public static final ChillFieldInfo VFilt = new ChillFieldInfo("VelFilt", "FilteredVelocity", 26, 5500000, -5500000, 16, 1);
     public static final ChillFieldInfo VFast = new ChillFieldInfo("VelFast", "VelocityFast", 27, 5500000, -5500000, 16, 1);
     public static final ChillFieldInfo VSlow = new ChillFieldInfo("VelSlow", "VelocitySlow", 28, 5500000, -5500000, 16, 1);
-    private static final ChillFieldInfo[] types = new ChillFieldInfo[] {
-        Z, V, W, NCP, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ, AZDR, ASDP, VFilt, VFast, VSlow
+    private static final ChillFieldInfo[] types = new ChillFieldInfo[]{
+            Z, V, W, NCP, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ, AZDR, ASDP, VFilt, VFast, VSlow
     };
+
     static {
         for (ChillFieldInfo info : types) infos.put(info.longFieldName, info);
     }
 
-    public static void load (final ControlMessage command, final CacheMain cache) throws IOException
-    {
+    public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
         String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
-        
+
         NetcdfFile ncFile = NetcdfFile.open(path);
         Dimension radial = ncFile.hasUnlimitedDimension() ?
-            ncFile.getUnlimitedDimension() : ncFile.getRootGroup().findDimension("Radial");
+                ncFile.getUnlimitedDimension() : ncFile.getRootGroup().findDimension("Radial");
         Dimension gate = ncFile.getRootGroup().findDimension("Gate");
 
         List<Variable> vars = new ArrayList<Variable>();
@@ -72,7 +68,7 @@ public class CASANetCDFFile
         int fieldNum = 0;
         for (Object obj : ncFile.getVariables()) {
             while (sm.getScale(fieldNum) != null) ++fieldNum;
-            Variable var = (Variable)obj;
+            Variable var = (Variable) obj;
             if (var.getDataType() == DataType.FLOAT) {
                 vars.add(var);
                 String units = var.findAttribute("Units").getStringValue().trim();
@@ -89,12 +85,12 @@ public class CASANetCDFFile
             }
         }
 
-        Array azimuth     = ncFile.findVariable("Azimuth").read();
-        Array elevation   = ncFile.findVariable("Elevation").read();
-        Array gateWidth   = ncFile.findVariable("GateWidth").read();
-        Array startRange  = ncFile.findVariable("StartRange").read();
-        Array time        = ncFile.findVariable("Time").read();
-        Array timenSec    = null;
+        Array azimuth = ncFile.findVariable("Azimuth").read();
+        Array elevation = ncFile.findVariable("Elevation").read();
+        Array gateWidth = ncFile.findVariable("GateWidth").read();
+        Array startRange = ncFile.findVariable("StartRange").read();
+        Array time = ncFile.findVariable("Time").read();
+        Array timenSec = null;
         {
             Variable tns = ncFile.findVariable("TimenSec");
             if (tns != null) timenSec = tns.read();
@@ -109,23 +105,23 @@ public class CASANetCDFFile
         }
 
         ChillHSKHeader hskH = new ChillHSKHeader();
-        hskH.radarLatitude = (int)(1e6 * ncFile.findGlobalAttribute("Latitude").getNumericValue().doubleValue());
-        hskH.radarLongitude = (int)(1e6 * ncFile.findGlobalAttribute("Longitude").getNumericValue().doubleValue());
+        hskH.radarLatitude = (int) (1e6 * ncFile.findGlobalAttribute("Latitude").getNumericValue().doubleValue());
+        hskH.radarLongitude = (int) (1e6 * ncFile.findGlobalAttribute("Longitude").getNumericValue().doubleValue());
         hskH.radarId = ncFile.findGlobalAttribute("RadarName").getStringValue();
         hskH.angleScale = 0x7fffffff;
         cache.addRay(command, ChillDefines.META_TYPE, hskH);
-        for (int radialI = 0 ; radialI < radial.getLength(); ++radialI) {
+        for (int radialI = 0; radialI < radial.getLength(); ++radialI) {
             ChillDataHeader dataH = new ChillDataHeader();
             Index i1 = azimuth.getIndex().set(radialI);
             dataH.availableData = availableData;
             //dataH.availableData = -1;
-            dataH.startAz = dataH.endAz = (int)(azimuth.getDouble(i1) / 360 * hskH.angleScale);
-            dataH.startEl = dataH.endEl = (int)(elevation.getDouble(i1) / 360 * hskH.angleScale);
+            dataH.startAz = dataH.endAz = (int) (azimuth.getDouble(i1) / 360 * hskH.angleScale);
+            dataH.startEl = dataH.endEl = (int) (elevation.getDouble(i1) / 360 * hskH.angleScale);
             dataH.numGates = gate.getLength();
             dataH.startRange = startRange.getInt(i1);
-            dataH.dataTime = time.getInt(i1) & 0xffffffff;
+            dataH.dataTime = time.getInt(i1);
             dataH.fractionalSecs = timenSec == null ? 0 : timenSec.getInt(i1);
-            hskH.gateWidth = (int)gateWidth.getFloat(i1);
+            hskH.gateWidth = (int) gateWidth.getFloat(i1);
             cache.addRay(command, ChillDefines.META_TYPE, dataH);
             for (int typeI = 0; typeI < vars.size(); ++typeI) {
                 if (data[typeI] == null) continue;
@@ -133,7 +129,7 @@ public class CASANetCDFFile
                 double[] typeData = new double[dataH.numGates];
                 for (int gateI = 0; gateI < dataH.numGates; ++gateI) {
                     typeData[gateI] = data[typeI].getDouble(i2.set1(gateI));
- //                   System.out.println("Type Data"+typeData[gateI]);
+                    //                   System.out.println("Type Data"+typeData[gateI]);
                 }
                 cache.addRay(command, scales.get(typeI).fieldName, new ChillGenRay(hskH, dataH, scales.get(typeI).fieldName, typeData));
             }

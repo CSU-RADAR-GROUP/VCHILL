@@ -9,23 +9,24 @@ import java.nio.ByteBuffer;
 
 /**
  * Class for the structure task_rhi_scan_info
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_rhi_scan_info {
- 
+
     private int start_elevation;
     private int end_elevation;
     private int[] list_azimuths = new int[40];
     private byte start_limit;
-    
-    task_rhi_scan_info(ByteBuffer in_buf){
-        int i=0;
-        start_elevation=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        end_elevation=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        for(i=0;i < 40; i++){
-            list_azimuths[i]=UtilityClass.UINT2_to_SINT(in_buf.getShort());
+
+    task_rhi_scan_info(ByteBuffer in_buf) {
+        int i = 0;
+        start_elevation = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        end_elevation = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        for (i = 0; i < 40; i++) {
+            list_azimuths[i] = UtilityClass.UINT2_to_SINT(in_buf.getShort());
         }
-        in_buf.position(in_buf.position()+115);
+        in_buf.position(in_buf.position() + 115);
         in_buf.get(start_limit);
     }
 

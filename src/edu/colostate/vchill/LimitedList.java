@@ -9,16 +9,18 @@ import java.util.LinkedList;
  * @author Jochen Deyke
  * @version 2004-12-09
  */
-public final class LimitedList<E> implements Iterable<E>
-{
-    /** the maximum number of elements allowed */
+public final class LimitedList<E> implements Iterable<E> {
+    /**
+     * the maximum number of elements allowed
+     */
     private int limit;
 
-    /** actual list */
+    /**
+     * actual list
+     */
     private LinkedList<E> objects;
 
-    public LimitedList (final int size)
-    {
+    public LimitedList(final int size) {
         this.limit = size;
         this.objects = new LinkedList<E>();
     }
@@ -26,8 +28,7 @@ public final class LimitedList<E> implements Iterable<E>
     /**
      * Empties the list of elements.
      */
-    public synchronized void clear ()
-    {
+    public synchronized void clear() {
         this.objects.clear();
     }
 
@@ -38,8 +39,7 @@ public final class LimitedList<E> implements Iterable<E>
      *
      * @param size the maximum number of objects to store
      */
-    public synchronized void setLimit (final int size)
-    {
+    public synchronized void setLimit(final int size) {
         this.limit = size;
     }
 
@@ -49,8 +49,7 @@ public final class LimitedList<E> implements Iterable<E>
      *
      * @param object the object to add
      */
-    public synchronized void add (final E object)
-    {
+    public synchronized void add(final E object) {
         while (this.objects.size() >= this.limit) this.objects.removeFirst();
         this.objects.addLast(object);
     }
@@ -61,8 +60,7 @@ public final class LimitedList<E> implements Iterable<E>
      *
      * @return an Iterator over a list containing the same elements as this list
      */
-    public synchronized Iterator<E> iterator ()
-    {
+    public synchronized Iterator<E> iterator() {
         LinkedList<E> copy = new LinkedList<E>();
         for (E obj : objects) copy.add(obj);
         return copy.iterator();

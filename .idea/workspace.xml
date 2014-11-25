@@ -6,18 +6,229 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1474a3e-52de-402f-8372-b416b4713432" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CFRadialFile.java" />
+    <list default="true" id="f1474a3e-52de-402f-8372-b416b4713432" name="Default" comment="A lot of code style changes.">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/netcdfAll-4.3.jar" afterPath="" />
+    </list>
+    <list id="50da9658-ab88-41db-848a-dc7e09f1663a" name="Rejected commit: Default" comment="A lot of code style changes.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ArchiveProxy.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ArchiveProxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/Bookmark.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/Bookmark.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/BookmarkDialog.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/BookmarkDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkTreeModel.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkTreeModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CFRadialFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CFRadialFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMain.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMainCyclic.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMainCyclic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMainLRU.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheMainLRU.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheSweep.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheSweep.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheType.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/CacheType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillDataHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillDataHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ChillDefines.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ChillDefines.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillEndNotice.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillEndNotice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillFieldInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillFieldInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillGenRay.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillGenRay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHSKHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHSKHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeaderHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeaderHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeaderReader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillHeaderReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillMomentFieldScale.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillMomentFieldScale.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillNewExtTrackInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillNewExtTrackInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillOldExtTrackInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillOldExtTrackInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillPowerUpdate.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillPowerUpdate.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillProcessorInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillProcessorInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillRadarInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillRadarInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillScanSeg.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillScanSeg.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillTrackInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillTrackInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillXmitInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillXmitInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorEditor.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorEditor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorMap.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorMapTextParser.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/ColorMapTextParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/Config.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/Config.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/Config.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/Config.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ConfigUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ConfigUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/Connection.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/Connection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/ConnectionFactory.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/ConnectionFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/Control.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/Control.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ControlMessage.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ControlMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ControlSyncQueue.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ControlSyncQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/Controller.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/Controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CreateCASANetCDFFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CreateCASANetCDFFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/DataDecoderBuffer.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/DataDecoderBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/DataRay.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/DataRay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/DialogUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/DialogUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/EstimateParser.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/EstimateParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/EventStream.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/EventStream.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileAlterer.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileAlterer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileDataHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileDataHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFieldScalingInfo.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFieldScalingInfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileParameterData.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileParameterData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileRay.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileRay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileSKUHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileSKUHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileSweep.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileSweep.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/FileTreeNode.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/FileTreeNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/GUIUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/GUIUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/HdrUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/HdrUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ImageControlPanel.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ImageControlPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Iris2NetCDF.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Iris2NetCDF.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/IrisRawFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/IrisRawFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/KdpUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/KdpUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/LimitedList.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/LimitedList.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/LocationManager.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/LocationManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/out/production/vchill/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/map/MapInstruction.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/map/MapInstruction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfig.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vchill.iml" afterPath="$PROJECT_DIR$/vchill.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vchill.mf" afterPath="$PROJECT_DIR$/vchill.mf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfigWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfigWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/map/MapTextParser.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/map/MapTextParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/NCARNetCDFFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/NCARNetCDFFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/NcpPlusUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/NcpPlusUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpMouseListener.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpMouseListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpPopup.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpPopup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpWindowFactory.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/NumDumpWindowFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/PolarizationMode.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/PolarizationMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Product.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Product.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ProgressMonitorInputStream.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ProgressMonitorInputStream.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ProgressMonitorOutputStream.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ProgressMonitorOutputStream.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/Proxy.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/Proxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyCalculationThread.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyCalculationThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyControlThread.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyControlThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyDataThread.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyDataThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyShutdown.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/ProxyShutdown.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/PulseType.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/PulseType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/RainUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/RainUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/data/Ray.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/data/Ray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Ray.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Ray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/RayHeader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/RayHeader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/RayReader.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/RayReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnection.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnectionSigmet.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnectionSigmet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/RealtimeProxy.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/RealtimeProxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/SavedImage.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/SavedImage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ScaleManager.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ScaleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ServerScaleManager.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ServerScaleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/SigmetProductRaw.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/SigmetProductRaw.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketArchCtl.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketArchCtl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketConnection.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketConnection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketResponse.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/socket/SocketResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Sweep.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/Sweep.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/TestType.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/TestType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/TypedControlMessage.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/TypedControlMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/UtilityClass.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/UtilityClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/Version.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/Version.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeMouseListener.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeMouseListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopePopup.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopePopup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeWindowFactory.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeWindowFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewActions.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewBookmarkBrowser.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewBookmarkBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewBookmarkBrowserPopup.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewBookmarkBrowserPopup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewControl.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewControlThread.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewControlThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewEventWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewEventWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowser.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserPopup.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserPopup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFilterPanel.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFilterPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewImageDisplay.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewImageDisplay.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewMain.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewMenu.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewPaintPanel.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewPaintPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotDataFilter.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotDataFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotInformation.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotInformation.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethod.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethod.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodPPI.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodPPI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodRHI.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodRHI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodTH.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodTH.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMouseListener.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMouseListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotPopup.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotPopup.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotWindowFactory.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotWindowFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewRemotePanel.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewRemotePanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewSplitPane.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewSplitPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewTabbedBrowserPane.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewTabbedBrowserPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewTabbedPane.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewTabbedPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewUtil.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ViewUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindow.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowActions.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowActions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowFactory.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowMouseListener.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewWindowMouseListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/WCRNetCDFFile.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/WCRNetCDFFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/WindowManager.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/WindowManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/XMLBookmarkHandler.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/XMLBookmarkHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/XMLColorMapHandler.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/XMLColorMapHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/XMLControl.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/XMLControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/dsp_data_mask.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/dsp_data_mask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_configuration.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_configuration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_data_header.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_data_header.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_header.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ingest_header.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/ascope/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/ascope/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/bookmark/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/bookmark/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/cache/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/cache/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/chill/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/chill/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/color/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/color/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/connection/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/connection/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/data/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/data/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/file/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/file/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/gui/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/gui/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/map/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/map/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/netcdf/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/netcdf/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/numdump/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/numdump/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/plot/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/plot/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/proxy/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/proxy/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/radar/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/radar/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/socket/package.html" afterPath="$PROJECT_DIR$/out/production/vchill/edu/colostate/vchill/socket/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/cache/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/chill/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/color/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/color/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/connection/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/data/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/data/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/file/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/file/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/gui/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/map/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/map/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/numdump/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/plot/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/proxy/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/package.html" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/radar/package.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_configuration.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_configuration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_end.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_end.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_hdr.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_hdr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_specific_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/product_specific_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/raw_prod_bhdr.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/raw_prod_bhdr.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/structure_header.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/structure_header.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_calib_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_calib_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_configuration.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_configuration.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_mode_batch.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_mode_batch.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_mode_other.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_dsp_mode_other.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_end_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_end_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_file_scan_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_file_scan_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_manual_scan_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_manual_scan_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_misc_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_misc_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_ppi_scan_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_ppi_scan_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_range_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_range_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_rhi_scan_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_rhi_scan_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_scan_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_scan_info.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_sched_info.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/task_sched_info.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ymds_time.java" afterPath="$PROJECT_DIR$/src/edu/colostate/vchill/iris/ymds_time.java" />
     </list>
     <ignored path="vchill.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +236,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/vchill$FileFunctionsTest.coverage" NAME="FileFunctionsTest Coverage Results" MODIFIED="1416898535739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -85,8 +299,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -94,102 +308,114 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MapServerConfig.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfig.java">
+      <file leaf-file-name="Loader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1935" max-vertical-offset="3645">
-              <caret line="129" column="81" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3660" max-vertical-offset="5880">
+              <caret line="267" column="30" selection-start-line="267" selection-start-column="30" selection-end-line="267" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#10941#11994#0" expanded="true" />
+                <element signature="e#11268#11460#0" expanded="true" />
+                <element signature="e#11459#11460#0" expanded="true" />
+                <element signature="e#11993#11994#0" expanded="true" />
+                <element signature="e#12031#12206#0" expanded="true" />
+                <element signature="e#12205#12206#0" expanded="true" />
+                <element signature="e#13204#13385#0" expanded="true" />
+                <element signature="e#13384#13385#0" expanded="true" />
+                <element signature="e#14531#14712#0" expanded="true" />
+                <element signature="e#14711#14712#0" expanded="true" />
+                <element signature="e#15629#16082#0" expanded="true" />
+                <element signature="e#16081#16082#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bookmark.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/Bookmark.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="2025">
-              <caret line="104" column="44" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XMLBookmarkHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/XMLBookmarkHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3315" max-vertical-offset="4890">
-              <caret line="221" column="85" selection-start-line="221" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ViewFileBrowserActions.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2672209" vertical-offset="420" max-vertical-offset="6240">
-              <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookmarkControl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1785" max-vertical-offset="8100">
-              <caret line="119" column="38" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bookmarks-edu.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bookmarks-edu.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="15225">
-              <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileCFReader.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1755">
-              <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileFunctions.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6645" max-vertical-offset="10245">
-              <caret line="443" column="65" selection-start-line="443" selection-start-column="17" selection-end-line="443" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IrisRawFile.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/iris/IrisRawFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2385" max-vertical-offset="4425">
-              <caret line="159" column="16" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileConnection.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FileConnection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1200" max-vertical-offset="1605">
+            <state vertical-scroll-proportion="0.0" vertical-offset="744" max-vertical-offset="1365">
               <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileFunctions.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="9309" max-vertical-offset="9960">
+              <caret line="642" column="43" selection-start-line="642" selection-start-column="43" selection-end-line="642" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileFunctionsTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="960">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CASANetCDFFile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1409" max-vertical-offset="2010">
+              <caret line="121" column="39" selection-start-line="121" selection-start-column="39" selection-end-line="121" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewPlotMethodPPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodPPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="4874" max-vertical-offset="7935">
+              <caret line="354" column="8" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControlMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/ControlMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2235">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BookmarkControl.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5339806" vertical-offset="6820" max-vertical-offset="7380">
+              <caret line="495" column="42" selection-start-line="495" selection-start-column="42" selection-end-line="495" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NCARNetCDFFile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/NCARNetCDFFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="2430">
+              <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+              <folding>
+                <marker date="1416896541000" expanded="true" signature="535:656" placeholder="/**...*/" />
+                <marker date="1416896541000" expanded="true" signature="2566:9049" placeholder="{...}" />
+                <marker date="1416896541000" expanded="true" signature="4523:4655" placeholder="//..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -202,6 +428,11 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Joseph C. Hardin" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
@@ -210,33 +441,25 @@
     </option>
   </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/ascope/ViewAScopeWindow.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/GUIUtil.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/map/MapTextParser.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/color/XMLControl.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowser.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewMenu.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotWindow.java" />
-        <option value="$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnection.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewBookmarkBrowser.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java" />
-        <option value="$PROJECT_DIR$/vchill.mf" />
         <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java" />
         <option value="$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CFRadialFile.java" />
-        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfig.java" />
+        <option value="$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java" />
+        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java" />
+        <option value="$PROJECT_DIR$/src/edu/colostate/vchill/ControlMessage.java" />
       </list>
     </option>
   </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1920" />
-    <option name="width" value="1918" />
-    <option name="height" value="1198" />
+    <option name="x" value="4" />
+    <option name="y" value="23" />
+    <option name="width" value="1436" />
+    <option name="height" value="873" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -264,6 +487,8 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
@@ -283,8 +508,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -300,127 +523,17 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iris" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bookmark" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vchill" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="project.structure.proportion" value="0.15" />
@@ -428,7 +541,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/netcdfAll-4.3.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/netcdfAll-4.5.jar!/" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -440,20 +553,40 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FullScreen" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="50" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="51" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="53" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="515" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="50" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="51" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="53" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="515" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="SearchEverywhereHistoryKey" value="Loader:338&#9;PSI&#9;JAVA://edu.colostate.vchill.Loader" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="edu.colostate.vchill.file" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="edu.colostate.vchill.file" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="edu.colostate.vchill.netcdf" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Loader">
+  <component name="RunManager" selected="JUnit.FileFunctionsTest">
     <configuration default="false" name="FileFunctionsTest" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="vchill" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -471,11 +604,20 @@
       </option>
       <envs />
       <patterns />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Cover" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
     <configuration default="false" name="FileFunctionsTest.testIsIRISRAW" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="vchill" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -497,31 +639,20 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -532,7 +663,11 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -572,21 +707,8 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -604,6 +726,140 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/lib/netcdfAll-4.5.jar" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="/Applications/Flash Player Debugger.app" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -627,6 +883,7 @@
       <method />
     </configuration>
     <configuration default="false" name="Loader" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="edu.colostate.vchill.Loader" />
       <option name="VM_PARAMETERS" value="-Xms512m" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -677,38 +934,71 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="f1474a3e-52de-402f-8372-b416b4713432" name="Default" comment="" />
       <created>1372700050919</created>
+      <option name="number" value="Default" />
       <updated>1372700050919</updated>
+      <workItem from="1415771041309" duration="343000" />
+      <workItem from="1415771400020" duration="937000" />
+      <workItem from="1416361211910" duration="767000" />
+      <workItem from="1416895909909" duration="29000" />
+      <workItem from="1416895969724" duration="3347000" />
     </task>
+    <task id="LOCAL-00001" summary="Short Commit to dodge a weird Java 8 error temporarily.">
+      <created>1416896252421</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1416896252421</updated>
+    </task>
+    <task id="LOCAL-00002" summary="A lot of code style changes.">
+      <created>1416896500392</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1416896500392</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added Unit testing and some intial unit tests">
+      <created>1416898762337</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1416898762337</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="5423000" />
+  </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="0" width="1918" height="1198" extended-state="0" />
-    <editor active="false" />
+    <frame x="4" y="23" width="1436" height="873" extended-state="0" />
+    <editor active="true" />
     <layout>
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32462686" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294271" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3293872" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15598886" sideWeight="0.6923077" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19278607" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791328" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3920506" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19512194" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261066" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.686368" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16044776" sideWeight="0.6923077" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19469027" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39925373" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32791328" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -726,95 +1016,40 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Short Commit to dodge a weird Java 8 error temporarily." />
+    <MESSAGE value="Added Unit testing and some intial unit tests" />
+    <MESSAGE value="A lot of code style changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="A lot of code style changes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java</url>
-          <line>44</line>
+          <line>42</line>
           <properties />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java</url>
-          <line>50</line>
+          <line>48</line>
           <properties />
           <option name="temporary" value="true" />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="13" />
     </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2325">
-          <caret line="90" column="33" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CFRadialFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1761" max-vertical-offset="2445">
-          <caret line="134" column="68" selection-start-line="134" selection-start-column="45" selection-end-line="134" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillMomentFieldScale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1140" max-vertical-offset="3225">
-          <caret line="76" column="15" selection-start-line="76" selection-start-column="15" selection-end-line="76" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="525" max-vertical-offset="1755">
-          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6861" max-vertical-offset="10245">
-          <caret line="471" column="0" selection-start-line="471" selection-start-column="0" selection-end-line="471" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1185" max-vertical-offset="1605">
-          <caret line="79" column="42" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="570">
-          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2325">
-          <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1755">
           <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -822,72 +1057,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6450" max-vertical-offset="9600">
           <caret line="430" column="12" selection-start-line="430" selection-start-column="12" selection-end-line="430" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vchill.mf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="135">
-          <caret line="3" column="30" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="150">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4185" max-vertical-offset="5370">
-          <caret line="339" column="13" selection-start-line="339" selection-start-column="5" selection-end-line="339" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4170" max-vertical-offset="8100">
-          <caret line="278" column="29" selection-start-line="278" selection-start-column="29" selection-end-line="278" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/connection/Connection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="2760">
-          <caret line="144" column="9" selection-start-line="144" selection-start-column="9" selection-end-line="144" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkTreeModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1920">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2325">
-          <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileCFReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1755">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6450" max-vertical-offset="9600">
-          <caret line="430" column="12" selection-start-line="430" selection-start-column="12" selection-end-line="430" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -961,13 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/connection/Connection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2160" max-vertical-offset="2760">
-          <caret line="144" column="9" selection-start-line="144" selection-start-column="9" selection-end-line="144" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shutdown.mf">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
@@ -989,34 +1151,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4170" max-vertical-offset="5355">
-          <caret line="341" column="52" selection-start-line="341" selection-start-column="52" selection-end-line="341" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vchill.mf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.041628122" vertical-offset="0" max-vertical-offset="1081">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0543971" vertical-offset="0" max-vertical-offset="1103">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillMomentFieldScale.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="2820">
@@ -1031,41 +1165,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2325">
-          <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/java/jdk1.7.0_07/src.zip!/java/lang/Thread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9755" max-vertical-offset="29295">
-          <caret line="721" column="0" selection-start-line="721" selection-start-column="0" selection-end-line="721" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1380">
-          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/iris/IrisRawFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3308" max-vertical-offset="4110">
           <caret line="159" column="16" selection-start-line="159" selection-start-column="16" selection-end-line="159" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6169" max-vertical-offset="9765">
-          <caret line="443" column="65" selection-start-line="443" selection-start-column="17" selection-end-line="443" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1073,54 +1176,271 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="1665">
           <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/MapServerConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="3255">
-          <caret line="129" column="81" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1755" max-vertical-offset="3255">
+          <caret line="129" column="5" selection-start-line="129" selection-start-column="5" selection-end-line="129" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bookmarks-edu.xml">
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/connection/Connection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15225">
-          <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
-          <folding />
+        <state vertical-scroll-proportion="0.007079646" vertical-offset="26" max-vertical-offset="2580">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6749" max-vertical-offset="7590">
-          <caret line="119" column="38" selection-start-line="119" selection-start-column="7" selection-end-line="119" selection-end-column="7" />
-          <folding />
+        <state vertical-scroll-proportion="0.1590106" vertical-offset="0" max-vertical-offset="566">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/Bookmark.java">
+    <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1035" max-vertical-offset="1935">
-          <caret line="104" column="44" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.07614213" vertical-offset="0" max-vertical-offset="591">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vchill.mf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05076142" vertical-offset="0" max-vertical-offset="591">
+          <caret line="2" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="6315">
+          <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/XMLBookmarkHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2814" max-vertical-offset="4755">
-          <caret line="221" column="85" selection-start-line="221" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3180" max-vertical-offset="4740">
+          <caret line="221" column="46" selection-start-line="221" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/Bookmark.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2893401" vertical-offset="1344" max-vertical-offset="1935">
+          <caret line="104" column="39" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bookmarks-edu.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8629442" vertical-offset="0" max-vertical-offset="15225">
+          <caret line="34" column="25" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/ViewFileBrowserActions.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/LocationManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2672209" vertical-offset="420" max-vertical-offset="6240">
-          <caret line="52" column="13" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.20304568" vertical-offset="0" max-vertical-offset="591">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/chill/ChillScanSeg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.0761423" vertical-offset="2589" max-vertical-offset="3180">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/gui/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="488" max-vertical-offset="975">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/radar/RealtimeConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3885" max-vertical-offset="4710">
+          <caret line="317" column="0" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vchill_netcdf_server.config">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4861111" vertical-offset="0" max-vertical-offset="570">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="487">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RunningTodoList.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="487">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/notes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14175">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/design.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.065645516" vertical-offset="30" max-vertical-offset="3180">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/ConfigUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.650924" vertical-offset="1988" max-vertical-offset="2475">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40041068" vertical-offset="0" max-vertical-offset="6360">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/ChillDefines.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.7905545" vertical-offset="2483" max-vertical-offset="2970">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vchill_netcdf_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.064935" vertical-offset="2340" max-vertical-offset="8295">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/NCARNetCDFFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="2430">
+          <caret line="40" column="39" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
+          <folding>
+            <marker date="1416896541000" expanded="true" signature="535:656" placeholder="/**...*/" />
+            <marker date="1416896541000" expanded="true" signature="2566:9049" placeholder="{...}" />
+            <marker date="1416896541000" expanded="true" signature="4523:4655" placeholder="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home/src.zip!/java/lang/Runnable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8067633" vertical-offset="159" max-vertical-offset="780">
+          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/Loader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3660" max-vertical-offset="5880">
+          <caret line="267" column="30" selection-start-line="267" selection-start-column="30" selection-end-line="267" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10941#11994#0" expanded="true" />
+            <element signature="e#11268#11460#0" expanded="true" />
+            <element signature="e#11459#11460#0" expanded="true" />
+            <element signature="e#11993#11994#0" expanded="true" />
+            <element signature="e#12031#12206#0" expanded="true" />
+            <element signature="e#12205#12206#0" expanded="true" />
+            <element signature="e#13204#13385#0" expanded="true" />
+            <element signature="e#13384#13385#0" expanded="true" />
+            <element signature="e#14531#14712#0" expanded="true" />
+            <element signature="e#14711#14712#0" expanded="true" />
+            <element signature="e#15629#16082#0" expanded="true" />
+            <element signature="e#16081#16082#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="744" max-vertical-offset="1365">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/file/FileFunctions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="9309" max-vertical-offset="9960">
+          <caret line="642" column="43" selection-start-line="642" selection-start-column="43" selection-end-line="642" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/edu/colostate/vchill/file/FileFunctionsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="960">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/netcdf/CASANetCDFFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1409" max-vertical-offset="2010">
+          <caret line="121" column="39" selection-start-line="121" selection-start-column="39" selection-end-line="121" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/plot/ViewPlotMethodPPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4874" max-vertical-offset="7935">
+          <caret line="354" column="8" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/ControlMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2235">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/colostate/vchill/bookmark/BookmarkControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5339806" vertical-offset="6820" max-vertical-offset="7380">
+          <caret line="495" column="42" selection-start-line="495" selection-start-column="42" selection-end-line="495" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -1217,4 +1537,3 @@
     </states>
   </component>
 </project>
-

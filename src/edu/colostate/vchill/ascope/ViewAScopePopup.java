@@ -1,15 +1,11 @@
 package edu.colostate.vchill.ascope;
 
 import edu.colostate.vchill.gui.ViewWindowActions;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.AbstractAction;
-import javax.swing.ButtonGroup;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
 
 /**
  * This class is used to create a popup window.
@@ -17,11 +13,10 @@ import javax.swing.JRadioButtonMenuItem;
  * to actually have access to it. This class could just
  * as easily extend JPopupMenu.
  *
- * @author  Jochen Deyke
+ * @author Jochen Deyke
  * @version 2007-03-08
  */
-class ViewAScopePopup extends ViewWindowActions
-{
+class ViewAScopePopup extends ViewWindowActions {
     private JPopupMenu popup;
     private JMenu primaryMenu;
     private JMenu secondaryMenu;
@@ -34,8 +29,7 @@ class ViewAScopePopup extends ViewWindowActions
      *
      * @param win the window this popup menu is to appear in
      */
-    public ViewAScopePopup (final ViewAScopeWindow win)
-    {
+    public ViewAScopePopup(final ViewAScopeWindow win) {
         super(win);
         this.win = win;
 
@@ -50,18 +44,18 @@ class ViewAScopePopup extends ViewWindowActions
         //Make the items that will not go into a submenu
         makeMenuItems();
 
-        sm.addObserver(new Observer () {
-            public void update (final Observable o, final Object arg) {
+        sm.addObserver(new Observer() {
+            public void update(final Observable o, final Object arg) {
                 updatePrimaryMenu();
                 updateSecondaryMenu();
-            }});
+            }
+        });
     }
 
     /**
      * @return The popup menu for the client class to later call show on.
      */
-    public JPopupMenu getPopup ()
-    {
+    public JPopupMenu getPopup() {
         return popup;
     }
 
@@ -70,70 +64,72 @@ class ViewAScopePopup extends ViewWindowActions
      * with.  For example, if the Z submenu item is called, this window
      * will now request Z data.
      */
-    public void makePrimaryTypeSubmenu ()
-    {
+    public void makePrimaryTypeSubmenu() {
         this.primaryMenu = new JMenu("Primary Type");
         this.updatePrimaryMenu();
         this.popup.add(primaryMenu);
     }
 
-    public void updatePrimaryMenu ()
-    {
+    public void updatePrimaryMenu() {
         primaryMenu.removeAll();
         ButtonGroup group = new ButtonGroup();
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(
-                new AbstractAction(type) {
-                    /**
-                   * 
-                   */
-                  private static final long serialVersionUID = 869057841579678472L;
+                    new AbstractAction(type) {
+                        /**
+                         *
+                         */
+                        private static final long serialVersionUID = 869057841579678472L;
 
-                    public void actionPerformed (final ActionEvent ae) {
-                        win.setType(type); vc.rePlot();
-                    }});
+                        public void actionPerformed(final ActionEvent ae) {
+                            win.setType(type);
+                            vc.rePlot();
+                        }
+                    });
             item.setSelected(type.equals(win.getType()));
             group.add(item);
             primaryMenu.add(item).setIcon(null);
         }
     }
 
-    public void makeSecondaryTypeSubmenu (final ViewAScopeWindow win)
-    {
+    public void makeSecondaryTypeSubmenu(final ViewAScopeWindow win) {
         this.secondaryMenu = new JMenu("Secondary Type");
         this.updateSecondaryMenu();
         this.popup.add(this.secondaryMenu);
     }
 
-    public void updateSecondaryMenu ()
-    {
+    public void updateSecondaryMenu() {
         this.secondaryMenu.removeAll();
         ButtonGroup group = new ButtonGroup();
         for (final String type : sm.getTypes()) {
             JRadioButtonMenuItem item = new JRadioButtonMenuItem(
-                new AbstractAction(type) {
-                    /**
-                   * 
-                   */
-                  private static final long serialVersionUID = 2611931680559758440L;
+                    new AbstractAction(type) {
+                        /**
+                         *
+                         */
+                        private static final long serialVersionUID = 2611931680559758440L;
 
-                    public void actionPerformed (final ActionEvent ae) {
-                        win.setSecondary(type); vc.rePlot();
-                    }});
+                        public void actionPerformed(final ActionEvent ae) {
+                            win.setSecondary(type);
+                            vc.rePlot();
+                        }
+                    });
             item.setSelected(type.equals(win.getSecondary()));
             group.add(item);
             this.secondaryMenu.add(item).setIcon(null);
         }
         JRadioButtonMenuItem item = new JRadioButtonMenuItem(
-            new AbstractAction(ViewAScopeWindow.TYPE_NOT_SET) {
-                /**
-               * 
-               */
-              private static final long serialVersionUID = -2034549514522756984L;
+                new AbstractAction(ViewAScopeWindow.TYPE_NOT_SET) {
+                    /**
+                     *
+                     */
+                    private static final long serialVersionUID = -2034549514522756984L;
 
-                public void actionPerformed (final ActionEvent ae) {
-                    win.setSecondary(null); vc.rePlot();
-                }});
+                    public void actionPerformed(final ActionEvent ae) {
+                        win.setSecondary(null);
+                        vc.rePlot();
+                    }
+                });
         item.setSelected(win.getSecondary() == null);
         group.add(item);
         this.secondaryMenu.add(item).setIcon(null);
@@ -142,8 +138,7 @@ class ViewAScopePopup extends ViewWindowActions
     /**
      * Sets up the Menu Options such as Saving
      */
-    private void makeMenuItems ()
-    {
+    private void makeMenuItems() {
         for (JMenuItem i : makePopupItems()) this.popup.add(i).setIcon(null);
     }
 }

@@ -1,11 +1,8 @@
 package edu.colostate.vchill.chill;
 
-import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.ControlMessage;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.ViewControl;
-import edu.colostate.vchill.ViewControlThread;
+import edu.colostate.vchill.*;
 import edu.colostate.vchill.cache.CacheMain;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 
@@ -17,8 +14,7 @@ import java.io.IOException;
  * @author jpont
  * @version 2008-08-25
  */
-public abstract class ChillHeaderReader
-{
+public abstract class ChillHeaderReader {
     private static final ScaleManager sm = ScaleManager.getInstance();
     private static final ViewControlThread vct = ViewControl.getInstance().getViewControlThread();
     protected DataInputStream in;
@@ -27,23 +23,22 @@ public abstract class ChillHeaderReader
 
     /**
      * Constructs a ChillHeaderReader.
-     * @param in the DataInputStream to read from
+     *
+     * @param in    the DataInputStream to read from
      * @param cache the CacheMain to save the headers to
      */
-    public ChillHeaderReader (final DataInputStream in, final CacheMain cache)
-    {
+    public ChillHeaderReader(final DataInputStream in, final CacheMain cache) {
         this.in = in;
         this.cache = cache;
     }
 
     /**
-	 * Read a header from the input stream into the cache.
-	 * 
-	 * @param command the ControlMessage to save the headers under
-	 * @return was data read successful?  Will return false if non-data header read
-	 */
-    public boolean readHeader (final ControlMessage command) throws IOException
-    {
+     * Read a header from the input stream into the cache.
+     *
+     * @param command the ControlMessage to save the headers under
+     * @return was data read successful?  Will return false if non-data header read
+     */
+    public boolean readHeader(final ControlMessage command) throws IOException {
         ChillHeaderHeader headerH = new ChillHeaderHeader(this.in);
 //System.out.println("getting header 0x" + Integer.toHexString(headerH.recordType));
         switch (headerH.recordType) {
@@ -65,17 +60,17 @@ public abstract class ChillHeaderReader
                 break;
             case ChillDefines.TRACK_DATA:
                 ChillTrackInfo track = new ChillTrackInfo(this.in, headerH);
-		ChillHeaderReader.vct.handleAircraft( track );
+                ChillHeaderReader.vct.handleAircraft(track);
                 cache.addRay(command, ChillDefines.META_TYPE, track);
                 break;
             case ChillDefines.OLD_EXT_TRACK_DATA:
                 ChillOldExtTrackInfo oldexttrack = new ChillOldExtTrackInfo(this.in, headerH);
-		ChillHeaderReader.vct.handleAircraft( oldexttrack );
+                ChillHeaderReader.vct.handleAircraft(oldexttrack);
                 cache.addRay(command, ChillDefines.META_TYPE, oldexttrack);
                 break;
             case ChillDefines.NEW_EXT_TRACK_DATA:
                 ChillNewExtTrackInfo newexttrack = new ChillNewExtTrackInfo(this.in, headerH);
-		ChillHeaderReader.vct.handleAircraft( newexttrack );
+                ChillHeaderReader.vct.handleAircraft(newexttrack);
                 cache.addRay(command, ChillDefines.META_TYPE, newexttrack);
                 break;
             case ChillDefines.HSK_ID_RADAR_INFO:
@@ -115,13 +110,26 @@ public abstract class ChillHeaderReader
 
     /**
      * Called when a DataHeader is encountered
+     *
      * @return was data successfully read
      */
-    public abstract boolean readData (final ChillDataHeader dataH, final ControlMessage metaCommand) throws IOException;
-    /** Called when an EndNotice signaling the start of a sweep */
-    public void startNotice () { }
-    /** Called when an EndNotice signaling end of sweep or volume is encountered */
-    public void endNotice (final ControlMessage metaCommand) { }
-    /** Called when a HSKHeader is encountered */
-    public void hskHupdated () { }
+    public abstract boolean readData(final ChillDataHeader dataH, final ControlMessage metaCommand) throws IOException;
+
+    /**
+     * Called when an EndNotice signaling the start of a sweep
+     */
+    public void startNotice() {
+    }
+
+    /**
+     * Called when an EndNotice signaling end of sweep or volume is encountered
+     */
+    public void endNotice(final ControlMessage metaCommand) {
+    }
+
+    /**
+     * Called when a HSKHeader is encountered
+     */
+    public void hskHupdated() {
+    }
 }

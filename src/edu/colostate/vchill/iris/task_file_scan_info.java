@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent the task_file_scan_info structure.
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_file_scan_info {
@@ -15,21 +16,21 @@ public class task_file_scan_info {
     private int first_azimuth;
     private int first_elevation;
     private String antenna_control_file;
-    
+
     private byte[] TempBuf;
-    
-    task_file_scan_info(ByteBuffer in_buf){
-        first_azimuth=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        first_elevation=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        try{
-        TempBuf = new byte[12];
-        in_buf.get(TempBuf);
-        antenna_control_file = new String(TempBuf, "UTF-8");
-        }catch(Exception e){
-            System.err.println("Exception:"+e);
+
+    task_file_scan_info(ByteBuffer in_buf) {
+        first_azimuth = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        first_elevation = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        try {
+            TempBuf = new byte[12];
+            in_buf.get(TempBuf);
+            antenna_control_file = new String(TempBuf, "UTF-8");
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
-        
-        in_buf.position(in_buf.position()+184);
+
+        in_buf.position(in_buf.position() + 184);
     }
 
     /**
@@ -73,7 +74,6 @@ public class task_file_scan_info {
     public void setAntenna_control_file(String antenna_control_file) {
         this.antenna_control_file = antenna_control_file;
     }
-            
-    
-    
+
+
 }

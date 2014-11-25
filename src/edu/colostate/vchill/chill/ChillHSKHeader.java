@@ -2,6 +2,7 @@ package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.socket.SocketUtil;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -12,54 +13,80 @@ import java.io.IOException;
  * @author Jochen Deyke
  * @version 2006-05-15
  */
-public class ChillHSKHeader extends ChillHeader
-{
-    /** maximum length (in bytes) of radarId */
+public class ChillHSKHeader extends ChillHeader {
+    /**
+     * maximum length (in bytes) of radarId
+     */
     public static final int radarIdLength = 32;
 
-    /** size (in bytes) of this header (including ChillHeaderHeader, but not including extraData) */
+    /**
+     * size (in bytes) of this header (including ChillHeaderHeader, but not including extraData)
+     */
     public static final int BYTE_SIZE = ChillHeaderHeader.BYTE_SIZE +
-        radarIdLength + 12 * ChillDefines.INT_BYTE_SIZE;
+            radarIdLength + 12 * ChillDefines.INT_BYTE_SIZE;
 
-    /** radar name/id in UTF-8 coded string */
+    /**
+     * radar name/id in UTF-8 coded string
+     */
     public String radarId;
 
-    /** radar location in degrees*10**6 */
+    /**
+     * radar location in degrees*10**6
+     */
     public int radarLatitude, radarLongitude;
 
-    /** radar altitude above msl in mm */
+    /**
+     * radar altitude above msl in mm
+     */
     public int radarAltitudeMsl;
 
-    /** Antenna mode word - indicates scan type.
-        1 and 4 are RHI scans, 0 and 3 are PPI scans */
+    /**
+     * Antenna mode word - indicates scan type.
+     * 1 and 4 are RHI scans, 0 and 3 are PPI scans
+     */
     public int antMode;
 
-    /** basic Nyquist interval in mm/sec (2 * velocity range ) */
+    /**
+     * basic Nyquist interval in mm/sec (2 * velocity range )
+     */
     public int nyquistVel;
 
-    /** gate spacing in mm */
+    /**
+     * gate spacing in mm
+     */
     public int gateWidth;
 
-    /** the number of transmit pulses per integration cycle */
+    /**
+     * the number of transmit pulses per integration cycle
+     */
     public int pulses;
 
-    /** 0 = V only, 1 = H only, 2 = VH alternating, 3 = VH simultaneous */
+    /**
+     * 0 = V only, 1 = H only, 2 = VH alternating, 3 = VH simultaneous
+     */
     public int polarizationMode;
 
-    /** the tilt/sweep sequence number (begins at 1 for each volume) */
+    /**
+     * the tilt/sweep sequence number (begins at 1 for each volume)
+     */
     public int tiltNum;
 
-    /** the tilt number selected by operator for auto-save image */
+    /**
+     * the tilt number selected by operator for auto-save image
+     */
     public int saveTilt;
 
-    /** angle value representing 360 degrees */
+    /**
+     * angle value representing 360 degrees
+     */
     public int angleScale;
 
-    /** unix time word for start of this sweep (seconds) */
+    /**
+     * unix time word for start of this sweep (seconds)
+     */
     public long sweepStartTime;
 
-    public ChillHSKHeader ()
-    {
+    public ChillHSKHeader() {
         super(new ChillHeaderHeader(ChillDefines.BRIEF_HSK_DATA, BYTE_SIZE));
         super.extraData = new byte[0];
     }
@@ -67,11 +94,10 @@ public class ChillHSKHeader extends ChillHeader
     /**
      * Constructs a header by reading initial values from a DataInput.
      *
-     * @param in the DataInput to read initialization values from
+     * @param in     the DataInput to read initialization values from
      * @param header the header header containing the expected length of this header
      */
-    public ChillHSKHeader (final DataInput in, final ChillHeaderHeader header) throws IOException
-    {
+    public ChillHSKHeader(final DataInput in, final ChillHeaderHeader header) throws IOException {
         super(header);
         assert header.recordType == ChillDefines.BRIEF_HSK_DATA;
         assert header.headerLength - ChillHSKHeader.BYTE_SIZE >= 0;
@@ -96,8 +122,7 @@ public class ChillHSKHeader extends ChillHeader
      *
      * @param out the DataOutput to write values to
      */
-    public void write (final DataOutput out) throws IOException
-    {
+    public void write(final DataOutput out) throws IOException {
         assert header.headerLength == ChillHSKHeader.BYTE_SIZE + extraData.length;
         super.header.write(out);
         SocketUtil.writeString(this.radarId, out, radarIdLength);
@@ -116,12 +141,16 @@ public class ChillHSKHeader extends ChillHeader
         out.write(super.extraData);
     }
 
-    public String getMode ()
-    {
+    public String getMode() {
         switch (this.antMode) {
-            case 0: case 3: return "PPI";
-            case 1: case 4: return "RHI";
-            default: return "MAN";
+            case 0:
+            case 3:
+                return "PPI";
+            case 1:
+            case 4:
+                return "RHI";
+            default:
+                return "MAN";
         }
     }
 }

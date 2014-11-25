@@ -9,24 +9,20 @@ package edu.colostate.vchill.gui;
  * @author Jochen Deyke
  * @version 2004-12-09
  */
-public final class SavedImage<E>
-{
+public final class SavedImage<E> {
     private final E image;
     private final String description;
 
-    public SavedImage (final E image, final String description)
-    {
+    public SavedImage(final E image, final String description) {
         this.image = image;
         this.description = description;
     }
 
-    public E getImage ()
-    {
+    public E getImage() {
         return this.image;
     }
 
-    public String getDescription ()
-    {
+    public String getDescription() {
         return this.description;
     }
 }

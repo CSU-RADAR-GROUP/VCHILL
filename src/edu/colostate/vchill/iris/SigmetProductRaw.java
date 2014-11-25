@@ -12,7 +12,6 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 /**
- *
  * @author Joseph Hardin
  */
 public class SigmetProductRaw {
@@ -35,249 +34,249 @@ public class SigmetProductRaw {
     int bytesleft;
     ByteArrayOutputStream recordstream;
     int total_vars;
-    int missedrays=0;
-    
+    int missedrays = 0;
+
     public int getTotal_vars() {
-      return total_vars;
+        return total_vars;
     }
 
-/**
- * Read in just the headers from a file.
- * @param fin File to read headers from 
- */
-     
-  public SigmetProductRaw(String f_name){ // This mode just reads in Headers
-  
-    FileInputStream fstream_in;
-    DataInputStream dis;
-    
-    
-    //String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
-    String path = f_name;
-    System.out.println("IrisRawFile Object Initialized");
-    try {
+    /**
+     * Read in just the headers from a file.
+     *
+     * @param fin File to read headers from
+     */
 
-      fstream_in = new FileInputStream(path);
+    public SigmetProductRaw(String f_name) { // This mode just reads in Headers
 
-      dis = new DataInputStream(fstream_in);
-
-    } catch (Exception e) {
-      System.err.println("Exception: " + e);
-      return;
-    }    
-    
-    try {
-      dis.read(RecordBuffer);
-      TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
-      TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-    } catch (Exception e) {
-      System.err.println("Exception:" + e);
-    }
-    top_product_hdr = new product_hdr(getTempByteBuffer());
-
-    try {
-      dis.read(RecordBuffer);
-      TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
-      TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-    } catch (Exception e) {
-      System.err.println("Exception:" + e);
-    }
-
-    top_ingest_header = new ingest_header(getTempByteBuffer());
-    //
-    // Read top ingest_header
-    //
-    range_bins = top_ingest_header.getAtask_configuration().getAtask_range_info().getOutput_bins();
-    sweeps = top_ingest_header.getAtask_configuration().getAtask_scan_info().getNum_sweeps();
-
-    total_vars = Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_0()));
-
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_1()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_2()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_3()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_4()));
-
-    System.out.println("Data Mask Word 1:"
-      + (int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info().getCurrent_data_type().getMask_word_2()));
-
-    System.out.println("Input Bins to be processed:" + range_bins);
-    System.out.println("Sweeps to be processed:" + sweeps);
-    System.out.println("Total Variables:" + total_vars);
-    
-  }
-    
-  /**
-   * Read in a Sigmet Product raw file and populate the variables and structures
-   * 
-   * @param DataInputStream
-   *          dis the Product Raw Stream to be read
-   */
-  
-  
-  public SigmetProductRaw(DataInputStream dis) {
-
-    //
-    // Read and Create product_hdr
-    //
-    try {
-      dis.read(RecordBuffer);
-      TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
-      TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-    } catch (Exception e) {
-      System.err.println("Exception:" + e);
-    }
-    top_product_hdr = new product_hdr(getTempByteBuffer());
-
-    try {
-      dis.read(RecordBuffer);
-      TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
-      TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-    } catch (Exception e) {
-      System.err.println("Exception:" + e);
-    }
-
-    top_ingest_header = new ingest_header(getTempByteBuffer());
-    //
-    // Read top ingest_header
-    //
-    range_bins = top_ingest_header.getAtask_configuration().getAtask_range_info().getOutput_bins();
-    sweeps = top_ingest_header.getAtask_configuration().getAtask_scan_info().getNum_sweeps();
-
-    total_vars = Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_0()));
-
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_1()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_2()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_3()));
-    total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
-      .getCurrent_data_type().getMask_word_4()));
-
-    System.out.println("Data Mask Word 1:"
-      + (int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info().getCurrent_data_type().getMask_word_2()));
-
-    System.out.println("Input Bins to be processed:" + range_bins);
-    System.out.println("Sweeps to be processed:" + sweeps);
-    System.out.println("Total Variables:" + total_vars);
-
-    temp_ingest_data_header = new ArrayList<ingest_data_header>();
-
-    Ray currRay = new Ray();
-
-    // At this point we have the two top structures, so now we read in the
-    // individual data type records.
-    sweeplist = new ArrayList<Sweep>();
-    DataDecoderBuffer datadecoder;
+        FileInputStream fstream_in;
+        DataInputStream dis;
 
 
-    try {
-      for (int currSweep = 0; currSweep < sweeps; currSweep++) {
-        System.out.println("Processing sweep " + currSweep + ".");
-        sweeplist.add(new Sweep());
+        //String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
+        String path = f_name;
+        System.out.println("IrisRawFile Object Initialized");
+        try {
+
+            fstream_in = new FileInputStream(path);
+
+            dis = new DataInputStream(fstream_in);
+
+        } catch (Exception e) {
+            System.err.println("Exception: " + e);
+            return;
+        }
 
         try {
-          dis.read(RecordBuffer);
-          TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
-          TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-          TempByteBuffer.get(new byte[12]);
+            dis.read(RecordBuffer);
+            TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
+            TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
         } catch (Exception e) {
-          e.printStackTrace();
+            System.err.println("Exception:" + e);
+        }
+        top_product_hdr = new product_hdr(getTempByteBuffer());
+
+        try {
+            dis.read(RecordBuffer);
+            TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
+            TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
 
-        for (int cv = 0; cv < total_vars; cv++) {
-          sweeplist.get(currSweep).getIdh_list().add(new ingest_data_header(getTempByteBuffer()));
-          // System.out.println("Total Rays of var:" + cv + " is :" +
-          // sweeplist.get(currSweep).getIdh_list().get(cv).getRays_present());
+        top_ingest_header = new ingest_header(getTempByteBuffer());
+        //
+        // Read top ingest_header
+        //
+        range_bins = top_ingest_header.getAtask_configuration().getAtask_range_info().getOutput_bins();
+        sweeps = top_ingest_header.getAtask_configuration().getAtask_scan_info().getNum_sweeps();
 
-        }// Data Headers for current sweep finished.
-        
-        datadecoder = new DataDecoderBuffer(dis, getTempByteBuffer());
-        System.out.println("Number of rays is :"+ sweeplist.get(currSweep).getIdh_list().get(1).getRays_present());
-        for (int raycount = 0; raycount < sweeplist.get(currSweep).getIdh_list().get(1).getRays_present(); raycount++) {
-          currRay = new Ray();
-          // System.out.println("Working on Ray:" + raycount);
-       //   System.out.println("Current dis position is:"+dis.)
-          int misray=0;
-          for (int cv = 0; cv < total_vars; cv++) {// By Variable
-          //  dis.reset();
-           // dis.mark(100000);
-           // dis.skipBytes(sweeplist.get(currSweep).getIdh_list().get(cv).getIndex_first_ray()-12);
-            DataRay currDataRay = new DataRay();
-            if(datadecoder.nondestructivecheckEndRay()){
-              datadecoder.checkEndRay();
-              misray=1;
-              continue;             
-            }
-              
-            currDataRay.setRayheader(new RayHeader(datadecoder.getData(12)));
-            int numbins = currDataRay.getRayheader().getBins_in_ray();
-            //System.out.println("Number of bins:" + numbins);
-            currDataRay.setRangeBins(numbins);
-            // System.out.println("Reading(" + sraycount++ + ")Variable " + cv +
-            // "of type " +
-            // sweeplist.get(currSweep).getIdh_list().get(cv).getData_type());
-            // System.out.println("CurrDataRay elv:" +
-            // currDataRay.getRayheader().getBegin_elv());
-            if (sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() == 160) {
-              byte[] byteli = new byte[sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() / 8 * numbins];
-              datadecoder.getData(sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() / 8 * numbins).get(
-                byteli); // Yeah I know thats ugly.
-              currDataRay.setByteArray(byteli);
-            } else if (sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() == 16) {
-              short[] tempsBuffer = new short[numbins];
-              if (numbins > 4000) {
-                System.err.println("BAD RAYYYYYY");
-              }
-              datadecoder.getData(numbins * 2).asShortBuffer().get(tempsBuffer);
-              currDataRay.setBulkData(tempsBuffer);
-              // for (int rb = 0; rb < numbins; rb++) {
-              // currDataRay.setData(datadecoder.getData(2).getShort(), rb);
-              // }
-            }
-            if(misray==1){
-      
-              continue; //We had some missing data so leave this ray off.
-            }
-            currDataRay.setDtype(sweeplist.get(currSweep).getIdh_list().get(cv).getData_type());
-            currDataRay.translateData();
-            currRay.getDatarays().add(currDataRay);
-            
-            datadecoder.checkEndRay();
+        total_vars = Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_0()));
 
-          }
-          if(misray ==1 ){
-            System.out.println("Missing Ray detected, skipping over it");
-            misray=0;
-            this.missedrays+=1;
-            continue;
-          }
-          sweeplist.get(currSweep).getRays().add(currRay);
-          //System.out.println("Added Ray number"+raycount);
-        }
-        
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_1()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_2()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_3()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_4()));
 
-      }// End of Current Record
-    } catch (Exception e) {
-      e.printStackTrace();
+        System.out.println("Data Mask Word 1:"
+                + (int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info().getCurrent_data_type().getMask_word_2()));
+
+        System.out.println("Input Bins to be processed:" + range_bins);
+        System.out.println("Sweeps to be processed:" + sweeps);
+        System.out.println("Total Variables:" + total_vars);
 
     }
 
-  }
+    /**
+     * Read in a Sigmet Product raw file and populate the variables and structures
+     *
+     * @param DataInputStream dis the Product Raw Stream to be read
+     */
+
+
+    public SigmetProductRaw(DataInputStream dis) {
+
+        //
+        // Read and Create product_hdr
+        //
+        try {
+            dis.read(RecordBuffer);
+            TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
+            TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
+        }
+        top_product_hdr = new product_hdr(getTempByteBuffer());
+
+        try {
+            dis.read(RecordBuffer);
+            TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
+            TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
+        }
+
+        top_ingest_header = new ingest_header(getTempByteBuffer());
+        //
+        // Read top ingest_header
+        //
+        range_bins = top_ingest_header.getAtask_configuration().getAtask_range_info().getOutput_bins();
+        sweeps = top_ingest_header.getAtask_configuration().getAtask_scan_info().getNum_sweeps();
+
+        total_vars = Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_0()));
+
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_1()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_2()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_3()));
+        total_vars += Integer.bitCount((int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info()
+                .getCurrent_data_type().getMask_word_4()));
+
+        System.out.println("Data Mask Word 1:"
+                + (int) (top_ingest_header.getAtask_configuration().getAtask_dsp_info().getCurrent_data_type().getMask_word_2()));
+
+        System.out.println("Input Bins to be processed:" + range_bins);
+        System.out.println("Sweeps to be processed:" + sweeps);
+        System.out.println("Total Variables:" + total_vars);
+
+        temp_ingest_data_header = new ArrayList<ingest_data_header>();
+
+        Ray currRay = new Ray();
+
+        // At this point we have the two top structures, so now we read in the
+        // individual data type records.
+        sweeplist = new ArrayList<Sweep>();
+        DataDecoderBuffer datadecoder;
+
+
+        try {
+            for (int currSweep = 0; currSweep < sweeps; currSweep++) {
+                System.out.println("Processing sweep " + currSweep + ".");
+                sweeplist.add(new Sweep());
+
+                try {
+                    dis.read(RecordBuffer);
+                    TempByteBuffer = ByteBuffer.wrap(RecordBuffer);
+                    TempByteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                    TempByteBuffer.get(new byte[12]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                for (int cv = 0; cv < total_vars; cv++) {
+                    sweeplist.get(currSweep).getIdh_list().add(new ingest_data_header(getTempByteBuffer()));
+                    // System.out.println("Total Rays of var:" + cv + " is :" +
+                    // sweeplist.get(currSweep).getIdh_list().get(cv).getRays_present());
+
+                }// Data Headers for current sweep finished.
+
+                datadecoder = new DataDecoderBuffer(dis, getTempByteBuffer());
+                System.out.println("Number of rays is :" + sweeplist.get(currSweep).getIdh_list().get(1).getRays_present());
+                for (int raycount = 0; raycount < sweeplist.get(currSweep).getIdh_list().get(1).getRays_present(); raycount++) {
+                    currRay = new Ray();
+                    // System.out.println("Working on Ray:" + raycount);
+                    //   System.out.println("Current dis position is:"+dis.)
+                    int misray = 0;
+                    for (int cv = 0; cv < total_vars; cv++) {// By Variable
+                        //  dis.reset();
+                        // dis.mark(100000);
+                        // dis.skipBytes(sweeplist.get(currSweep).getIdh_list().get(cv).getIndex_first_ray()-12);
+                        DataRay currDataRay = new DataRay();
+                        if (datadecoder.nondestructivecheckEndRay()) {
+                            datadecoder.checkEndRay();
+                            misray = 1;
+                            continue;
+                        }
+
+                        currDataRay.setRayheader(new RayHeader(datadecoder.getData(12)));
+                        int numbins = currDataRay.getRayheader().getBins_in_ray();
+                        //System.out.println("Number of bins:" + numbins);
+                        currDataRay.setRangeBins(numbins);
+                        // System.out.println("Reading(" + sraycount++ + ")Variable " + cv +
+                        // "of type " +
+                        // sweeplist.get(currSweep).getIdh_list().get(cv).getData_type());
+                        // System.out.println("CurrDataRay elv:" +
+                        // currDataRay.getRayheader().getBegin_elv());
+                        if (sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() == 160) {
+                            byte[] byteli = new byte[sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() / 8 * numbins];
+                            datadecoder.getData(sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() / 8 * numbins).get(
+                                    byteli); // Yeah I know thats ugly.
+                            currDataRay.setByteArray(byteli);
+                        } else if (sweeplist.get(currSweep).getIdh_list().get(cv).getBits_per_bin() == 16) {
+                            short[] tempsBuffer = new short[numbins];
+                            if (numbins > 4000) {
+                                System.err.println("BAD RAYYYYYY");
+                            }
+                            datadecoder.getData(numbins * 2).asShortBuffer().get(tempsBuffer);
+                            currDataRay.setBulkData(tempsBuffer);
+                            // for (int rb = 0; rb < numbins; rb++) {
+                            // currDataRay.setData(datadecoder.getData(2).getShort(), rb);
+                            // }
+                        }
+                        if (misray == 1) {
+
+                            continue; //We had some missing data so leave this ray off.
+                        }
+                        currDataRay.setDtype(sweeplist.get(currSweep).getIdh_list().get(cv).getData_type());
+                        currDataRay.translateData();
+                        currRay.getDatarays().add(currDataRay);
+
+                        datadecoder.checkEndRay();
+
+                    }
+                    if (misray == 1) {
+                        System.out.println("Missing Ray detected, skipping over it");
+                        misray = 0;
+                        this.missedrays += 1;
+                        continue;
+                    }
+                    sweeplist.get(currSweep).getRays().add(currRay);
+                    //System.out.println("Added Ray number"+raycount);
+                }
+
+
+            }// End of Current Record
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
 
     public int getMissedrays() {
-    return missedrays;
-  }
+        return missedrays;
+    }
 
-  public void setMissedrays(int missedrays) {
-    this.missedrays = missedrays;
-  }
+    public void setMissedrays(int missedrays) {
+        this.missedrays = missedrays;
+    }
 
     /**
      * @return the top_product_hdr

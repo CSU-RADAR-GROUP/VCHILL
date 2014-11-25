@@ -1,33 +1,17 @@
 package edu.colostate.vchill.file;
 
-import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.HdrUtil;
-import edu.colostate.vchill.KdpUtil;
-import edu.colostate.vchill.NcpPlusUtil;
-import edu.colostate.vchill.RainUtil;
-import edu.colostate.vchill.ScaleManager;
+import edu.colostate.vchill.*;
 import edu.colostate.vchill.ProgressMonitorInputStream;
-import edu.colostate.vchill.ProgressMonitorOutputStream;
-import edu.colostate.vchill.ViewUtil;
 import edu.colostate.vchill.chill.ChillFieldInfo;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
 import edu.colostate.vchill.file.FileFunctions.Moment;
 import edu.colostate.vchill.gui.GUIUtil;
-import java.awt.EventQueue;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
+import java.util.*;
 import java.util.List;
-import java.util.ListIterator;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JProgressBar;
 
 /**
  * An object for loading, altering, and then saving CHILL format
@@ -37,30 +21,33 @@ import javax.swing.JProgressBar;
  * @author jpont
  * @version 2010-09-01
  */
-public class FileAlterer
-{
+public class FileAlterer {
     private static final ScaleManager sm = ScaleManager.getInstance();
 
-    /** Sole constructor */
-    private FileAlterer () {}
+    /**
+     * Sole constructor
+     */
+    private FileAlterer() {
+    }
 
     /**
      * Loads a file into memory, adds additional fields to it, and saves it back to disk
      *
-     * @param in the File to read from
+     * @param in  the File to read from
      * @param out the File to write to
-     * @param win the main window (used to add a progress bar) 
+     * @param win the main window (used to add a progress bar)
      */
-    public static void alter (final File in, final File out, final JFrame win) throws Throwable
-    {
+    public static void alter(final File in, final File out, final JFrame win) throws Throwable {
         final JProgressBar progressBar = GUIUtil.addProgressBar(win);
         final DataInputStream input = new DataInputStream(new ProgressMonitorInputStream(new FileInputStream(in), progressBar));
         final DataOutputStream output = new DataOutputStream(new ProgressMonitorOutputStream(new FileOutputStream(out), progressBar));
 
-        EventQueue.invokeLater(new Runnable() { public void run () {
-            progressBar.setMaximum((int)in.length() * 2);
-            progressBar.setStringPainted(true);
-        }});
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                progressBar.setMaximum((int) in.length() * 2);
+                progressBar.setStringPainted(true);
+            }
+        });
 
         /**
          * The actual data file, as a series of objects.
@@ -78,49 +65,69 @@ public class FileAlterer
          */
         LinkedList<FileSweep> sweeps;
 
-        { int sweepnum = 0; while (input.available() > 0) { //each sweep
-            file = new LinkedList<Object>();
+        {
+            int sweepnum = 0;
+            while (input.available() > 0) { //each sweep
+                file = new LinkedList<Object>();
 
-            System.out.println("Sweep " + sweepnum + ":");
+                System.out.println("Sweep " + sweepnum + ":");
 
-            System.out.println("    Reading from file " + in);
-            sweeps = load(file, input);
+                System.out.println("    Reading from file " + in);
+                sweeps = load(file, input);
 
-            EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setIndeterminate(true);
-            }});
+                EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setIndeterminate(true);
+                    }
+                });
 
-            System.out.println("        Adding NCP+");
-            final int addedNCPp = addNCPPlus(sweeps);
-            if (addedNCPp > 0 ) EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setMaximum(progressBar.getMaximum() + addedNCPp); }});
-            else System.out.println("            ....already present");
+                System.out.println("        Adding NCP+");
+                final int addedNCPp = addNCPPlus(sweeps);
+                if (addedNCPp > 0) EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setMaximum(progressBar.getMaximum() + addedNCPp);
+                    }
+                });
+                else System.out.println("            ....already present");
 
-            System.out.println("        Adding HDR");
-            final int addedHDR = addHDR(sweeps);
-            if (addedHDR > 0 ) EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setMaximum(progressBar.getMaximum() + addedHDR); }});
-            else System.out.println("            ....already present");
+                System.out.println("        Adding HDR");
+                final int addedHDR = addHDR(sweeps);
+                if (addedHDR > 0) EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setMaximum(progressBar.getMaximum() + addedHDR);
+                    }
+                });
+                else System.out.println("            ....already present");
 
-            System.out.println("        Adding KDP");
-            final int addedKDP = addKDP(sweeps);
-            if (addedKDP > 0 ) EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setMaximum(progressBar.getMaximum() + addedKDP); }});
-            else System.out.println("            ....already present");
+                System.out.println("        Adding KDP");
+                final int addedKDP = addKDP(sweeps);
+                if (addedKDP > 0) EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setMaximum(progressBar.getMaximum() + addedKDP);
+                    }
+                });
+                else System.out.println("            ....already present");
 
-            System.out.println("        Adding RCOMP");
-            final int addedRCOMP = addRCOMP(sweeps);
-            if (addedRCOMP > 0 ) EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setMaximum(progressBar.getMaximum() + addedRCOMP); }});
-            else System.out.println("            ....already present");
+                System.out.println("        Adding RCOMP");
+                final int addedRCOMP = addRCOMP(sweeps);
+                if (addedRCOMP > 0) EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setMaximum(progressBar.getMaximum() + addedRCOMP);
+                    }
+                });
+                else System.out.println("            ....already present");
 
-            EventQueue.invokeLater(new Runnable() { public void run () {
-                progressBar.setIndeterminate(false);
-            }});
+                EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        progressBar.setIndeterminate(false);
+                    }
+                });
 
-            System.out.println("    Writing to file " + out);
-            save(file, output);
-        ++sweepnum; }}
+                System.out.println("    Writing to file " + out);
+                save(file, output);
+                ++sweepnum;
+            }
+        }
 
         input.close();
         output.flush();
@@ -131,12 +138,11 @@ public class FileAlterer
     /**
      * Loads a sweep from a CHILL format data file on disk into memory
      *
-     * @param file LinkedList to add data to
+     * @param file  LinkedList to add data to
      * @param input the DataInputStream (must be buffered) to read from
      * @return LinkedList of FileSweep objects referencing same data as <code>file</code>
      */
-    public static LinkedList<FileSweep> load (final LinkedList<Object> file, final DataInputStream input) throws Throwable
-    {
+    public static LinkedList<FileSweep> load(final LinkedList<Object> file, final DataInputStream input) throws Throwable {
         LinkedList<FileSweep> sweeps = new LinkedList<FileSweep>();
 
         FileSKUHeader skuH = null;
@@ -162,26 +168,38 @@ public class FileAlterer
                     //actual data
                     byte[][] data = new byte[Moment.values().length][];
                     if (paramD.data_field_by_field == 1) { //contiguous data
-                        { int m = 0; for (Moment moment : Moment.values()) { //each data type
-                            if (((1l << m) & paramD.field_flag) != 0) { //present
-                                data[m] = new byte[paramD.ngates * moment.BYTE_SIZE];
-                                input.readFully(data[m]);
-                            }
-                        ++m; }}
-                    } else { //interleaved data
-                        { int m = 0; for (Moment moment : Moment.values()) {
-                            if (((1l << m) & paramD.field_flag) != 0) { //present
-                                data[m] = new byte[paramD.ngates * moment.BYTE_SIZE];
-                            }
-                        ++m; }}
-                        for (int g = 0; g < currSweep.paramD.ngates; ++g) {
-                            { int m = 0; for (Moment moment : Moment.values()) {
+                        {
+                            int m = 0;
+                            for (Moment moment : Moment.values()) { //each data type
                                 if (((1l << m) & paramD.field_flag) != 0) { //present
-                                    for (int b = 0; b < moment.BYTE_SIZE; ++b) {
-                                        data[m][moment.BYTE_SIZE * g + b] = input.readByte();
-                                    }
+                                    data[m] = new byte[paramD.ngates * moment.BYTE_SIZE];
+                                    input.readFully(data[m]);
                                 }
-                            ++m; }}
+                                ++m;
+                            }
+                        }
+                    } else { //interleaved data
+                        {
+                            int m = 0;
+                            for (Moment moment : Moment.values()) {
+                                if (((1l << m) & paramD.field_flag) != 0) { //present
+                                    data[m] = new byte[paramD.ngates * moment.BYTE_SIZE];
+                                }
+                                ++m;
+                            }
+                        }
+                        for (int g = 0; g < currSweep.paramD.ngates; ++g) {
+                            {
+                                int m = 0;
+                                for (Moment moment : Moment.values()) {
+                                    if (((1l << m) & paramD.field_flag) != 0) { //present
+                                        for (int b = 0; b < moment.BYTE_SIZE; ++b) {
+                                            data[m][moment.BYTE_SIZE * g + b] = input.readByte();
+                                        }
+                                    }
+                                    ++m;
+                                }
+                            }
                         }
                     }
                     currRay.skuH = skuH;
@@ -202,21 +220,20 @@ public class FileAlterer
                     sweeps.add(currSweep);
                     paramD = new FileParameterData();
                     paramD.inputData(input);
-					sm.setAvailable( paramD.field_flag );
+                    sm.setAvailable(paramD.field_flag);
                     file.add(currSweep.paramD = paramD);
 
-					//put the available moments in the scale manager
-					for (Moment moment : Moment.values()) {
-						if (((1l << moment.ordinal()) & paramD.field_flag) > 0 && moment.BYTE_SIZE == 1) {
-							ChillMomentFieldScale scale = sm.getScale(moment.ordinal());
-							if( scale == null )
-							{
-								ChillFieldInfo fieldInfo = FileFunctions.types[moment.ordinal()];
-								scale = new ChillMomentFieldScale( fieldInfo, moment.ACCELERATOR, moment.UNITS, 100000, 1, 0 );
-								sm.putScale( scale );
-							}
-						}
-					}
+                    //put the available moments in the scale manager
+                    for (Moment moment : Moment.values()) {
+                        if (((1l << moment.ordinal()) & paramD.field_flag) > 0 && moment.BYTE_SIZE == 1) {
+                            ChillMomentFieldScale scale = sm.getScale(moment.ordinal());
+                            if (scale == null) {
+                                ChillFieldInfo fieldInfo = FileFunctions.types[moment.ordinal()];
+                                scale = new ChillMomentFieldScale(fieldInfo, moment.ACCELERATOR, moment.UNITS, 100000, 1, 0);
+                                sm.putScale(scale);
+                            }
+                        }
+                    }
 
                     //scaling info
                     fieldScalings = new FileFieldScalingInfo[Moment.values().length];
@@ -233,7 +250,8 @@ public class FileAlterer
                     }
                     file.add(currSweep.fieldScalings = fieldScalings);
                     break;
-                default: throw new Error("Bad packet id code: " + skuH.id);
+                default:
+                    throw new Error("Bad packet id code: " + skuH.id);
             }
 
             //trailing size marker
@@ -246,54 +264,58 @@ public class FileAlterer
     /**
      * Saves one or more sweeps from memory into a CHILL format data on disk
      *
-     * @param file List of objects to write out 
+     * @param file   List of objects to write out
      * @param output the DataOutput to write to
      */
-    public static void save (final List<Object> file, final DataOutput output) throws Throwable
-    {
+    public static void save(final List<Object> file, final DataOutput output) throws Throwable {
         FileSKUHeader skuH = null;
         FileParameterData paramD = null;
         FileFieldScalingInfo[] fieldScalings = null;
 
-        
-        for (final Iterator iter = file.iterator(); iter.hasNext();) { //each packet
-            skuH = (FileSKUHeader)iter.next();
+
+        for (final Iterator iter = file.iterator(); iter.hasNext(); ) { //each packet
+            skuH = (FileSKUHeader) iter.next();
             skuH.outputData(output);
 
             switch (skuH.id) {
                 case ChillDefines.GATE_DATA_PACKET_CODE: //ray data
-                    FileDataHeader dataH = (FileDataHeader)iter.next();
+                    FileDataHeader dataH = (FileDataHeader) iter.next();
                     dataH.outputData(output);
 
                     //actual data
-                    byte[][] data = (byte[][])iter.next();
+                    byte[][] data = (byte[][]) iter.next();
                     if (paramD.data_field_by_field == 1) { //contiguous data
                         for (int m = 0; m < Moment.values().length; ++m) { //each data type
                             if (((1l << m) & paramD.field_flag) != 0) output.write(data[m]); //write if present
                         }
                     } else { //interleaved data
                         for (int g = 0; g < paramD.ngates; ++g) {
-                            { int m = 0; for (Moment moment : Moment.values()) {
-                                if (((1l << m) & paramD.field_flag) != 0) { //present
-                                    for (int b = 0; b < moment.BYTE_SIZE; ++b) {
-                                        output.write(data[m][moment.BYTE_SIZE * g + b]);
+                            {
+                                int m = 0;
+                                for (Moment moment : Moment.values()) {
+                                    if (((1l << m) & paramD.field_flag) != 0) { //present
+                                        for (int b = 0; b < moment.BYTE_SIZE; ++b) {
+                                            output.write(data[m][moment.BYTE_SIZE * g + b]);
+                                        }
                                     }
+                                    ++m;
                                 }
-                            ++m; }}
+                            }
                         }
                     }
                     break;
                 case ChillDefines.GATE_PARAMS_PACKET_CODE: //parameters / new sweep
-                    paramD = (FileParameterData)iter.next();
+                    paramD = (FileParameterData) iter.next();
                     paramD.outputData(output);
 
                     //scaling info
-                    fieldScalings = (FileFieldScalingInfo[])iter.next();
+                    fieldScalings = (FileFieldScalingInfo[]) iter.next();
                     for (int i = 0; i < Moment.values().length; ++i) {
                         if ((paramD.field_flag & (1l << i)) != 0) fieldScalings[i].outputData(output);
                     }
                     break;
-                default: throw new Error("Bad packet id code: " + skuH.id);
+                default:
+                    throw new Error("Bad packet id code: " + skuH.id);
             }
 
             //trailing size marker
@@ -305,10 +327,9 @@ public class FileAlterer
      * Adds the NCP+ field to one or more sweeps (if it is not already present)
      *
      * @param sweeps a Collection of FileSweep objects to process
-     * @return the number of bytes added to the file 
+     * @return the number of bytes added to the file
      */
-    public static int addNCPPlus (final Collection<FileSweep> sweeps) throws Throwable
-    {
+    public static int addNCPPlus(final Collection<FileSweep> sweeps) throws Throwable {
         int addedBytes = 0;
         double[] prevZDR = null;
         double[] currZDR = null;
@@ -316,7 +337,8 @@ public class FileAlterer
 
         for (final FileSweep currSweep : sweeps) { //each sweep
             if ((currSweep.paramD.field_flag & (1l << Moment.NCP_PLUS.ordinal())) != 0) continue; //NCP+ already present
-            if ((currSweep.paramD.field_flag & (1l << Moment.ZDR.ordinal())) == 0) continue; //need Zdr to calculate NCP+
+            if ((currSweep.paramD.field_flag & (1l << Moment.ZDR.ordinal())) == 0)
+                continue; //need Zdr to calculate NCP+
 
             currSweep.paramD.field_flag |= (1l << Moment.NCP_PLUS.ordinal());
             ++currSweep.paramD.nfields;
@@ -326,14 +348,14 @@ public class FileAlterer
             currSweep.paramD.sweep_bytes += FileFieldScalingInfo.BYTE_SIZE;
             currSweep.fieldScalings[Moment.NCP_PLUS.ordinal()] = currSweep.fieldScalings[Moment.NCP.ordinal()];
 
-            for (final ListIterator rayIter = currSweep.data.listIterator(); rayIter.hasNext();) { //each ray
-                FileRay curr = (FileRay)rayIter.next();
+            for (final ListIterator rayIter = currSweep.data.listIterator(); rayIter.hasNext(); ) { //each ray
+                FileRay curr = (FileRay) rayIter.next();
                 addedBytes += (Moment.NCP_PLUS.BYTE_SIZE * currSweep.paramD.ngates);
                 currSweep.paramD.sweep_bytes += (Moment.NCP_PLUS.BYTE_SIZE * currSweep.paramD.ngates);
                 curr.skuH.length += (Moment.NCP_PLUS.BYTE_SIZE * currSweep.paramD.ngates);
 
                 if (rayIter.hasNext()) {
-                    FileRay next = (FileRay)rayIter.next();
+                    FileRay next = (FileRay) rayIter.next();
                     nextZDR = ViewUtil.getValues(next.data[Moment.ZDR.ordinal()], Moment.ZDR.CODE);
                     rayIter.previous(); //back up so curr is correct next time
                 } else {
@@ -357,10 +379,9 @@ public class FileAlterer
      * Adds the HDR field to one or more sweeps (if it is not already present)
      *
      * @param sweeps a Collection of FileSweep objects to process
-     * @return the number of bytes added to the file 
+     * @return the number of bytes added to the file
      */
-    public static int addHDR (final Collection<FileSweep> sweeps) throws Throwable
-    {
+    public static int addHDR(final Collection<FileSweep> sweeps) throws Throwable {
         int addedBytes = 0;
         for (final FileSweep currSweep : sweeps) { //each sweep
             if ((currSweep.paramD.field_flag & (1l << Moment.HDR.ordinal())) != 0) continue; //already present
@@ -375,9 +396,9 @@ public class FileAlterer
             currSweep.paramD.sweep_bytes += FileFieldScalingInfo.BYTE_SIZE;
             currSweep.fieldScalings[Moment.HDR.ordinal()] = new FileFieldScalingInfo();
             currSweep.fieldScalings[Moment.HDR.ordinal()].factor = currSweep.fieldScalings[Moment.Z.ordinal()].factor;
-            currSweep.fieldScalings[Moment.HDR.ordinal()].scale = (int)(ChillDefines.HDR_FACTOR * currSweep.fieldScalings[Moment.HDR.ordinal()].factor);
-            currSweep.fieldScalings[Moment.HDR.ordinal()].bias = (int)(ChillDefines.HDR_OFFSET * currSweep.fieldScalings[Moment.HDR.ordinal()].factor);
-            
+            currSweep.fieldScalings[Moment.HDR.ordinal()].scale = (int) (ChillDefines.HDR_FACTOR * currSweep.fieldScalings[Moment.HDR.ordinal()].factor);
+            currSweep.fieldScalings[Moment.HDR.ordinal()].bias = (int) (ChillDefines.HDR_OFFSET * currSweep.fieldScalings[Moment.HDR.ordinal()].factor);
+
             for (final FileRay curr : currSweep.data) { //each ray
                 addedBytes += (Moment.NCP_PLUS.BYTE_SIZE * currSweep.paramD.ngates);
                 currSweep.paramD.sweep_bytes += (Moment.NCP_PLUS.BYTE_SIZE * currSweep.paramD.ngates);
@@ -396,10 +417,9 @@ public class FileAlterer
      * Adds the KDP field to one or more sweeps (if it is not already present)
      *
      * @param sweeps a Collection of FileSweep objects to process
-     * @return the number of bytes added to the file 
+     * @return the number of bytes added to the file
      */
-    public static int addKDP (final Collection<FileSweep> sweeps) throws Throwable
-    {
+    public static int addKDP(final Collection<FileSweep> sweeps) throws Throwable {
         int addedBytes = 0;
         for (final FileSweep currSweep : sweeps) { //each sweep
             if ((currSweep.paramD.field_flag & (1l << Moment.KDP.ordinal())) != 0) continue; //already present
@@ -417,7 +437,7 @@ public class FileAlterer
             currSweep.fieldScalings[Moment.KDP.ordinal()].factor = 255;
             currSweep.fieldScalings[Moment.KDP.ordinal()].scale = 20;
             currSweep.fieldScalings[Moment.KDP.ordinal()].bias = -64 * currSweep.fieldScalings[Moment.KDP.ordinal()].scale;
-            
+
             for (final FileRay curr : currSweep.data) { //each ray
                 addedBytes += (Moment.KDP.BYTE_SIZE * currSweep.paramD.ngates);
                 currSweep.paramD.sweep_bytes += (Moment.KDP.BYTE_SIZE * currSweep.paramD.ngates);
@@ -438,10 +458,9 @@ public class FileAlterer
      * Adds the RCOMP field to one or more sweeps (if it is not already present)
      *
      * @param sweeps a Collection of FileSweep objects to process
-     * @return the number of bytes added to the file 
+     * @return the number of bytes added to the file
      */
-    public static int addRCOMP (final Collection<FileSweep> sweeps) throws Throwable
-    {
+    public static int addRCOMP(final Collection<FileSweep> sweeps) throws Throwable {
         int addedBytes = 0;
         for (final FileSweep currSweep : sweeps) { //each sweep
             if ((currSweep.paramD.field_flag & (1l << Moment.RCOMP.ordinal())) != 0) continue; //already present
@@ -477,8 +496,7 @@ public class FileAlterer
         return addedBytes;
     }
 
-    public static void main (final String[] args) throws Throwable
-    {
+    public static void main(final String[] args) throws Throwable {
         File in, out;
         JFrame top = GUIUtil.startGUI("Java VCHILL Data File Modifier");
         System.out.println("This program will add the fields NCP+, KDP, HDR, and RCOMP to a CHILL format data file.");
@@ -498,7 +516,7 @@ public class FileAlterer
             if (returnVal != JFileChooser.APPROVE_OPTION) System.exit(1);
             out = chooser.getSelectedFile();
         } else {
-            in  = new File(args[0]);
+            in = new File(args[0]);
             out = new File(args[1]);
         }
         Thread.sleep(250);

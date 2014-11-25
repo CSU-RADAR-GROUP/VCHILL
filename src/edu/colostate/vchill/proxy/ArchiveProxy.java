@@ -6,6 +6,7 @@ import edu.colostate.vchill.cache.CacheMainLRU;
 import edu.colostate.vchill.chill.ChillFieldInfo;
 import edu.colostate.vchill.gui.GUIUtil;
 import edu.colostate.vchill.socket.SocketArchCtl.Command;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,22 +22,24 @@ import java.util.ArrayList;
  * @author jpont
  * @version 2010-08-30
  */
-public final class ArchiveProxy extends Proxy
-{
-    /** list of ProxyControlThreads */
+public final class ArchiveProxy extends Proxy {
+    /**
+     * list of ProxyControlThreads
+     */
     private ArrayList<ProxyControlThread> controlThreads = new ArrayList<ProxyControlThread>();
 
-    /** private constructor prevents instantiation */
-    private ArchiveProxy () {}
+    /**
+     * private constructor prevents instantiation
+     */
+    private ArchiveProxy() {
+    }
 
-    public static void main (final String[] args) throws IOException
-    {
+    public static void main(final String[] args) throws IOException {
         new ArchiveProxy().parseCommandLineArguments(args).run();
         System.exit(0);
     }
 
-    public void run () throws IOException
-    {
+    public void run() throws IOException {
         if (guiflag) GUIUtil.startGUI("Java VCHILL Archive Proxy Server"); //gui requested
 
         // instantiate cache
@@ -64,7 +67,7 @@ public final class ArchiveProxy extends Proxy
                     System.out.println("Proxy server NOT shutting down");
                 }
             } else if (fromSocket == ChillDefines.HELLO) {
-                fromSocket = in .readInt(); //channel
+                fromSocket = in.readInt(); //channel
                 if (fromSocket == Channel.ARCH_CTL.ordinal()) {
                     System.out.println("Proxy: Control socket request identified from " + socket.getInetAddress().getHostName());
                     ProxyControlThread controlThread = new ProxyControlThread(socket, this);
@@ -101,28 +104,39 @@ public final class ArchiveProxy extends Proxy
      * @param args The command line arguments as passed to main
      * @return this object; useful for chaining this method into creation
      */
-    private ArchiveProxy parseCommandLineArguments (final String[] args)
-    {
+    private ArchiveProxy parseCommandLineArguments(final String[] args) {
         //parse commandline arguments
         if (args.length % 2 != 0) die();
         for (int i = 0; i < args.length; i += 2) {
             if (args[i].equals("-server") || args[i].equals("-s")) {
                 serverName = args[i + 1];
             } else if (args[i].equals("-serverport") || args[i].equals("-sp")) {
-                try { serverPort = Integer.parseInt(args[i + 1]); }
-                catch (NumberFormatException e) { die(); }
+                try {
+                    serverPort = Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    die();
+                }
                 if (serverPort < 1 || serverPort > 65535) die();
             } else if (args[i].equals("-listenport") || args[i].equals("-lp")) {
-                try { listenPort = Integer.parseInt(args[i + 1]); }
-                catch (NumberFormatException e) { die(); }
+                try {
+                    listenPort = Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    die();
+                }
                 if (listenPort < 1 || listenPort > 65535) die();
             } else if (args[i].equals("-timeout") || args[i].equals("-t") || args[i].equals("-to")) {
-                try { timeout = 60000l * Integer.parseInt(args[i + 1]); }
-                catch (NumberFormatException e) { die(); }
+                try {
+                    timeout = 60000l * Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    die();
+                }
                 if (timeout < 0) die();
             } else if (args[i].equals("-cachesize") || args[i].equals("-cs")) {
-                try { cacheSize = ChillFieldInfo.types.length * Integer.parseInt(args[i + 1]); }
-                catch (NumberFormatException e) { die(); }
+                try {
+                    cacheSize = ChillFieldInfo.types.length * Integer.parseInt(args[i + 1]);
+                } catch (NumberFormatException e) {
+                    die();
+                }
                 if (cacheSize < 0) die();
             } else if (args[i].equals("-calculation") || args[i].equals("-c")) {
                 if (args[i + 1].equals("on")) {
@@ -153,8 +167,7 @@ public final class ArchiveProxy extends Proxy
     /**
      * Looks at list of control threads and removes inactive ones from the list.
      */
-    private void removeDead ()
-    {
+    private void removeDead() {
         for (int i = controlThreads.size() - 1; i > 0; i--) {
             if (!(controlThreads.get(i)).isAlive()) {
                 System.out.println("Proxy: Removing dead thread");
@@ -166,11 +179,10 @@ public final class ArchiveProxy extends Proxy
     /**
      * Prints usage message and exits.
      */
-    private static void die ()
-    {
+    private static void die() {
         System.err.println("Usage: java Proxy [-server name] [-serverport port] [-listenport port]");
-        System.err.println("    [-timeout minutes] [-cachesize numsweeps] [-calculation on|off]"); 
-        System.err.println("    [-password pwd] [-gui on|off]"); 
+        System.err.println("    [-timeout minutes] [-cachesize numsweeps] [-calculation on|off]");
+        System.err.println("    [-password pwd] [-gui on|off]");
         System.err.println("Defaults: radar.chill.colostate.edu 2510 2510 60 20 on secret");
         System.err.println("server: what server the proxy should connect to");
         System.err.println("serverport: what port the proxy should connect to");

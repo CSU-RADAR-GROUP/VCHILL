@@ -1,29 +1,34 @@
 package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 /**
- * Sent each time the transmitter monitoring power meters are read 
+ * Sent each time the transmitter monitoring power meters are read
  *
  * @author Jochen Deyke
  * @version 2006-08-10
  */
-public class ChillPowerUpdate extends ChillHeader
-{
-    /** H peak power in dBm assuming a rectangular pulse */
-	public float h_power_dbm;
-    /** V peak power in dBm assuming a rectangular pulse */
-	public float v_power_dbm;
+public class ChillPowerUpdate extends ChillHeader {
+    /**
+     * H peak power in dBm assuming a rectangular pulse
+     */
+    public float h_power_dbm;
+    /**
+     * V peak power in dBm assuming a rectangular pulse
+     */
+    public float v_power_dbm;
 
-    /** size (in bytes) of this header (including ChillHeaderHeader, but not including extraData) */
+    /**
+     * size (in bytes) of this header (including ChillHeaderHeader, but not including extraData)
+     */
     public static final int BYTE_SIZE = ChillHeaderHeader.BYTE_SIZE +
-        2 * ChillDefines.FLOAT_BYTE_SIZE;
+            2 * ChillDefines.FLOAT_BYTE_SIZE;
 
-    public ChillPowerUpdate ()
-    {
+    public ChillPowerUpdate() {
         super(new ChillHeaderHeader(ChillDefines.GEN_MOM_DATA, BYTE_SIZE));
         super.extraData = new byte[0];
     }
@@ -33,8 +38,7 @@ public class ChillPowerUpdate extends ChillHeader
      *
      * @param in the DataInput to read initialization values from
      */
-    public ChillPowerUpdate (final DataInput in, final ChillHeaderHeader header) throws IOException
-    {
+    public ChillPowerUpdate(final DataInput in, final ChillHeaderHeader header) throws IOException {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_PWR_UPDATE;
         assert header.headerLength - ChillPowerUpdate.BYTE_SIZE >= 0;
@@ -48,8 +52,7 @@ public class ChillPowerUpdate extends ChillHeader
      *
      * @param out the DataOutput to write values to
      */
-    public void write (final DataOutput out) throws IOException
-    {
+    public void write(final DataOutput out) throws IOException {
         assert header.recordType == ChillDefines.HSK_ID_PWR_UPDATE;
         assert header.headerLength == ChillPowerUpdate.BYTE_SIZE + extraData.length;
         super.header.write(out);

@@ -8,25 +8,26 @@ import java.nio.ByteBuffer;
 
 /**
  * Class for dsp_data_mask structure
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class dsp_data_mask {
-    
+
     private long mask_word_0;
     private long mask_word_1;
     private long mask_word_2;
     private long mask_word_3;
     private long mask_word_4;
     private long extended_header_type;
-    
-    dsp_data_mask(ByteBuffer in_buf){
-        
-        mask_word_0=UtilityClass.UINT4_to_long(in_buf.getInt());
-        extended_header_type=UtilityClass.UINT4_to_long(in_buf.getInt());
-        mask_word_1=UtilityClass.UINT4_to_long(in_buf.getInt());
-        mask_word_2=UtilityClass.UINT4_to_long(in_buf.getInt());
-        mask_word_3=UtilityClass.UINT4_to_long(in_buf.getInt());
-        mask_word_4=UtilityClass.UINT4_to_long(in_buf.getInt());
+
+    dsp_data_mask(ByteBuffer in_buf) {
+
+        mask_word_0 = UtilityClass.UINT4_to_long(in_buf.getInt());
+        extended_header_type = UtilityClass.UINT4_to_long(in_buf.getInt());
+        mask_word_1 = UtilityClass.UINT4_to_long(in_buf.getInt());
+        mask_word_2 = UtilityClass.UINT4_to_long(in_buf.getInt());
+        mask_word_3 = UtilityClass.UINT4_to_long(in_buf.getInt());
+        mask_word_4 = UtilityClass.UINT4_to_long(in_buf.getInt());
     }
 
     /**
@@ -112,5 +113,5 @@ public class dsp_data_mask {
     public void setExtended_header_type(long extended_header_type) {
         this.extended_header_type = extended_header_type;
     }
-    
+
 }

@@ -5,29 +5,31 @@
 package edu.colostate.vchill.iris;
 
 import java.nio.ByteBuffer;
+
 /**
  * Class to represent the structure header struct
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class structure_header {
-    
+
     private short structure_identifier;
     private short format_version;
     private int bytes_in_struct;
     short resint2;
     private short flags;
-    
-    public structure_header(ByteBuffer in_buf){
-     try{
-        structure_identifier=in_buf.getShort();
-        format_version=in_buf.getShort();
-        bytes_in_struct=in_buf.getInt();
-        resint2=in_buf.getShort();
-        flags=in_buf.getShort();
-     }catch(Exception e){
-         System.err.println("Exception e:"+e);
-     }
-    
+
+    public structure_header(ByteBuffer in_buf) {
+        try {
+            structure_identifier = in_buf.getShort();
+            format_version = in_buf.getShort();
+            bytes_in_struct = in_buf.getInt();
+            resint2 = in_buf.getShort();
+            flags = in_buf.getShort();
+        } catch (Exception e) {
+            System.err.println("Exception e:" + e);
+        }
+
     }
 
     /**
@@ -85,5 +87,5 @@ public class structure_header {
     public void setFlags(short flags) {
         this.flags = flags;
     }
-    
+
 }

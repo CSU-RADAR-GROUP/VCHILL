@@ -4,14 +4,11 @@
  */
 package edu.colostate.vchill.iris;
 
-import java.io.FileInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 
 /**
  * Driver class for Sigmet Product Raw file conversion to Casa NetCDF
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  * @version 8-12-11
  */
@@ -28,11 +25,11 @@ public class Iris2NetCDF {
 
     /**
      * Main function for program
-     * @param Input Filename
+     *
+     * @param Input  Filename
      * @param Output Filename
      */
     public static void main(String[] args) {
-
 
 
         if (args.length == 2) {

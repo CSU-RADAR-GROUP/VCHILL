@@ -5,17 +5,17 @@ import edu.colostate.vchill.gui.ViewWindowFactory;
 /**
  * Factory for creating ViewPlotWindow objects
  *
- * @author  Justin Carlson
- * @author  Jochen Deyke
- * @created April 25, 2003
+ * @author Justin Carlson
+ * @author Jochen Deyke
  * @version 2006-08-30
+ * @created April 25, 2003
  */
-public class ViewPlotWindowFactory extends ViewWindowFactory
-{
+public class ViewPlotWindowFactory extends ViewWindowFactory {
     /**
      * Constructor for the ViewPlotWindowFactory object
      */
-    public ViewPlotWindowFactory () {}
+    public ViewPlotWindowFactory() {
+    }
 
     /**
      * This method is far to complex and most of its setup should in
@@ -26,10 +26,9 @@ public class ViewPlotWindowFactory extends ViewWindowFactory
      * @param type The initial data type the new window will show
      * @return The new plot window
      */
-    public ViewPlotWindow createWindow (final String type)
-    {
+    public ViewPlotWindow createWindow(final String type) {
         ViewPlotWindow win = new ViewPlotWindow(type);
-        
+
         //This is the mouse listener that is used to detect mouse clicks in
         //the user space.  It passes a reference to the window in order to
         //allow this module to remain pretty much totally independent of

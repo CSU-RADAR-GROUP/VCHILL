@@ -1,8 +1,8 @@
 package edu.colostate.vchill.gui;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  * A DefaultMutableTreeNode subclass for use by ViewFileBrowser.  In addition
@@ -16,28 +16,31 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * @author Jochen Deyke
  * @version 2007-03-15
  */
-public class FileTreeNode extends DefaultMutableTreeNode
-{
+public class FileTreeNode extends DefaultMutableTreeNode {
     /**
-   * 
-   */
-  private static final long serialVersionUID = 1931924465148378724L;
+     *
+     */
+    private static final long serialVersionUID = 1931924465148378724L;
 
     public static final String LOADING = "Loading...";
 
-    /** Has the node been completely expanded? */
+    /**
+     * Has the node been completely expanded?
+     */
     public boolean complete;
 
-    /** Should the node be rendered differently? */
+    /**
+     * Should the node be rendered differently?
+     */
     public boolean special;
 
     /**
      * Constructor.  Gets a string, assumes the node has not yet been
      * completely expanded and is not special.
      *
-     * @param userObject name of node 
+     * @param userObject name of node
      */
-    public FileTreeNode (final String userObject) {
+    public FileTreeNode(final String userObject) {
         super(userObject);
         this.complete = false;
         this.special = false;
@@ -47,18 +50,17 @@ public class FileTreeNode extends DefaultMutableTreeNode
      * Constructor.  Gets a string, assumes the node has not yet been
      * completely expanded.
      *
-     * @param userObject name of node 
-     * @param special if the node should be made bold or not
+     * @param userObject name of node
+     * @param special    if the node should be made bold or not
      */
-    public FileTreeNode (final String userObject, final boolean special) {
+    public FileTreeNode(final String userObject, final boolean special) {
         super(userObject);
         this.complete = false;
         this.special = special;
     }
 
-    public String toString ()
-    {
-        String userObject = (String)this.getUserObject();
+    public String toString() {
+        String userObject = (String) this.getUserObject();
         //int lastSpace = userObject.lastIndexOf(" ");
         //if (lastSpace > -1) userObject = userObject.substring(0, lastSpace); //trim DIR, PPI, RHI, etc
         int lastSlash = -1;
@@ -68,8 +70,10 @@ public class FileTreeNode extends DefaultMutableTreeNode
             lastSlash = userObject.lastIndexOf("/");
         }
         if (lastSlash > -1) userObject = userObject.substring(lastSlash + 1); //don't include lastSlash
-        try { userObject = URLDecoder.decode(userObject, "UTF-8"); }
-        catch (UnsupportedEncodingException uee) {}
+        try {
+            userObject = URLDecoder.decode(userObject, "UTF-8");
+        } catch (UnsupportedEncodingException uee) {
+        }
         return userObject;
     }
 }

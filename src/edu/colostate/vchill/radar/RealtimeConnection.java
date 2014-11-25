@@ -1,11 +1,7 @@
 package edu.colostate.vchill.radar;
 
-import edu.colostate.vchill.ChillDefines;
+import edu.colostate.vchill.*;
 import edu.colostate.vchill.ChillDefines.Channel;
-import edu.colostate.vchill.Config;
-import edu.colostate.vchill.ControlMessage;
-import edu.colostate.vchill.LocationManager;
-import edu.colostate.vchill.ViewControl;
 import edu.colostate.vchill.cache.CacheMainCyclic;
 import edu.colostate.vchill.chill.ChillDataHeader;
 import edu.colostate.vchill.chill.ChillGenRay;
@@ -13,12 +9,9 @@ import edu.colostate.vchill.chill.ChillHeaderReader;
 import edu.colostate.vchill.connection.Connection;
 import edu.colostate.vchill.gui.WindowManager;
 import edu.colostate.vchill.plot.ViewPlotWindow;
-import java.awt.EventQueue;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+
+import java.awt.*;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
@@ -37,8 +30,7 @@ import java.util.TimeZone;
  * @author jpont
  * @version 2010-08-30
  */
-public final class RealtimeConnection extends Connection
-{
+public final class RealtimeConnection extends Connection {
     private static final WindowManager wm = WindowManager.getInstance();
     private static final LocationManager lm = LocationManager.getInstance();
     private static final ViewControl vc = ViewControl.getInstance();
@@ -48,15 +40,15 @@ public final class RealtimeConnection extends Connection
     private final ControlMessage metaCommand;
     private final String server;
     private final int port;
-	private CacheThread cacheThread;
-	private Thread prefetch;
+    private CacheThread cacheThread;
+    private Thread prefetch;
 
     /**
-     * Constructor for the RealtimeConnection object 
+     * Constructor for the RealtimeConnection object
+     *
      * @param url server:port to connect to
      */
-    public RealtimeConnection (final String url) throws IOException
-    {
+    public RealtimeConnection(final String url) throws IOException {
         super(new CacheMainCyclic(BUFFER_SIZE));
         this.df.setTimeZone(TimeZone.getTimeZone("UTC"));
         this.metaCommand = new ControlMessage(url, ChillDefines.REALTIME_DIR, ChillDefines.REALTIME_FILE, ChillDefines.REALTIME_SWEEP);
@@ -68,79 +60,78 @@ public final class RealtimeConnection extends Connection
         assert vc != null;
     }
 
-    @Override public Collection<String> getDirectory (final ControlMessage key) throws IOException
-    {
+    @Override
+    public Collection<String> getDirectory(final ControlMessage key) throws IOException {
         Collection<String> tmp = new ArrayList<String>(1);
         tmp.add(ChillDefines.REALTIME_FILE);
         return tmp;
     }
 
-    @Override public Collection<String> getSweepList (final ControlMessage key) throws IOException
-    {
+    @Override
+    public Collection<String> getSweepList(final ControlMessage key) throws IOException {
         Collection<String> tmp = new ArrayList<String>(1);
         tmp.add(ChillDefines.REALTIME_SWEEP);
         return tmp;
     }
 
-    @Override public Object getRay (final ControlMessage key, final String type, final int index)
-    {
+    @Override
+    public Object getRay(final ControlMessage key, final String type, final int index) {
         return cache.getData(key, type, index);
     }
 
-    @Override public Object getRayWait (final ControlMessage key, final String type, final int index)
-    {
+    @Override
+    public Object getRayWait(final ControlMessage key, final String type, final int index) {
         return cache.getData(key, type, index);
     }
 
-    @Override public void connect () throws IOException
-    {
-	cacheThread = new CacheThread();
-	cacheThread.connect();
+    @Override
+    public void connect() throws IOException {
+        cacheThread = new CacheThread();
+        cacheThread.connect();
         prefetch = new Thread(cacheThread, "RealtimeConnection.CacheThread");
         prefetch.setDaemon(true);
         prefetch.setPriority(Thread.NORM_PRIORITY);
         prefetch.start();
-	super.connect();
-	config.setRealtimeModeEnabled(true);
-	config.setDefaultRealtimeName(this.server + ":" + this.port);
-	config.setLastConnectionType(Config.REALTIME_CONN);
+        super.connect();
+        config.setRealtimeModeEnabled(true);
+        config.setDefaultRealtimeName(this.server + ":" + this.port);
+        config.setLastConnectionType(Config.REALTIME_CONN);
     }
 
-    @Override public boolean disconnect () throws IOException
-    {
+    @Override
+    public boolean disconnect() throws IOException {
         this.stop();
-		while( prefetch.isAlive() ) { //Make sure the prefetch thread stops first
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException ie) {}
-		}
-		this.commands.stopped();
+        while (prefetch.isAlive()) { //Make sure the prefetch thread stops first
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ie) {
+            }
+        }
+        this.commands.stopped();
         super.disconnect();
         config.setRealtimeModeEnabled(false);
         vc.setCurrentURL(null);
         return true; //always remove from list
     }
 
-	/**
+    /**
      * Reconnects to this connection's server and port
      */
-    @Override public void reconnect () throws IOException
-    {
-		this.commands.clear();
-		cache.clear();
-		cacheThread.reconnect( 1000 );
+    @Override
+    public void reconnect() throws IOException {
+        this.commands.clear();
+        cache.clear();
+        cacheThread.reconnect(1000);
     }
- 
-    protected class CacheThread implements Runnable
-    {
+
+    protected class CacheThread implements Runnable {
         private Socket socket;
         private DataInputStream in;
         private DataOutputStream out;
         private ChillHeaderReader hr;
         private long lastTypeRequested;
 
-        public CacheThread ()
-        {
+        public CacheThread() {
             this.lastTypeRequested = -1;
             //this.connect();
         }
@@ -148,31 +139,33 @@ public final class RealtimeConnection extends Connection
         /**
          * Open a connection to the server
          */
-        protected void connect () throws IOException
-        {
+        protected void connect() throws IOException {
             while (!connected) {
                 System.out.println("RealtimeConnection: trying to connect to " + server + ":" + port);
                 try {
-		    this.socket = new Socket();
-		    this.socket.setSoTimeout(2500); //ms
-		    this.socket.connect( new InetSocketAddress(server, port), 2500 );
+                    this.socket = new Socket();
+                    this.socket.setSoTimeout(2500); //ms
+                    this.socket.connect(new InetSocketAddress(server, port), 2500);
                     this.in = new DataInputStream(new BufferedInputStream(this.socket.getInputStream()));
                     this.out = new DataOutputStream(new BufferedOutputStream(this.socket.getOutputStream()));
                     this.hr = new ChillHeaderReader(this.in, cache) {
-                        @Override public void hskHupdated () {
+                        @Override
+                        public void hskHupdated() {
                             lm.setLatitude(hskH.radarLatitude * 1e-6);
                             lm.setLongitude(hskH.radarLongitude * 1e-6);
                             wm.replotOverlay();
                         }
 
                         private int curr = 0; //current position in the buffer; used to plot data
-                        @Override public boolean readData (final ChillDataHeader dataH, final ControlMessage metaCommand) throws IOException {
+
+                        @Override
+                        public boolean readData(final ChillDataHeader dataH, final ControlMessage metaCommand) throws IOException {
                             ArrayList<String> types = dataH.calculateTypes();
                             byte[][] data = new byte[types.size()][dataH.numGates];
                             byte[] interleavedData = new byte[types.size() * dataH.numGates];
                             this.in.readFully(interleavedData);
                             for (int t = 0; t < types.size(); ++t) { //split data types
-								if( types.get(t) == null ) continue;
+                                if (types.get(t) == null) continue;
                                 for (int g = 0; g < dataH.numGates; ++g) {
                                     data[t][g] = interleavedData[types.size() * g + t];
                                 }
@@ -185,35 +178,56 @@ public final class RealtimeConnection extends Connection
                         }
 
                         private boolean saveArmed = false;
-                        @Override public void startNotice () {
+
+                        @Override
+                        public void startNotice() {
                             if (config.isSaveAllEnabled() || hskH.tiltNum == hskH.saveTilt) { //always save or webtilt
                                 if (config.isImageAutosaveEnabled() || config.isImageAutoExportEnabled()) { //save or export enabled
-                                    try { EventQueue.invokeAndWait(new Runnable() { public void run () {
-                                        wm.clearScreen();
-                                        for (ViewPlotWindow win : wm.getPlotList())
-                                        {
-                                            //clear any existing aircraft info from previous sweeps
-                                            win.clearAircraftInfo();
-                                        }
-                                        wm.setPlotting(true);
-                                    }}); } catch (Exception e) { throw new Error(e); }
+                                    try {
+                                        EventQueue.invokeAndWait(new Runnable() {
+                                            public void run() {
+                                                wm.clearScreen();
+                                                for (ViewPlotWindow win : wm.getPlotList()) {
+                                                    //clear any existing aircraft info from previous sweeps
+                                                    win.clearAircraftInfo();
+                                                }
+                                                wm.setPlotting(true);
+                                            }
+                                        });
+                                    } catch (Exception e) {
+                                        throw new Error(e);
+                                    }
                                     saveArmed = true;
                                 }
                             }
                         }
-                        @Override public void endNotice (final ControlMessage metaCommand) {
+
+                        @Override
+                        public void endNotice(final ControlMessage metaCommand) {
                             if (!saveArmed) return; //no matching start of sweep -> don't save
                             if (config.isSaveAllEnabled() || hskH.tiltNum == hskH.saveTilt) { //always save or webtilt
                                 final ControlMessage msg = metaCommand.setFile("realtime " + df.format(new Date())).setSweep("Sweep " + hskH.tiltNum);
                                 if (config.isImageAutosaveEnabled()) { //save enabled
-                                    try { EventQueue.invokeAndWait(new Runnable() { public void run () {
-                                        wm.savePlotImages(msg);
-                                    }}); } catch (Exception e) { throw new Error(e); }
+                                    try {
+                                        EventQueue.invokeAndWait(new Runnable() {
+                                            public void run() {
+                                                wm.savePlotImages(msg);
+                                            }
+                                        });
+                                    } catch (Exception e) {
+                                        throw new Error(e);
+                                    }
                                 }
                                 if (config.isImageAutoExportEnabled()) { //export enabled
-                                    try { EventQueue.invokeAndWait(new Runnable() { public void run () {
-                                        wm.export(msg);
-                                    }}); } catch (Exception e) { throw new Error(e); }
+                                    try {
+                                        EventQueue.invokeAndWait(new Runnable() {
+                                            public void run() {
+                                                wm.export(msg);
+                                            }
+                                        });
+                                    } catch (Exception e) {
+                                        throw new Error(e);
+                                    }
                                 }
                                 wm.setPlotting(false);
                                 saveArmed = false;
@@ -236,8 +250,7 @@ public final class RealtimeConnection extends Connection
         /**
          * Close the connection to the server
          */
-        private void disconnect ()
-        {
+        private void disconnect() {
             System.out.println("RealtimeConnection: trying to disconnect from " + server + ":" + port);
             try {
                 if (this.out != null) {
@@ -256,7 +269,7 @@ public final class RealtimeConnection extends Connection
                 throw new Error(e);
             } finally {
                 connected = false;
-				this.lastTypeRequested = -1;
+                this.lastTypeRequested = -1;
                 System.out.println("disconnected");
             }
         }
@@ -264,8 +277,7 @@ public final class RealtimeConnection extends Connection
         /**
          * Continually load data into the cache, processing new type and stop requests as they occur.
          */
-        public void run ()
-        {
+        public void run() {
             int timesWaited = 0;
             System.out.println("RealtimeConnection.CacheThread is running");
             while (true) {
@@ -305,31 +317,38 @@ public final class RealtimeConnection extends Connection
                     System.err.println("Caught a null pointer exception");
                     timesWaited = 0;
                     this.reconnect(0);
-                } catch (Exception e) { throw new Error(e); } //unknown (and therefore fatal) problem
+                } catch (Exception e) {
+                    throw new Error(e);
+                } //unknown (and therefore fatal) problem
             }
         }
 
-        private void reconnect (long sleepTime)
-        {
+        private void reconnect(long sleepTime) {
             this.disconnect();
             this.sleep(sleepTime); //don't overload the network with reconnection attempts
-            try { this.connect(); } catch (IOException ioe) { ioe.printStackTrace(); }
+            try {
+                this.connect();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
 
         /**
          * Utility method to keep InterruptedExcpetions out of normal code
          */
-        private void sleep (final long millis)
-        {
-            try { Thread.sleep(millis); } catch (InterruptedException ie) {}
+        private void sleep(final long millis) {
+            try {
+                Thread.sleep(millis);
+            } catch (InterruptedException ie) {
+            }
         }
 
         /**
          * Alert the server that we now want this type instead.
+         *
          * @param type the bitmask of the desired type(s)
          */
-        private void requestType (final long type) throws IOException
-        {
+        private void requestType(final long type) throws IOException {
             if (type == this.lastTypeRequested) return;
             this.out.writeLong(this.lastTypeRequested = type);
             this.out.flush();

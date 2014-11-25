@@ -1,29 +1,28 @@
 package edu.colostate.vchill.plot;
 
 import edu.colostate.vchill.color.Config;
-import java.awt.Color;
-import java.awt.Graphics;
+
+import javax.swing.*;
+import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import javax.swing.JPanel;
 
 /**
  * This class handles all the String plotting on the display.
  *
- * @author  Justin Carlson
- * @author  Jochen Deyke
- * @author  jpont
- * @created June 29, 2003
+ * @author Justin Carlson
+ * @author Jochen Deyke
+ * @author jpont
  * @version 2009-06-29
+ * @created June 29, 2003
  */
-public class ViewPlotInformation extends JPanel
-{
+public class ViewPlotInformation extends JPanel {
     /**
-   * 
-   */
-  private static final long serialVersionUID = 2332481734647612406L;
+     *
+     */
+    private static final long serialVersionUID = 2332481734647612406L;
     protected final static Config config = Config.getInstance();
     protected final SimpleDateFormat formatter;
     protected final static TimeZone utc = TimeZone.getTimeZone("UTC");
@@ -59,8 +58,7 @@ public class ViewPlotInformation extends JPanel
     /**
      * Constructor for the ViewPlotInformation object
      */
-    public ViewPlotInformation ()
-    {
+    public ViewPlotInformation() {
         this.formatter = new SimpleDateFormat();
         this.formatter.setTimeZone(utc);
         this.date = new Date();
@@ -71,14 +69,14 @@ public class ViewPlotInformation extends JPanel
      *
      * @param g Graphics reference to where the strings should be plotted.
      */
-    @Override public void paintComponent (final Graphics g)
-    {
+    @Override
+    public void paintComponent(final Graphics g) {
         //Paint the entire background Black.
         g.setColor(Color.BLACK);
         g.fillRect(0,
-                   0,
-                   getWidth(),
-                   getHeight());
+                0,
+                getWidth(),
+                getHeight());
 
         paintColorBar(g);
 
@@ -101,7 +99,7 @@ public class ViewPlotInformation extends JPanel
         //Plots the information dealing with the color to value data hashing intervals.
         drawLabels(g);
 
-        yAlignment = (getHeight() * 2) / 3 - (int)yStepSize;
+        yAlignment = (getHeight() * 2) / 3 - (int) yStepSize;
         yAlignment += getTextBlockSizeY();
 
         g.drawString(this.radarName, xAlignment, yAlignment);
@@ -140,8 +138,7 @@ public class ViewPlotInformation extends JPanel
      *
      * @param g Description of the Parameter
      */
-    private void paintColorBar (final Graphics g)
-    {
+    private void paintColorBar(final Graphics g) {
         if (this.colors == null) return;
 
         int xLocation = getWidth() / 5;
@@ -152,19 +149,19 @@ public class ViewPlotInformation extends JPanel
 
             g.fillRect(
                     xLocation, //start x
-                    (int)yLocation, //start y
+                    (int) yLocation, //start y
                     getBlockSizeX(), //width
-                    (int)getBlockSizeY() + 1//height
-                    );
+                    (int) getBlockSizeY() + 1//height
+            );
 
             if (config.isOutlineColorsEnabled()) {
                 g.setColor(Color.WHITE);
                 g.drawRect(
                         xLocation, //start x
-                        (int)yLocation, //start y
+                        (int) yLocation, //start y
                         getBlockSizeX(), //width
-                        (int)getBlockSizeY() + 1//height
-                        );
+                        (int) getBlockSizeY() + 1//height
+                );
             }
 
             //Increment y location of the bar in order to plot the next
@@ -178,89 +175,95 @@ public class ViewPlotInformation extends JPanel
      *
      * @param g Description of the Parameter
      */
-    private void drawLabels (final Graphics g)
-    {
-		if( this.annotationString == null )
-			return;
-		
+    private void drawLabels(final Graphics g) {
+        if (this.annotationString == null)
+            return;
+
         for (int i = 0; i < this.annotationString.size(); ++i) {
             g.drawString(this.annotationString.get(i),
-                getWidth() / 3,
-                (int)(i * this.getTextBlockSizeY() * 16 / (this.annotationString.size() - 1) + (getHeight() / 10.0)));
+                    getWidth() / 3,
+                    (int) (i * this.getTextBlockSizeY() * 16 / (this.annotationString.size() - 1) + (getHeight() / 10.0)));
         }
     }
 
-    private int getBlockSizeX ()
-    {
+    private int getBlockSizeX() {
         return getWidth() / 10;
     }
 
-    private double getBlockSizeY ()
-    {
-		if( this.colors != null )
-			return getHeight() * 16 / 30.0 / this.colors.size();
-		else
-			return getHeight() * 16 / 30.0 / 16; //assume a default of 16 colors
+    private double getBlockSizeY() {
+        if (this.colors != null)
+            return getHeight() * 16 / 30.0 / this.colors.size();
+        else
+            return getHeight() * 16 / 30.0 / 16; //assume a default of 16 colors
     }
 
-    private double getTextBlockSizeY ()
-    {
+    private double getTextBlockSizeY() {
         return getHeight() / 30.0;
     }
 
     /**
      * @param colors A non-null list of colors.  Must have &gt;0 entries.
      */
-    public void setColors (final List<Color> colors)
-    {
+    public void setColors(final List<Color> colors) {
         this.colors = colors;
     }
 
-    public void setRadarName (final String radarName) {
-        this.radarName = "Radar : " + radarName; }
+    public void setRadarName(final String radarName) {
+        this.radarName = "Radar : " + radarName;
+    }
 
-    public void setGateInfo (final String gateInfo) {
-        this.gateInfo = "Gates : " + gateInfo; }
+    public void setGateInfo(final String gateInfo) {
+        this.gateInfo = "Gates : " + gateInfo;
+    }
 
-    public void setType (final String plotType) {
-        this.plotType = "Plot Type : " + plotType; }
+    public void setType(final String plotType) {
+        this.plotType = "Plot Type : " + plotType;
+    }
 
-    public void setDataKey (final String fieldName) {
-        this.fieldName = fieldName; }
+    public void setDataKey(final String fieldName) {
+        this.fieldName = fieldName;
+    }
 
-    public void setAnnotationString (final List<String> values) {
-        this.annotationString = values; }
+    public void setAnnotationString(final List<String> values) {
+        this.annotationString = values;
+    }
 
-    public void setAzimuth (final String azimuth) {
-        this.azimuth = "Azimuth : " + azimuth + "\u00b0"; }
+    public void setAzimuth(final String azimuth) {
+        this.azimuth = "Azimuth : " + azimuth + "\u00b0";
+    }
 
-    public void setClickElevation (final String elevation) {
-        this.elevationAtLocation = "Elevation : " + elevation + "\u00b0"; }
+    public void setClickElevation(final String elevation) {
+        this.elevationAtLocation = "Elevation : " + elevation + "\u00b0";
+    }
 
-    public void setClickAzimuth (final String azimuth) {
-        this.azimuthAtLocation = "Azimuth : " + azimuth + "\u00b0"; }
+    public void setClickAzimuth(final String azimuth) {
+        this.azimuthAtLocation = "Azimuth : " + azimuth + "\u00b0";
+    }
 
-    public void setClickRange (final String range) {
-        this.rangeAtLocation = "Range : " + range + "km"; }
+    public void setClickRange(final String range) {
+        this.rangeAtLocation = "Range : " + range + "km";
+    }
 
-    public void setClickHeight (final String km, final String kft) {
-        this.heightAtLocation = "Height : " + km + "km (" + kft + "kft)"; }
+    public void setClickHeight(final String km, final String kft) {
+        this.heightAtLocation = "Height : " + km + "km (" + kft + "kft)";
+    }
 
-    public void setDataInfo (final String data) {
-        this.dataAtLocation = "Value : " + data; }
+    public void setDataInfo(final String data) {
+        this.dataAtLocation = "Value : " + data;
+    }
 
-    public void setElevation (final String elevation) {
-        this.elevation = "Elevation : " + elevation + "\u00b0"; }
+    public void setElevation(final String elevation) {
+        this.elevation = "Elevation : " + elevation + "\u00b0";
+    }
 
     /**
      * @param time milliseconds since 1970
      */
-    public void setDateAndTime (final long time)
-    {
+    public void setDateAndTime(final long time) {
         this.date.setTime(time);
         this.formatter.applyPattern("EEE d MMM yy");
-        this.dateStr  = "Date : " + this.formatter.format(date);
+        this.dateStr = "Date : " + this.formatter.format(date);
         this.formatter.applyPattern("HH:mm:ss 'UTC'");
-        this.timeStr  = "Time : " + this.formatter.format(date);
+        this.timeStr = "Time : " + this.formatter.format(date);
     }
 }

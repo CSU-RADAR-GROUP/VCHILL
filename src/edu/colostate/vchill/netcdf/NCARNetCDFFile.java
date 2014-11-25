@@ -4,20 +4,17 @@ import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.ControlMessage;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.cache.CacheMain;
-import edu.colostate.vchill.chill.ChillDataHeader;
-import edu.colostate.vchill.chill.ChillFieldInfo;
-import edu.colostate.vchill.chill.ChillHSKHeader;
-import edu.colostate.vchill.chill.ChillGenRay;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
+import edu.colostate.vchill.chill.*;
 import edu.colostate.vchill.file.FileFunctions;
 import edu.colostate.vchill.file.FileFunctions.Moment;
-import java.io.IOException;
 import ucar.ma2.Array;
 import ucar.ma2.Index;
 import ucar.nc2.Attribute;
 import ucar.nc2.Dimension;
 import ucar.nc2.NetcdfFile;
 import ucar.nc2.Variable;
+
+import java.io.IOException;
 
 /**
  * Class for reading NCAR NetCDF archive files
@@ -26,8 +23,7 @@ import ucar.nc2.Variable;
  * @author jpont
  * @version 2010-08-30
  */
-public class NCARNetCDFFile
-{
+public class NCARNetCDFFile {
     private static final ScaleManager sm = ScaleManager.getInstance();
 
     public static final ChillFieldInfo AVG_I = new ChillFieldInfo("AVG_I", "average inphase measurement", 1, 32767, -32768, 0, 0);
@@ -43,16 +39,15 @@ public class NCARNetCDFFile
     public static final ChillFieldInfo N = new ChillFieldInfo("N", "N", 37, 50000, 10000, 0, 0); //fix long name
     public static final ChillFieldInfo SIGMA_DN = new ChillFieldInfo("SIGMA_DN", "SIGMA_DN", 38, 3000, 0, 0, 0); //fix long name
     public static final ChillFieldInfo SIGMA_N = new ChillFieldInfo("SIGMA_N", "SIGMA_N", 39, 3000, 0, 0, 0); //fix long name
-    private static final ChillFieldInfo[] types = new ChillFieldInfo[] {
-        AVG_I, AVG_Q, DBZ, VE, SW, NCP, DM, AIQ, NIQ, DELTA_N, N, SIGMA_DN, SIGMA_N,
+    private static final ChillFieldInfo[] types = new ChillFieldInfo[]{
+            AVG_I, AVG_Q, DBZ, VE, SW, NCP, DM, AIQ, NIQ, DELTA_N, N, SIGMA_DN, SIGMA_N,
     };
 
-    public static void load (final ControlMessage command, final CacheMain cache) throws IOException
-    {
+    public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
         String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
         NetcdfFile ncFile = NetcdfFile.open(path);
         Dimension radial = ncFile.hasUnlimitedDimension() ?
-            ncFile.getUnlimitedDimension() : ncFile.getRootGroup().findDimension("Time");
+                ncFile.getUnlimitedDimension() : ncFile.getRootGroup().findDimension("Time");
         Dimension gate = ncFile.getRootGroup().findDimension("maxCells");
 
         ChillMomentFieldScale[] types = null;
@@ -71,7 +66,7 @@ public class NCARNetCDFFile
                 sm.putScale(types[i]);
             }
         } else {
-            char[][] fieldnames = (char[][])fields.read().copyToNDJavaArray();
+            char[][] fieldnames = (char[][]) fields.read().copyToNDJavaArray();
             types = new ChillMomentFieldScale[fieldnames.length];
             for (int fieldI = 0; fieldI < fieldnames.length; ++fieldI) {
                 String name = new String(fieldnames[fieldI]);
@@ -83,7 +78,7 @@ public class NCARNetCDFFile
                 String description = field.getDescription();
 //System.out.println("  is " + description);
                 //String units =  field.findAttribute("units").getStringValue().trim();
-                String units =  field.getUnitsString();
+                String units = field.getUnitsString();
 //System.out.println("  in " + units);
                 ChillFieldInfo info = new ChillFieldInfo(name, description, fieldI, 32767, -32768, 0, 0);
                 types[fieldI] = new ChillMomentFieldScale(info, -1, units, 100, 1, 0);
@@ -92,12 +87,12 @@ public class NCARNetCDFFile
             }
         }
 
-        Array azimuth     = ncFile.findVariable("Azimuth").read();
-        Array elevation   = ncFile.findVariable("Elevation").read();
-        int baseTime      = ncFile.findVariable("base_time").readScalarInt();
-        Array time        = ncFile.findVariable("time_offset").read();
+        Array azimuth = ncFile.findVariable("Azimuth").read();
+        Array elevation = ncFile.findVariable("Elevation").read();
+        int baseTime = ncFile.findVariable("base_time").readScalarInt();
+        Array time = ncFile.findVariable("time_offset").read();
         //Array timenSec    = ncFile.findVariable("TimenSec").read();
-        int startRange = (int)(1e3 * ncFile.findVariable("Range_to_First_Cell").readScalarFloat());
+        int startRange = (int) (1e3 * ncFile.findVariable("Range_to_First_Cell").readScalarFloat());
 
         Array[] data = new Array[types.length];
         double[] missing = new double[types.length];
@@ -120,23 +115,23 @@ public class NCARNetCDFFile
 
         ChillHSKHeader hskH = new ChillHSKHeader();
         if (ncFile.findGlobalAttribute("Scan_Mode").getStringValue().equals("RHI")) hskH.antMode = 1;
-        hskH.radarLatitude = (int)(1e6 * ncFile.findVariable("Latitude").readScalarDouble());
-        hskH.radarLongitude = (int)(1e6 * ncFile.findVariable("Longitude").readScalarDouble());
-        hskH.gateWidth = (int)(1e3 * ncFile.findVariable("Cell_Spacing").readScalarFloat());
+        hskH.radarLatitude = (int) (1e6 * ncFile.findVariable("Latitude").readScalarDouble());
+        hskH.radarLongitude = (int) (1e6 * ncFile.findVariable("Longitude").readScalarDouble());
+        hskH.gateWidth = (int) (1e3 * ncFile.findVariable("Cell_Spacing").readScalarFloat());
         hskH.radarId = ncFile.findGlobalAttribute("Instrument_Name").getStringValue();
         hskH.angleScale = 0x7fffffff;
         cache.addRay(command, ChillDefines.META_TYPE, hskH);
-        for (int radialI = 0 ; radialI < radial.getLength(); ++radialI) {
+        for (int radialI = 0; radialI < radial.getLength(); ++radialI) {
             ChillDataHeader dataH = new ChillDataHeader();
             Index i1 = azimuth.getIndex().set(radialI);
             dataH.availableData = availableData;
-            dataH.startAz = dataH.endAz = (int)(azimuth.getDouble(i1) / 360 * hskH.angleScale);
-            dataH.startEl = dataH.endEl = (int)(elevation.getDouble(i1) / 360 * hskH.angleScale);
+            dataH.startAz = dataH.endAz = (int) (azimuth.getDouble(i1) / 360 * hskH.angleScale);
+            dataH.startEl = dataH.endEl = (int) (elevation.getDouble(i1) / 360 * hskH.angleScale);
             dataH.numGates = gate.getLength();
             dataH.startRange = startRange;
             double t = time.getDouble(i1);
             dataH.dataTime = baseTime + (long) t;
-            dataH.fractionalSecs = (int)((t - (long) t) * 1e9);
+            dataH.fractionalSecs = (int) ((t - (long) t) * 1e9);
             cache.addRay(command, ChillDefines.META_TYPE, dataH);
             for (int typeI = 0; typeI < types.length; ++typeI) {
                 if (data[typeI] == null) continue;

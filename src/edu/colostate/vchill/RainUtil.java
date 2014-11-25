@@ -9,15 +9,16 @@ import edu.colostate.vchill.chill.ChillMomentFieldScale;
  * @author Jochen Deyke
  * @version 2006-03-15
  */
-public class RainUtil
-{
+public class RainUtil {
     public static final ChillMomentFieldScale scale = new ChillMomentFieldScale(ChillFieldInfo.RCOMP, java.awt.event.KeyEvent.VK_C, "mm/h", 1, 1, 0);
 
-    /** private default constructor prevents instantiation */
-    private RainUtil () {}
+    /**
+     * private default constructor prevents instantiation
+     */
+    private RainUtil() {
+    }
 
-    public static double[] calculateRK40 (final double[] dataKDP)
-    {
+    public static double[] calculateRK40(final double[] dataKDP) {
         double[] dataRK40 = new double[dataKDP.length];
 
         for (int gate = 0; gate < dataKDP.length; ++gate) {
@@ -27,8 +28,7 @@ public class RainUtil
         return dataRK40;
     }
 
-    public static double[] calculateRK50 (final double[] dataKDP)
-    {
+    public static double[] calculateRK50(final double[] dataKDP) {
         double[] dataRK50 = new double[dataKDP.length];
 
         for (int gate = 0; gate < dataKDP.length; ++gate) {
@@ -38,8 +38,7 @@ public class RainUtil
         return dataRK50;
     }
 
-    public static double[] calculateRKZdr (final double[] dataKDP, final double[] dataZDR)
-    {
+    public static double[] calculateRKZdr(final double[] dataKDP, final double[] dataZDR) {
         double[] dataRKZdr = new double[dataKDP.length];
 
         for (int gate = 0; gate < dataKDP.length; ++gate) {
@@ -49,8 +48,7 @@ public class RainUtil
         return dataRKZdr;
     }
 
-    public static double[] calculateRZZdr (final double[] dataZ, final double[] dataZDR)
-    {
+    public static double[] calculateRZZdr(final double[] dataZ, final double[] dataZDR) {
         double[] dataRZZdr = new double[dataZ.length];
 
         for (int gate = 0; gate < dataZ.length; ++gate) {
@@ -61,8 +59,7 @@ public class RainUtil
         return dataRZZdr;
     }
 
-    public static double[] calculateRZ (final double[] dataZ)
-    {
+    public static double[] calculateRZ(final double[] dataZ) {
         double[] dataRZ = new double[dataZ.length];
 
         for (int gate = 0; gate < dataZ.length; ++gate) {
@@ -75,8 +72,7 @@ public class RainUtil
         return dataRZ;
     }
 
-    public static double[] calculateCompositeRain (final double[] kdp, final double[] dbz, final double[] zdr)
-    {
+    public static double[] calculateCompositeRain(final double[] kdp, final double[] dbz, final double[] zdr) {
         double[] rk40 = RainUtil.calculateRK40(kdp);
         double[] rk50 = RainUtil.calculateRK50(kdp);
         double[] rkzdr = RainUtil.calculateRKZdr(kdp, zdr);
@@ -93,23 +89,39 @@ public class RainUtil
             count += 2;
             double avg = sum / count;
             double stdDev = Math.sqrt((
-                kdp[i] > kdpThresh ? (
-                    Math.pow(rk40[i] - avg, 2) +
-                    Math.pow(rk50[i] - avg, 2) +
-                    Math.pow(rkzdr[i] - avg, 2)
-                ) : 0 +
-                Math.pow(rzzdr[i] - avg, 2) +
-                Math.pow(rz[i] - avg, 2)) / count);
-            sum = 0; count = 0;
+                    kdp[i] > kdpThresh ? (
+                            Math.pow(rk40[i] - avg, 2) +
+                                    Math.pow(rk50[i] - avg, 2) +
+                                    Math.pow(rkzdr[i] - avg, 2)
+                    ) : 0 +
+                            Math.pow(rzzdr[i] - avg, 2) +
+                            Math.pow(rz[i] - avg, 2)) / count);
+            sum = 0;
+            count = 0;
             if (kdp[i] > kdpThresh) {
-                if (Math.abs(rk40[i]  - avg) < 1.5 * stdDev) { sum += rk40[i];  ++count; }
-                if (Math.abs(rk50[i]  - avg) < 1.5 * stdDev) { sum += rk50[i];  ++count; }
-                if (Math.abs(rkzdr[i] - avg) < 1.5 * stdDev) { sum += rkzdr[i]; ++count; }
+                if (Math.abs(rk40[i] - avg) < 1.5 * stdDev) {
+                    sum += rk40[i];
+                    ++count;
+                }
+                if (Math.abs(rk50[i] - avg) < 1.5 * stdDev) {
+                    sum += rk50[i];
+                    ++count;
+                }
+                if (Math.abs(rkzdr[i] - avg) < 1.5 * stdDev) {
+                    sum += rkzdr[i];
+                    ++count;
+                }
             }
-            if (Math.abs(rzzdr[i] - avg) < 1.5 * stdDev) { sum += rzzdr[i]; ++count; }
-            if (Math.abs(rz[i]    - avg) < 1.5 * stdDev) { sum += rz[i];    ++count; }
+            if (Math.abs(rzzdr[i] - avg) < 1.5 * stdDev) {
+                sum += rzzdr[i];
+                ++count;
+            }
+            if (Math.abs(rz[i] - avg) < 1.5 * stdDev) {
+                sum += rz[i];
+                ++count;
+            }
             //if (i % 100 == 0) System.out.println("count = " + count);
-            
+
             rain[i] = count > 0 ? sum / count : 0;
         }
         return rain;

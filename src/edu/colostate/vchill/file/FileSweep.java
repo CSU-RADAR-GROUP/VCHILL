@@ -10,20 +10,31 @@ import java.util.LinkedList;
  * @author jpont
  * @version 2010-08-30
  */
-public class FileSweep
-{
-    /** Keep a reference to the header to update when adding/removing types */
+public class FileSweep {
+    /**
+     * Keep a reference to the header to update when adding/removing types
+     */
     public FileSKUHeader skuH;
 
-    /** Sweepwide scan settings */
+    /**
+     * Sweepwide scan settings
+     */
     public FileParameterData paramD;
 
-    /** Scaling information */
+    /**
+     * Scaling information
+     */
     public FileFieldScalingInfo[/*type*/] fieldScalings;
 
-    /** contains Ray objects */
+    /**
+     * contains Ray objects
+     */
     public LinkedList<FileRay> data;
 
-    /** sole constructor */
-    public FileSweep () { this.data = new LinkedList<FileRay>(); }
+    /**
+     * sole constructor
+     */
+    public FileSweep() {
+        this.data = new LinkedList<FileRay>();
+    }
 }

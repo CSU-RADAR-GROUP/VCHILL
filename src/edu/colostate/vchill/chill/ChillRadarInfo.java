@@ -2,6 +2,7 @@ package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.socket.SocketUtil;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -12,73 +13,121 @@ import java.io.IOException;
  * @author Jochen Deyke
  * @version 2006-08-10
  */
-public class ChillRadarInfo extends ChillHeader
-{
-    /** maximum length (in bytes) of radar_name (UTF-8 encoded) */
+public class ChillRadarInfo extends ChillHeader {
+    /**
+     * maximum length (in bytes) of radar_name (UTF-8 encoded)
+     */
     public static final int MAX_RADAR_NAME = 32;
 
-    /** UTF-8 encoded radar name */
+    /**
+     * UTF-8 encoded radar name
+     */
     public String radar_name; //[MAX_RADAR_NAME];
-    /** Current latitude, in degrees */
+    /**
+     * Current latitude, in degrees
+     */
     public float latitude_d;
-    /** Current longitude, in degrees */
+    /**
+     * Current longitude, in degrees
+     */
     public float longitude_d;
-    /** Current altitude, in meters */
+    /**
+     * Current altitude, in meters
+     */
     public float altitude_m;
-    /** Antenna beamwidth, in degrees */
+    /**
+     * Antenna beamwidth, in degrees
+     */
     public float beamwidth_d;
-    /** Radar wavelength, in centimeters */
+    /**
+     * Radar wavelength, in centimeters
+     */
     public float wavelength_cm;
 
-    /** Reserved field */
+    /**
+     * Reserved field
+     */
     public float unused1;
-    /** Reserved field */
+    /**
+     * Reserved field
+     */
     public float unused2;
-    /** Reserved field */
+    /**
+     * Reserved field
+     */
     public float unused3;
-    /** Reserved field */
+    /**
+     * Reserved field
+     */
     public float unused4;
 
-    /** Antenna gain, H pol, from ref point through antenna */
+    /**
+     * Antenna gain, H pol, from ref point through antenna
+     */
     public float gain_ant_h_db;
-    /** Antenna gain, V pol, from ref point through antenna */
+    /**
+     * Antenna gain, V pol, from ref point through antenna
+     */
     public float gain_ant_v_db;
-    /** Operator-settable ZDR cal base, in dB */
+    /**
+     * Operator-settable ZDR cal base, in dB
+     */
     public float zdr_cal_base_db;
-    /** Operator-settable phidp rotation, in degrees */
+    /**
+     * Operator-settable phidp rotation, in degrees
+     */
     public float phidp_rot_d;
-    /** Used to calculate dBZ, using
-                dBz = base_radar_const_db - pk_txmit_power - 2*ant_gain -
-                    reciever_gain + dbu + 20*log(range/100km)
-                where dbu = 10*log10(i^2 + q^2)    */
+    /**
+     * Used to calculate dBZ, using
+     * dBz = base_radar_const_db - pk_txmit_power - 2*ant_gain -
+     * reciever_gain + dbu + 20*log(range/100km)
+     * where dbu = 10*log10(i^2 + q^2)
+     */
     public float base_radar_constant_db;
-    /** Range offset to first gate, in meters */
+    /**
+     * Range offset to first gate, in meters
+     */
     public float range_offset_m;
-    /** Loss from ref. point power to power meter sensor, H channel */
+    /**
+     * Loss from ref. point power to power meter sensor, H channel
+     */
     public float power_measurement_loss_h_db;
-    /** Loss from ref. point power to power meter sensor, V channel */
+    /**
+     * Loss from ref. point power to power meter sensor, V channel
+     */
     public float power_measurement_loss_v_db;
-    /** Operator-settable ZDR cal base for VHS mode */
+    /**
+     * Operator-settable ZDR cal base for VHS mode
+     */
     public float zdr_cal_base_vhs_db;
-    /** Power into directional coupler when test set commanded to 0 dBm, H channel */
+    /**
+     * Power into directional coupler when test set commanded to 0 dBm, H channel
+     */
     public float test_power_h_db;
-    /** Power into directional coupler when test set commanded to 0 dBm, V channel */
+    /**
+     * Power into directional coupler when test set commanded to 0 dBm, V channel
+     */
     public float test_power_v_db;
-    /** Directional coupler forward loss, V channel */
+    /**
+     * Directional coupler forward loss, V channel
+     */
     public float dc_loss_h_db;
-    /** Directional coupler forward loss, V channel */
+    /**
+     * Directional coupler forward loss, V channel
+     */
     public float dc_loss_v_db;
 
 
-    /** size (in bytes) of this header (including ChillHeaderHeader, but not including extraData) */
+    /**
+     * size (in bytes) of this header (including ChillHeaderHeader, but not including extraData)
+     */
     public static final int BYTE_SIZE = ChillHeaderHeader.BYTE_SIZE +
-        MAX_RADAR_NAME +
-        5 * ChillDefines.FLOAT_BYTE_SIZE +
-        4 * ChillDefines.FLOAT_BYTE_SIZE +
-        13 * ChillDefines.FLOAT_BYTE_SIZE;
+            MAX_RADAR_NAME +
+            5 * ChillDefines.FLOAT_BYTE_SIZE +
+            4 * ChillDefines.FLOAT_BYTE_SIZE +
+            13 * ChillDefines.FLOAT_BYTE_SIZE;
 
-    public ChillRadarInfo ()
-    {
+    public ChillRadarInfo() {
         super(new ChillHeaderHeader(ChillDefines.GEN_MOM_DATA, BYTE_SIZE));
         super.extraData = new byte[0];
     }
@@ -88,8 +137,7 @@ public class ChillRadarInfo extends ChillHeader
      *
      * @param in the DataInput to read initialization values from
      */
-    public ChillRadarInfo (final DataInput in, final ChillHeaderHeader header) throws IOException
-    {
+    public ChillRadarInfo(final DataInput in, final ChillHeaderHeader header) throws IOException {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_RADAR_INFO;
         assert header.headerLength - ChillRadarInfo.BYTE_SIZE >= 0;
@@ -124,8 +172,7 @@ public class ChillRadarInfo extends ChillHeader
      *
      * @param out the DataOutput to write values to
      */
-    public void write (final DataOutput out) throws IOException
-    {
+    public void write(final DataOutput out) throws IOException {
         assert header.recordType == ChillDefines.HSK_ID_RADAR_INFO;
         assert header.headerLength == ChillRadarInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);

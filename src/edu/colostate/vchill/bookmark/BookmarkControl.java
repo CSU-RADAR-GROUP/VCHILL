@@ -1,22 +1,16 @@
 package edu.colostate.vchill.bookmark;
 
-import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.DialogUtil;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import edu.colostate.vchill.ScaleManager;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Controller class for VCHILL's bookmark module.
@@ -27,8 +21,7 @@ import javax.xml.parsers.SAXParserFactory;
  * @author jpont
  * @version 2009-06-30
  */
-public class BookmarkControl
-{
+public class BookmarkControl {
     public static final String USER_PREFIX = "my:";
 
     public static final ScaleManager sm = ScaleManager.getInstance();
@@ -37,16 +30,14 @@ public class BookmarkControl
     private final BookmarkTreeModel model;
     private static final BookmarkControl bmc = new BookmarkControl();
 
-    public static BookmarkControl getInstance ()
-    {
+    public static BookmarkControl getInstance() {
         return bmc;
     }
 
     /**
      * Private default constructor prevents instantiation
      */
-    private BookmarkControl ()
-    {
+    private BookmarkControl() {
         this.bookmarks = new TreeMap<String, Map<String, Bookmark>>();
         this.model = new BookmarkTreeModel(new DefaultMutableTreeNode("Bookmarks"));
     }
@@ -58,8 +49,7 @@ public class BookmarkControl
      * @param cat String naming the desired category
      * @return The selected category
      */
-    private Map<String, Bookmark> selectCat (final String cat)
-    {
+    private Map<String, Bookmark> selectCat(final String cat) {
         Map<String, Bookmark> tmp = this.bookmarks.get(cat);
         if (tmp == null) {
             tmp = new TreeMap<String, Bookmark>();
@@ -72,12 +62,11 @@ public class BookmarkControl
     /**
      * Add a new bookmark.  The tree is also updated.
      *
-     * @param cat The category to add the bookmark to
-     * @param name The name for the new bookmark
-     * @param bookmark The new bookmark itself 
+     * @param cat      The category to add the bookmark to
+     * @param name     The name for the new bookmark
+     * @param bookmark The new bookmark itself
      */
-    public synchronized void addBookmark (final String cat, final String name, final Bookmark bookmark)
-    {
+    public synchronized void addBookmark(final String cat, final String name, final Bookmark bookmark) {
         String fullname = name + " " + bookmark.scan_type;
         if (selectCat(cat).put(fullname, bookmark) == null) {
             this.model.insertNodeToCategory(cat, new DefaultMutableTreeNode(fullname));
@@ -87,12 +76,11 @@ public class BookmarkControl
     /**
      * Retrieve a specific bookmark
      *
-     * @param cat The same category the bookmark was added to
+     * @param cat  The same category the bookmark was added to
      * @param name The name as returned by getBookmarkList(<code>cat</code>)
      * @return The desired bookmark
      */
-    public synchronized Bookmark getBookmark (final String cat, final String name)
-    {
+    public synchronized Bookmark getBookmark(final String cat, final String name) {
         return selectCat(cat).get(name);
     }
 
@@ -101,10 +89,9 @@ public class BookmarkControl
      * nothing happens.  The tree is <b>NOT</b> updated.
      *
      * @param from the old name of the category
-     * @param to the new name for the category
+     * @param to   the new name for the category
      */
-    public synchronized void renameCategory (final String from, final String to)
-    {
+    public synchronized void renameCategory(final String from, final String to) {
         Map<String, Bookmark> tmp = this.bookmarks.remove(from);
         if (tmp == null) return; //didn't exist
         this.bookmarks.put(to, tmp);
@@ -114,12 +101,11 @@ public class BookmarkControl
      * Renames a bookmark.  If the named bookmark does not exist,
      * nothing happens.  The tree is <b>NOT</b> updated.
      *
-     * @param cat the category of the bookmark to rename
+     * @param cat  the category of the bookmark to rename
      * @param from the old name of the bookmark
-     * @param to the new name for the bookmark
+     * @param to   the new name for the bookmark
      */
-    public synchronized void renameBookmark (final String cat, final String from, final String to)
-    {
+    public synchronized void renameBookmark(final String cat, final String from, final String to) {
         Map<String, Bookmark> tmp = this.bookmarks.get(cat);
         if (tmp == null) return; //didn't exist
         Bookmark b = tmp.remove(from);
@@ -132,13 +118,12 @@ public class BookmarkControl
      * If the named bookmark does not exist, nothing happens.
      * The tree is <b>NOT</b> updated.
      *
-     * @param cat the category of the bookmark to move
+     * @param cat  the category of the bookmark to move
      * @param name the name of the bookmark to move
-     * @param to the name of the new category for the bookmark.
-     * If it did not exist before, it is created.
+     * @param to   the name of the new category for the bookmark.
+     *             If it did not exist before, it is created.
      */
-    public synchronized void moveBookmark (final String cat, final String name, final String to)
-    {
+    public synchronized void moveBookmark(final String cat, final String name, final String to) {
         Map<String, Bookmark> from = this.bookmarks.get(cat);
         if (from == null) return; //didn't exist
         Bookmark b = from.remove(name);
@@ -152,12 +137,11 @@ public class BookmarkControl
      *
      * @param path the path to the node to rename
      */
-    public synchronized void rename (final TreePath path)
-    {
+    public synchronized void rename(final TreePath path) {
         switch (path.getPathCount()) {
             case 3: //actual bookmark
-                DefaultMutableTreeNode parent = (DefaultMutableTreeNode)path.getPathComponent(1);
-                DefaultMutableTreeNode child = (DefaultMutableTreeNode)path.getPathComponent(2);
+                DefaultMutableTreeNode parent = (DefaultMutableTreeNode) path.getPathComponent(1);
+                DefaultMutableTreeNode child = (DefaultMutableTreeNode) path.getPathComponent(2);
                 String newBName = DialogUtil.showInputDialog("Rename Bookmark", "New name:", stripBookmarkName(child.toString()));
                 if (newBName == null || newBName.length() < 1) return;
                 newBName += " " + scanType(child.toString());
@@ -167,7 +151,7 @@ public class BookmarkControl
                 this.model.insertNodeSorted(parent, child);
                 break;
             case 2: //category
-                DefaultMutableTreeNode cat = (DefaultMutableTreeNode)path.getPathComponent(1);
+                DefaultMutableTreeNode cat = (DefaultMutableTreeNode) path.getPathComponent(1);
                 String newCName = DialogUtil.showInputDialog("Rename Category", "New name:", stripCategoryName(cat.toString()));
                 if (newCName == null || newCName.length() < 1) return;
                 newCName = USER_PREFIX + newCName;
@@ -183,11 +167,10 @@ public class BookmarkControl
      * Export one or more nodes to a specified XML file.
      * If no paths are specified, everything is exported.
      *
-     * @param to the file to save to
+     * @param to    the file to save to
      * @param paths the path(s) to export
      */
-    public synchronized void export (final File to, final TreePath... paths)
-    {
+    public synchronized void export(final File to, final TreePath... paths) {
         if (paths == null || paths.length < 1) {
             this.save(to);
             return;
@@ -207,7 +190,7 @@ public class BookmarkControl
         file.println("<bookmarks>");
 
         for (TreePath path : paths) {
-            DefaultMutableTreeNode cat = (DefaultMutableTreeNode)path.getPathComponent(1);
+            DefaultMutableTreeNode cat = (DefaultMutableTreeNode) path.getPathComponent(1);
             String catName = cat.toString();
             switch (path.getPathCount()) {
                 case 3: //actual bookmark
@@ -235,8 +218,7 @@ public class BookmarkControl
      *
      * @return A Collection of available category name Strings
      */
-    public synchronized Collection<String> getCategoryList ()
-    {
+    public synchronized Collection<String> getCategoryList() {
         return this.bookmarks.keySet();
     }
 
@@ -246,8 +228,7 @@ public class BookmarkControl
      * @param category the category to list
      * @return a Collection of available bookmark name Strings in that category
      */
-    public synchronized Collection<String> getBookmarkList (final String category)
-    {
+    public synchronized Collection<String> getBookmarkList(final String category) {
         return selectCat(category).keySet();
     }
 
@@ -256,16 +237,14 @@ public class BookmarkControl
      *
      * @return the model
      */
-    public BookmarkTreeModel getModel ()
-    {
+    public BookmarkTreeModel getModel() {
         return model;
     }
 
     /**
      * Load XML format bookmarks from a File
      */
-    public synchronized void load (final File file)
-    {
+    public synchronized void load(final File file) {
         try {
             this.load(new BufferedInputStream(new FileInputStream(file)), USER_PREFIX);
         } catch (FileNotFoundException fnfe) {
@@ -276,8 +255,7 @@ public class BookmarkControl
     /**
      * Load XML format bookmarks from an InputStream
      */
-    public synchronized void load (final InputStream stream, final String prefix)
-    {
+    public synchronized void load(final InputStream stream, final String prefix) {
         try {
             SAXParserFactory.newInstance().newSAXParser().parse(stream, new XMLBookmarkHandler(prefix));
         } catch (Exception e) {
@@ -289,8 +267,7 @@ public class BookmarkControl
     /**
      * Save bookmarks to "bookmarks.xml"
      */
-    public synchronized void save ()
-    {
+    public synchronized void save() {
         this.save("bookmarks.xml");
     }
 
@@ -299,8 +276,7 @@ public class BookmarkControl
      *
      * @param filename the name of the file to save to
      */
-    public synchronized void save (final String filename)
-    {
+    public synchronized void save(final String filename) {
         this.save(new File(filename));
     }
 
@@ -309,8 +285,7 @@ public class BookmarkControl
      *
      * @param path the file to save to
      */
-    public synchronized void save (final File path)
-    {
+    public synchronized void save(final File path) {
         PrintStream file;
 
         try {
@@ -338,13 +313,12 @@ public class BookmarkControl
     /**
      * Writes a given bookmark to a file
      *
-     * @param cat the name of the category
-     * @param name the name of the bookmark
+     * @param cat      the name of the category
+     * @param name     the name of the bookmark
      * @param bookmark the actual bookmark to write
-     * @param file the stream to write to
+     * @param file     the stream to write to
      */
-    public static void writeBookmark (final String cat, final String name, final Bookmark bookmark, final PrintStream file)
-    {
+    public static void writeBookmark(final String cat, final String name, final Bookmark bookmark, final PrintStream file) {
         file.println("    <bookmark>");
         file.println("        <category>" + stripCategoryName(cat) + "</category>"); //trim prefix
         file.println("        <name>" + stripBookmarkName(name) + "</name>");
@@ -382,29 +356,28 @@ public class BookmarkControl
      *
      * @param paths the paths to the nodes to remove
      */
-    public synchronized void remove (final TreePath... paths)
-    {
+    public synchronized void remove(final TreePath... paths) {
         if (paths == null) return;
         for (TreePath path : paths) {
             if (path == null) continue;
             switch (path.getPathCount()) {
                 case 3: //actual bookmark
-                    DefaultMutableTreeNode parent = (DefaultMutableTreeNode)path.getPathComponent(1);
+                    DefaultMutableTreeNode parent = (DefaultMutableTreeNode) path.getPathComponent(1);
                     Object child = path.getPathComponent(2);
                     this.selectCat(parent.toString()).remove(child.toString());
-                    this.model.removeNodeFromParent((DefaultMutableTreeNode)this.model.getChild(parent, this.model.getIndexOfChild(parent, child)));
+                    this.model.removeNodeFromParent((DefaultMutableTreeNode) this.model.getChild(parent, this.model.getIndexOfChild(parent, child)));
                     if (parent.getChildCount() == 0) this.model.removeNodeFromParent(parent);
                     break;
                 case 2: //category
                     Object cat = path.getPathComponent(1);
                     this.bookmarks.remove(cat.toString());
-                    this.model.removeNodeFromParent((DefaultMutableTreeNode)this.model.getChild(this.model.getRoot(), this.model.getIndexOfChild(this.model.getRoot(), cat)));
+                    this.model.removeNodeFromParent((DefaultMutableTreeNode) this.model.getChild(this.model.getRoot(), this.model.getIndexOfChild(this.model.getRoot(), cat)));
                     break;
                 case 1: //root
                     this.bookmarks.clear();
                     Object root = this.model.getRoot();
                     while (this.model.getChildCount(root) > 0) {
-                        this.model.removeNodeFromParent((DefaultMutableTreeNode)this.model.getChild(root, 0));
+                        this.model.removeNodeFromParent((DefaultMutableTreeNode) this.model.getChild(root, 0));
                     }
                     break;
             }
@@ -420,20 +393,25 @@ public class BookmarkControl
      *
      * @param paths the path(s) to the node(s) to move
      */
-    public synchronized void move (final TreePath... paths)
-    {
+    public synchronized void move(final TreePath... paths) {
         if (paths == null || paths.length < 1) return;
         Collection<String> cats = bmc.getCategoryList();
         ArrayList<String> choices = new ArrayList<String>(cats.size());
-        for (String cat : cats) if (cat.startsWith(BookmarkControl.USER_PREFIX))
-            choices.add(stripCategoryName(cat));
+        for (String cat : cats)
+            if (cat.startsWith(BookmarkControl.USER_PREFIX))
+                choices.add(stripCategoryName(cat));
 
         String newCat = null;
         switch (paths[0].getPathCount()) {
-            case 2:case 3: newCat = stripCategoryName(paths[0].getPathComponent(1).toString()); break;
+            case 2:
+            case 3:
+                newCat = stripCategoryName(paths[0].getPathComponent(1).toString());
+                break;
         }
-        if (newCat == null) newCat = DialogUtil.showOptionInputDialog("Move Bookmark(s)", "Category to move bookmark(s) to:", choices.toArray());
-        else newCat = DialogUtil.showOptionInputDialog("Move Bookmark(s)", "Category to move bookmark(s) to:", choices.toArray(), newCat);
+        if (newCat == null)
+            newCat = DialogUtil.showOptionInputDialog("Move Bookmark(s)", "Category to move bookmark(s) to:", choices.toArray());
+        else
+            newCat = DialogUtil.showOptionInputDialog("Move Bookmark(s)", "Category to move bookmark(s) to:", choices.toArray(), newCat);
 
         if (newCat == null || newCat.length() < 1) return;
         newCat = USER_PREFIX + newCat;
@@ -442,15 +420,15 @@ public class BookmarkControl
             if (path == null) continue;
             switch (path.getPathCount()) {
                 case 3: //actual bookmark
-                    DefaultMutableTreeNode parent = (DefaultMutableTreeNode)path.getPathComponent(1);
-                    DefaultMutableTreeNode child = (DefaultMutableTreeNode)path.getPathComponent(2);
+                    DefaultMutableTreeNode parent = (DefaultMutableTreeNode) path.getPathComponent(1);
+                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) path.getPathComponent(2);
                     this.moveBookmark(parent.toString(), child.toString(), newCat);
                     this.model.removeNodeFromParent(child);
                     if (parent.getChildCount() == 0) this.model.removeNodeFromParent(parent);
                     this.model.insertNodeToCategory(newCat, child);
                     break;
                 case 2: //category
-                    DefaultMutableTreeNode cat = (DefaultMutableTreeNode)path.getPathComponent(1);
+                    DefaultMutableTreeNode cat = (DefaultMutableTreeNode) path.getPathComponent(1);
                     if (newCat.equals(cat.toString())) continue;
                     while (cat.getChildCount() > 0) {
                         DefaultMutableTreeNode node = cat.getFirstLeaf();
@@ -470,8 +448,7 @@ public class BookmarkControl
      *
      * @param paths the path(s) to duplicate
      */
-    public synchronized void duplicate (final TreePath... paths)
-    {
+    public synchronized void duplicate(final TreePath... paths) {
         for (TreePath path : paths) {
             Bookmark bookmark;
             switch (path.getPathCount()) {
@@ -505,8 +482,7 @@ public class BookmarkControl
      * @param the category name to trim
      * @return the trimmed category name
      */
-    private static String stripCategoryName (final String cat)
-    {
+    private static String stripCategoryName(final String cat) {
         return cat.substring(cat.indexOf(":") + 1, cat.length()); //trim prefix
     }
 
@@ -516,8 +492,7 @@ public class BookmarkControl
      * @param the bookmark name to trim
      * @return the trimmed bookmark name
      */
-    private static String stripBookmarkName (final String name)
-    {
+    private static String stripBookmarkName(final String name) {
         return name.substring(0, name.lastIndexOf(" ")); //trim scan type
     }
 
@@ -527,8 +502,7 @@ public class BookmarkControl
      * @param the bookmark name to trim
      * @return the scan type
      */
-    private static String scanType (final String name)
-    {
+    private static String scanType(final String name) {
         return name.substring(name.lastIndexOf(" ") + 1, name.length()); //trim actual name
     }
 }

@@ -1,6 +1,7 @@
 package edu.colostate.vchill.file;
 
 import edu.colostate.vchill.ChillDefines;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -8,15 +9,14 @@ import java.io.IOException;
 /**
  * The scaling information (factor, scale, bias) of a field.
  *
- * @author  Justin Carlson
- * @author  Brian Eriksson
- * @author  Jochen Deyke
- * @author  jpont
- * @created June 17, 2003
+ * @author Justin Carlson
+ * @author Brian Eriksson
+ * @author Jochen Deyke
+ * @author jpont
  * @version 2010-08-30
+ * @created June 17, 2003
  */
-public class FileFieldScalingInfo
-{
+public class FileFieldScalingInfo {
     public static final int BYTE_SIZE = 3 * ChillDefines.INT_BYTE_SIZE;
 
     /**
@@ -24,20 +24,23 @@ public class FileFieldScalingInfo
      * factor before being stored
      */
     public int factor;
-    
-    /** gain of the data */                         
+
+    /**
+     * gain of the data
+     */
     public int scale;
-    
-    /** offset of zero value */
+
+    /**
+     * offset of zero value
+     */
     public int bias;
-    
+
     /**
      * Reads Field parameters header from the inputted CHILL file
      *
      * @param in DataInput object containing CHILL file
      */
-    public void inputData (final DataInput in)
-    {
+    public void inputData(final DataInput in) {
         try {
             this.factor = in.readInt();
             this.scale = in.readInt();
@@ -54,8 +57,7 @@ public class FileFieldScalingInfo
      *
      * @param out DataOutput object containing CHILL file
      */
-    public void outputData (final DataOutput out)
-    {
+    public void outputData(final DataOutput out) {
         try {
             out.writeInt(this.factor);
             out.writeInt(this.scale);
@@ -67,10 +69,10 @@ public class FileFieldScalingInfo
         }
     }
 
-    @Override public String toString ()
-    {
+    @Override
+    public String toString() {
         return " factor: " + this.factor + "\n" +
-               " scale : " + this.scale  + "\n" +
-               " bias  : " + this.bias   + "\n";
+                " scale : " + this.scale + "\n" +
+                " bias  : " + this.bias + "\n";
     }
 }

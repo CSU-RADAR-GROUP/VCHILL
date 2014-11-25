@@ -2,20 +2,28 @@ package edu.colostate.vchill.chill;
 
 /**
  * Polarization mode used by transmitter
+ *
  * @author Jochen Deyke
  * @version 2007-09-19
  */
-public enum PolarizationMode
-{
-    /** Vertical only */
+public enum PolarizationMode {
+    /**
+     * Vertical only
+     */
     V,
-    
-    /** Horizontal only */
+
+    /**
+     * Horizontal only
+     */
     H,
 
-    /** Alternating vertical and horizontal */
+    /**
+     * Alternating vertical and horizontal
+     */
     VH,
-    
-    /** Simultaneous vertical and horizontal */
+
+    /**
+     * Simultaneous vertical and horizontal
+     */
     VHS,
 }

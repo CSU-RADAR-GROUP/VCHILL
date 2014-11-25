@@ -9,15 +9,16 @@ import edu.colostate.vchill.chill.ChillMomentFieldScale;
  * @author Jochen Deyke
  * @version 2007-01-26
  */
-public class HdrUtil
-{
+public class HdrUtil {
     public static final ChillMomentFieldScale scale = new ChillMomentFieldScale(ChillFieldInfo.HDR, java.awt.event.KeyEvent.VK_H, "db", 107, 170, -1564);
 
-    /** private default constructor prevents instantiation */
-    private HdrUtil () {}
+    /**
+     * private default constructor prevents instantiation
+     */
+    private HdrUtil() {
+    }
 
-    public static double[] calculateHDR (final double[] dataZ, final double[] dataZDR)
-    {
+    public static double[] calculateHDR(final double[] dataZ, final double[] dataZDR) {
         double[] dataHDR = new double[dataZ.length];
 
         // Do the calculations for each gate.

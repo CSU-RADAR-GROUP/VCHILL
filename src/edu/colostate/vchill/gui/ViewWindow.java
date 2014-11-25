@@ -3,9 +3,9 @@ package edu.colostate.vchill.gui;
 import edu.colostate.vchill.Config;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.ViewControl;
+
+import javax.swing.*;
 import java.awt.image.BufferedImage;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
 
 /**
  * Superclass of ViewPlotWindow and ViewAScopeWindow
@@ -13,12 +13,11 @@ import javax.swing.JPanel;
  * @author Jochen Deyke
  * @version 2007-03-08
  */
-public abstract class ViewWindow extends JPanel
-{
+public abstract class ViewWindow extends JPanel {
     /**
-   * 
-   */
-  private static final long serialVersionUID = -5434317662737619283L;
+     *
+     */
+    private static final long serialVersionUID = -5434317662737619283L;
     protected static final Config config = Config.getInstance();
     protected static final ViewControl vc = ViewControl.getInstance();
     protected static final WindowManager wm = WindowManager.getInstance();
@@ -27,13 +26,11 @@ public abstract class ViewWindow extends JPanel
     protected JInternalFrame parent;
     private boolean plotting;
 
-    public ViewWindow ()
-    {
+    public ViewWindow() {
         this.plotting = false;
     }
 
-    public void setType (final String type)
-    {
+    public void setType(final String type) {
         this.type = type;
         parent.setTitle(sm.getScale(type).fieldDescription + " (" + this.type + ") " + getStyle());
         wm.calculateOpenWindows();
@@ -42,52 +39,49 @@ public abstract class ViewWindow extends JPanel
     /**
      * @return the type being displayed
      */
-    public String getType ()
-    {
+    public String getType() {
         return this.type;
     }
 
     /**
      * @param parent the encapsulating frame (used for resizing)
      */
-    public void setParent (final JInternalFrame parent)
-    {
+    public void setParent(final JInternalFrame parent) {
         this.parent = parent;
     }
 
     /**
-     * @param width the new width for the parent
+     * @param width  the new width for the parent
      * @param height the new height for the parent
      */
-    public void setSizes (final int width, final int height)
-    {
+    public void setSizes(final int width, final int height) {
         this.parent.setSize(width, height);
     }
 
     /**
      * @param plotting is a sweep currently being plotted?
      */
-    public void setPlotting (final boolean plotting)
-    {
+    public void setPlotting(final boolean plotting) {
         this.plotting = plotting;
     }
 
     /**
      * @return is a sweep currently being plotted?
      */
-    public boolean isPlotting ()
-    {
+    public boolean isPlotting() {
         return this.plotting;
     }
 
     /**
-     * @return "Numerical", "Plot", "AScope", or "Histogram" 
+     * @return "Numerical", "Plot", "AScope", or "Histogram"
      */
-    public abstract String getStyle ();
+    public abstract String getStyle();
 
     /**
      * @return a BufferedImage containing the same picture as the window,
      * or null if the operation is not supported
      */
-    public BufferedImage getBufferedImage () { return null; }
+    public BufferedImage getBufferedImage() {
+        return null;
+    }
 }

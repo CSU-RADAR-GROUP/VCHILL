@@ -5,13 +5,15 @@
 package edu.colostate.vchill.iris;
 
 import java.nio.ByteBuffer;
+
 /**
  * Class representation of the ymds_time structure from Iris Programmers Manual
+ *
  * @author Joseph Hardin
- * Completed
+ *         Completed
  */
 public class ymds_time {
-    
+
     private int seconds;
     private int milliseconds;
     private short year;
@@ -19,20 +21,18 @@ public class ymds_time {
     private short day;
 
 
-    
-public ymds_time(ByteBuffer in_buf)
-{
-    try{
-        seconds=in_buf.getInt();
-        milliseconds=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        year = in_buf.getShort();
-        month = in_buf.getShort();
-        day = in_buf.getShort();
-            
-        }catch(Exception e){
-            System.err.println("Exception: "+e);
+    public ymds_time(ByteBuffer in_buf) {
+        try {
+            seconds = in_buf.getInt();
+            milliseconds = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+            year = in_buf.getShort();
+            month = in_buf.getShort();
+            day = in_buf.getShort();
+
+        } catch (Exception e) {
+            System.err.println("Exception: " + e);
         }
-}
+    }
 
     /**
      * @return the seconds
@@ -104,6 +104,5 @@ public ymds_time(ByteBuffer in_buf)
         this.day = day;
     }
 
-    
-    
+
 }

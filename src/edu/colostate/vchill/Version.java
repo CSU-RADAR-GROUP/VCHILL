@@ -9,15 +9,17 @@ package edu.colostate.vchill;
  * @author jpont
  * @version 2007-12-05
  */
-public final class Version
-{
+public final class Version {
     public static final int majorRevision = 4;
     public static final int minorRevision = 17;
     public static final int microRevision = 0;
     public static final String buildDate = "2012.09.03";
     public static final String string = "Version " +
-        majorRevision + "." + minorRevision + "." + microRevision;
+            majorRevision + "." + minorRevision + "." + microRevision;
 
-    /** Private default constructor prevents instantiation */
-    private Version () {}
+    /**
+     * Private default constructor prevents instantiation
+     */
+    private Version() {
+    }
 }

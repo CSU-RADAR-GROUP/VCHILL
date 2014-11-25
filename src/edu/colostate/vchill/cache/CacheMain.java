@@ -1,6 +1,7 @@
 package edu.colostate.vchill.cache;
 
 import edu.colostate.vchill.ControlMessage;
+
 import java.util.Collection;
 
 /**
@@ -10,53 +11,51 @@ import java.util.Collection;
  * @author jpont
  * @version 2010-08-30
  */
-public abstract class CacheMain
-{
+public abstract class CacheMain {
     /**
      * Retrieves data from the cache
      *
-     * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
+     * @param key   ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
      * @param index the 0-based index of the desired data within the sweep/type
-     * @return the requested data 
+     * @return the requested data
      */
-    public abstract Object getData (final ControlMessage key, final String type, final int index);
+    public abstract Object getData(final ControlMessage key, final String type, final int index);
 
     /**
      * Retrieves data from the cache.  If the data is not yet available, waits
      * for the data to become available or the sweep to be marked complete.
      *
-     * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
+     * @param key   ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
      * @param index the 0-based index of the desired data within the sweep/type
-     * @return the requested data 
+     * @return the requested data
      */
-    public abstract Object getDataWait (final ControlMessage key, final String type, final int index);
+    public abstract Object getDataWait(final ControlMessage key, final String type, final int index);
 
     /**
      * Retrieves data from the cache.  If the data is not yet available, waits
      * for the data to become available or the sweep to be marked complete.
      *
-     * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
-     * @param index the 0-based index of the desired data within the sweep/type
-     * @param timeout the maximum number of milliseconds to wait 
-     * @return the requested data 
+     * @param key     ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
+     * @param index   the 0-based index of the desired data within the sweep/type
+     * @param timeout the maximum number of milliseconds to wait
+     * @return the requested data
      */
-    public abstract Object getDataWait (final ControlMessage key, final String type, final int index, final long timeout);
+    public abstract Object getDataWait(final ControlMessage key, final String type, final int index, final long timeout);
 
     /**
      * Appends data to the cache
      *
-     * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
+     * @param key  ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
      * @param data the data store
      */
-    public abstract void addRay (final ControlMessage key, final String type, final Object data);
+    public abstract void addRay(final ControlMessage key, final String type, final Object data);
 
     /**
      * Removes a sweep/type from the cache.  This is useful for removing partially loaded / aborted data.
      *
      * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
      */
-    public synchronized void removeType (final ControlMessage key, final String type)
-    {
+    public synchronized void removeType(final ControlMessage key, final String type) {
     }
 
     /**
@@ -65,8 +64,7 @@ public abstract class CacheMain
      * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the desired data
      * @return the number of available rays of the specified sweep/type
      */
-    public int getNumberOfRays (final ControlMessage key, final String type)
-    {
+    public int getNumberOfRays(final ControlMessage key, final String type) {
         return 0;
     }
 
@@ -76,8 +74,7 @@ public abstract class CacheMain
      *
      * @return a Collection of String objects containing available servers and ports
      */
-    public Collection<String> getConnectionList ()
-    {
+    public Collection<String> getConnectionList() {
         return null;
     }
 
@@ -87,8 +84,7 @@ public abstract class CacheMain
      * @param key ControlMessage containing the directory, server, and port to list (other fields are ignored)
      * @return a Collection of String objects in the format other Cache methods want
      */
-    public Collection<String> getDirectory (final ControlMessage key)
-    {
+    public Collection<String> getDirectory(final ControlMessage key) {
         return null;
     }
 
@@ -98,8 +94,7 @@ public abstract class CacheMain
      * @param key ControlMessage containing the file, directory, server, and port to list (other fields are ignored)
      * @return a Collection of String objects in the format other Cache methods want
      */
-    public Collection<String> getSweepList (final ControlMessage key)
-    {
+    public Collection<String> getSweepList(final ControlMessage key) {
         return null;
     }
 
@@ -108,8 +103,7 @@ public abstract class CacheMain
      *
      * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the sweep/type to mark complete
      */
-    public void setCompleteFlag (final ControlMessage key, final String type)
-    {
+    public void setCompleteFlag(final ControlMessage key, final String type) {
     }
 
     /**
@@ -118,8 +112,7 @@ public abstract class CacheMain
      * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the sweep/type to check
      * @return is the sweep/type complete?
      */
-    public boolean getCompleteFlag (final ControlMessage key, final String type)
-    {
+    public boolean getCompleteFlag(final ControlMessage key, final String type) {
         return false;
     }
 
@@ -130,11 +123,13 @@ public abstract class CacheMain
      * @param key ControlMessage containing server, port, dir, file, sweep, and type information of the sweep/type to check
      * @return is the sweep/type empty?
      */
-    public boolean isEmpty (final ControlMessage key, final String type)
-    {
+    public boolean isEmpty(final ControlMessage key, final String type) {
         return false;
     }
 
-    /** Removes all content from the cache if applicable */
-    public void clear () {}
+    /**
+     * Removes all content from the cache if applicable
+     */
+    public void clear() {
+    }
 }

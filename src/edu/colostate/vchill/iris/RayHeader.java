@@ -8,6 +8,7 @@ package edu.colostate.vchill.iris;
  *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
+
 import java.nio.ByteBuffer;
 
 
@@ -20,16 +21,15 @@ public class RayHeader {
     private int bins_in_ray;
     private int s_from_start;
     private int flag;
-    
-    public RayHeader(ByteBuffer in_buf)
-    {
-        begin_azi=UtilityClass.BIN2_to_double(in_buf.getShort());
-        begin_elv=UtilityClass.BIN2_to_double(in_buf.getShort());
-        end_azi=UtilityClass.BIN2_to_double(in_buf.getShort());
-        end_elv=UtilityClass.BIN2_to_double(in_buf.getShort());
-        bins_in_ray=in_buf.getShort();
-        s_from_start=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        
+
+    public RayHeader(ByteBuffer in_buf) {
+        begin_azi = UtilityClass.BIN2_to_double(in_buf.getShort());
+        begin_elv = UtilityClass.BIN2_to_double(in_buf.getShort());
+        end_azi = UtilityClass.BIN2_to_double(in_buf.getShort());
+        end_elv = UtilityClass.BIN2_to_double(in_buf.getShort());
+        bins_in_ray = in_buf.getShort();
+        s_from_start = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+
     }
 
     /**
@@ -129,5 +129,5 @@ public class RayHeader {
     public void setFlag(int flag) {
         this.flag = flag;
     }
-        
+
 }

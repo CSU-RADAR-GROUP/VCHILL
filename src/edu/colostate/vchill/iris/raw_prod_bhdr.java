@@ -9,38 +9,38 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent raw_prod_bhdr structure
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class raw_prod_bhdr {
-    
+
     private int BeginPosition;
     private int currPosition;
     private byte TempByte;
     private byte[] TempBuf;
-    
+
     private short record_number;
     private short sweep_number;
     private short byte_offset;
     private short ray_number;
     private int flags;
-    
-    public raw_prod_bhdr(ByteBuffer in_buf)
-    {
+
+    public raw_prod_bhdr(ByteBuffer in_buf) {
         BeginPosition = in_buf.position();
-        
+
         record_number = in_buf.getShort();
         sweep_number = in_buf.getShort();
         byte_offset = in_buf.getShort();
         ray_number = in_buf.getShort();
         flags = UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        in_buf.position(in_buf.position()+2);
+        in_buf.position(in_buf.position() + 2);
     
    /* 
         System.out.println("Record:"+record_number);
         System.out.println("Sweep:"+sweep_number);
         System.out.println("Ray:"+ray_number);
         System.out.println("ByteOffset"+byte_offset);
- */       
+ */
     }
 
     /**
@@ -112,5 +112,5 @@ public class raw_prod_bhdr {
     public void setFlags(int flags) {
         this.flags = flags;
     }
-    
+
 }

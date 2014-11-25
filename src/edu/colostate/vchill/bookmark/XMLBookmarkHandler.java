@@ -16,8 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author jpont
  * @version 2010-07-07
  */
-public class XMLBookmarkHandler extends DefaultHandler
-{
+public class XMLBookmarkHandler extends DefaultHandler {
     private static final ScaleManager sm = ScaleManager.getInstance();
 
     private Bookmark bookmark;
@@ -61,14 +60,14 @@ public class XMLBookmarkHandler extends DefaultHandler
 
     private final String prefix;
 
-    public XMLBookmarkHandler (final String prefix)
-    {
+    public XMLBookmarkHandler(final String prefix) {
         this.prefix = prefix;
     }
-    
-    @Override public void startDocument () {
+
+    @Override
+    public void startDocument() {
         this.bookmark = new Bookmark();
-		this.zoom = 1.0;
+        this.zoom = 1.0;
         this.inCat = false;
         this.inName = false;
         this.inUrl = false;
@@ -107,8 +106,8 @@ public class XMLBookmarkHandler extends DefaultHandler
         this.tmpComment = new StringBuilder();
     }
 
-    @Override public void startElement (final String namespaceURI, final String localName, final String qualifiedName, final Attributes attribs) throws SAXException
-    {
+    @Override
+    public void startElement(final String namespaceURI, final String localName, final String qualifiedName, final Attributes attribs) throws SAXException {
         String lowname = qualifiedName.toLowerCase();
         if (lowname.equals("category")) {
             this.inCat = true;
@@ -157,8 +156,8 @@ public class XMLBookmarkHandler extends DefaultHandler
         }
     }
 
-    @Override public void characters (final char[] text, final int start, final int length) throws SAXException
-    {
+    @Override
+    public void characters(final char[] text, final int start, final int length) throws SAXException {
         String chars = new String(text, start, length);
         if (this.inCat) {
             this.tmpCat.append(chars);
@@ -201,8 +200,8 @@ public class XMLBookmarkHandler extends DefaultHandler
         }
     }
 
-    @Override public void endElement (final String namespaceURI, final String localName, final String qualifiedName) throws SAXException
-    {
+    @Override
+    public void endElement(final String namespaceURI, final String localName, final String qualifiedName) throws SAXException {
         String lowname = (qualifiedName.toLowerCase());
         if (lowname.equals("bookmarks")) { //main element
         } else if (lowname.equals("bookmark")) {
@@ -283,7 +282,7 @@ public class XMLBookmarkHandler extends DefaultHandler
         }
     }
 
-    private void setScale (String type) //argument not final
+    private void setScale(String type) //argument not final
     {
         if (sm.getScale(type) == null) { //not a (currently) known data type
             Moment tmp = Moment.translate(type);
@@ -298,22 +297,50 @@ public class XMLBookmarkHandler extends DefaultHandler
         bmScale.autoscale = Boolean.valueOf(this.tmpAutoscale.toString()).booleanValue();
         this.tmpAutoscale = new StringBuilder();
         String min = this.tmpMinval.toString();
-        try { Double.parseDouble(min); bmScale.minval = min; }
-        catch (Exception e) { bmScale.minval = String.valueOf(Double.MIN_VALUE); }
+        try {
+            Double.parseDouble(min);
+            bmScale.minval = min;
+        } catch (Exception e) {
+            bmScale.minval = String.valueOf(Double.MIN_VALUE);
+        }
         this.tmpMinval = new StringBuilder();
         String max = this.tmpMaxval.toString();
-        try { Double.parseDouble(max); bmScale.maxval = max; }
-        catch (Exception e) { bmScale.maxval = String.valueOf(Double.MAX_VALUE); }
+        try {
+            Double.parseDouble(max);
+            bmScale.maxval = max;
+        } catch (Exception e) {
+            bmScale.maxval = String.valueOf(Double.MAX_VALUE);
+        }
         this.tmpMaxval = new StringBuilder();
         this.bookmark.scale.put(type, bmScale);
     }
 
     //do nothing:
-    @Override public void endDocument () {}
-    @Override public void startPrefixMapping (final String prefix, final String uri) {}
-    @Override public void endPrefixMapping (final String prefix) {}
-    @Override public void ignorableWhitespace (final char[] text, final int start, final int length) throws SAXException {}
-    @Override public void processingInstruction (final String target, final String data) {}
-    @Override public void skippedEntity (final String name) {}
-    @Override public void setDocumentLocator (final Locator locator) {}
+    @Override
+    public void endDocument() {
+    }
+
+    @Override
+    public void startPrefixMapping(final String prefix, final String uri) {
+    }
+
+    @Override
+    public void endPrefixMapping(final String prefix) {
+    }
+
+    @Override
+    public void ignorableWhitespace(final char[] text, final int start, final int length) throws SAXException {
+    }
+
+    @Override
+    public void processingInstruction(final String target, final String data) {
+    }
+
+    @Override
+    public void skippedEntity(final String name) {
+    }
+
+    @Override
+    public void setDocumentLocator(final Locator locator) {
+    }
 }

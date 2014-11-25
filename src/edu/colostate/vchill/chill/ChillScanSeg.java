@@ -2,6 +2,7 @@ package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
 import edu.colostate.vchill.socket.SocketUtil;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -14,116 +15,177 @@ import java.io.IOException;
  * @author Jochen Deyke
  * @version 2006-08-09
  */
-public class ChillScanSeg extends ChillHeader
-{
+public class ChillScanSeg extends ChillHeader {
     public static final int MAX_SEGNAME_LENGTH = 16;
- 
-    /** size (in bytes) of this header (including ChillHeaderHeader, but not including extraData) */
+
+    /**
+     * size (in bytes) of this header (including ChillHeaderHeader, but not including extraData)
+     */
     public static final int BYTE_SIZE = ChillHeaderHeader.BYTE_SIZE +
-        5 * ChillDefines.FLOAT_BYTE_SIZE +
-        MAX_SEGNAME_LENGTH +
-        3 * ChillDefines.FLOAT_BYTE_SIZE +
-        2 * ChillDefines.INT_BYTE_SIZE + //enums
-        5 * ChillDefines.INT_BYTE_SIZE + //unsigned
-        5 * ChillDefines.FLOAT_BYTE_SIZE +
-        4 * ChillDefines.INT_BYTE_SIZE + //unsigned
-        MAX_SEGNAME_LENGTH +
-        ChillDefines.FLOAT_BYTE_SIZE;
+            5 * ChillDefines.FLOAT_BYTE_SIZE +
+            MAX_SEGNAME_LENGTH +
+            3 * ChillDefines.FLOAT_BYTE_SIZE +
+            2 * ChillDefines.INT_BYTE_SIZE + //enums
+            5 * ChillDefines.INT_BYTE_SIZE + //unsigned
+            5 * ChillDefines.FLOAT_BYTE_SIZE +
+            4 * ChillDefines.INT_BYTE_SIZE + //unsigned
+            MAX_SEGNAME_LENGTH +
+            ChillDefines.FLOAT_BYTE_SIZE;
 
     /**
      * Modes in which the antenna can scan
      */
     enum ScanType {
-        PPI, /** PPI (Plan Position Indicator) Mode */
-        RHI, /** RHI (Range Height Indicator) Mode */
-        FIXED, /** Fixed pointing angle mode */
-        MANPPI, /** Manual PPI mode (elevation does not step automatically) */
-        MANRHI, /** Manual RHI mode (azimuth does not step automatically) */
-        IDLE, /**  IDLE mode, radar is not scanning */
+        PPI, /**
+         * PPI (Plan Position Indicator) Mode
+         */
+        RHI, /**
+         * RHI (Range Height Indicator) Mode
+         */
+        FIXED, /**
+         * Fixed pointing angle mode
+         */
+        MANPPI, /**
+         * Manual PPI mode (elevation does not step automatically)
+         */
+        MANRHI, /**
+         * Manual RHI mode (azimuth does not step automatically)
+         */
+        IDLE, /**
+         * IDLE mode, radar is not scanning
+         */
         LAST
     }
 
     /**
      * Indicates the object the antenna is currently tracking
      */
-    enum FollowMode
-    {
-        NONE, /** Radar is not tracking any object */
-        SUN, /** Radar is tracking the sun */
-        VEHICLE, /** Radar is tracking a vehicle */
+    enum FollowMode {
+        NONE, /**
+         * Radar is not tracking any object
+         */
+        SUN, /**
+         * Radar is tracking the sun
+         */
+        VEHICLE, /**
+         * Radar is tracking a vehicle
+         */
         LAST
-    };
+    }
 
     /**
      * Scan Optimizer parameters
      */
-    static class ScanOptimizer
-    {
+    static class ScanOptimizer {
         public float rmax_km;
         public float htmax_km;
         public float res_m;
     }
 
 
-
-    /** Manual azimuth position. Used in pointing and Manual PPI/RHI modes */
+    /**
+     * Manual azimuth position. Used in pointing and Manual PPI/RHI modes
+     */
     public float az_manual;
-    /** Manual elevation position. Used in pointing and Manual PPI/RHI modes */
+    /**
+     * Manual elevation position. Used in pointing and Manual PPI/RHI modes
+     */
     public float el_manual;
-    /** Azimuth start. If>360 implies don't care */
+    /**
+     * Azimuth start. If>360 implies don't care
+     */
     public float az_start;
-    /** Elevation start. If>360 implies don't care */
+    /**
+     * Elevation start. If>360 implies don't care
+     */
     public float el_start;
-    /** Antenna scan rate, in degrees/sec */
+    /**
+     * Antenna scan rate, in degrees/sec
+     */
     public float scan_rate;
 
     public String segname; //[MAX_SEGNAME_LENGTH]; /**< Name of this scan segment */
 
-    /** Scan optimizer parameters */
+    /**
+     * Scan optimizer parameters
+     */
     ScanOptimizer opt = new ScanOptimizer();
-    /** Indicates the object being followed (tracked) by the antenna */
+    /**
+     * Indicates the object being followed (tracked) by the antenna
+     */
     FollowMode follow_mode;
-    /** Antenna scanning mode */
+    /**
+     * Antenna scanning mode
+     */
     ScanType scan_type;
 
-    /** Scan segment flags. See SF_... above  */
-    public /*unsigned*/ int scan_flags; 
-    /** Volume number, increments linearly */
+    /**
+     * Scan segment flags. See SF_... above
+     */
+    public /*unsigned*/ int scan_flags;
+    /**
+     * Volume number, increments linearly
+     */
     public /*unsigned*/ int volume_num;
-    /** Sweep number within the current volume */
+    /**
+     * Sweep number within the current volume
+     */
     public /*unsigned*/ int sweep_num;
-    /** Timeout for this scan, in seconds, if nonzero */
+    /**
+     * Timeout for this scan, in seconds, if nonzero
+     */
     public /*unsigned*/ int time_limit;
-    /** if nonzero, archive image of specified sweep */
-    public /*unsigned*/ int webtilt; 
+    /**
+     * if nonzero, archive image of specified sweep
+     */
+    public /*unsigned*/ int webtilt;
 
-    /** Left limit used in sector scan */
+    /**
+     * Left limit used in sector scan
+     */
     public float left_limit;
-    /** Right limit used in sector scan */
+    /**
+     * Right limit used in sector scan
+     */
     public float right_limit;
-    /** Upper limit used in sector scan */
+    /**
+     * Upper limit used in sector scan
+     */
     public float up_limit;
-    /** Lower limit used in sector scan */
+    /**
+     * Lower limit used in sector scan
+     */
     public float down_limit;
-    /** Antenna step, used to increment az (in RHI) or el (in PPI) if max_sweeps is zero */
+    /**
+     * Antenna step, used to increment az (in RHI) or el (in PPI) if max_sweeps is zero
+     */
     public float step;
 
-    /** Indicates that a set of discrete angles is specified for az or el */
+    /**
+     * Indicates that a set of discrete angles is specified for az or el
+     */
     public /*unsigned*/ int max_sweeps;
-    /** Sweep at which the clutter filter switch from filter 1 to 2 */
+    /**
+     * Sweep at which the clutter filter switch from filter 1 to 2
+     */
     public /*unsigned*/ int filter_break_sweep;
-    /** Clutter filter for sweeps 1 to filter_break_sweep */
+    /**
+     * Clutter filter for sweeps 1 to filter_break_sweep
+     */
     public /*unsigned*/ int clutter_filter1;
-    /** Clutter filter for sweeps >= filter_break_sweep */
+    /**
+     * Clutter filter for sweeps >= filter_break_sweep
+     */
     public /*unsigned*/ int clutter_filter2;
 
     public String project; //[MAX_SEGNAME_LENGTH];   /**< Project name - used to organize scans + data */
 
-    /** Current fixed angle (az in RHI, el in PPI) */
+    /**
+     * Current fixed angle (az in RHI, el in PPI)
+     */
     public float current_fixed_angle;
 
-    public ChillScanSeg ()
-    {
+    public ChillScanSeg() {
         super(new ChillHeaderHeader(ChillDefines.GEN_MOM_DATA, BYTE_SIZE));
         super.extraData = new byte[0];
     }
@@ -133,8 +195,7 @@ public class ChillScanSeg extends ChillHeader
      *
      * @param in the DataInput to read initialization values from
      */
-    public ChillScanSeg (final DataInput in, final ChillHeaderHeader header) throws IOException
-    {
+    public ChillScanSeg(final DataInput in, final ChillHeaderHeader header) throws IOException {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_SCAN_SEG;
         assert header.headerLength - ChillScanSeg.BYTE_SIZE >= 0;
@@ -173,8 +234,7 @@ public class ChillScanSeg extends ChillHeader
      *
      * @param out the DataOutput to write values to
      */
-    public void write (final DataOutput out) throws IOException
-    {
+    public void write(final DataOutput out) throws IOException {
         assert header.recordType == ChillDefines.HSK_ID_SCAN_SEG;
         assert header.headerLength == ChillScanSeg.BYTE_SIZE + extraData.length;
         super.header.write(out);

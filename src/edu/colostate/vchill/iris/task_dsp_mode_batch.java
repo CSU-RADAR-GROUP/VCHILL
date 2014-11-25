@@ -8,11 +8,12 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent task_dsp_mode_batch
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Completed
+ *         Completed
  */
 public class task_dsp_mode_batch {
-    
+
     private int low_prf;
     private int low_prf_fraction;
     private short low_prf_sample_size;
@@ -21,16 +22,16 @@ public class task_dsp_mode_batch {
     private short threshold_for_velocity_unfolding;
     private short threshold_for_width_unfolding;
 
-    public task_dsp_mode_batch(ByteBuffer in_buf){
-        low_prf=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        low_prf_fraction=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        low_prf_sample_size=in_buf.getShort();
-        low_prf_range_averaging=in_buf.getShort();
-        threshold_for_reflectivity_unfolding=in_buf.getShort();
-        threshold_for_velocity_unfolding=in_buf.getShort();
-        threshold_for_width_unfolding=in_buf.getShort();
-        in_buf.position(in_buf.position()+18);
-        
+    public task_dsp_mode_batch(ByteBuffer in_buf) {
+        low_prf = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        low_prf_fraction = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        low_prf_sample_size = in_buf.getShort();
+        low_prf_range_averaging = in_buf.getShort();
+        threshold_for_reflectivity_unfolding = in_buf.getShort();
+        threshold_for_velocity_unfolding = in_buf.getShort();
+        threshold_for_width_unfolding = in_buf.getShort();
+        in_buf.position(in_buf.position() + 18);
+
     }
 
     /**

@@ -9,10 +9,11 @@ import java.nio.ByteBuffer;
 /**
  * Class to represent task_sched_info.
  * Completed
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_sched_info {
-    
+
     private int start_time;
     private int stop_time;
     private int skip_time;
@@ -20,18 +21,17 @@ public class task_sched_info {
     private int time_used;
     private int relative_day;
     private int flag;
-    
-    
-    task_sched_info(ByteBuffer in_buf)
-    {
-        start_time  =in_buf.getInt();
-        stop_time   =in_buf.getInt();
-        skip_time   =in_buf.getInt();
-        last_run    =in_buf.getInt();
-        time_used   =in_buf.getInt();
-        relative_day=in_buf.getInt();
-        int flag    =UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        
+
+
+    task_sched_info(ByteBuffer in_buf) {
+        start_time = in_buf.getInt();
+        stop_time = in_buf.getInt();
+        skip_time = in_buf.getInt();
+        last_run = in_buf.getInt();
+        time_used = in_buf.getInt();
+        relative_day = in_buf.getInt();
+        int flag = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+
     }
 
     /**
@@ -131,5 +131,5 @@ public class task_sched_info {
     public void setFlag(int flag) {
         this.flag = flag;
     }
-    
+
 }

@@ -1,22 +1,16 @@
 package edu.colostate.vchill.map;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import edu.colostate.vchill.Loader;
+import edu.colostate.vchill.LocationManager;
+import edu.colostate.vchill.ViewUtil;
+import edu.colostate.vchill.map.MapInstruction.Shape;
+
+import java.io.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
-
-import edu.colostate.vchill.Loader;
-import edu.colostate.vchill.LocationManager;
-import edu.colostate.vchill.ViewUtil;
-import edu.colostate.vchill.map.MapInstruction.Shape;
 
 /**
  * Parser for old-style map definition files.
@@ -24,28 +18,25 @@ import edu.colostate.vchill.map.MapInstruction.Shape;
  * @author Jochen Deyke
  * @version 2007-08-20
  */
-public class MapTextParser
-{
+public class MapTextParser {
     private static final LocationManager lm = LocationManager.getInstance();
 
     private double centerLatitude;
     private double centerLongitude;
 
-    public MapTextParser ()
-    {
+    public MapTextParser() {
     }
 
     /**
      * Parses a reader for map information
      *
-     * @param reader The reader to parse 
-     * @param base A base map to add to (optional) 
+     * @param reader The reader to parse
+     * @param base   A base map to add to (optional)
      * @return a List of instructions for drawing the map
-     * @throws IOException if an error is encountered while parsing 
+     * @throws IOException if an error is encountered while parsing
      */
-    public List<MapInstruction> parse (final Reader reader,
-            final List<MapInstruction> base) throws IOException
-    {
+    public List<MapInstruction> parse(final Reader reader,
+                                      final List<MapInstruction> base) throws IOException {
         { //reset center
             this.centerLongitude = lm.getLongitude();
             this.centerLatitude = lm.getLatitude();
@@ -100,27 +91,26 @@ public class MapTextParser
      * Parses a file for map information.  If the specified file does not exist in the
      * resource jar file, it is loaded from the local filesystem instead.
      *
-     * @param filename The file to parse 
-     * @param base A base map to add to (optional) 
+     * @param filename The file to parse
+     * @param base     A base map to add to (optional)
      * @return a List of instructions for drawing the map
-     * @throws IOException if an error is encountered while parsing 
+     * @throws IOException if an error is encountered while parsing
      */
-    public List<MapInstruction> parse (final String filename,
-            final List<MapInstruction> base) throws IOException
-    {
+    public List<MapInstruction> parse(final String filename,
+                                      final List<MapInstruction> base) throws IOException {
         File file = new File(filename);
         ClassLoader cl = Loader.class.getClassLoader();
         JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("maps.jar"));
         while (true) {
             ZipEntry entry = jarIn.getNextEntry();
-            if (entry == null) return parse(new InputStreamReader(new FileInputStream(file), "UTF-8"), base); //end of resource jar: file not found
+            if (entry == null)
+                return parse(new InputStreamReader(new FileInputStream(file), "UTF-8"), base); //end of resource jar: file not found
             if (entry.getName().equals(filename)) break;
         }
         return parse(new InputStreamReader(jarIn), base);
     }
 
-    public static List<String> getListOfFiles ()
-    {
+    public static List<String> getListOfFiles() {
         try {
             ClassLoader cl = Loader.class.getClassLoader();
             JarInputStream jarIn = new JarInputStream(cl.getResourceAsStream("maps.jar"));
@@ -141,11 +131,11 @@ public class MapTextParser
     /**
      * Filter for map files for the file open dialog
      */
-    public static class MapFileFilter implements FileFilter
-    {
-        /** Accept only files ending in ".map" */
-        public boolean accept (final File pathname)
-        {
+    public static class MapFileFilter implements FileFilter {
+        /**
+         * Accept only files ending in ".map"
+         */
+        public boolean accept(final File pathname) {
             if (pathname.isDirectory()) return false;
             if (pathname.getName().endsWith(".map")) return true;
             return false;

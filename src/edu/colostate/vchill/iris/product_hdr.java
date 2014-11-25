@@ -5,38 +5,34 @@
 package edu.colostate.vchill.iris;
 
 import java.nio.ByteBuffer;
+
 /**
- *
  * @author Joseph Hardin<josephhardinee@gmail.com>
  */
 public class product_hdr {
-    
-    private static int product_hdr_size=6144;
+
+    private static int product_hdr_size = 6144;
 
     private int BeginPosition;
     private int currPosition;
-        
-    /** 
+
+    /**
      * Constructor to parse a buffer and populate the structure
-     * 
-     **/
-    public product_hdr(ByteBuffer in_buf)
-    {
-        BeginPosition=in_buf.position();
-        
+     */
+    public product_hdr(ByteBuffer in_buf) {
+        BeginPosition = in_buf.position();
+
         //Read Structure Header
         astructure_header = new structure_header(in_buf);
-        
+
         aproduct_configuration = new product_configuration(in_buf);
 
-        aproduct_end = new product_end(in_buf);        
+        aproduct_end = new product_end(in_buf);
 
-    
-    
+
     }
-    
-    
-    
+
+
     /**
      * @return the product_hdr_size
      */
@@ -50,11 +46,10 @@ public class product_hdr {
     public static void setProduct_hdr_size(int aProduct_hdr_size) {
         product_hdr_size = aProduct_hdr_size;
     }
-    
+
     private structure_header astructure_header;
     private product_configuration aproduct_configuration;
     private product_end aproduct_end;
-    
 
 
     /**
@@ -98,6 +93,6 @@ public class product_hdr {
     public void setAproduct_end(product_end aproduct_end) {
         this.aproduct_end = aproduct_end;
     }
-    
-    
+
+
 }

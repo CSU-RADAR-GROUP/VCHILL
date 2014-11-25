@@ -7,19 +7,20 @@ package edu.colostate.vchill.iris;
 import java.nio.ByteBuffer;
 
 /**
- *Class to hold the semi useless structure task_manual_scan_info
+ * Class to hold the semi useless structure task_manual_scan_info
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Completed
+ *         Completed
  */
 
 
 public class task_manual_scan_info {
-  
+
     private int flags;
-    
-    task_manual_scan_info(ByteBuffer in_buf){
-        flags=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        in_buf.position(in_buf.position()+198);
+
+    task_manual_scan_info(ByteBuffer in_buf) {
+        flags = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        in_buf.position(in_buf.position() + 198);
     }
 
     /**

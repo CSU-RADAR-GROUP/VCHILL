@@ -9,28 +9,25 @@ import java.util.ArrayList;
 
 /**
  * Class to represent and hold data for each individual sweep.
- * 
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class Sweep {
-    
+
     private String[] Varlist;
     private int number_of_rays;
     private ArrayList<Ray> rays; //Product x Range Bin
     private ArrayList<ingest_data_header> idh_list;
-    
-    
-    
-    public Sweep(String[] Varlist)
-    {
-        
+
+
+    public Sweep(String[] Varlist) {
+
         rays = new ArrayList<Ray>();
         idh_list = new ArrayList<ingest_data_header>();
     }
-    
-    public Sweep()
-    {
-        
+
+    public Sweep() {
+
         rays = new ArrayList<Ray>();
         idh_list = new ArrayList<ingest_data_header>();
 

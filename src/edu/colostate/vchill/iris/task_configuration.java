@@ -7,12 +7,11 @@ package edu.colostate.vchill.iris;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Completed
+ *         Completed
  */
 public class task_configuration {
-    
+
     private structure_header astructure_header;
     private task_sched_info atask_sched_info;
     private task_dsp_info atask_dsp_info;
@@ -21,41 +20,38 @@ public class task_configuration {
     private task_misc_info atask_misc_info;
     private task_end_info atask_end_info;
     private task_scan_info atask_scan_info;
-    
+
     int BeginPosition;
-    
-    
-    
-    public task_configuration(ByteBuffer in_buf){
-        BeginPosition=in_buf.position();
-        
-        astructure_header=new structure_header(in_buf);
-        in_buf.position(BeginPosition+12);
-        
+
+
+    public task_configuration(ByteBuffer in_buf) {
+        BeginPosition = in_buf.position();
+
+        astructure_header = new structure_header(in_buf);
+        in_buf.position(BeginPosition + 12);
+
         atask_sched_info = new task_sched_info(in_buf);
-        in_buf.position(BeginPosition+12+120);
-        
+        in_buf.position(BeginPosition + 12 + 120);
+
         atask_dsp_info = new task_dsp_info(in_buf);
-        in_buf.position(BeginPosition+132+320);
-        
+        in_buf.position(BeginPosition + 132 + 320);
+
         atask_calib_info = new task_calib_info(in_buf);
-        in_buf.position(BeginPosition+452+320);
-        
+        in_buf.position(BeginPosition + 452 + 320);
+
         atask_range_info = new task_range_info(in_buf);
-        in_buf.position(BeginPosition+772+160);
-        
+        in_buf.position(BeginPosition + 772 + 160);
+
         atask_scan_info = new task_scan_info(in_buf);
-        in_buf.position(BeginPosition+932+320);
-        
+        in_buf.position(BeginPosition + 932 + 320);
+
         atask_misc_info = new task_misc_info(in_buf);
-        in_buf.position(BeginPosition+1252+320);
-        
+        in_buf.position(BeginPosition + 1252 + 320);
+
         atask_end_info = new task_end_info(in_buf);
-        in_buf.position(BeginPosition+1572+320+720);
-        
-                
-        
-        
+        in_buf.position(BeginPosition + 1572 + 320 + 720);
+
+
     }
 
     /**
@@ -169,5 +165,5 @@ public class task_configuration {
     public void setAtask_scan_info(task_scan_info atask_scan_info) {
         this.atask_scan_info = atask_scan_info;
     }
-    
+
 }

@@ -1,12 +1,12 @@
-
 package edu.colostate.vchill.iris;
 
 import java.nio.ByteBuffer;
 
 /**
  * Class to represent task_misc_info structure
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Completed
+ *         Completed
  */
 public class task_misc_info {
     private int wavelength;
@@ -19,33 +19,32 @@ public class task_misc_info {
     private long H_beamwidth;
     private long V_beamwidth;
     private long[] custom_storage = new long[10]; //Not used yet
-    
+
     private int BeginPosition;
     private byte[] TempBuf;
-    
-    public task_misc_info(ByteBuffer in_buf){
-        BeginPosition=in_buf.position();
-        
-        wavelength=in_buf.getInt();
+
+    public task_misc_info(ByteBuffer in_buf) {
+        BeginPosition = in_buf.position();
+
+        wavelength = in_buf.getInt();
         TempBuf = new byte[16];
         in_buf.get(TempBuf);
-        try{
-        TR_Serial = new String(TempBuf, "UTF-8");
-        }catch(Exception e){
-            System.err.println("Exception:"+e);
+        try {
+            TR_Serial = new String(TempBuf, "UTF-8");
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
-        
-        tr_power=in_buf.getInt();
-        Flags=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        polarization=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        truncation_height=in_buf.getInt();
-        in_buf.position(in_buf.position()+18+12);
-        comment_bytes=in_buf.getShort();
-        H_beamwidth=UtilityClass.UINT4_to_long(in_buf.getInt());
-        V_beamwidth=UtilityClass.UINT4_to_long(in_buf.getInt());
 
-        
-        
+        tr_power = in_buf.getInt();
+        Flags = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        polarization = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        truncation_height = in_buf.getInt();
+        in_buf.position(in_buf.position() + 18 + 12);
+        comment_bytes = in_buf.getShort();
+        H_beamwidth = UtilityClass.UINT4_to_long(in_buf.getInt());
+        V_beamwidth = UtilityClass.UINT4_to_long(in_buf.getInt());
+
+
     }
 
     /**
@@ -201,5 +200,5 @@ public class task_misc_info {
     public void setBeginPosition(int BeginPosition) {
         this.BeginPosition = BeginPosition;
     }
-    
+
 }

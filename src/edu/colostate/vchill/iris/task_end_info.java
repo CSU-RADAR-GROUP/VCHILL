@@ -9,13 +9,14 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent task_end_info structure.
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_end_info {
-    
+
     private int BeginPosition;
     private byte[] TempBuf;
-    
+
     private short task_major_number;
     private short task_minor_number;
     private String task_config_file;
@@ -23,28 +24,28 @@ public class task_end_info {
     private int tasks_in_hybrid;
     private int task_state;
     private ymds_time data_time_of_task;
-    
-    public task_end_info(ByteBuffer in_buf){
-        BeginPosition=in_buf.position();
-        
-        task_major_number=in_buf.getShort();
-        task_minor_number=in_buf.getShort();
+
+    public task_end_info(ByteBuffer in_buf) {
+        BeginPosition = in_buf.position();
+
+        task_major_number = in_buf.getShort();
+        task_minor_number = in_buf.getShort();
         TempBuf = new byte[12];
         in_buf.get(TempBuf);
-        try{
-        task_config_file = new String(TempBuf,"UTF-8");
-        TempBuf = new byte[80];
-        in_buf.get(TempBuf);
-        task_description = new String(TempBuf, "UTF-8");
-        }catch(Exception e){
-            System.err.println("Exception:"+e);
+        try {
+            task_config_file = new String(TempBuf, "UTF-8");
+            TempBuf = new byte[80];
+            in_buf.get(TempBuf);
+            task_description = new String(TempBuf, "UTF-8");
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
-        tasks_in_hybrid=in_buf.getInt();
-        task_state=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        in_buf.position(in_buf.position()+2);
+        tasks_in_hybrid = in_buf.getInt();
+        task_state = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        in_buf.position(in_buf.position() + 2);
         data_time_of_task = new ymds_time(in_buf);
-       
-    
+
+
     }
 
     /**
@@ -144,5 +145,5 @@ public class task_end_info {
     public void setData_time_of_task(ymds_time data_time_of_task) {
         this.data_time_of_task = data_time_of_task;
     }
-    
+
 }

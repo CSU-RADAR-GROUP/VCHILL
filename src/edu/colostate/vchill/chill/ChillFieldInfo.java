@@ -11,29 +11,42 @@ import edu.colostate.vchill.ChillDefines;
  * @author jpont
  * @version 2008-03-25
  */
-public class ChillFieldInfo
-{
-    /** short field name 4 chars max */
+public class ChillFieldInfo {
+    /**
+     * short field name 4 chars max
+     */
     public final int fieldNameLength = 16;
     public final String fieldName;
 
-    /** long field name */
+    /**
+     * long field name
+     */
     public final int longFieldNameLength = 60;
     public final String longFieldName;
 
-    /** defines field order. this is also this field's bit number in the moment request mask */
+    /**
+     * defines field order. this is also this field's bit number in the moment request mask
+     */
     public final int fieldNumber;
 
-    /** maximum value (for full scale display) */
+    /**
+     * maximum value (for full scale display)
+     */
     public final int maxValue;
 
-    /** minumum value (for full scale display) */
+    /**
+     * minumum value (for full scale display)
+     */
     public final int minValue;
 
-    /** bit 0 [1->8 bit signed, 0->unsigned], bit 4 [1->velocity unfold this field] */
+    /**
+     * bit 0 [1->8 bit signed, 0->unsigned], bit 4 [1->velocity unfold this field]
+     */
     public final short dataWordCoding;
 
-    /** what type of color map to use - see examples below */
+    /**
+     * what type of color map to use - see examples below
+     */
     public final short colorMapType;
 
     public static final ChillFieldInfo Z = new ChillFieldInfo("dBZ", "Reflectivity", 12, 7500000, -1000000, 0, 0);
@@ -53,10 +66,9 @@ public class ChillFieldInfo
     public static final ChillFieldInfo VFilt = new ChillFieldInfo("VelFilt", "FilteredVelocity", 26, 5500000, -5500000, 16, 1);
     public static final ChillFieldInfo VFast = new ChillFieldInfo("VelFast", "VelocityFast", 27, 5500000, -5500000, 16, 1);
     public static final ChillFieldInfo VSlow = new ChillFieldInfo("VelSlow", "VelocitySlow", 28, 5500000, -5500000, 16, 1);
-    public static final ChillFieldInfo[] types = { Z, V, W, NCP, ZDR, LDRH, LDRV, PHIDP, RHOHV, KDP, NCP_PLUS, HDR, RCOMP, VFilt, VFast, VSlow };
+    public static final ChillFieldInfo[] types = {Z, V, W, NCP, ZDR, LDRH, LDRV, PHIDP, RHOHV, KDP, NCP_PLUS, HDR, RCOMP, VFilt, VFast, VSlow};
 
-    public ChillFieldInfo (final String fieldName, final String longFieldName, final int fieldNumber, final int maxValue, final int minValue, final int dataWordCoding, final int colorMapType)
-    {
+    public ChillFieldInfo(final String fieldName, final String longFieldName, final int fieldNumber, final int maxValue, final int minValue, final int dataWordCoding, final int colorMapType) {
         assert fieldName.length() < fieldNameLength;
         this.fieldName = fieldName;
         assert longFieldName.length() < longFieldNameLength;
@@ -67,8 +79,8 @@ public class ChillFieldInfo
         this.maxValue = maxValue;
         this.minValue = minValue;
         assert dataWordCoding <= Short.MAX_VALUE;
-        this.dataWordCoding = (short)dataWordCoding;
+        this.dataWordCoding = (short) dataWordCoding;
         assert colorMapType <= Short.MAX_VALUE;
-        this.colorMapType = (short)colorMapType;
+        this.colorMapType = (short) colorMapType;
     }
 }

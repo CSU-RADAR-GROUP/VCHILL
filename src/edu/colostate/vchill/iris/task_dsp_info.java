@@ -8,15 +8,16 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent task_dsp_info structure.
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
- * Completed
+ *         Completed
  */
 public class task_dsp_info {
     private int major_mode;
     private int dsp_type;
     private dsp_data_mask current_data_type;
     private dsp_data_mask original_data_type;
-    private task_dsp_mode_batch batch1; 
+    private task_dsp_mode_batch batch1;
     private int PRF;
     private int pulse_width;
     private int multi_PRF;
@@ -34,53 +35,53 @@ public class task_dsp_info {
     private long ray_header_mask;
     private int ts_playback_flags;
     private String name_custom_ray_header;
-    
+
     private int BeginPosition;
     private byte[] TempBuf;
-    
-    
-    task_dsp_info(ByteBuffer in_buf){
-        
-        BeginPosition=in_buf.position();
-        major_mode=UtilityClass.UINT2_to_SINT(in_buf.getShort());
+
+
+    task_dsp_info(ByteBuffer in_buf) {
+
+        BeginPosition = in_buf.position();
+        major_mode = UtilityClass.UINT2_to_SINT(in_buf.getShort());
         dsp_type = UtilityClass.UINT2_to_SINT(in_buf.getShort());
         current_data_type = new dsp_data_mask(in_buf);
         original_data_type = new dsp_data_mask(in_buf);
         batch1 = new task_dsp_mode_batch(in_buf);
-        in_buf.position(in_buf.position()+52);
-        PRF=in_buf.getInt();
-        pulse_width=in_buf.getInt();
-        multi_PRF=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        dual_PRF_delay=in_buf.getShort();
-        AGC_feedback_code=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        sample_size=in_buf.getShort();
-        gain_control_flag=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        try{
-        TempBuf = new byte[12];
-        in_buf.get(TempBuf);
-        clutter_file = new String(TempBuf, "UTF-8");
-        }catch(Exception e){
-            System.err.println("Exception:"+e);
+        in_buf.position(in_buf.position() + 52);
+        PRF = in_buf.getInt();
+        pulse_width = in_buf.getInt();
+        multi_PRF = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        dual_PRF_delay = in_buf.getShort();
+        AGC_feedback_code = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        sample_size = in_buf.getShort();
+        gain_control_flag = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        try {
+            TempBuf = new byte[12];
+            in_buf.get(TempBuf);
+            clutter_file = new String(TempBuf, "UTF-8");
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
-        
-        linear_filter_number=in_buf.get();
-        log_filter_number=in_buf.get();
-        attenuation=in_buf.getShort();
-        gas_attenuation=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        cluttermap_used=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        XMT_phase_sequence=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        ray_header_mask=UtilityClass.UINT4_to_long(in_buf.getInt());
-        ts_playback_flags=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        in_buf.position(in_buf.position()+2);
-        try{
-        TempBuf = new byte[16];
-        in_buf.get(TempBuf);
-        name_custom_ray_header = new String(TempBuf,"UTF-8");
-        }catch(Exception e){
-            System.err.println("Exception:"+e);
+
+        linear_filter_number = in_buf.get();
+        log_filter_number = in_buf.get();
+        attenuation = in_buf.getShort();
+        gas_attenuation = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        cluttermap_used = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        XMT_phase_sequence = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        ray_header_mask = UtilityClass.UINT4_to_long(in_buf.getInt());
+        ts_playback_flags = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        in_buf.position(in_buf.position() + 2);
+        try {
+            TempBuf = new byte[16];
+            in_buf.get(TempBuf);
+            name_custom_ray_header = new String(TempBuf, "UTF-8");
+        } catch (Exception e) {
+            System.err.println("Exception:" + e);
         }
-        in_buf.position(in_buf.position()+120);
-        
+        in_buf.position(in_buf.position() + 120);
+
     }
 
     /**
@@ -390,6 +391,6 @@ public class task_dsp_info {
     public void setName_custom_ray_header(String name_custom_ray_header) {
         this.name_custom_ray_header = name_custom_ray_header;
     }
-    
-    
+
+
 }

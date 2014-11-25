@@ -7,38 +7,45 @@ package edu.colostate.vchill.iris;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_scan_info {
     private int scan_mode;
     private short angular_resolution;
     private short num_sweeps;
-    
-    private task_rhi_scan_info atask_rhi_scan_info=null;
-    private task_ppi_scan_info atask_ppi_scan_info=null;
-    private task_file_scan_info atask_file_scan_info=null;
-    private task_manual_scan_info atask_manual_scan_info= null;
-    
-    
-    
-    task_scan_info(ByteBuffer in_buf){
-        scan_mode=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        angular_resolution=in_buf.getShort();
-        in_buf.position(in_buf.position()+2);
-        
-        num_sweeps=in_buf.getShort();
-        switch(scan_mode)
-        {
-            case 1: atask_ppi_scan_info = new task_ppi_scan_info(in_buf); break;
-            case 2: atask_rhi_scan_info = new task_rhi_scan_info(in_buf); break;
-            case 3: atask_manual_scan_info = new task_manual_scan_info(in_buf); break;
-            case 4: atask_ppi_scan_info = new task_ppi_scan_info(in_buf); break;
-            case 5: atask_file_scan_info = new task_file_scan_info(in_buf); break;
+
+    private task_rhi_scan_info atask_rhi_scan_info = null;
+    private task_ppi_scan_info atask_ppi_scan_info = null;
+    private task_file_scan_info atask_file_scan_info = null;
+    private task_manual_scan_info atask_manual_scan_info = null;
+
+
+    task_scan_info(ByteBuffer in_buf) {
+        scan_mode = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        angular_resolution = in_buf.getShort();
+        in_buf.position(in_buf.position() + 2);
+
+        num_sweeps = in_buf.getShort();
+        switch (scan_mode) {
+            case 1:
+                atask_ppi_scan_info = new task_ppi_scan_info(in_buf);
+                break;
+            case 2:
+                atask_rhi_scan_info = new task_rhi_scan_info(in_buf);
+                break;
+            case 3:
+                atask_manual_scan_info = new task_manual_scan_info(in_buf);
+                break;
+            case 4:
+                atask_ppi_scan_info = new task_ppi_scan_info(in_buf);
+                break;
+            case 5:
+                atask_file_scan_info = new task_file_scan_info(in_buf);
+                break;
         }
-        System.out.println("Scan Mode:"+scan_mode);
-        in_buf.position(in_buf.position()+112);
-        
+        System.out.println("Scan Mode:" + scan_mode);
+        in_buf.position(in_buf.position() + 112);
+
     }
 
     /**
@@ -138,5 +145,5 @@ public class task_scan_info {
     public void setAtask_manual_scan_info(task_manual_scan_info atask_manual_scan_info) {
         this.atask_manual_scan_info = atask_manual_scan_info;
     }
-    
+
 }

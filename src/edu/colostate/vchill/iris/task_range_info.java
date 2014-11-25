@@ -7,7 +7,6 @@ package edu.colostate.vchill.iris;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class task_range_info {
@@ -19,19 +18,18 @@ public class task_range_info {
     private int output_bins_step;
     private int variable_range_spacing;
     private short range_bin_averaging;
-    
-    
-    
-    public task_range_info(ByteBuffer in_buf){
-        range_first_bin=in_buf.getInt();
-        range_last_bin=in_buf.getInt();
-        input_bins=in_buf.getShort();
-        output_bins=in_buf.getShort();
-        input_bins_step=in_buf.getInt();
-        output_bins_step=in_buf.getInt();
-        variable_range_spacing=UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        range_bin_averaging=in_buf.getShort();
-        System.out.println("Range Bins = "+output_bins);
+
+
+    public task_range_info(ByteBuffer in_buf) {
+        range_first_bin = in_buf.getInt();
+        range_last_bin = in_buf.getInt();
+        input_bins = in_buf.getShort();
+        output_bins = in_buf.getShort();
+        input_bins_step = in_buf.getInt();
+        output_bins_step = in_buf.getInt();
+        variable_range_spacing = UtilityClass.UINT2_to_SINT(in_buf.getShort());
+        range_bin_averaging = in_buf.getShort();
+        System.out.println("Range Bins = " + output_bins);
     }
 
     /**

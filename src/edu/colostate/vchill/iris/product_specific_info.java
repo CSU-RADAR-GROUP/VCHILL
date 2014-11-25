@@ -8,13 +8,14 @@ import java.nio.ByteBuffer;
 
 /**
  * Class to represent structure product_specific_info
+ *
  * @author Joseph Hardin <josephhardinee@gmail.com>
  */
 public class product_specific_info {
-    
-    public product_specific_info(ByteBuffer in_buf){
+
+    public product_specific_info(ByteBuffer in_buf) {
         //TODO Write this structure
-    	System.out.println("Found psi");
-        in_buf.position(in_buf.position()+80);
+        System.out.println("Found psi");
+        in_buf.position(in_buf.position() + 80);
     }
 }

@@ -8,10 +8,11 @@ import java.nio.ByteBuffer;
 
 /**
  * Class responsible for representing and reading structure ingest_data_header
+ *
  * @author Joseph Hardin
  */
 public class ingest_data_header {
-    
+
     private structure_header size_of_file;
     private ymds_time sweep_start_time;
     private short sweep_number;
@@ -22,20 +23,20 @@ public class ingest_data_header {
     private int fixed_angle;
     private short bits_per_bin;
     private int data_type;
-    
+
     int BeginPosition;
-    
-    
+
+
     /**
      * Primary Constructor.
+     *
      * @param Input Stream
-     **/
-    
-    public ingest_data_header(ByteBuffer in_buf)
-    {
+     */
+
+    public ingest_data_header(ByteBuffer in_buf) {
 
         BeginPosition = in_buf.position();
-        
+
         size_of_file = new structure_header(in_buf);
         sweep_start_time = new ymds_time(in_buf);
         sweep_number = in_buf.getShort();
@@ -46,7 +47,7 @@ public class ingest_data_header {
         fixed_angle = UtilityClass.UINT2_to_SINT(in_buf.getShort());
         bits_per_bin = in_buf.getShort();
         data_type = UtilityClass.UINT2_to_SINT(in_buf.getShort());
-        in_buf.position(in_buf.position()+36);
+        in_buf.position(in_buf.position() + 36);
 //        System.out.println("data_type:"+data_type);
 //        System.out.println("BitsPerBin:"+bits_per_bin);
     }

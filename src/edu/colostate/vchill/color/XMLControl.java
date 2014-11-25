@@ -4,17 +4,18 @@ import edu.colostate.vchill.ChillDefines.ColorType;
 import edu.colostate.vchill.Loader;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
+
+import javax.xml.parsers.SAXParserFactory;
+import java.awt.*;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.awt.Color;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.jar.JarInputStream;
 import java.util.jar.JarEntry;
-import javax.xml.parsers.SAXParserFactory;
+import java.util.jar.JarInputStream;
 
 /**
  * Main/Control class for VCHILL's color module
@@ -23,18 +24,15 @@ import javax.xml.parsers.SAXParserFactory;
  * @author Alexander Deyke
  * @version 2007-03-15
  */
-public class XMLControl
-{
+public class XMLControl {
     private static final ScaleManager sm = ScaleManager.getInstance();
     private final ColorMap activeColorMap;
 
-    public XMLControl ()
-    {
+    public XMLControl() {
         this(true);
     }
 
-    public XMLControl (final boolean interpolateable)
-    {
+    public XMLControl(final boolean interpolateable) {
         this.activeColorMap = new ColorMap(interpolateable);
     }
 
@@ -44,8 +42,7 @@ public class XMLControl
      * @param type the data type to get the Colors for
      * @return the requested Listof Color
      */
-    public List<Color> getType (final String type)
-    {
+    public List<Color> getType(final String type) {
         return activeColorMap.getType(translate(type));
     }
 
@@ -55,8 +52,7 @@ public class XMLControl
      * @param type the color type to get the Colors for
      * @return the requested Color[]
      */
-    public List<Color> getType (final ColorType type)
-    {
+    public List<Color> getType(final ColorType type) {
         return activeColorMap.getType(type);
     }
 
@@ -65,8 +61,7 @@ public class XMLControl
      *
      * @param type the data type to set the Colors for
      */
-    public void setType (final String type, final List<Color> colors)
-    {
+    public void setType(final String type, final List<Color> colors) {
         activeColorMap.addType(translate(type), colors);
     }
 
@@ -75,8 +70,7 @@ public class XMLControl
      *
      * @param type the data type to set the Colors for
      */
-    public void setType (final ColorType type, final List<Color> colors)
-    {
+    public void setType(final ColorType type, final List<Color> colors) {
         activeColorMap.addType(type, colors);
     }
 
@@ -86,8 +80,7 @@ public class XMLControl
      * @param type the data type to translate
      * @return the corresponding ColorType
      */
-    public static ColorType translate (final String type)
-    {
+    public static ColorType translate(final String type) {
         ChillMomentFieldScale scale = sm.getScale(type);
         if (scale == null) return null;
         return scale.colorMapType;
@@ -95,16 +88,15 @@ public class XMLControl
 
     /**
      * Load color definitions from the specified file.
-     * If the specified file exists, it is loaded from the local filesystem. 
+     * If the specified file exists, it is loaded from the local filesystem.
      * In that case, the parser is determined by the suffix -
      * anything other than ".xml" is treated as old-style text format.
-     * If the file does not exist on the local filesystem, it is presumed to be an 
+     * If the file does not exist on the local filesystem, it is presumed to be an
      * XML file to be retrieved from the resource jar.
      *
      * @param filename the name of the file to parse
      */
-    public void load (final String filename)
-    {
+    public void load(final String filename) {
         this.activeColorMap.clear();
         File file = new File(filename);
         if (!file.exists()) { //not on local filesys; get from resource jar
@@ -141,11 +133,10 @@ public class XMLControl
      * Output is in XML format.
      *
      * @param filename the name of the file to save as.
-     * It is <b><em>*highly*</em></b> recommended this name end in ".xml" so load() will use the correct parser.
-     * Failure to follow this guideline will render the file unuseable by VCHILL until manually renamed.
+     *                 It is <b><em>*highly*</em></b> recommended this name end in ".xml" so load() will use the correct parser.
+     *                 Failure to follow this guideline will render the file unuseable by VCHILL until manually renamed.
      */
-    public void save (final String filename)
-    {
+    public void save(final String filename) {
         PrintStream file;
 
         try {
@@ -153,7 +144,7 @@ public class XMLControl
         } catch (Exception e) {
             throw new Error(e);
         }
-        
+
         file.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         file.println("<colormap name=\"" + filename + "\">");
         for (ColorType type : ColorType.values()) {
@@ -179,8 +170,7 @@ public class XMLControl
      *
      * @return a List of available filenames
      */
-    public static List<String> getListOfFiles ()
-    {
+    public static List<String> getListOfFiles() {
         try {
             ClassLoader cl = Loader.class.getClassLoader();
             JarInputStream jar_in = new JarInputStream(cl.getResourceAsStream("colors.jar"));
@@ -206,7 +196,7 @@ public class XMLControl
      * @param args file to load - default is defclrs.txt,
      *             file to save - default is defclrs.xml
      */
-    public static void main (final String[] args) //test method
+    public static void main(final String[] args) //test method
     {
         XMLControl x = new XMLControl();
         System.out.println("Loading...");

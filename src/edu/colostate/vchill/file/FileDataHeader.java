@@ -1,6 +1,7 @@
 package edu.colostate.vchill.file;
 
 import edu.colostate.vchill.ChillDefines;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.EOFException;
@@ -9,73 +10,100 @@ import java.io.IOException;
 /**
  * A data header for a CHILL DRX format file.
  *
- * @author  Justin Carlson
- * @author  Brian Eriksson
- * @author  Jochen Deyke
- * @author  jpont
- * @created June 17, 2003
+ * @author Justin Carlson
+ * @author Brian Eriksson
+ * @author Jochen Deyke
+ * @author jpont
  * @version 2010-08-30
+ * @created June 17, 2003
  */
-public class FileDataHeader
-{
-    /** number of bytes used in fields from the file */
+public class FileDataHeader {
+    /**
+     * number of bytes used in fields from the file
+     */
     public static final int BYTE_SIZE = ChillDefines.INT_BYTE_SIZE * 15;
-    
-    /** Size of the data expected for the read in */
+
+    /**
+     * Size of the data expected for the read in
+     */
     public int size_of_data;
-    
-    /** number of bytes in header, or offset to first data byte */
+
+    /**
+     * number of bytes in header, or offset to first data byte
+     */
     public int header_len;
-    
-    /** secs since Jan 1 1970 */
+
+    /**
+     * secs since Jan 1 1970
+     */
     public int time;
-    
-    /** deg * 1000000 */
+
+    /**
+     * deg * 1000000
+     */
     public int azimuth;
-    
-    /** deg * 1000000 */
+
+    /**
+     * deg * 1000000
+     */
     public int elevation;
-    
-    /** deg * 1000000 */
+
+    /**
+     * deg * 1000000
+     */
     public int target_elev;
-    
-    /** the volume scan number */
+
+    /**
+     * the volume scan number
+     */
     public int vol_num;
-    
-    /** the tilt number in the volume scan */
+
+    /**
+     * the tilt number in the volume scan
+     */
     public int tilt_num;
-    
-    /** TRUE (1) if scan limits have changed, FALSE (0) otherwise */
+
+    /**
+     * TRUE (1) if scan limits have changed, FALSE (0) otherwise
+     */
     public int new_scan_limits;
-    
+
     /**
      * flag - TRUE(1) or FALSE (0) - not essential
      * set to (-1)  if not operational
      */
     public int end_of_tilt;
-    
+
     /**
      * flag - TRUE(1) or FALSE (0) - not essential
      * set to (-1)  if not operational
      */
     public int end_of_volume;
-    
+
     /**
      * for csu-chill, set to volume term code (non-zero) at end vol.
      * for csu-chill, ray number (within volume)
      */
     public int ray_num;
-    
-    /** horizontal peak transmit power dBm*100 */
+
+    /**
+     * horizontal peak transmit power dBm*100
+     */
     public int txmit_power_H;
-    
-    /** vertical peak transmit power  dBm*100 */
+
+    /**
+     * vertical peak transmit power  dBm*100
+     */
     public int txmit_power_V;
-    
-    /** average power in last half of range */
+
+    /**
+     * average power in last half of range
+     */
     public int drx_rec1_average_power;
-    
-    /** average power in last half of range */
+
+    /**
+     * average power in last half of range
+     */
     public int drx_rec2_average_power;
 
     /**
@@ -83,7 +111,7 @@ public class FileDataHeader
      *
      * @param size_of_data Size of the header
      */
-    public FileDataHeader (final int size_of_data) {
+    public FileDataHeader(final int size_of_data) {
         /*
          * To get the amount of data to read into the storage array
          * we must subtract the size of the fields in the gate header from
@@ -93,12 +121,12 @@ public class FileDataHeader
     }
 
     /**
-     * Reads in the data from the header 
+     * Reads in the data from the header
      *
      * @param in DataInput object containing the CHILL file being read
      * @return true if successful, false if EOF hit
      */
-    public boolean inputData (final DataInput in) {
+    public boolean inputData(final DataInput in) {
         try {
             this.header_len = in.readInt();
             this.time = in.readInt();
@@ -127,11 +155,11 @@ public class FileDataHeader
     }
 
     /**
-     * Writes out the data from the header 
+     * Writes out the data from the header
      *
      * @param out DataOutput object containing the CHILL file being written
      */
-    public void outputData (final DataOutput out) {
+    public void outputData(final DataOutput out) {
         try {
             out.writeInt(this.header_len);
             out.writeInt(this.time);

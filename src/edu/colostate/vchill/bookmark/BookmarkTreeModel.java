@@ -9,16 +9,15 @@ import javax.swing.tree.DefaultTreeModel;
  * order instead of simply adding them to the end.  Overrides the isLeaf method
  * to fix the appearance of non-leaf nodes.
  *
- * @author  Alexander Deyke
- * @author  Jochen Deyke
+ * @author Alexander Deyke
+ * @author Jochen Deyke
  * @version 2005-09-19
  */
-public class BookmarkTreeModel extends DefaultTreeModel
-{
+public class BookmarkTreeModel extends DefaultTreeModel {
     /**
-   * 
-   */
-  private static final long serialVersionUID = -319860178138853771L;
+     *
+     */
+    private static final long serialVersionUID = -319860178138853771L;
     private static final BookmarkControl bmc = BookmarkControl.getInstance();
 
     /**
@@ -26,7 +25,7 @@ public class BookmarkTreeModel extends DefaultTreeModel
      *
      * @param root root of the tree
      */
-    public BookmarkTreeModel (final DefaultMutableTreeNode root) {
+    public BookmarkTreeModel(final DefaultMutableTreeNode root) {
         super(root);
         /*
         this.addTreeModelListener(new TreeModelListener() {
@@ -63,26 +62,24 @@ public class BookmarkTreeModel extends DefaultTreeModel
      *
      * @param newNode node to add
      */
-    public void insertNodeSorted (final DefaultMutableTreeNode newNode)
-    {
-        insertNodeSorted((DefaultMutableTreeNode)getRoot(), newNode);
+    public void insertNodeSorted(final DefaultMutableTreeNode newNode) {
+        insertNodeSorted((DefaultMutableTreeNode) getRoot(), newNode);
     }
 
     /**
      * Inserts a node in the correct sorted order.
      *
-     * @param parent parent node under which to add the node
+     * @param parent  parent node under which to add the node
      * @param newNode node to add
      */
-    public void insertNodeSorted (final DefaultMutableTreeNode parent, final DefaultMutableTreeNode newNode)
-    {
+    public void insertNodeSorted(final DefaultMutableTreeNode parent, final DefaultMutableTreeNode newNode) {
         if (parent.getChildCount() == 0) {
             insertNodeInto(newNode, parent, 0);
-        } else if (newNode.toString().compareTo(((DefaultMutableTreeNode)parent.getChildAt(parent.getChildCount() - 1)).toString()) > 0) {
+        } else if (newNode.toString().compareTo(parent.getChildAt(parent.getChildCount() - 1).toString()) > 0) {
             insertNodeInto(newNode, parent, parent.getChildCount());
         } else {
             for (int i = 0; i < parent.getChildCount(); i++) {
-                if ((newNode.toString()).compareTo(((DefaultMutableTreeNode)parent.getChildAt(i)).toString()) <= 0) {
+                if ((newNode.toString()).compareTo(parent.getChildAt(i).toString()) <= 0) {
                     insertNodeInto(newNode, parent, i);
                     break;
                 }
@@ -94,14 +91,13 @@ public class BookmarkTreeModel extends DefaultTreeModel
      * Inserts a node to a category in the correct sorted order.
      *
      * @param category name of category
-     * @param newNode node to add
+     * @param newNode  node to add
      */
-    public void insertNodeToCategory (final String category, final DefaultMutableTreeNode newNode)
-    {
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode)getRoot();
+    public void insertNodeToCategory(final String category, final DefaultMutableTreeNode newNode) {
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) getRoot();
         for (int i = 0; i < root.getChildCount(); i++) {
-            if (((DefaultMutableTreeNode)root.getChildAt(i)).toString().equals(category)) {
-                insertNodeSorted((DefaultMutableTreeNode)root.getChildAt(i), newNode);
+            if (root.getChildAt(i).toString().equals(category)) {
+                insertNodeSorted((DefaultMutableTreeNode) root.getChildAt(i), newNode);
                 break;
             }
         }
@@ -114,9 +110,8 @@ public class BookmarkTreeModel extends DefaultTreeModel
      *
      * @param node node to check
      */
-    public boolean isLeaf (final Object node)
-    {
-        return ((DefaultMutableTreeNode)node).getLevel() == 2;
+    public boolean isLeaf(final Object node) {
+        return ((DefaultMutableTreeNode) node).getLevel() == 2;
     }
 
 }

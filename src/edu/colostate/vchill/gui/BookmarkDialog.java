@@ -3,19 +3,11 @@ package edu.colostate.vchill.gui;
 import edu.colostate.vchill.ScaleManager;
 import edu.colostate.vchill.bookmark.Bookmark;
 import edu.colostate.vchill.bookmark.BookmarkControl;
-import java.awt.GridLayout;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 /**
  * Dialog for viewing/editing bookmarks
@@ -23,20 +15,17 @@ import javax.swing.JTextField;
  * @author Jochen Deyke
  * @version 2006-09-14
  */
-public class BookmarkDialog
-{
+public class BookmarkDialog {
     private static final BookmarkControl bmc = BookmarkControl.getInstance();
     private static final ScaleManager sm = ScaleManager.getInstance();
 
     private final Bookmark bookmark;
 
-    public BookmarkDialog (final Bookmark bookmark)
-    {
+    public BookmarkDialog(final Bookmark bookmark) {
         this.bookmark = bookmark;
     }
 
-    public void show ()
-    {
+    public void show() {
         final JTabbedPane tabs = new JTabbedPane(/*JTabbedPane.LEFT*/);
 
         final JPanel general = new JPanel();
@@ -129,67 +118,77 @@ public class BookmarkDialog
         scale.setLayout(new BoxLayout(scale, BoxLayout.X_AXIS));
         final int numTypes = this.bookmark.scale.size();
         final JPanel labelCol = new JPanel();
-        labelCol.setLayout(new GridLayout(numTypes+1, 1));
+        labelCol.setLayout(new GridLayout(numTypes + 1, 1));
         labelCol.add(new JLabel(""));
         final JCheckBox[] autos = new JCheckBox[numTypes];
         final JPanel autoCol = new JPanel();
-        autoCol.setLayout(new GridLayout(numTypes+1, 1));
+        autoCol.setLayout(new GridLayout(numTypes + 1, 1));
         autoCol.add(new JLabel("Autoscale"));
         final JTextField[] mins = new JTextField[numTypes];
         final JPanel minCol = new JPanel();
-        minCol.setLayout(new GridLayout(numTypes+1, 1));
+        minCol.setLayout(new GridLayout(numTypes + 1, 1));
         minCol.add(new JLabel("Minimum"));
         final JTextField[] maxs = new JTextField[numTypes];
         final JPanel maxCol = new JPanel();
-        maxCol.setLayout(new GridLayout(numTypes+1, 1));
+        maxCol.setLayout(new GridLayout(numTypes + 1, 1));
         maxCol.add(new JLabel("Maximum"));
-        { int i = 0; for (String type : bookmark.scale.keySet()) {
-            final JCheckBox cb = new JCheckBox();
-            labelCol.add(new JLabel(" " + type + ": "));
-            autoCol.add(autos[i] = cb);
-            Bookmark.Scale bmScale = this.bookmark.scale.get(type);
-            cb.setSelected(bmScale.autoscale);
-            final JTextField min = new JTextField(bmScale.minval, 10);
-            final JTextField max = new JTextField(bmScale.maxval, 10);
-            minCol.add(mins[i] = min);
-            maxCol.add(maxs[i] = max);
-            min.setEnabled(!cb.isSelected());
-            max.setEnabled(!cb.isSelected());
-            cb.addActionListener(new ActionListener() {
-                public void actionPerformed (final ActionEvent ae) {
-                    boolean selected = cb.isSelected();
-                    min.setEnabled(!selected);
-                    max.setEnabled(!selected);
-                }});
-        ++i; }}
+        {
+            int i = 0;
+            for (String type : bookmark.scale.keySet()) {
+                final JCheckBox cb = new JCheckBox();
+                labelCol.add(new JLabel(" " + type + ": "));
+                autoCol.add(autos[i] = cb);
+                Bookmark.Scale bmScale = this.bookmark.scale.get(type);
+                cb.setSelected(bmScale.autoscale);
+                final JTextField min = new JTextField(bmScale.minval, 10);
+                final JTextField max = new JTextField(bmScale.maxval, 10);
+                minCol.add(mins[i] = min);
+                maxCol.add(maxs[i] = max);
+                min.setEnabled(!cb.isSelected());
+                max.setEnabled(!cb.isSelected());
+                cb.addActionListener(new ActionListener() {
+                    public void actionPerformed(final ActionEvent ae) {
+                        boolean selected = cb.isSelected();
+                        min.setEnabled(!selected);
+                        max.setEnabled(!selected);
+                    }
+                });
+                ++i;
+            }
+        }
         scale.add(labelCol);
         scale.add(autoCol);
         scale.add(minCol);
         scale.add(maxCol);
         tabs.addTab("Scale", scale);
 
-        JOptionPane pane = new JOptionPane(new Object[] {
-            tabs,
+        JOptionPane pane = new JOptionPane(new Object[]{
+                tabs,
         }, JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
         pane.setWantsInput(false);
         JDialog dialog = pane.createDialog(null, "Bookmark Properties");
         dialog.pack();
         dialog.setVisible(true);
         //get result
-        Integer value = (Integer)pane.getValue();
-        if (value == null || value.intValue() == JOptionPane.CANCEL_OPTION || value.intValue() == JOptionPane.CLOSED_OPTION) return;
+        Integer value = (Integer) pane.getValue();
+        if (value == null || value.intValue() == JOptionPane.CANCEL_OPTION || value.intValue() == JOptionPane.CLOSED_OPTION)
+            return;
         this.bookmark.url = url.getText();
         this.bookmark.dir = dir.getText();
         this.bookmark.file = file.getText();
         this.bookmark.sweep = sweep.getText();
         this.bookmark.scan_type = scan.getText();
         this.bookmark.comment = comment.getText();
-        { int i = 0; for (String type : this.bookmark.scale.keySet()) {
-            Bookmark.Scale bmScale = this.bookmark.scale.get(type);
-            bmScale.autoscale = autos[i].isSelected();
-            bmScale.minval = mins[i].getText();
-            bmScale.maxval = maxs[i].getText();
-        ++i; }}
+        {
+            int i = 0;
+            for (String type : this.bookmark.scale.keySet()) {
+                Bookmark.Scale bmScale = this.bookmark.scale.get(type);
+                bmScale.autoscale = autos[i].isSelected();
+                bmScale.minval = mins[i].getText();
+                bmScale.maxval = maxs[i].getText();
+                ++i;
+            }
+        }
         this.bookmark.x = Double.parseDouble(centerX.getText());
         this.bookmark.y = Double.parseDouble(centerY.getText());
         this.bookmark.range = Double.parseDouble(range.getText());

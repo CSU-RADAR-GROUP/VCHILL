@@ -1,6 +1,7 @@
 package edu.colostate.vchill.file;
 
 import edu.colostate.vchill.ChillDefines;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.EOFException;
@@ -9,60 +10,89 @@ import java.io.IOException;
 /**
  * Reads Parameter data header
  *
- * @author  Justin Carlson
- * @author  Brian Eriksson
- * @author  Jochen Deyke
- * @created June 17, 2003
+ * @author Justin Carlson
+ * @author Brian Eriksson
+ * @author Jochen Deyke
  * @version 2005-11-09
+ * @created June 17, 2003
  */
-public class FileParameterData
-{
+public class FileParameterData {
     private static final int RANGE_OFFSET = 600000; //600m
     private static final int STR_LEN = 8;
 
-    /** unique number */
+    /**
+     * unique number
+     */
     public int radar_id;
 
-    /** bytes */
+    /**
+     * bytes
+     */
     public int added_struct_size;
 
-    /** meters */
+    /**
+     * meters
+     */
     public int altitude;
 
-    /** degrees * 1000000 */
+    /**
+     * degrees * 1000000
+     */
     public int latitude;
 
-    /** degrees * 1000000 */
+    /**
+     * degrees * 1000000
+     */
     public int longitude;
 
-    /** number of gates archived */
+    /**
+     * number of gates archived
+     */
     public int ngates;
 
-    /** millimeters - this includes the affect of any rangeaveraging */
+    /**
+     * millimeters - this includes the affect of any rangeaveraging
+     */
     public int gate_spacing;
 
-    /** millimeters */
+    /**
+     * millimeters
+     */
     public int start_range;
 
-    /** degrees * 1000000 */
+    /**
+     * degrees * 1000000
+     */
     public int beam_width;
 
-    /** Transmit pulses per integration cycle */
+    /**
+     * Transmit pulses per integration cycle
+     */
     public int samples_per_beam;
 
-    /** nano-seconds */
+    /**
+     * nano-seconds
+     */
     public int pulse_width;
 
-    /** pulse repetition frequency * 1000 */
+    /**
+     * pulse repetition frequency * 1000
+     */
     public int prf;
 
-    /** micrometers */
+    /**
+     * micrometers
+     */
     public int wavelength;
 
-    /** Number of fields */
+    /**
+     * Number of fields
+     */
     public int nfields;
 
-    /** scan start time */
+    /**
+     * scan start time
+     */
     public int volume_start_time;
 
     /**
@@ -108,10 +138,14 @@ public class FileParameterData
      */
     public int sweep_bytes;
 
-    /** volume number */
+    /**
+     * volume number
+     */
     public int vol_num;
 
-    /** sweep number */
+    /**
+     * sweep number
+     */
     public int tilt_num;
 
     /**
@@ -120,40 +154,64 @@ public class FileParameterData
      */
     public int processor_mode;
 
-    /** digitization width in nanoseconds */
+    /**
+     * digitization width in nanoseconds
+     */
     public int drx_gate_width;
 
-    /** current clutter filter setting */
+    /**
+     * current clutter filter setting
+     */
     public int drx_clutter_filter;
 
-    /** zdr calibration applied, dB*1000 */
+    /**
+     * zdr calibration applied, dB*1000
+     */
     public int drx_zdr_bias;
 
-    /** dB * 1000 bias applied for ldr when H transmits */
+    /**
+     * dB * 1000 bias applied for ldr when H transmits
+     */
     public int drx_ldrh_bias;
 
-    /** dB * 1000 bias applied for ldr when V transmits */
+    /**
+     * dB * 1000 bias applied for ldr when V transmits
+     */
     public int drx_ldrv_bias;
 
-    /** rotation applied to phidp,  degress*1000000 */
+    /**
+     * rotation applied to phidp,  degress*1000000
+     */
     public int phidp_rot;
 
-    /** receiver 1 noise level setting dB*1000 */
+    /**
+     * receiver 1 noise level setting dB*1000
+     */
     public int drx_rec1_noise;
 
-    /** receiver 2 noise level setting dB*1000 */
+    /**
+     * receiver 2 noise level setting dB*1000
+     */
     public int drx_rec2_noise;
 
-    /** constant added to get dBZ at 1km, dB*1000 */
+    /**
+     * constant added to get dBZ at 1km, dB*1000
+     */
     public int drx_rec1_Zcon;
 
-    /** constant added to get dBZ at 1km, dB*1000 */
+    /**
+     * constant added to get dBZ at 1km, dB*1000
+     */
     public int drx_rec2_Zcon;
 
-    /** average power in last half of range */
+    /**
+     * average power in last half of range
+     */
     public int drx_rec1_average_power;
 
-    /** average power in last half of range */
+    /**
+     * average power in last half of range
+     */
     public int drx_rec2_average_power;
 
     /**
@@ -162,19 +220,29 @@ public class FileParameterData
      */
     public int cov_range_avg;
 
-    /** range to first time series gate in mm */
+    /**
+     * range to first time series gate in mm
+     */
     public int ts_range1;
 
-    /** time series gate spacing in mm */
+    /**
+     * time series gate spacing in mm
+     */
     public int ts_gate_space;
 
-    /** from norm_packet - NON_CONTIG_TS */
+    /**
+     * from norm_packet - NON_CONTIG_TS
+     */
     public int ts_flags;
 
-    /** number of gates processed in DRX */
+    /**
+     * number of gates processed in DRX
+     */
     public int proc_gates;
 
-    /** max height above ground to be archived - in meters */
+    /**
+     * max height above ground to be archived - in meters
+     */
     public int max_top;
 
     /**
@@ -194,39 +262,57 @@ public class FileParameterData
      */
     public int scan_flags;
 
-    /** left scan limit, degrees*1000000 */
+    /**
+     * left scan limit, degrees*1000000
+     */
     public int left_limit;
 
-    /** right scan limit, degrees*1000000 */
+    /**
+     * right scan limit, degrees*1000000
+     */
     public int right_limit;
 
-    /** up scan limit, degrees*1000000 */
+    /**
+     * up scan limit, degrees*1000000
+     */
     public int up_limit;
 
-    /** down scan limit, degrees*1000000 */
+    /**
+     * down scan limit, degrees*1000000
+     */
     public int down_limit;
 
-    /** antenna scan rate, degrees*1000000/sec */
+    /**
+     * antenna scan rate, degrees*1000000/sec
+     */
     public int scan_rate;
 
-    /** scan segment name, null terminated */
+    /**
+     * scan segment name, null terminated
+     */
     public char scan_seg[];
 
-    /** horizontal peak transmit power dBm*100 */
+    /**
+     * horizontal peak transmit power dBm*100
+     */
     public int txmit_power_H;
 
-    /** vertical peak transmit power  dBm*100 */
+    /**
+     * vertical peak transmit power  dBm*100
+     */
     public int txmit_power_V;
 
     /**
      * current test type
-     *
+     * <p/>
      * 0 = no test, 1 = ZDR cal, 2 = Sun Fixed, 3 = H rec, 4 = V rec,
      * 5 = Sun ppi, 6 = Blue Sky (noise sample)
      */
     public int test_type;
 
-    /** current test set power, dBm*100 */
+    /**
+     * current test set power, dBm*100
+     */
     public int test_power;
 
     /**
@@ -243,38 +329,44 @@ public class FileParameterData
      */
     public char track_mode[];
 
-    /** scan optimizer maximum range, meters */
+    /**
+     * scan optimizer maximum range, meters
+     */
     public int optimizer_rmax;
 
-    /** scan optimizer maximum height, meters */
+    /**
+     * scan optimizer maximum height, meters
+     */
     public int optimizer_htmax;
 
-    /** scan optimizer desired minimum resolution, meters */
+    /**
+     * scan optimizer desired minimum resolution, meters
+     */
     public int optimizer_resol;
 
-    /** extra data (added_struct_size bytes); not interpreted */
+    /**
+     * extra data (added_struct_size bytes); not interpreted
+     */
     public byte[] extra_data;
 
     /**
      * Constructor for the FileParameterData object
      */
-    public FileParameterData ()
-    {
+    public FileParameterData() {
         this.track_mode = new char[STR_LEN];
         this.scan_seg = new char[STR_LEN];
     }
 
-    public int byteSize ()
-    {
+    public int byteSize() {
         return
-            ChillDefines.INT_BYTE_SIZE +
-            ChillDefines.SHORT_BYTE_SIZE * 2+
-            ChillDefines.INT_BYTE_SIZE * 45 +
-            STR_LEN +
-            ChillDefines.INT_BYTE_SIZE * 5 +
-            STR_LEN +
-            ChillDefines.INT_BYTE_SIZE * 3 +
-            added_struct_size;
+                ChillDefines.INT_BYTE_SIZE +
+                        ChillDefines.SHORT_BYTE_SIZE * 2 +
+                        ChillDefines.INT_BYTE_SIZE * 45 +
+                        STR_LEN +
+                        ChillDefines.INT_BYTE_SIZE * 5 +
+                        STR_LEN +
+                        ChillDefines.INT_BYTE_SIZE * 3 +
+                        added_struct_size;
     }
 
     /**
@@ -284,8 +376,7 @@ public class FileParameterData
      * @return false if an IOException ocurred while reading
      * @throws EOFException Thrown if end of file is found
      */
-    public boolean inputData (final DataInput in)
-    {
+    public boolean inputData(final DataInput in) {
         try {
             this.radar_id = in.readInt();
             this.added_struct_size = 0xffff & in.readShort();
@@ -336,7 +427,7 @@ public class FileParameterData
             this.down_limit = in.readInt();
             this.scan_rate = in.readInt();
             for (int i = 0; i < scan_seg.length; i++) {
-                this.scan_seg[i] = (char)in.readByte();
+                this.scan_seg[i] = (char) in.readByte();
                 //char array
             }
             this.txmit_power_H = in.readInt();
@@ -345,7 +436,7 @@ public class FileParameterData
             this.test_power = in.readInt();
             this.test_hardware_setup = in.readInt();
             for (int i = 0; i < track_mode.length; i++) {
-                this.track_mode[i] = (char)in.readByte();
+                this.track_mode[i] = (char) in.readByte();
             }
             this.optimizer_rmax = in.readInt();
             this.optimizer_htmax = in.readInt();
@@ -364,12 +455,11 @@ public class FileParameterData
      * @return false if an IOException ocurred while reading
      * @throws EOFException Thrown if end of file is found
      */
-    public boolean outputData (final DataOutput out) throws EOFException
-    {
+    public boolean outputData(final DataOutput out) throws EOFException {
         try {
             out.writeInt(this.radar_id);
-            out.writeShort((short)this.added_struct_size);
-            out.writeShort((short)this.altitude);
+            out.writeShort((short) this.added_struct_size);
+            out.writeShort((short) this.altitude);
             out.writeInt(this.latitude);
             out.writeInt(this.longitude);
             out.writeInt(this.ngates);
@@ -422,7 +512,7 @@ public class FileParameterData
             out.writeInt(this.scan_rate);
 
             for (int i = 0; i < scan_seg.length; i++) {
-                out.writeByte((byte)this.scan_seg[i]);
+                out.writeByte((byte) this.scan_seg[i]);
                 //char array
             }
 
@@ -434,7 +524,7 @@ public class FileParameterData
             out.writeInt(this.test_hardware_setup);
 
             for (int i = 0; i < track_mode.length; i++) {
-                out.writeByte((byte)this.track_mode[i]);
+                out.writeByte((byte) this.track_mode[i]);
             }
 
             out.writeInt(this.optimizer_rmax);
@@ -447,21 +537,27 @@ public class FileParameterData
         return true;
     }
 
-    public String getRadarName ()
-    {
+    public String getRadarName() {
         switch (this.radar_id) {
-            case 3: return "CHILL";
-            case 4: return "Pawnee";
-            default: return String.valueOf(this.radar_id);
+            case 3:
+                return "CHILL";
+            case 4:
+                return "Pawnee";
+            default:
+                return String.valueOf(this.radar_id);
         }
     }
 
-    public String getScanMode ()
-    {
+    public String getScanMode() {
         switch (this.chill_scan_mode) {
-            case 0: case 3: return "PPI";
-            case 1: case 4: return "RHI";
-            default: return "MAN";
+            case 0:
+            case 3:
+                return "PPI";
+            case 1:
+            case 4:
+                return "RHI";
+            default:
+                return "MAN";
         }
     }
 }

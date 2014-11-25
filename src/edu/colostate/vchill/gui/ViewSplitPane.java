@@ -1,36 +1,31 @@
 package edu.colostate.vchill.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 
 /**
  * Utility class to allow JSplitPanes to be painted to BufferedImages
  *
- * @author  Jochen Deyke
- * @author  jpont
+ * @author Jochen Deyke
+ * @author jpont
  * @version 2010-08-30
  */
-public class ViewSplitPane extends JSplitPane
-{
+public class ViewSplitPane extends JSplitPane {
     /**
-   * 
-   */
-  private static final long serialVersionUID = -921938372214006875L;
+     *
+     */
+    private static final long serialVersionUID = -921938372214006875L;
 
-    public ViewSplitPane (final JPanel left, final JPanel right)
-    {
+    public ViewSplitPane(final JPanel left, final JPanel right) {
         super(JSplitPane.HORIZONTAL_SPLIT, left, right);
         //setDividerSize(0);
         setResizeWeight(0.8);
     }
 
-    public BufferedImage getBufferedImage ()
-    {
+    public BufferedImage getBufferedImage() {
         BufferedImage imageBuffer =
-            new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+                new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics c = imageBuffer.createGraphics();
         c.setColor(Color.BLACK);
         c.fillRect(0, 0, getWidth(), getHeight());

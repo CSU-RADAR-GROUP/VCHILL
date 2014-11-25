@@ -1,38 +1,20 @@
 package edu.colostate.vchill.gui;
 
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
-
-import javax.swing.AbstractAction;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFileChooser;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JSeparator;
-import javax.swing.KeyStroke;
-
-import edu.colostate.vchill.DialogUtil;
-import edu.colostate.vchill.Loader;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.Version;
-import edu.colostate.vchill.ViewControl;
+import edu.colostate.vchill.*;
 import edu.colostate.vchill.chill.ChillMomentFieldScale;
 import edu.colostate.vchill.color.ColorEditor;
 import edu.colostate.vchill.color.XMLControl;
 import edu.colostate.vchill.map.MapTextParser;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 
 /**
@@ -40,27 +22,26 @@ import edu.colostate.vchill.map.MapTextParser;
  * add into JFrames.  It is just a reasonable way to make the menu a
  * bit more modular.
  *
- * @author  Justin Carlson
- * @author  Jochen Deyke
- * @author  Alexander Deyke
- * @author  Michael Rausch
- * @author  jpont
- * @created January 03, 2003
+ * @author Justin Carlson
+ * @author Jochen Deyke
+ * @author Alexander Deyke
+ * @author Michael Rausch
+ * @author jpont
  * @version 2010-08-02
+ * @created January 03, 2003
  */
 
-public class ViewMenu extends JMenuBar
-{
+public class ViewMenu extends JMenuBar {
 
-   /**
-   * 
-   **/
-  private static final long serialVersionUID=1111234324;
+    /**
+     *
+     **/
+    private static final long serialVersionUID = 1111234324;
 
-	
+
     private MapServerConfig MapServerConfigObject = MapServerConfig.getInstance();
-	
-	
+
+
     private static final WindowManager wm = WindowManager.getInstance();
     private static final ViewControl vc = ViewControl.getInstance();
     private final static ScaleManager sm = ScaleManager.getInstance();
@@ -73,14 +54,13 @@ public class ViewMenu extends JMenuBar
 
     private final static String NONE = "<none>";
     private final static String CUSTOM = "Custom...";
-    
+
     private final JMenu plotMenu, ascopeMenu, numdumpMenu;
 
     /**
      * Creates the Actions that will be used to make up the menu items.
      */
-    public ViewMenu ()
-    {
+    public ViewMenu() {
         List<String> colors = XMLControl.getListOfFiles();
         List<String> maps = MapTextParser.getListOfFiles();
         this.mapItems = new HashMap<String, JCheckBoxMenuItem>(maps.size() + 2); //also none & custom
@@ -92,14 +72,15 @@ public class ViewMenu extends JMenuBar
         this.add(createColorMenu(colors));
         this.add(createMapMenu(maps));
         this.add(createMapServerMenu());
-        
-        
+
+
         this.add(createHelpMenu());
         updateWindowMenus();
-        sm.addObserver(new Observer () {
-            public void update (final Observable o, final Object arg) {
+        sm.addObserver(new Observer() {
+            public void update(final Observable o, final Object arg) {
                 updateWindowMenus();
-            }});
+            }
+        });
     }
 
     /**
@@ -108,8 +89,7 @@ public class ViewMenu extends JMenuBar
      *
      * @return A Menu with the connection options inside it.
      */
-    private JMenu createFileMenu ()
-    {
+    private JMenu createFileMenu() {
         JMenu menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_F);
         JMenuItem menuItem;
@@ -120,44 +100,50 @@ public class ViewMenu extends JMenuBar
 
         menuItem = new JMenuItem(new AbstractAction("Disconnect") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 5481884604060947550L;
+             *
+             */
+            private static final long serialVersionUID = 5481884604060947550L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 vc.disconnect();
-            }}) {
+            }
+        }) {
             /**
-               * 
-               */
-              private static final long serialVersionUID = -2156502872388585348L;
+             *
+             */
+            private static final long serialVersionUID = -2156502872388585348L;
 
-            @Override public void paint (final java.awt.Graphics g) {
+            @Override
+            public void paint(final java.awt.Graphics g) {
                 setEnabled(vc.isConnected());
                 super.paint(g);
-            }};
+            }
+        };
         menuItem.setMnemonic(KeyEvent.VK_D);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, MENU_MASK));
         menu.add(menuItem);
 
         menuItem = new JMenuItem(new AbstractAction("Reconnect") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -4722149230738447341L;
+             *
+             */
+            private static final long serialVersionUID = -4722149230738447341L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 vc.reconnect();
-            }}) {
+            }
+        }) {
             /**
-               * 
-               */
-              private static final long serialVersionUID = -8227408138120674104L;
+             *
+             */
+            private static final long serialVersionUID = -8227408138120674104L;
 
-            @Override public void paint (final java.awt.Graphics g) {
+            @Override
+            public void paint(final java.awt.Graphics g) {
                 setEnabled(vc.getControlMessage().getURL() != null);
                 super.paint(g);
-            }};
+            }
+        };
         menuItem.setMnemonic(KeyEvent.VK_R);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, MENU_MASK));
         menu.add(menuItem);
@@ -166,26 +152,28 @@ public class ViewMenu extends JMenuBar
 
         menuItem = new JMenuItem(new AbstractAction("Replot") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -7275938786693480683L;
+             *
+             */
+            private static final long serialVersionUID = -7275938786693480683L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 vc.rePlot();
-            }});
+            }
+        });
         menuItem.setMnemonic(KeyEvent.VK_P);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
         menu.add(menuItem);
 
         menuItem = new JMenuItem(new AbstractAction("Saved Image Browser") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 5119928357939072609L;
+             *
+             */
+            private static final long serialVersionUID = 5119928357939072609L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 wm.showImages();
-            }});
+            }
+        });
         menuItem.setMnemonic(KeyEvent.VK_I);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0));
         menu.add(menuItem);
@@ -194,13 +182,14 @@ public class ViewMenu extends JMenuBar
 
         menuItem = new JMenuItem(new AbstractAction("Exit") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -1652428569184256852L;
+             *
+             */
+            private static final long serialVersionUID = -1652428569184256852L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 Loader.exit();
-            }});
+            }
+        });
         menuItem.setMnemonic(KeyEvent.VK_X);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, MENU_MASK));
         menu.add(menuItem);
@@ -213,16 +202,14 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createAScopeMenu ()
-    {
+    private JMenu createAScopeMenu() {
         JMenu menu = new JMenu("AScope");
         //windowMenu.setIcon(new ImageIcon(Loader.getResource("icons/ascope.png")));
         menu.setMnemonic(KeyEvent.VK_A);
         return menu;
     }
 
-    private void updateAscopeMenu ()
-    {
+    private void updateAscopeMenu() {
         while (this.ascopeMenu.getItemCount() > 0) this.ascopeMenu.remove(0);
 
         JMenuItem menuItem;
@@ -238,13 +225,14 @@ public class ViewMenu extends JMenuBar
             }
             menuItem.addActionListener(new AbstractAction(type) {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = -3696132406097154334L;
+                 *
+                 */
+                private static final long serialVersionUID = -3696132406097154334L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     wm.createAScopeWindow(type);
-                }});
+                }
+            });
             this.ascopeMenu.add(menuItem);
         }
 
@@ -255,13 +243,14 @@ public class ViewMenu extends JMenuBar
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
         menuItem.addActionListener(new AbstractAction() {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 1474363419188806158L;
+             *
+             */
+            private static final long serialVersionUID = 1474363419188806158L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 wm.saveAScopeImages(vc.getControlMessage());
-            }});
+            }
+        });
         this.ascopeMenu.add(menuItem);
     }
 
@@ -270,15 +259,13 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createNumDumpMenu ()
-    {
+    private JMenu createNumDumpMenu() {
         JMenu menu = new JMenu("Numerical");
         menu.setMnemonic(KeyEvent.VK_N);
         return menu;
     }
 
-    private void updateNumDumpMenu ()
-    {
+    private void updateNumDumpMenu() {
         while (this.numdumpMenu.getItemCount() > 0) this.numdumpMenu.remove(0);
 
         JMenuItem menuItem;
@@ -293,13 +280,14 @@ public class ViewMenu extends JMenuBar
             }
             menuItem.addActionListener(new AbstractAction() {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = 2024444209537541815L;
+                 *
+                 */
+                private static final long serialVersionUID = 2024444209537541815L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     wm.createNumDumpWindow(type);
-                }});
+                }
+            });
             numdumpMenu.add(menuItem);
         }
     }
@@ -309,16 +297,14 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createPlotMenu ()
-    {
+    private JMenu createPlotMenu() {
         JMenu menu = new JMenu("Plot");
         menu.setMnemonic(KeyEvent.VK_P);
         //windowMenu.setIcon(new ImageIcon(Loader.getResource("icons/sweepPPI.png")));
         return menu;
     }
 
-    private void updatePlotMenu ()
-    {
+    private void updatePlotMenu() {
         while (this.plotMenu.getItemCount() > 0) this.plotMenu.remove(0);
 
         JMenuItem menuItem;
@@ -334,13 +320,14 @@ public class ViewMenu extends JMenuBar
             }
             menuItem.addActionListener(new AbstractAction() {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = -9206652032847619969L;
+                 *
+                 */
+                private static final long serialVersionUID = -9206652032847619969L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     wm.createPlotWindow(type);
-                }});
+                }
+            });
             this.plotMenu.add(menuItem);
         }
 
@@ -351,23 +338,19 @@ public class ViewMenu extends JMenuBar
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
         menuItem.addActionListener(new AbstractAction() {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -5973514717362194223L;
+             *
+             */
+            private static final long serialVersionUID = -5973514717362194223L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 wm.savePlotImages(vc.getControlMessage());
-            }});
+            }
+        });
         this.plotMenu.add(menuItem);
     }
 
 
-
-    
-  
-        
-    public void updateWindowMenus ()
-    {
+    public void updateWindowMenus() {
         this.updatePlotMenu();
         this.updateAscopeMenu();
         this.updateNumDumpMenu();
@@ -378,8 +361,7 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createColorMenu (final List<String> colorNames)
-    {
+    private JMenu createColorMenu(final List<String> colorNames) {
         JMenu menu = new JMenu("Colors");
         menu.setMnemonic(KeyEvent.VK_C);
         ButtonGroup colorGroup = new ButtonGroup();
@@ -399,14 +381,15 @@ public class ViewMenu extends JMenuBar
                 menuItem.setMnemonic(file.charAt(0));
                 menuItem.addActionListener(new AbstractAction(file) {
                     /**
-                   * 
-                   */
-                  private static final long serialVersionUID = -6979155677539285789L;
+                     *
+                     */
+                    private static final long serialVersionUID = -6979155677539285789L;
 
-                    public void actionPerformed (final ActionEvent ae) {
+                    public void actionPerformed(final ActionEvent ae) {
                         vc.loadColors(file);
                         vc.rePlot();
-                    }});
+                    }
+                });
                 menu.add(menuItem);
             }
 
@@ -414,11 +397,12 @@ public class ViewMenu extends JMenuBar
             customItem.setMnemonic(KeyEvent.VK_C);
             customItem.addActionListener(new AbstractAction() {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = 4502395067388223383L;
+                 *
+                 */
+                private static final long serialVersionUID = 4502395067388223383L;
                 private String lastDir = null;
-                public void actionPerformed (final ActionEvent ae) {
+
+                public void actionPerformed(final ActionEvent ae) {
                     JFileChooser chooser = new JFileChooser(this.lastDir);
                     int returnVal = chooser.showOpenDialog(null);
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -431,18 +415,20 @@ public class ViewMenu extends JMenuBar
                             System.err.println(ioe);
                         }
                     }
-                }});
+                }
+            });
             menu.add(customItem);
 
             JMenuItem menuItem = new JMenuItem(new AbstractAction("Editor...") {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = -1123939868287931029L;
+                 *
+                 */
+                private static final long serialVersionUID = -1123939868287931029L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     editor.setVisible(true);
-                }});
+                }
+            });
             menuItem.setMnemonic(KeyEvent.VK_E);
             menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, MENU_MASK));
             menu.add(menuItem);
@@ -454,15 +440,16 @@ public class ViewMenu extends JMenuBar
             //interpolate colortable to ~256 entries
             JCheckBoxMenuItem interpolateItem = new JCheckBoxMenuItem(new AbstractAction("Interpolate colors") {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = -4065087106308662376L;
+                 *
+                 */
+                private static final long serialVersionUID = -4065087106308662376L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     ccc.toggleInterpolateColorsEnabled();
                     vc.loadColors(ccc.getColorFileName());
                     vc.rePlot();
-                }});
+                }
+            });
             interpolateItem.setSelected(ccc.isInterpolateColorsEnabled());
             interpolateItem.setMnemonic(KeyEvent.VK_I);
             interpolateItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, MENU_MASK));
@@ -470,15 +457,16 @@ public class ViewMenu extends JMenuBar
 
             JCheckBoxMenuItem outlineItem = new JCheckBoxMenuItem(new AbstractAction("Outline colors") {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = -7817556555268690225L;
+                 *
+                 */
+                private static final long serialVersionUID = -7817556555268690225L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     ccc.toggleOutlineColorsEnabled();
                     vc.loadColors(ccc.getColorFileName());
                     vc.rePlot();
-                }});
+                }
+            });
             outlineItem.setSelected(ccc.isOutlineColorsEnabled());
             outlineItem.setMnemonic(KeyEvent.VK_O);
             outlineItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, MENU_MASK));
@@ -493,8 +481,7 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createMapMenu (final List<String> mapNames)
-    {
+    private JMenu createMapMenu(final List<String> mapNames) {
         JMenu menu = new JMenu("Maps");
         menu.setMnemonic(KeyEvent.VK_M);
         JCheckBoxMenuItem menuItem;
@@ -503,18 +490,19 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_N);
         menuItem.addActionListener(new AbstractAction() {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -2459580052586953736L;
+             *
+             */
+            private static final long serialVersionUID = -2459580052586953736L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 for (JCheckBoxMenuItem item : mapItems.values()) item.setSelected(false); //unselect all
                 mapItems.get(NONE).setSelected(true); //reselect "none"
                 gcc.clearMapFileNames();
                 vc.loadMaps();
                 wm.replotOverlay();
-				wm.repaintPlotWindows();
-            }});
+                wm.repaintPlotWindows();
+            }
+        });
         menu.add(menuItem);
 
         for (final String file : mapNames) { //1st N entries
@@ -522,16 +510,17 @@ public class ViewMenu extends JMenuBar
             menuItem.setMnemonic(file.charAt(0));
             menuItem.addActionListener(new AbstractAction(file) {
                 /**
-               * 
-               */
-              private static final long serialVersionUID = 1677757313020618538L;
+                 *
+                 */
+                private static final long serialVersionUID = 1677757313020618538L;
 
-                public void actionPerformed (final ActionEvent ae) {
+                public void actionPerformed(final ActionEvent ae) {
                     gcc.toggleMapFileName(file);
                     mapItems.get(NONE).setSelected(gcc.getMapFileNames().size() == 0); //deselect "none"?
                     vc.loadMaps();
-					wm.repaintPlotWindows();
-                }});
+                    wm.repaintPlotWindows();
+                }
+            });
             menuItem.setSelected(gcc.isMapActive(file)); //initial state
             menu.add(menuItem);
         }
@@ -540,11 +529,12 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_C);
         menuItem.addActionListener(new AbstractAction() {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 5573605166831208871L;
+             *
+             */
+            private static final long serialVersionUID = 5573605166831208871L;
             private String lastDir;
-            public void actionPerformed (final ActionEvent ae) {
+
+            public void actionPerformed(final ActionEvent ae) {
                 JFileChooser chooser = new JFileChooser(this.lastDir);
                 chooser.setMultiSelectionEnabled(true); //allow multiple selection
                 int returnVal = chooser.showOpenDialog(null); //no parent
@@ -557,13 +547,14 @@ public class ViewMenu extends JMenuBar
                             this.lastDir = files[i].getParent();
                         }
                         vc.loadMaps();
-						wm.repaintPlotWindows();
+                        wm.repaintPlotWindows();
                     } catch (IOException ioe) {
                         System.err.println(ioe);
                     }
                 }
                 updateBoxes();
-            }});
+            }
+        });
         menu.add(menuItem);
 
         //initial state
@@ -572,19 +563,20 @@ public class ViewMenu extends JMenuBar
         return menu;
     }
 
-    
+
     /**
      * Creates a Menu for selecting a map from MapServer.
      * Rausch
+     *
      * @return the newly created menu
      */
-    private JMenu createMapServerMenu ()//final List<String> mapNames)
+    private JMenu createMapServerMenu()//final List<String> mapNames)
     {
         JMenu menu = new JMenu("MapServer");
         menu.setMnemonic(KeyEvent.VK_S);
         JCheckBoxMenuItem menuItem;
 
-        
+
         mapItems.put("MapServer", menuItem = new JCheckBoxMenuItem("MapServer"));
         
         /*
@@ -594,14 +586,16 @@ public class ViewMenu extends JMenuBar
                 
             }});
         */
-        
+
         menuItem.addActionListener(new AbstractAction() {
             private String lastDir;
-            public void actionPerformed (final ActionEvent ae) {
 
-            	MapServerConfigObject.createAndShowPreferencesFrame();              
-                
-            }});            
+            public void actionPerformed(final ActionEvent ae) {
+
+                MapServerConfig.createAndShowPreferencesFrame();
+
+            }
+        });
         menu.add(menuItem);
 
 
@@ -623,13 +617,10 @@ public class ViewMenu extends JMenuBar
     {
     	MapServerConfigObject.createAndShowPreferencesFrame();
     }
-*/    
+*/
 
-    
- 
-	
-    private void updateBoxes ()
-    {
+
+    private void updateBoxes() {
         mapItems.get(NONE).setSelected(gcc.getMapFileNames().size() == 0); //deselect "none"?
         int selected = 0;
         for (JCheckBoxMenuItem item : mapItems.values()) if (item.isSelected()) ++selected;
@@ -643,21 +634,21 @@ public class ViewMenu extends JMenuBar
      *
      * @return the newly created menu
      */
-    private JMenu createHelpMenu ()
-    {
+    private JMenu createHelpMenu() {
         JMenu menu = new JMenu("Help");
         menu.setMnemonic(KeyEvent.VK_H);
         JMenuItem menuItem;
 
         menuItem = new JMenuItem(new AbstractAction("Using VCHILL") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -2419355891838506462L;
+             *
+             */
+            private static final long serialVersionUID = -2419355891838506462L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("Help: Using Java VCHILL", Loader.getResource("help/using.html"));
-            }});
+            }
+        });
         menuItem.setMnemonic(KeyEvent.VK_U);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         //menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_HELP, 0));
@@ -665,13 +656,14 @@ public class ViewMenu extends JMenuBar
 
         menuItem = new JMenuItem(new AbstractAction("Mouse Commands") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 3835468319635865079L;
+             *
+             */
+            private static final long serialVersionUID = 3835468319635865079L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("Help: Mouse Commands", Loader.getResource("help/mouse.html"));
-            }});
+            }
+        });
         menuItem.setMnemonic(KeyEvent.VK_M);
         menu.add(menuItem);
 
@@ -681,138 +673,141 @@ public class ViewMenu extends JMenuBar
         menuItem.setMnemonic(KeyEvent.VK_A);
         menuItem.addActionListener(new AbstractAction("About Java VCHILL") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -1762855706561806054L;
+             *
+             */
+            private static final long serialVersionUID = -1762855706561806054L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Java VCHILL",
-                    "<html>" + 
-                    "<table><tr><td><b>"+
-                    "<font size=\"+4\">Java VCHILL</font><br>" +
-                    "<font size=\"+1\">" + Version.string + "</font><br>"+
-                    "build " + Version.buildDate + "</b><br>" +
-                    "\u00a9 2002-2010<br>" + //(c)
-                    "</td><td>" + 
-                    //"<img align=\"right\" alt=\"Colorado State University\" src=\"http://chill.colostate.edu/images/glde_fr_med.png\">" +
-                    "</td></tr></table>" +
-                    "<hr align=\"left\" width=\"88%\">" +
-                    "Lead programmer:<br>" +
-                    "Joseph Hardin(jhardin@engr.colostate.edu)<br>"+
-                    "<br>"+"Mapserver Implementation by:<br>"+
-                    "Michael Rausch(RauschM@Ripon.EDU)<br>"+
-                    "<br>"+
-                    "Based on original work by:<br>"+
-                    "Jochen Deyke (jdeyke@chill.colostate.edu)<br>" +                    
-                    "Justin Carlson (justinc4@hotmail.com)<br>" +                    
-                    "Brian Eriksson (bceriksson@students.wisc.edu)<br>" +
-                    "Alexander Deyke (adeyke@gmx.net)<br>" +
-                    "<hr align=\"left\" width=\"88%\">" +
-                    "VCHILL uses the following third-party libraries:<br>" +
-                    "Gif89Encoder version 0.90 beta<br>" +
-                    "JGoodies Looks version 2.1.4<br>" +
-                    "Unidata NetCDF 2.2.22</html>");
-            }});
+                        "<html>" +
+                                "<table><tr><td><b>" +
+                                "<font size=\"+4\">Java VCHILL</font><br>" +
+                                "<font size=\"+1\">" + Version.string + "</font><br>" +
+                                "build " + Version.buildDate + "</b><br>" +
+                                "\u00a9 2002-2010<br>" + //(c)
+                                "</td><td>" +
+                                //"<img align=\"right\" alt=\"Colorado State University\" src=\"http://chill.colostate.edu/images/glde_fr_med.png\">" +
+                                "</td></tr></table>" +
+                                "<hr align=\"left\" width=\"88%\">" +
+                                "Lead programmer:<br>" +
+                                "Joseph Hardin(jhardin@engr.colostate.edu)<br>" +
+                                "<br>" + "Mapserver Implementation by:<br>" +
+                                "Michael Rausch(RauschM@Ripon.EDU)<br>" +
+                                "<br>" +
+                                "Based on original work by:<br>" +
+                                "Jochen Deyke (jdeyke@chill.colostate.edu)<br>" +
+                                "Justin Carlson (justinc4@hotmail.com)<br>" +
+                                "Brian Eriksson (bceriksson@students.wisc.edu)<br>" +
+                                "Alexander Deyke (adeyke@gmx.net)<br>" +
+                                "<hr align=\"left\" width=\"88%\">" +
+                                "VCHILL uses the following third-party libraries:<br>" +
+                                "Gif89Encoder version 0.90 beta<br>" +
+                                "JGoodies Looks version 2.1.4<br>" +
+                                "Unidata NetCDF 2.2.22</html>");
+            }
+        });
         menu.add(menuItem);
 
         menuItem = new JMenuItem("About Gif89Encoder");
         menuItem.setMnemonic(KeyEvent.VK_G);
         menuItem.addActionListener(new AbstractAction("About Gif89Encoder") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 5668265949029128836L;
+             *
+             */
+            private static final long serialVersionUID = 5668265949029128836L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Gif89Encoder",
-                    "Legal\n" +
-                    "-----\n" +
-                    "\n" +
-                    "Since Gif89Encoder includes significant sections of code from Jef Poskanzer's\n" +
-                    "GifEncoder.java, I'm including its notice in this distribution as requested (appended\n" +
-                    "below).\n" +
-                    "\n" +
-                    "As for my part of the code, I hereby release it, on a strictly \"as is\" basis,\n" +
-                    "to the public domain.\n" +
-                    "\n" +
-                    "J. M. G. Elliott\n" +
-                    "15-Jul-2000\n" +
-                    "\n" +
-                    "--------------------- from Jef Poskanzer's GifEncoder.java ---------------------\n" +
-                    "\n" +
-                    "// GifEncoder - write out an image as a GIF\n" +
-                    "//\n" +
-                    "// Transparency handling and variable bit size courtesy of Jack Palevich.\n" +
-                    "//\n" +
-                    "// Copyright (C) 1996 by Jef Poskanzer <jef@acme.com>.  All rights reserved.\n" +
-                    "//\n" +
-                    "// Redistribution and use in source and binary forms, with or without\n" +
-                    "// modification, are permitted provided that the following conditions\n" +
-                    "// are met:\n" +
-                    "// 1. Redistributions of source code must retain the above copyright\n" +
-                    "//    notice, this list of conditions and the following disclaimer.\n" +
-                    "// 2. Redistributions in binary form must reproduce the above copyright\n" +
-                    "//    notice, this list of conditions and the following disclaimer in the\n" +
-                    "//    documentation and/or other materials provided with the distribution.\n" +
-                    "//\n" +
-                    "// THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND\n" +
-                    "// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n" +
-                    "// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE\n" +
-                    "// ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE\n" +
-                    "// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n" +
-                    "// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS\n" +
-                    "// OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)\n" +
-                    "// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT\n" +
-                    "// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY\n" +
-                    "// OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF\n" +
-                    "// SUCH DAMAGE.\n" +
-                    "//\n" +
-                    "// Visit the ACME Labs Java page for up-to-date versions of this and other\n" +
-                    "// fine Java utilities: http://www.acme.com/java/");
-            }});
+                        "Legal\n" +
+                                "-----\n" +
+                                "\n" +
+                                "Since Gif89Encoder includes significant sections of code from Jef Poskanzer's\n" +
+                                "GifEncoder.java, I'm including its notice in this distribution as requested (appended\n" +
+                                "below).\n" +
+                                "\n" +
+                                "As for my part of the code, I hereby release it, on a strictly \"as is\" basis,\n" +
+                                "to the public domain.\n" +
+                                "\n" +
+                                "J. M. G. Elliott\n" +
+                                "15-Jul-2000\n" +
+                                "\n" +
+                                "--------------------- from Jef Poskanzer's GifEncoder.java ---------------------\n" +
+                                "\n" +
+                                "// GifEncoder - write out an image as a GIF\n" +
+                                "//\n" +
+                                "// Transparency handling and variable bit size courtesy of Jack Palevich.\n" +
+                                "//\n" +
+                                "// Copyright (C) 1996 by Jef Poskanzer <jef@acme.com>.  All rights reserved.\n" +
+                                "//\n" +
+                                "// Redistribution and use in source and binary forms, with or without\n" +
+                                "// modification, are permitted provided that the following conditions\n" +
+                                "// are met:\n" +
+                                "// 1. Redistributions of source code must retain the above copyright\n" +
+                                "//    notice, this list of conditions and the following disclaimer.\n" +
+                                "// 2. Redistributions in binary form must reproduce the above copyright\n" +
+                                "//    notice, this list of conditions and the following disclaimer in the\n" +
+                                "//    documentation and/or other materials provided with the distribution.\n" +
+                                "//\n" +
+                                "// THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND\n" +
+                                "// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE\n" +
+                                "// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE\n" +
+                                "// ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE\n" +
+                                "// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL\n" +
+                                "// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS\n" +
+                                "// OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)\n" +
+                                "// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT\n" +
+                                "// LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY\n" +
+                                "// OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF\n" +
+                                "// SUCH DAMAGE.\n" +
+                                "//\n" +
+                                "// Visit the ACME Labs Java page for up-to-date versions of this and other\n" +
+                                "// fine Java utilities: http://www.acme.com/java/");
+            }
+        });
         menu.add(menuItem);
 
         menuItem = new JMenuItem("About JGoodies' Looks");
         menuItem.setMnemonic(KeyEvent.VK_L);
         menuItem.addActionListener(new AbstractAction("About JGoodies' Looks") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = 1530380947028617444L;
+             *
+             */
+            private static final long serialVersionUID = 1530380947028617444L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About JGoodies' Looks",
-                "           The BSD License for the JGoodies Looks\n" +
-                "           ======================================\n" +
-                "\n" +
-                "Copyright (c) 2001-2007 JGoodies Karsten Lentzsch. All rights reserved.\n" +
-                "\n" +
-                "Redistribution and use in source and binary forms, with or without\n" +
-                "modification, are permitted provided that the following conditions are met:\n" +
-                "\n" +
-                " o Redistributions of source code must retain the above copyright notice,\n" +
-                "   this list of conditions and the following disclaimer.\n" +
-                "\n" +
-                " o Redistributions in binary form must reproduce the above copyright notice,\n" +
-                "   this list of conditions and the following disclaimer in the documentation\n" +
-                "   and/or other materials provided with the distribution.\n" +
-                "\n" +
-                " o Neither the name of JGoodies Karsten Lentzsch nor the names of\n" +
-                "   its contributors may be used to endorse or promote products derived\n" +
-                "   from this software without specific prior written permission.\n" +
-                "\n" +
-                "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n" +
-                "AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,\n" +
-                "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n" +
-                "PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR\n" +
-                "CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n" +
-                "EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n" +
-                "PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;\n" +
-                "OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\n" +
-                "WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR\n" +
-                "OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,\n" +
-                "EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.");
-            }});
+                        "           The BSD License for the JGoodies Looks\n" +
+                                "           ======================================\n" +
+                                "\n" +
+                                "Copyright (c) 2001-2007 JGoodies Karsten Lentzsch. All rights reserved.\n" +
+                                "\n" +
+                                "Redistribution and use in source and binary forms, with or without\n" +
+                                "modification, are permitted provided that the following conditions are met:\n" +
+                                "\n" +
+                                " o Redistributions of source code must retain the above copyright notice,\n" +
+                                "   this list of conditions and the following disclaimer.\n" +
+                                "\n" +
+                                " o Redistributions in binary form must reproduce the above copyright notice,\n" +
+                                "   this list of conditions and the following disclaimer in the documentation\n" +
+                                "   and/or other materials provided with the distribution.\n" +
+                                "\n" +
+                                " o Neither the name of JGoodies Karsten Lentzsch nor the names of\n" +
+                                "   its contributors may be used to endorse or promote products derived\n" +
+                                "   from this software without specific prior written permission.\n" +
+                                "\n" +
+                                "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\"\n" +
+                                "AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,\n" +
+                                "THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR\n" +
+                                "PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR\n" +
+                                "CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n" +
+                                "EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n" +
+                                "PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;\n" +
+                                "OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\n" +
+                                "WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR\n" +
+                                "OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,\n" +
+                                "EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.");
+            }
+        });
         menu.add(menuItem);
 
         menuItem = new JMenuItem("About Unidata NetCDF");
@@ -820,14 +815,15 @@ public class ViewMenu extends JMenuBar
         menuItem.setDisplayedMnemonicIndex(14);
         menuItem.addActionListener(new AbstractAction("About Unidata NetCDF") {
             /**
-           * 
-           */
-          private static final long serialVersionUID = -9184355768532895178L;
+             *
+             */
+            private static final long serialVersionUID = -9184355768532895178L;
 
-            public void actionPerformed (final ActionEvent ae) {
+            public void actionPerformed(final ActionEvent ae) {
                 DialogUtil.showHelpDialog("About Unidata NetCDF",
-                "http://www.gnu.org/copyleft/lesser.txt");
-            }});
+                        "http://www.gnu.org/copyleft/lesser.txt");
+            }
+        });
         menu.add(menuItem);
 
         return menu;

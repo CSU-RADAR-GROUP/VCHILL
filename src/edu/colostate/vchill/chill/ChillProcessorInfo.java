@@ -1,6 +1,7 @@
 package edu.colostate.vchill.chill;
 
 import edu.colostate.vchill.ChillDefines;
+
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -11,71 +12,106 @@ import java.io.IOException;
  * @author Jochen Deyke
  * @version 2007-05-21
  */
-public class ChillProcessorInfo extends ChillHeader
-{
-    /** size (in bytes) of this header (including ChillHeaderHeader, but not including extraData) */
+public class ChillProcessorInfo extends ChillHeader {
+    /**
+     * size (in bytes) of this header (including ChillHeaderHeader, but not including extraData)
+     */
     public static final int BYTE_SIZE = ChillHeaderHeader.BYTE_SIZE +
-        4 * ChillDefines.INT_BYTE_SIZE + //enums
-        3 * ChillDefines.INT_BYTE_SIZE + //unsigned
-        ChillDefines.FLOAT_BYTE_SIZE +
-        4 * ChillDefines.FLOAT_BYTE_SIZE +
-        ChillDefines.INT_BYTE_SIZE + //unsigned
-        5 * ChillDefines.FLOAT_BYTE_SIZE;
+            4 * ChillDefines.INT_BYTE_SIZE + //enums
+            3 * ChillDefines.INT_BYTE_SIZE + //unsigned
+            ChillDefines.FLOAT_BYTE_SIZE +
+            4 * ChillDefines.FLOAT_BYTE_SIZE +
+            ChillDefines.INT_BYTE_SIZE + //unsigned
+            5 * ChillDefines.FLOAT_BYTE_SIZE;
 
     /**
      * Processing mode used by moment calculator.
      * 1 &lt;&lt; ordinal to set/test processing_mode
      */
-    enum ProcMode
-    {
+    enum ProcMode {
         INDEXEDBEAM,
         LONGINT,
         DUALPRT,
         PHASECODE,
     }
 
-    /** Transmitter polarization mode */
+    /**
+     * Transmitter polarization mode
+     */
     PolarizationMode polarization_mode;
-    /** Signal Processing mode */
+    /**
+     * Signal Processing mode
+     */
     int processing_mode; //bitmask
-    /** Transmitter pulse type */
+    /**
+     * Transmitter pulse type
+     */
     PulseType pulse_type;
-    /** Radar calibration/test type */
+    /**
+     * Radar calibration/test type
+     */
     TestType test_type;
 
-    /** Number of cycles integrated to give one ray */
+    /**
+     * Number of cycles integrated to give one ray
+     */
     public /*unsigned*/ int integration_cycle_pulses;
-    /** Clutter filter used by the processor */
+    /**
+     * Clutter filter used by the processor
+     */
     public /*unsigned*/ int clutter_filter_number;
-    /** Number of range gates to average */
+    /**
+     * Number of range gates to average
+     */
     public /*unsigned*/ int range_gate_averaging;
-    /** Beamwidth in degrees, over which to integrate in indexed beam mode*/
+    /**
+     * Beamwidth in degrees, over which to integrate in indexed beam mode
+     */
     public float indexed_beam_width_d;
 
-    /** Gate spacing (in meters), does not include effect of range avergaing */
+    /**
+     * Gate spacing (in meters), does not include effect of range avergaing
+     */
     public float gate_spacing_m;
-    /** PRT in microseconds */
+    /**
+     * PRT in microseconds
+     */
     public float prt_usec;
-    /** Range to start processing */
+    /**
+     * Range to start processing
+     */
     public float range_start_km;
-    /** Range to stop processing */
+    /**
+     * Range to stop processing
+     */
     public float range_stop_km;
 
-    /** Number of gates for digitizer to acquire */
+    /**
+     * Number of gates for digitizer to acquire
+     */
     public /*unsigned*/ int max_gate;
-    /** Power at signal generator output in dBm, when test set is commanded to output 0dBm */
+    /**
+     * Power at signal generator output in dBm, when test set is commanded to output 0dBm
+     */
     public float test_power_dbm;
-    /** Reserved */
+    /**
+     * Reserved
+     */
     public float unused1;
-    /** Reserved */
+    /**
+     * Reserved
+     */
     public float unused2;
-    /** Range at which test pulse is located */
+    /**
+     * Range at which test pulse is located
+     */
     public float test_pulse_range_km;
-    /** Length of test pulse */
+    /**
+     * Length of test pulse
+     */
     public float test_pulse_length_usec;
 
-    public ChillProcessorInfo ()
-    {
+    public ChillProcessorInfo() {
         super(new ChillHeaderHeader(ChillDefines.GEN_MOM_DATA, BYTE_SIZE));
         super.extraData = new byte[0];
     }
@@ -85,8 +121,7 @@ public class ChillProcessorInfo extends ChillHeader
      *
      * @param in the DataInput to read initialization values from
      */
-    public ChillProcessorInfo (final DataInput in, final ChillHeaderHeader header) throws IOException
-    {
+    public ChillProcessorInfo(final DataInput in, final ChillHeaderHeader header) throws IOException {
         super(header);
         assert header.recordType == ChillDefines.HSK_ID_PROCESSOR_INFO;
         assert header.headerLength - ChillProcessorInfo.BYTE_SIZE >= 0;
@@ -116,8 +151,7 @@ public class ChillProcessorInfo extends ChillHeader
      *
      * @param out the DataOutput to write values to
      */
-    public void write (final DataOutput out) throws IOException
-    {
+    public void write(final DataOutput out) throws IOException {
         assert header.recordType == ChillDefines.HSK_ID_PROCESSOR_INFO;
         assert header.headerLength == ChillProcessorInfo.BYTE_SIZE + extraData.length;
         super.header.write(out);
