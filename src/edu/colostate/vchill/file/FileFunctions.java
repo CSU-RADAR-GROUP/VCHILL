@@ -1,12 +1,19 @@
 package edu.colostate.vchill.file;
 
+import edu.colostate.vchill.ChillDefines;
+import edu.colostate.vchill.ControlMessage;
+import edu.colostate.vchill.ScaleManager;
+import edu.colostate.vchill.cache.CacheMain;
+import edu.colostate.vchill.chill.*;
+import edu.colostate.vchill.iris.IrisRawFile;
+import edu.colostate.vchill.iris.SigmetProductRaw;
+import edu.colostate.vchill.netcdf.CASANetCDFFile;
+import edu.colostate.vchill.netcdf.CFRadialFile;
+import edu.colostate.vchill.netcdf.NCARNetCDFFile;
+import edu.colostate.vchill.netcdf.WCRNetCDFFile;
+
 import java.awt.event.KeyEvent;
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -15,22 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import edu.colostate.vchill.iris.SigmetProductRaw;
-import edu.colostate.vchill.ChillDefines;
-import edu.colostate.vchill.ControlMessage;
-import edu.colostate.vchill.ScaleManager;
-import edu.colostate.vchill.cache.CacheMain;
-import edu.colostate.vchill.chill.ChillDataHeader;
-import edu.colostate.vchill.chill.ChillFieldInfo;
-import edu.colostate.vchill.chill.ChillGenRay;
-import edu.colostate.vchill.chill.ChillHSKHeader;
-import edu.colostate.vchill.chill.ChillMomentFieldScale;
-import edu.colostate.vchill.iris.IrisRawFile;
-import edu.colostate.vchill.netcdf.CASANetCDFFile;
-import edu.colostate.vchill.netcdf.CFRadialFile;
-import edu.colostate.vchill.netcdf.NCARNetCDFFile;
-import edu.colostate.vchill.netcdf.WCRNetCDFFile;
 
 /**
  * Class that has functions that return directory names and file names
@@ -360,7 +351,7 @@ public final class FileFunctions {
                         return name + "IRISRaw";
                     }
                 } else if (isCFRadial(name)) {
-                    System.out.println("CF Radial Detected.")   ;
+                    System.out.println("CF Radial Detected.");
                     try {
                         return URLEncoder.encode(name, "UTF-8") + " CFRadial";
                     } catch (UnsupportedEncodingException uee) {
@@ -467,7 +458,7 @@ public final class FileFunctions {
             }
         } else if (isCFRadial(path)) {
             try {
-                System.out.println("Loading cf Radial Data.");
+                System.out.println("Loading CF Radial Data.");
                 CFRadialFile.load(command, cache);
             } catch (Exception e) {
                 System.err.println("Exception :" + e);
@@ -649,7 +640,7 @@ public final class FileFunctions {
 
     public static boolean isCHILL(final String name) {
         if (name.startsWith("CHL")) { // If CHILL file
-            if (name.endsWith(".cdet") ) {
+            if (name.endsWith(".cdet")) {
                 return false; // not data file
             } else {
                 return true;
