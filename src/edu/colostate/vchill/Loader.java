@@ -339,6 +339,9 @@ public class Loader {
                 //progressMon.setNote("Loading sys bookmarks...Failed");
                 loadFailed[0] = true;
                 System.err.println("Failed to load bookmarks from " + sysBookmarkURL);
+            }catch (IllegalArgumentException iae) {
+                loadFailed[0] = true;
+                System.err.println("Failed to load bookmarks: Java 8 Error. Hopefully fixed in future.");
             }
         }
 

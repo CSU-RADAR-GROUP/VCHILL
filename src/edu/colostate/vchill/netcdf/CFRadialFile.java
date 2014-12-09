@@ -49,11 +49,38 @@ public class CFRadialFile {
             Z, V, W, NCP, ZDR, PHIDP, RHOHV, KDP, CZ, CZDR, AZ, AZDR, ASDP, VFilt, VFast, VSlow
     };
 
+    /**
+     * Read in CFRadial File from filename. Just processes headers.
+     *
+     * @param filename filename to read.
+     */
+    public CFRadialFile(String filename) {
+        NetcdfFile ncfile = null;
+        try {
+            ncfile = NetcdfFile.open(filename);
+        } catch (IOException ioe) {
+            System.err.println("trying to open " + filename + ioe.toString());
+        } finally {
+            if (null != ncfile) try {
+                ncfile.close();
+            } catch (IOException ioe) {
+                System.err.println("trying to close " + filename + ioe.toString());
+            }
+        }
+
+        Dimension d_nsweeps = ncfile.findDimension("sweep");
+        Dimension d_range = ncfile.findDimension("range");
+        Dimension d_time = ncfile.findDimension("time");
+
+
+    }
+
     static {
         for (ChillFieldInfo info : types) infos.put(info.longFieldName, info);
     }
 
     public static void load(final ControlMessage command, final CacheMain cache) throws IOException {
+
         String path = FileFunctions.stripFileName(command.getDir()) + "/" + FileFunctions.stripFileName(command.getFile());
         System.out.println(path);
         NetcdfFile ncFile;

@@ -21,6 +21,9 @@ public class ColorMap {
         this.types = new HashMap<ColorType, List<Color>>();
         this.interpolateable = interpolateable;
     }
+    public boolean get_interpolation_value(){
+        return this.interpolateable;
+    }
 
     /**
      * Adds or replaces the requested type with the given data

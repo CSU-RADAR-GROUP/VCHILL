@@ -30,7 +30,11 @@ public class FileFunctionsTest {
 
     @Test
     public void testIsIRISRAW() throws Exception {
+        assertTrue(FileFunctions.isIRISRAW("test.RAW1231"));
 
+        assertFalse(FileFunctions.isIRISRAW("test.cf"));
+        assertFalse(FileFunctions.isIRISRAW("test.CHL"));
+        assertFalse(FileFunctions.isIRISRAW("test.chl"));
     }
 
     @Test

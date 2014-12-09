@@ -238,9 +238,11 @@ public final class FileFunctions {
             return sweepList;
         }
         if (isCFRadial(name)) {
+            CFRadialFile cf_file = new CFRadialFile(stripFileName(dir) + "/" + name);
             sweepList.add("Sweep 1");
             return sweepList;
         }
+
 
         DataInputStream fin = null;
         String newFileName = stripFileName(dir) + "/" + name;
@@ -609,7 +611,6 @@ public final class FileFunctions {
         } else {
             int j = path.indexOf(".uf");
             if (j == -1) {
-                System.out.println("This is an iris file");
                 return true;
             } else {
                 return false;

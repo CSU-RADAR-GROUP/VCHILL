@@ -13,7 +13,7 @@ public final class Version {
     public static final int majorRevision = 4;
     public static final int minorRevision = 17;
     public static final int microRevision = 0;
-    public static final String buildDate = "2012.09.03";
+    public static final String buildDate = "2014.12.04";
     public static final String string = "Version " +
             majorRevision + "." + minorRevision + "." + microRevision;
 
