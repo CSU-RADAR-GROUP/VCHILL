@@ -167,6 +167,7 @@ public class Config {
         this.controlHistory = new ArrayList<String>(controlHistory.length);
         String[] realtimeHistory = ConfigUtil.getStringArray("Realtime History", new String[]{this.realtimeName});
         this.realtimeHistory = new ArrayList<String>(realtimeHistory.length);
+        this.realtimeHistory.add(realtimeName);
         this.imageBufferSize = ConfigUtil.getInt("Image Buffer Size", 75);
         this.autosave = ConfigUtil.getBoolean("Autosave Images", false);
         this.autoexport = ConfigUtil.getBoolean("Automatically Export", false);
