@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="vchill" default="all">
+  
+  
+  <property file="vchill.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.7" value="${jdk.home.1.7}/bin"/>
+  <path id="jdk.classpath.1.7">
+    <fileset dir="${jdk.home.1.7}">
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-doclet.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/htmlconverter.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/JObjC.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value=""/>
+  <property name="project.jdk.bin" value=""/>
+  <property name="project.jdk.classpath" value=""/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.lib.classpath">
+    <pathelement location="${basedir}/lib/gif89encoder.jar"/>
+    <pathelement location="${basedir}/lib/looks-2.1.4.jar"/>
+    <pathelement location="${basedir}/lib/netcdfAll-4.5.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-jdk14.jar"/>
+  </path>
+  
+  <path id="library.netcdfall-4.3.classpath">
+    <pathelement location="${basedir}/lib/netcdfAll-4.3.jar"/>
+  </path>
+  
+  <path id="library.netcdfall-4.5.classpath">
+    <pathelement location="${basedir}/lib/netcdfAll-4.5.jar"/>
+  </path>
+  
+  <path id="library.resources.classpath">
+    <pathelement location="${basedir}/resources/colors.jar"/>
+    <pathelement location="${basedir}/resources/maps.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module vchill -->
+  
+  <dirname property="module.vchill.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.vchill" value="${jdk.home.1.7}"/>
+  <property name="module.jdk.bin.vchill" value="${jdk.bin.1.7}"/>
+  <property name="module.jdk.classpath.vchill" value="jdk.classpath.1.7"/>
+  
+  <property name="compiler.args.vchill" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="vchill.output.dir" value="${module.vchill.basedir}/out/production/vchill"/>
+  <property name="vchill.testoutput.dir" value="${module.vchill.basedir}/out/test/vchill"/>
+  
+  <path id="vchill.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vchill.module.production.classpath">
+    <path refid="${module.jdk.classpath.vchill}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${idea.home}/lib/junit-4.10.jar"/>
+    <path refid="library.netcdfall-4.3.classpath"/>
+    <path refid="library.resources.classpath"/>
+    <path refid="library.netcdfall-4.5.classpath"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+  </path>
+  
+  <path id="vchill.runtime.production.module.classpath">
+    <pathelement location="${vchill.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${idea.home}/lib/junit-4.10.jar"/>
+    <path refid="library.netcdfall-4.3.classpath"/>
+    <path refid="library.resources.classpath"/>
+    <path refid="library.netcdfall-4.5.classpath"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+  </path>
+  
+  <path id="vchill.module.classpath">
+    <path refid="${module.jdk.classpath.vchill}"/>
+    <pathelement location="${vchill.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${idea.home}/lib/junit-4.10.jar"/>
+    <path refid="library.netcdfall-4.3.classpath"/>
+    <path refid="library.resources.classpath"/>
+    <path refid="library.netcdfall-4.5.classpath"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+  </path>
+  
+  <path id="vchill.runtime.module.classpath">
+    <pathelement location="${vchill.testoutput.dir}"/>
+    <pathelement location="${vchill.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+    <pathelement location="${idea.home}/lib/junit-4.10.jar"/>
+    <path refid="library.netcdfall-4.3.classpath"/>
+    <path refid="library.resources.classpath"/>
+    <path refid="library.netcdfall-4.5.classpath"/>
+    <pathelement location="${idea.home}/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/hamcrest-library-1.3.jar"/>
+    <pathelement location="${idea.home}/lib/junit-4.11.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vchill">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vchill">
+    <patternset refid="excluded.from.module.vchill"/>
+  </patternset>
+  
+  <path id="vchill.module.sourcepath">
+    <dirset dir="${module.vchill.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  <path id="vchill.module.test.sourcepath">
+    <dirset dir="${module.vchill.basedir}">
+      <include name="tests"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.vchill" depends="compile.module.vchill.production,compile.module.vchill.tests" description="Compile module vchill"/>
+  
+  <target name="compile.module.vchill.production" depends="register.custom.compilers" description="Compile module vchill; production classes">
+    <mkdir dir="${vchill.output.dir}"/>
+    <javac2 destdir="${vchill.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vchill}/javac">
+      <compilerarg line="${compiler.args.vchill}"/>
+      <bootclasspath refid="vchill.module.bootclasspath"/>
+      <classpath refid="vchill.module.production.classpath"/>
+      <src refid="vchill.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vchill"/>
+    </javac2>
+    
+    <copy todir="${vchill.output.dir}">
+      <fileset dir="${module.vchill.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.vchill.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.vchill.tests" depends="register.custom.compilers,compile.module.vchill.production" description="compile module vchill; test classes" unless="skip.tests">
+    <mkdir dir="${vchill.testoutput.dir}"/>
+    <javac2 destdir="${vchill.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vchill}/javac">
+      <compilerarg line="${compiler.args.vchill}"/>
+      <bootclasspath refid="vchill.module.bootclasspath"/>
+      <classpath refid="vchill.module.classpath"/>
+      <src refid="vchill.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vchill"/>
+    </javac2>
+    
+    <copy todir="${vchill.testoutput.dir}">
+      <fileset dir="${module.vchill.basedir}/tests">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.vchill" description="cleanup module">
+    <delete dir="${vchill.output.dir}"/>
+    <delete dir="${vchill.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.vchill" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.vchill" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.vchill:jar" value="${basedir}/out/artifacts/vchill_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.vchill.jar" value="${artifacts.temp.dir}/vchill.jar"/>
+  </target>
+  
+  <target name="artifact.vchill:jar" depends="init.artifacts, compile.module.vchill" description="Build &#39;vchill:jar&#39; artifact">
+    <property name="artifact.temp.output.vchill:jar" value="${artifacts.temp.dir}/vchill_jar"/>
+    <mkdir dir="${artifact.temp.output.vchill:jar}"/>
+    <jar destfile="${temp.jar.path.vchill.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${vchill.output.dir}"/>
+      <zipfileset src="${basedir}/resources/colors.jar"/>
+      <zipfileset src="${basedir}/resources/maps.jar"/>
+      <zipfileset src="${basedir}/lib/gif89encoder.jar"/>
+      <zipfileset src="${basedir}/lib/looks-2.1.4.jar"/>
+      <zipfileset src="${basedir}/lib/slf4j-jdk14.jar"/>
+      <zipfileset src="${basedir}/lib/netcdfAll-4.5.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.vchill.jar}" tofile="${artifact.temp.output.vchill:jar}/vchill.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.vchill:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.vchill:jar}"/>
+    <copy todir="${artifact.output.vchill:jar}">
+      <fileset dir="${artifact.temp.output.vchill:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
